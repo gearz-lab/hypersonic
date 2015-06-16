@@ -7,7 +7,7 @@ import routes from './Routes';
 
 window.React = React;
 
-Router.run(routes, Router.RefreshLocation, Handler => {
+Router.run(routes, Router.HistoryLocation, Handler => {
     React.render(
         React.createElement(Handler, window.INITIAL_PROPS), document);
 });
