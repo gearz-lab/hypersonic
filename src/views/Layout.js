@@ -1,5 +1,20 @@
 import React from 'react';
-import Router from 'react-router';
+
+var Router = require('react-router')
+    , RouteHandler = Router.RouteHandler
+    , Route = Router.Route;
+
+import Navbar from 'react-bootstrap/lib/Navbar';
+
+var ReactBootstrap = require('react-bootstrap')
+    , Nav = ReactBootstrap.Nav
+    , NavItem = ReactBootstrap.NavItem
+    , ListGroup = ReactBootstrap.ListGroup;
+
+var ReactRouterBootstrap = require('react-router-bootstrap')
+    , NavItemLink = ReactRouterBootstrap.NavItemLink
+    , ButtonLink = ReactRouterBootstrap.ButtonLink
+    , ListGroupItemLink = ReactRouterBootstrap.ListGroupItemLink;
 
 var DefaultLayout = React.createClass({
     render: function() {
@@ -20,13 +35,25 @@ var DefaultLayout = React.createClass({
 
         return (
             <html>
-            <head dangerouslySetInnerHTML={head} />
-            <body>
-                <p>Welcome to Gearz</p>
-                <Router.RouteHandler />
-            </body>
-            <script dangerouslySetInnerHTML={browserInitScriptObj} />
-            <script src='assets/bundle.js' />
+                <head dangerouslySetInnerHTML={head} />
+                <body>
+                    <Navbar brand='Gearz' fluid staticTop>
+                        <Nav eventKey={0}>
+                            <NavItemLink to='home'>Home</NavItemLink>
+                            <NavItemLink to='about'>About</NavItemLink>
+                        </Nav>
+                    </Navbar>
+                    <div className="container-fluid">
+                        <ol className="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li className="active">Data</li>
+                        </ol>
+                        <Router.RouteHandler />
+                    </div>
+                </body>
+                <script dangerouslySetInnerHTML={browserInitScriptObj} />
+                <script src='assets/bundle.js' />
             </html>
         );
     }
