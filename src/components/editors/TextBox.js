@@ -1,17 +1,13 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
+import Input from 'react-bootstrap/lib/Input'
 
-var Home = React.createClass({
+var TextBox = React.createClass({
     render: function() {
         return (
-            <div>
-                Hello, {this.props.name}! you have clicked {this.state.count} times.
-                <div>
-                    <button onClick={this.handleClick}>Click Me!</button>
-                </div>
-            </div>
+            <Input type='text' label='Name' placeholder='Enter text 2' />
         );
     }
 });
 
-export default Home;
+export default TextBox;

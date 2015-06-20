@@ -8,6 +8,6 @@ import routes from './Routes';
 window.React = React;
 
 Router.run(routes, Router.HistoryLocation, Handler => {
-    React.render(
-        React.createElement(Handler, window.INITIAL_PROPS), document);
+    //React.render(React.createElement(Handler, window.INITIAL_PROPS), document);
+    React.render(<Handler/>, document);
 });

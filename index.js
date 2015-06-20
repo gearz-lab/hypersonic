@@ -9,12 +9,12 @@ app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine({ jsx: { harmony: true } }));
 
 
-app
-    .use(express.static('./dist'))
-    .use(function(req, res, next) {
-    Router.run(routes, req.url, Handler => {
-        let html = React.renderToString(<Handler />);
-        res.send(html);
+app.use(express.static('./dist'));
+
+app.use(function(req, res, next) {
+        Router.run(routes, req.url, Handler => {
+            let html = React.renderToString(<Handler />);
+            res.send(html);
     });
 })
 
