@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input'
 import TextBox from '../components/editors/TextBox';
+import DynamicForm from '../components/DynamicForm';
 
 var Home = React.createClass({
     getInitialState: function() {
@@ -21,21 +22,19 @@ var Home = React.createClass({
                 type: 'string',
                 placeholder: ''
             }
-        }
+        };
 
         var layout = {
-            columnCount: 4,
             rows: [
                 'name',
-                { columns: [ 'name' ] },
-                { columns: [] }
+                'name'
             ]
-        }
+        };
 
 
         return (
             <div>
-               fuck 20 <TextBox/>
+                <DynamicForm entityType={entityType} layout={layout}/>
             </div>
         );
     },

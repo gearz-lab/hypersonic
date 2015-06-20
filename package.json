@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node run-babel index.js",
     "start-watch": "nodemon run-babel index.js",
-    "webpack-dev-server": "webpack-dev-server"
+    "webpack-dev-server": "webpack-dev-server",
+    "test": "karma start"
   },
   "dependencies": {
     "body-parser": "~1.12.0",
@@ -28,6 +29,7 @@
     "babel-eslint": "^2.0.2",
     "babel-loader": "^4.1.0",
     "bootstrap": "^3.3.4",
+    "chai": "^3.0.0",
     "child-process-promise": "^1.1.0",
     "client-loader": "0.0.1",
     "css-loader": "^0.12.0",
@@ -36,9 +38,16 @@
     "file-loader": "^0.8.1",
     "gulp": "^3.9.0",
     "gulp-run": "^1.6.8",
+    "jasmine": "^2.3.1",
+    "karma": "^0.12.36",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-cli": "0.0.4",
+    "karma-webpack": "^1.5.1",
     "less": "^2.5.0",
     "less-loader": "^2.2.0",
     "lodash": "^3.7.0",
+    "mocha": "^2.2.5",
     "react": "^0.13.1",
     "react-bootstrap": "^0.20.3",
     "react-hot-loader": "^1.2.7",

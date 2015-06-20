@@ -1,5 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
+var componentResolver = require('../lib/ComponentResolver');
 
 var DynamicForm = React.createClass({
     propTypes: {
@@ -7,12 +8,10 @@ var DynamicForm = React.createClass({
         layout: React.PropTypes.object
     },
     render: function() {
+
         return (
             <div>
-                Hello, {this.props.name}! you have clicked {this.state.count} times.
-                <div>
-                    <button onClick={this.handleClick}>Click Me!</button>
-                </div>
+                { this.props.layout.rows.map(item => componentResolver.getComponent(item)) }
             </div>
         );
     }

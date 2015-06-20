@@ -5,7 +5,7 @@ import Input from 'react-bootstrap/lib/Input'
 var TextBox = React.createClass({
     render: function() {
         return (
-            <Input type='text' label='Name' placeholder='Enter text 2' />
+            <Input type='text' label='Name' placeholder='Enter text' />
         );
     }
 });
