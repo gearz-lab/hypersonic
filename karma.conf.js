@@ -2,7 +2,7 @@
 // Generated on Sat Jun 20 2015 11:42:43 GMT-0300 (E. South America Standard Time)
 require('./register-babel');
 
-var webpackConfig = require('./webpack/webpack.config');
+var webpackConfig = require('./webpack/webpack.config.dev.js');
 
 module.exports = function(config) {
   config.set({
@@ -13,8 +13,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
-
+    frameworks: [
+      'mocha',
+      'chai',
+      'sinon',
+      'sinon-chai'
+    ],
 
     // list of files / patterns to load in the browser
     files: [
@@ -24,7 +28,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/index.js': ['webpack']
+      'test/index.js': ['webpack', 'sourcemap']
     },
 
     webpack: webpackConfig,

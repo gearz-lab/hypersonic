@@ -1,8 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
-var componentResolver = require('../lib/ComponentResolver');
+var componentFactory = require('../lib/ComponentFactory');
 
-var DynamicForm = React.createClass({
+var MetaForm = React.createClass({
     propTypes: {
         entityType: React.PropTypes.object,
         layout: React.PropTypes.object
@@ -11,10 +11,10 @@ var DynamicForm = React.createClass({
 
         return (
             <div>
-                { this.props.layout.rows.map(item => componentResolver.getComponent(item)) }
+
             </div>
         );
     }
 });
 
-export default DynamicForm;
+export default MetaForm;

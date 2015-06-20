@@ -3,7 +3,7 @@ import TextBox from '../components/editors/TextBox';
 import _ from 'underscore';
 
 // component definitions
-import TextBoxBuilder from './componentDefinitions/TextBoxBuilder.js';
+import TextBoxBuilder from './componentBuilders/TextBoxBuilder.js';
 
 class ComponentFactory {
 
@@ -93,8 +93,6 @@ class ComponentFactory {
     setDefaultBuilders(defaultDefinitions) {
         this.defaultBuilders = defaultDefinitions;
     }
-
-
 
     /**
      * Gets the appropriate component based on the given metadata
