@@ -5,7 +5,7 @@ import ComponentBuilder from '../ComponentBuilder.js';
 class TextBoxDefinition extends ComponentBuilder
 {
     buildComponent(metadata) {
-        return React.createElement(Input, {});
+        return React.createElement(Input, {key: metadata.name});
     }
 }
 

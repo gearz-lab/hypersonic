@@ -6,17 +6,24 @@ const assert = chai.assert;
 
 describe('Metaform', function () {
     it('Should something', function () {
-        var entityType = {
-            name: {
-                type: 'string',
-                placeholder: ''
-            }
+
+        let entityType = {
+            fields: [
+                {
+                    name: 'name',
+                    type: 'string',
+                    placeholder: ''
+                }
+            ]
         };
-        var layout = {
-            rows: [
+
+        let layout = {
+            fields: [
                 'name'
             ]
         };
+
         let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
+        var fields = instance._getFields();
     });
 });
