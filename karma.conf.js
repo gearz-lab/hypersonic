@@ -29,6 +29,11 @@ module.exports = function(config) {
 
     webpack: webpackConfig,
 
+    // this is so that the tests will stop printing information about the files being packed
+    webpackMiddleware: {
+      noInfo: true
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter

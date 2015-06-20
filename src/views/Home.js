@@ -26,7 +26,6 @@ var Home = React.createClass({
 
         var layout = {
             rows: [
-                'name',
                 'name'
             ]
         };
