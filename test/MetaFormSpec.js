@@ -2,11 +2,11 @@ import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 import MetaForm from '../src/components/MetaForm';
 import chai from 'Chai';
+import _ from 'underscore';
 const assert = chai.assert;
 
 describe('Metaform', function () {
-    it('Should something', function () {
-
+    it('Should be possible to reference a field by name from the layout', function () {
         let entityType = {
             fields: [
                 {
@@ -16,14 +16,67 @@ describe('Metaform', function () {
                 }
             ]
         };
-
         let layout = {
             fields: [
                 'name'
             ]
         };
-
         let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
         var fields = instance._getFields();
+        var nameField = _.find(fields, f => f.name == 'name');
+        assert.ok(nameField);
+        assert.equal('name', nameField.name);
+        assert.equal('string', nameField.type);
+        assert.equal('', nameField.placeholder);
+    });
+
+    it('Should be possible to extend an existing field', function () {
+        let entityType = {
+            fields: [
+                {
+                    name: 'name',
+                    type: 'string',
+                    placeholder: ''
+                }
+            ]
+        };
+        let layout = {
+            fields: [
+                {
+                    name: 'name',
+                    component: 'textbox'
+                }
+            ]
+        };
+        let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
+        var fields = instance._getFields();
+        var nameField = _.find(fields, f => f.name == 'name');
+        assert.ok(nameField);
+        assert.equal('textbox', nameField.component);
+    });
+
+    it('Should be possible change properties of existing fields', function () {
+        let entityType = {
+            fields: [
+                {
+                    name: 'name',
+                    type: 'string',
+                    placeholder: ''
+                }
+            ]
+        };
+        let layout = {
+            fields: [
+                {
+                    name: 'name',
+                    placeholder: 'it worked'
+                }
+            ]
+        };
+        let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
+        var fields = instance._getFields();
+        var nameField = _.find(fields, f => f.name == 'name');
+        assert.ok(nameField);
+        assert.equal('it worked', nameField.placeholder);
     });
 });

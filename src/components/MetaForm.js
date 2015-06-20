@@ -10,8 +10,8 @@ var MetaForm = React.createClass({
     },
 
     _validateMetadata: function(metadata) {
-        //if(!metadata) throw new Error('metadata should not be null or undefined');
-        //if(!metadata.name) throw new Error('metadata\'s "name" property is required');
+        if(!metadata) throw new Error('metadata should not be null or undefined');
+        if(!metadata.name) throw new Error('metadata\'s "name" property is required');
     },
 
     _getFields: function() {
@@ -24,29 +24,31 @@ var MetaForm = React.createClass({
         if(!layout.fields) throw new Error('layout should have a property called "fields"');
 
         const fields = layout.fields.map(item => {
+
+            let field;
+
             if(typeof item == 'string') {
                 // in this case, the item represents a property in the entityType
-                let entityProperty = _.find(entityType.fields, property => property.name == item);
-                if(!entityProperty)
+                field = _.find(entityType.fields, property => property.name == item);
+                if(!field)
                     throw new Error(`Property not found. Property: ${item}`);
-                this._validateMetadata(entityProperty);
-                return _.extend({}, entityProperty);
+                field = _.extend({}, field);
+                this._validateMetadata(field);
+                return field;
             }
-            // in this case, the item doesn't represent a property in the entityType
-            let field;
-            let entityProperty = _.find(entityType.fields, property => property.name == item);
-            if(entityProperty)
-                field = _.extend({}, entityProperty);
-            else
-                field = {};
-            field = _.extend(field, item);
 
+            // in this case, the item doesn't represent a property in the entityType
+            let existingEntityProperty = _.find(entityType.fields, property => property.name == item.name);
+            if(existingEntityProperty) {
+                field = _.extend({}, existingEntityProperty);
+            }
+            else {
+                field = {};
+            }
+            field = _.extend(field, item);
             this._validateMetadata(field);
             return field;
         });
-
-        // Because componentDidMount is not called on updates, it is safe to override the state
-        // with a new object containing the fields
 
         return fields;
     },
