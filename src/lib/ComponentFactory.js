@@ -57,7 +57,7 @@ class ComponentFactory {
      */
     getComponent(id) {
         var component = this.componentsById[id];
-        if(!component) throw `Could not find the given component definition. Id: ${id}`;
+        if(!component) throw `Could not find the given component. Id: ${id}`;
         return this.componentsById[id];
     }
 
@@ -107,10 +107,7 @@ class ComponentFactory {
         let componentType;
         if(metadata.component) {
             // if the metadata explicitly specify a component, let's use it
-            componentType = this.componentsById[metadata.component];
-            if(!componentType)
-                throw `Coundn\'t find component. Component id: ${metadata.component}`;
-            return React.createElement(componentType, { key: metadata.name });
+            componentType = this.getComponent(metadata.component);
         }
         else
         {
@@ -120,8 +117,14 @@ class ComponentFactory {
             componentType = this.getDefaultComponent(metadata.type);
         }
         if(!componentType)
-            throw new Error('somerthing weird happened')
-        return React.createElement(componentType, { key: metadata.name });
+            throw new Error('somerthing weird happened');
+
+        return React.createElement(componentType,
+            {
+                key: metadata.name,
+                metadata: metadata,
+                onChange: function() {}
+            });
     }
 }
 

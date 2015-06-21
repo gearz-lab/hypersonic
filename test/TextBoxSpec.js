@@ -1,22 +1,26 @@
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
-import Input from 'react-bootstrap/lib/Input';
+import TextBox from '../src/components/editors/TextBox';
 import chai from 'Chai';
 import _ from 'underscore';
 const assert = chai.assert;
 
-describe('TextBoxBuilder', function () {
+describe('TextBox', function () {
 
-    it('Should be possible to reference a field by name from the layout', function () {
+    it('Tests', function () {
 
-        //let handleChange = function() {
-        //};
-        //
-        //var builder = new TextBoxBuilder();
-        //
-        //var input = builder.buildComponent({name: 'name'}, { }, handleChange );
-        //assert.isTrue(ReactTestUtils.isElement(input))
-        //
+        let handleChange = function() {
+        };
+
+        var metadata =
+        {
+            name: 'name',
+            displayName: 'Name'
+        };
+
+        var component = ReactTestUtils.renderIntoDocument(<TextBox metadata={metadata} onChange={handleChange} initialValue='Andre'/>);
+        var domNode = React.findDOMNode(component);
+
         //let inputInDocument = ReactTestUtils.renderIntoDocument(input);
         //let inputNode = React.findDOMNode(inputInDocument);
         //var elementsByTagName = inputNode.getElementsByTagName('input');

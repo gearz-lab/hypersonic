@@ -32,7 +32,7 @@ describe('ComponentFactory', function () {
                 type: 'string',
                 component: 'foo'
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata), /Coundn't find component/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata), /Could not find the given component/);
         });
 
         it('Should return the component when specifying the component explicitly', function() {
