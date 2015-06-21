@@ -1,27 +1,28 @@
-import ComponentResolver from '../src/lib/ComponentFactory';
+import ReactTestUtils from 'react/lib/ReactTestUtils';
+import ComponentFactory from '../src/lib/ComponentFactory';
 import Chai from 'Chai';
 const assert = Chai.assert;
 
 describe('ComponentFactory', function () {
 
 
-    describe('getBuilders', function() {
+    describe('getComponents', function() {
         it('Should return all definitions', function () {
-            const definitions = ComponentResolver.getBuilders();
+            const definitions = ComponentFactory.getComponents();
             assert.isObject(definitions);
         });
         it('Should return definitions for the string type', function () {
-            const definitions = ComponentResolver.getBuilders('string');
+            const definitions = ComponentFactory.getComponents('string');
             assert.isArray(definitions);
         });
     });
 
     describe('_validateMetadata', function() {
         it('Should throw an exception when the given metadata is null or undefined', function() {
-            assert.throws(() => ComponentResolver._validateMetadata(null), /Metadata should not be null or undefined/);
+            assert.throws(() => ComponentFactory._validateMetadata(null), /Metadata should not be null or undefined/);
         });
         it('Should throw an exception when the the type property of the metadata is null or undefined', function() {
-            assert.throws(() => ComponentResolver._validateMetadata({type: null}), /Metadata should have a type/);
+            assert.throws(() => ComponentFactory._validateMetadata({type: null}), /Metadata should have a type/);
         });
     });
 
@@ -31,7 +32,7 @@ describe('ComponentFactory', function () {
                 type: 'string',
                 component: 'foo'
             };
-            assert.throws(() => ComponentResolver.buildComponent(metadata), /Coundn't find component/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata), /Coundn't find component/);
         });
 
         it('Should return the component when specifying the component explicitly', function() {
@@ -39,23 +40,23 @@ describe('ComponentFactory', function () {
                 type: 'string',
                 component: 'textbox'
             };
-            const component = ComponentResolver.buildComponent(metadata);
-            assert.ok(component);
+            const component = ComponentFactory.buildComponent(metadata);
+            assert.isTrue(ReactTestUtils.isElement(component));
         });
 
         it('Should return the component when specifying the type only', function() {
             const metadata = {
-                type: 'string',
+                type: 'string'
             };
-            const component = ComponentResolver.buildComponent(metadata);
-            assert.ok(component);
+            const component = ComponentFactory.buildComponent(metadata);
+            assert.isTrue(ReactTestUtils.isElement(component));
         });
 
         it('Should throw an exception when the type doesn\'t exist', function() {
             const metadata = {
-                type: 'foo',
+                type: 'foo'
             };
-            assert.throws(() => ComponentResolver.buildComponent(metadata), /Coundn't find any component for the given type/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata), /Coundn't find any component for the given type/);
         });
     });
 });

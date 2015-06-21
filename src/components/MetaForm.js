@@ -4,16 +4,35 @@ import componentFactory from '../lib/ComponentFactory';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
+
     propTypes: {
-        entityType: React.PropTypes.object,
-        layout: React.PropTypes.object
+        entityType: React.PropTypes.object.isRequired,
+        layout: React.PropTypes.object.isRequired,
+        model: React.PropTypes.object
     },
 
+    getDefaultProps: function() {
+        // properties that are not rquired have a default value
+        return {
+            model: new Object()
+        }
+    },
+
+    /**
+     * Validates a field metadata
+     * @param metadata
+     * @private
+     */
     _validateMetadata: function(metadata) {
         if(!metadata) throw new Error('metadata should not be null or undefined');
         if(!metadata.name) throw new Error('metadata\'s "name" property is required');
     },
 
+    /**
+     * Gets the fields
+     * @returns {Array}
+     * @private
+     */
     _getFields: function() {
         var entityType = this.props.entityType;
         var layout = this.props.layout;
@@ -53,11 +72,29 @@ var MetaForm = React.createClass({
         return fields;
     },
 
+    /**
+     * Gets the current model
+     * @returns {*|Model|model}
+     * @private
+     */
+    _getModel: function() {
+        return this.props.model;
+    },
+
+    _getModelProperty: function(propertyName) {
+
+    },
+
     render: function() {
         var fields = this._getFields();
+        // the model is cloned for security reasons, to make it hard for the components to
+        // interfere with the MetaForm model. It could even be cloned once per property,
+        // but that would impact performance.
+        var model = _.extend({}, this.props.model);
+        var onChange = function() {};
         return (
             <div>
-                { fields.map(item => componentFactory.buildComponent(item)) }
+                { fields.map(field => componentFactory.buildComponent(field, model, onChange)) }
             </div>
         );
     }

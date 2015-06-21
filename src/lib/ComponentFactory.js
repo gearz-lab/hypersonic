@@ -3,22 +3,21 @@ import TextBox from '../components/editors/TextBox';
 import _ from 'underscore';
 
 // component definitions
-import TextBoxBuilder from './componentBuilders/TextBoxBuilder.js';
 
 class ComponentFactory {
 
     constructor() {
         // this is expected to contain a property for each supported type
         // and this property's value is expected to be an array of ComponentBuilder
-        this.buildersByType = { }
+        this.componentsByType = { };
 
         // this is expected to contain a property for each component definition
         // and the value is expected to be the component definition itself
-        this.buildersById = { }
+        this.componentsById = { };
 
-        // defaultBuilders is expected to contain a property for each supported type
+        // defaultComponents is expected to contain a property for each supported type
         // and this property's value is expected to be the component definition id
-        this.defaultBuilders = { }
+        this.defaultComponents = { }
     }
 
     /**
@@ -34,30 +33,32 @@ class ComponentFactory {
 
     /**
      * Registers a component definition
-     * @param componentDefinition
+     * @param id
+     * @param types
+     * @param component
      */
 
-    registerBuilder(id, types, componentDefinition) {
+    registerComponent(id, types, component) {
         // registers the component definition in each given type
         for(var i = 0; i < types.length; i++)
         {
             const type = types[i];
-            if(!this.buildersByType[type])
-                this.buildersByType[type] = [];
-            this.buildersByType[type].push({ id: id, componentDefinition: componentDefinition} );
+            if(!this.componentsByType[type])
+                this.componentsByType[type] = [];
+            this.componentsByType[type].push({ id: id, component: component} );
         }
         // registers the component definition
-        this.buildersById[id] = componentDefinition;
+        this.componentsById[id] = component;
     }
 
     /**
      * Gets a componnent definition by id
-     * @param The id the component definition was registered with
+     * @param id The ComponentBuilder id
      */
-    getBuilder(id) {
-        var componentDefinition = this.buildersById[id];
-        if(!componentDefinition) throw `Could not find the given component definition. Id: ${id}`;
-        return this.buildersById[id];
+    getComponent(id) {
+        var component = this.componentsById[id];
+        if(!component) throw `Could not find the given component definition. Id: ${id}`;
+        return this.componentsById[id];
     }
 
     /**
@@ -65,21 +66,21 @@ class ComponentFactory {
      * If a type is specified, returns the definitions for that type only
      * @returns {{}|*}
      */
-    getBuilders(type) {
+    getComponents(type) {
         if(!type)
-            return this.buildersByType;
-        return this.buildersByType[type];
+            return this.componentsByType;
+        return this.componentsByType[type];
     }
 
     /**
      * Returns the default component definition for the given type
      * @param type
      */
-    getDefaultBuilder(type) {
+    getDefaultComponent(type) {
         if(!type) throw 'type should have a value';
-        if(this.defaultBuilders[type])
-            return this.getBuilder(this.defaultBuilders[type]);
-        const componentsForType = this.getBuilders(type);
+        if(this.defaultComponents[type])
+            return this.getComponent(this.defaultComponents[type]);
+        const componentsForType = this.getComponents(type);
         const component = _.first(componentsForType);
         if(!component)
             throw `Coundn\'t find any component for the given type. Type: ${type}`;
@@ -88,44 +89,49 @@ class ComponentFactory {
 
     /**
      * Sets the default component per type.
-     * @param defaultDefinitions - An object that should contain a type as a key and a ComponentBuilder as value
+     * @param components - An object that should contain a type as a key and a ComponentBuilder as value
      */
-    setDefaultBuilders(defaultDefinitions) {
-        this.defaultBuilders = defaultDefinitions;
+    setDefaultComponents(components) {
+        this.defaultComponents = components;
     }
 
     /**
      * Gets the appropriate component based on the given metadata
      * @param metadata
+     * @param model
+     * @param onChange
      * @returns {*}
      */
-    buildComponent(metadata) {
+    buildComponent(metadata, model, onChange) {
         this._validateMetadata(metadata);
-        var componentDefinition;
+        let componentType;
         if(metadata.component) {
             // if the metadata explicitly specify a component, let's use it
-            componentDefinition = this.buildersById[metadata.component];
-            if(!componentDefinition)
+            componentType = this.componentsById[metadata.component];
+            if(!componentType)
                 throw `Coundn\'t find component. Component id: ${metadata.component}`;
+            return React.createElement(componentType, { key: metadata.name });
         }
         else
         {
             // If the metadata doesn't explicitly specify a component, let's return
             // the default component for type. If there's no default, let's take the first
             // that matches the type
-            componentDefinition = this.getDefaultBuilder(metadata.type);
+            componentType = this.getDefaultComponent(metadata.type);
         }
-        return componentDefinition.buildComponent(metadata);
+        if(!componentType)
+            throw new Error('somerthing weird happened')
+        return React.createElement(componentType, { key: metadata.name });
     }
 }
 
 var componentFactory = new ComponentFactory();
 
 // Registers all component definitions
-componentFactory.registerBuilder('textbox', ['string'], new TextBoxBuilder());
+componentFactory.registerComponent('textbox', ['string'], TextBox);
 
 // Registers the component defaults
-componentFactory.setDefaultBuilders({
+componentFactory.setDefaultComponents({
     "string": 'textbox'
 });
 
