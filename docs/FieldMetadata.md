@@ -1,0 +1,1 @@
+FieldMetadata contains information about a particular field
