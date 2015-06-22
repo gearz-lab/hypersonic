@@ -5,61 +5,6 @@ const metadataEvaluator = new MetadataEvaluator();
 
 describe('MetadataEvaluator', function() {
 
-    describe('validate', function() {
-       it('metadata should be null or empty', function() {
-           assert.throws(() => metadataEvaluator.validate(null));
-           assert.throws(() => metadataEvaluator.validate(undefined));
-       });
-        describe('required', function() {
-            it('should not be valid if not bool or array', function() {
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', required: null}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', required: 'foo'}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', required: 23}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', required: {}}), /should be either a bool or an array/);
-            });
-            it('should be valid if bool or array', function() {
-                metadataEvaluator.validate(({name: 'name', required: true}));
-                metadataEvaluator.validate(({name: 'name', required: []}));
-            });
-        });
-        describe('invisible', function() {
-            it('should not be valid if not bool or array', function() {
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invisible: null}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invisible: 'foo'}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invisible: 23}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invisible: {}}), /should be either a bool or an array/);
-            });
-            it('should be valid if bool or array', function() {
-                metadataEvaluator.validate(({ name: 'name', invisible: true}));
-                metadataEvaluator.validate(({ name: 'name', invisible: []}));
-            });
-        });
-        describe('disabled', function() {
-            it('should not be valid if not bool or array', function() {
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', disabled: null}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', disabled: 'foo'}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', disabled: 23}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', disabled: {}}), /should be either a bool or an array/);
-            });
-            it('should be valid if bool or array', function() {
-                metadataEvaluator.validate(({ name: 'name', disabled: true}));
-                metadataEvaluator.validate(({ name: 'name', disabled: []}));
-            });
-        });
-        describe('invalid', function() {
-            it('should not be valid if not bool or array', function() {
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invalid: null}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invalid: 'foo'}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invalid: 23}), /should be either a bool or an array/);
-                assert.throws(() => metadataEvaluator.validate({ name: 'name', invalid: {}}), /should be either a bool or an array/);
-            });
-            it('should be valid if bool or array', function() {
-                metadataEvaluator.validate(({ name: 'name', invalid: true }));
-                metadataEvaluator.validate(({ name: 'name', invalid: [] }));
-            });
-        });
-    });
-
     describe('evaluate', function() {
 
         describe('boolean values', function() {
@@ -68,54 +13,62 @@ describe('MetadataEvaluator', function() {
                     name: 'name',
                     required: true
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata, { name: 'André' });
-                assert.isTrue(evaluation.required.value);
-                assert.isFalse(evaluation.invisible.value);
-                assert.isFalse(evaluation.disabled.value);
-                assert.isFalse(evaluation.invalid.value);
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+                assert.isTrue(evaluation.value);
             });
-            it('invisible', function() {
+
+            it('required', function() {
                 let metadata = {
                     name: 'name',
-                    invisible: true
+                    required: false
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata, { name: 'André' });
-                assert.isFalse(evaluation.required.value);
-                assert.isTrue(evaluation.invisible.value);
-                assert.isFalse(evaluation.disabled.value);
-                assert.isFalse(evaluation.invalid.value);
-            });
-            it('disabled', function() {
-                let metadata = {
-                    name: 'name',
-                    disabled: true
-                };
-                let evaluation = metadataEvaluator.evaluate(metadata, { name: 'André' });
-                assert.isFalse(evaluation.required.value);
-                assert.isFalse(evaluation.invisible.value);
-                assert.isTrue(evaluation.disabled.value);
-                assert.isFalse(evaluation.invalid.value);
-            });
-            it('invalid', function() {
-                let metadata = {
-                    name: 'name',
-                    invalid: true
-                };
-                let evaluation = metadataEvaluator.evaluate(metadata, { name: 'André' });
-                assert.isFalse(evaluation.required.value);
-                assert.isFalse(evaluation.invisible.value);
-                assert.isFalse(evaluation.disabled.value);
-                assert.isTrue(evaluation.invalid.value);
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+                assert.isFalse(evaluation.value);
             });
         });
 
         describe('function values', function() {
-            let metadata = {
-                name: 'name',
-                required: [{ expression: m => m.name == 'André' }]
-            };
-            let evaluation = metadataEvaluator.evaluate(metadata, { name: 'André' });
-            assert.isTrue(evaluation.required.value);
+            it('single expression true', function() {
+                let metadata = {
+                    name: 'name',
+                    required: [{ expression: m => m.name == 'André', value: true }]
+                };
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+                assert.isTrue(evaluation.value);
+            });
+            if('single expression undefined', function() {
+                let metadata = {
+                    name: 'name',
+                    required: [{ expression: m => m.name == 'André', value: true }]
+                };
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
+                assert.isUndefined(evaluation.value);
+            });
+            it('multiple expressions', function() {
+                    let metadata = {
+                        name: 'value',
+                        required: [{ expression: m => m.value < 1000, value: true }, { expression: m => m.name == 'john', value: true }]
+                    };
+                    let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André', value: 1500 });
+                    assert.isUndefined(evaluation.value);
+                });
+            it('multiple expressions default value', function() {
+                let metadata = {
+                    name: 'value',
+                    required: [{ expression: m => m.value < 1000, value: true }, { expression: m => m.name == 'john', value: true }, { expression: 'default', value: false }]
+                };
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André', value: 1500 });
+                assert.isFalse(evaluation.value);
+            });
+            it('should not trigger exception on evaluating expressions', function() {
+                let metadata = {
+                    name: 'value',
+                    required: [{ expression: m => m.nonExitingProperty < 1000, value: true }, { expression: m => m.foo.name == 'john', value: true }, { expression: 'default', value: false }]
+                };
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André', value: 1500 });
+                assert.isFalse(evaluation.value);
+            });
         });
+
     });
 });
