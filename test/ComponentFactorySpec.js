@@ -32,7 +32,7 @@ describe('ComponentFactory', function () {
                 type: 'string',
                 component: 'foo'
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata), /Could not find the given component/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata, {}), /Could not find the given component/);
         });
 
         it('Should return the component when specifying the component explicitly', function() {
@@ -40,7 +40,7 @@ describe('ComponentFactory', function () {
                 type: 'string',
                 component: 'textbox'
             };
-            const component = ComponentFactory.buildComponent(metadata);
+            const component = ComponentFactory.buildComponent(metadata, {});
             assert.isTrue(ReactTestUtils.isElement(component));
         });
 
@@ -48,7 +48,7 @@ describe('ComponentFactory', function () {
             const metadata = {
                 type: 'string'
             };
-            const component = ComponentFactory.buildComponent(metadata);
+            const component = ComponentFactory.buildComponent(metadata, {});
             assert.isTrue(ReactTestUtils.isElement(component));
         });
 
@@ -56,7 +56,7 @@ describe('ComponentFactory', function () {
             const metadata = {
                 type: 'foo'
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata), /Coundn't find any component for the given type/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata, {}), /Coundn't find any component for the given type/);
         });
     });
 });

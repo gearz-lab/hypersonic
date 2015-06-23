@@ -103,6 +103,15 @@ class ComponentFactory {
      * @returns {*}
      */
     buildComponent(metadata, model, onChange) {
+
+        if(!metadata) {
+            throw new Error('The metadata parameter is required');
+        }
+
+        if(!model) {
+            throw new Error('The model parameter is required');
+        }
+
         this._validateMetadata(metadata);
         let componentType;
         if(metadata.component) {
@@ -123,6 +132,7 @@ class ComponentFactory {
             {
                 key: metadata.name,
                 metadata: metadata,
+                model: model,
                 onChange: function() {}
             });
     }

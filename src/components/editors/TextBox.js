@@ -1,33 +1,26 @@
 import React from 'react';
 import Router from 'react-router';
-import Input from 'react-bootstrap/lib/Input'
+import Input from 'react-bootstrap/lib/Input';
+import DataEvaluator from '../../lib/DataEvaluator.js';
 
-const ExampleInput = React.createClass({
+const TextBox = React.createClass({
 
     propTypes: {
         metadata: React.PropTypes.object.isRequired,
-        onChange: React.PropTypes.func.isRequired,
-        initialValue: React.PropTypes.node
-    },
-
-    getInitialState() {
-        return {
-            value: this.props.initialValue ? this.props.initialValue : ''
-        };
+        model: React.PropTypes.node.isRequired,
+        onChange: React.PropTypes.func.isRequired
     },
 
     validationState() {
 
-        var metadata = this.props.metadata;
-        var value = this.state.value;
-
-        if(metadata.invalid){
-            for(let i = 0; i < metadata.length; i++) {
-
-            }
-        }
-
-
+        //var metadata = this.props.metadata;
+        //var value = this.state.value;
+        //
+        //if(metadata.invalid){
+        //    for(let i = 0; i < metadata.length; i++) {
+        //
+        //    }
+        //}
 
         //var metadata = this.props.metadata;
         //if(metadata.invalid)
@@ -48,18 +41,17 @@ const ExampleInput = React.createClass({
         //else if (length > 0) { return 'error'; }
     },
 
-    handleChange() {
-        var value = this.refs.input.getValue();
-        this.setState({ value: value });
-        this.props.onChange({name: this.props.metadata.name, value: value});
+    handleChange(event) {
+        this.props.onChange({name: this.props.metadata.name, value: event.target.value});
     },
 
     render() {
         var metadata = this.props.metadata;
+        var model = this.props.model;
         return (
             <Input
                 type='text'
-                value={this.state.value}
+                value={DataEvaluator.evaluate(metadata, model)}
                 placeholder={metadata.placeholder}
                 label={metadata.displayName}
                 help={metadata.help}
@@ -73,4 +65,4 @@ const ExampleInput = React.createClass({
     }
 });
 
-export default ExampleInput;
+export default TextBox;

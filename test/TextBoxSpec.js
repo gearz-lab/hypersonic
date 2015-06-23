@@ -7,10 +7,7 @@ const assert = chai.assert;
 
 describe('TextBox', function () {
 
-    it('Tests', function () {
-
-        let handleChange = function() {
-        };
+    it('onChange', function () {
 
         var metadata =
         {
@@ -18,15 +15,17 @@ describe('TextBox', function () {
             displayName: 'Name'
         };
 
-        var component = ReactTestUtils.renderIntoDocument(<TextBox metadata={metadata} onChange={handleChange} initialValue='Andre'/>);
-        var domNode = React.findDOMNode(component);
+        var model = {
+            name: 'Andre'
+        };
 
-        //let inputInDocument = ReactTestUtils.renderIntoDocument(input);
-        //let inputNode = React.findDOMNode(inputInDocument);
-        //var elementsByTagName = inputNode.getElementsByTagName('input');
-        //
-        //ReactTestUtils.Simulate.change(elementsByTagName[0], { value: 'Hey, this is the new value' } );
+        var changedValue = undefined;
+        var component = ReactTestUtils.renderIntoDocument(<TextBox metadata={metadata} onChange={e => changedValue = e.value} model={model}/>);
+        var inputNode = React.findDOMNode(component);
+        var elementsByTagName = inputNode.getElementsByTagName('input');
 
+        ReactTestUtils.Simulate.change(elementsByTagName[0], {target: {value: 'John'}} );
+        assert.equal('John', changedValue);
     });
 
 });

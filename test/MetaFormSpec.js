@@ -7,8 +7,8 @@ const assert = chai.assert;
 
 describe('Metaform', function () {
 
-    describe('entityType and layout', function() {
-        it('Should be possible to reference a field by name from the layout', function () {
+    describe('EntityType and layout', function() {
+        it('It should be possible to reference a field by name from the layout', function () {
             let entityType = {
                 fields: [
                     {
@@ -23,7 +23,10 @@ describe('Metaform', function () {
                     'name'
                 ]
             };
-            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
+            let model = {
+                name: 'Andre'
+            }
+            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var fields = instance._getFields();
             var nameField = _.find(fields, f => f.name == 'name');
             assert.ok(nameField);
@@ -32,7 +35,7 @@ describe('Metaform', function () {
             assert.equal('', nameField.placeholder);
         });
 
-        it('Should be possible to extend an existing field', function () {
+        it('It should be possible to extend an existing field', function () {
             let entityType = {
                 fields: [
                     {
@@ -50,14 +53,17 @@ describe('Metaform', function () {
                     }
                 ]
             };
-            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
+            let model = {
+                name: 'Andre'
+            }
+            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var fields = instance._getFields();
             var nameField = _.find(fields, f => f.name == 'name');
             assert.ok(nameField);
             assert.equal('textbox', nameField.component);
         });
 
-        it('Should be possible change properties of existing fields', function () {
+        it('Should be possible to change properties of existing fields', function () {
             let entityType = {
                 fields: [
                     {
@@ -75,7 +81,10 @@ describe('Metaform', function () {
                     }
                 ]
             };
-            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
+            let model = {
+                name: 'Andre'
+            }
+            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var fields = instance._getFields();
             var nameField = _.find(fields, f => f.name == 'name');
             assert.ok(nameField);
@@ -95,9 +104,12 @@ describe('Metaform', function () {
                     }
                 ]
             };
-            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout}/>);
-            var model = instance._getModel();
-            assert.ok(model);
+            let model = {
+                name: 'Andre'
+            }
+            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
+            var modelToTest = instance._getModel();
+            assert.ok(modelToTest);
         });
     });
 });
