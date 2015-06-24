@@ -1,4 +1,4 @@
-import textExpressionEvaluator from './text-expression-evaluator.js';
+import textExpressionEvaluator from './TextExpressionEvaluator.js';
 
 /**
  * Evaluates expressions
