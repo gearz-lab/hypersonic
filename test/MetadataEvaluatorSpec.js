@@ -7,8 +7,8 @@ describe('MetadataEvaluator', function() {
 
     describe('Evaluate', function() {
 
-        describe('boolean values', function() {
-            it('required', function() {
+        describe('Boolean values', function() {
+            it('True', function() {
                 let metadata = {
                     name: 'name',
                     required: true
@@ -17,13 +17,32 @@ describe('MetadataEvaluator', function() {
                 assert.isTrue(evaluation.value);
             });
 
-            it('required', function() {
+            it('False', function() {
                 let metadata = {
                     name: 'name',
                     required: false
                 };
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
                 assert.isFalse(evaluation.value);
+            });
+
+            it('Undefined', function() {
+                let metadata = {
+                    name: 'name'
+                };
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+                assert.isUndefined(evaluation.value);
+            });
+        });
+
+        describe('String values', function() {
+            it('Name', function () {
+                let metadata = {
+                    name: 'name',
+                    required: true
+                };
+                let evaluation = metadataEvaluator.evaluate(metadata.name, {name: 'André'});
+                assert.equal('name', evaluation.value);
             });
         });
 

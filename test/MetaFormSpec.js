@@ -25,7 +25,7 @@ describe('Metaform', function () {
             };
             let model = {
                 name: 'Andre'
-            }
+            };
             let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var fields = instance._getFields();
             var nameField = _.find(fields, f => f.name == 'name');
@@ -55,7 +55,7 @@ describe('Metaform', function () {
             };
             let model = {
                 name: 'Andre'
-            }
+            };
             let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var fields = instance._getFields();
             var nameField = _.find(fields, f => f.name == 'name');
@@ -83,7 +83,7 @@ describe('Metaform', function () {
             };
             let model = {
                 name: 'Andre'
-            }
+            };
             let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var fields = instance._getFields();
             var nameField = _.find(fields, f => f.name == 'name');
@@ -92,7 +92,7 @@ describe('Metaform', function () {
         });
     });
 
-    describe('model', function() {
+    describe('Model', function() {
         it('Should have a default model', function () {
             let entityType = { };
             let layout = {
@@ -106,7 +106,7 @@ describe('Metaform', function () {
             };
             let model = {
                 name: 'Andre'
-            }
+            };
             let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
             var modelToTest = instance._getModel();
             assert.ok(modelToTest);

@@ -28,12 +28,7 @@ class MetadataEvaluator {
      * @param model
      */
     evaluate(metadata, model) {
-        if(!metadata)
-            return { value: false };
-        if(typeof metadata == 'boolean'){
-            return { value: metadata };
-        }
-        else if(metadata instanceof Array) {
+        if(metadata instanceof Array) {
             let resultingValue = { value: undefined, messages: [] };
             let defaultMetadata;
             metadata.forEach(item => {
@@ -49,6 +44,9 @@ class MetadataEvaluator {
                 resultingValue.value = defaultMetadata.value;
             }
             return resultingValue;
+        }
+        else {
+            return { value: metadata };
         }
     }
 }
