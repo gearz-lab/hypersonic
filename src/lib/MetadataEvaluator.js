@@ -1,3 +1,5 @@
+import ExpressionEvaluator from './ExpressionEvaluator.js';
+
 class MetadataEvaluator {
 
     _validate(metadata) {
@@ -17,20 +19,7 @@ class MetadataEvaluator {
      * @private
      */
     evaluateExpression(expression, model){
-        if(typeof expression === 'function'){
-            try {
-                return expression(model);
-            } catch(ex) {
-                // expression evaluation should not trigger an exception
-                return undefined;
-            }
-        }
-        else if (typeof expression == 'string'){
-            // not implemented yet
-        }
-        else {
-            throw new Error('expression should be either a function or a string');
-        }
+        return ExpressionEvaluator.evaluate(expression, model);
     }
 
     /**

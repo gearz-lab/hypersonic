@@ -13,9 +13,16 @@ export default {
         evaluate: function (expression, data) {
             switch (typeof expression) {
                 case 'function':
-                    return expression(data);
+                    try {
+                        return expression(data);
+                    }catch(ex) {
+                        // expressions shouldn't trigger an error
+                        return undefined;
+                    }
                 case 'string':
                     return textExpressionEvaluator.evaluate(expression, data);
+                default:
+                    throw new Error('Expression should be either a function or a string');
             }
         }
     };

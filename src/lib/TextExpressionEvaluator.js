@@ -27,8 +27,13 @@ export default {
                 finalExpression += variableDeclarations[i];
             }
             finalExpression += expression;
-            /* eslint-disable */
-            return eval(finalExpression);
-            /* eslint-enable */
+            try {
+                /* eslint-disable */
+                return eval(finalExpression);
+                /* eslint-enable */
+            }catch(ex) {
+                // Expressions shouldn't trigger an error
+                return undefined;
+            }
         }
     };

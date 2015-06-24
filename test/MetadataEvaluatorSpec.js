@@ -5,7 +5,7 @@ const metadataEvaluator = new MetadataEvaluator();
 
 describe('MetadataEvaluator', function() {
 
-    describe('evaluate', function() {
+    describe('Evaluate', function() {
 
         describe('boolean values', function() {
             it('required', function() {
@@ -27,8 +27,8 @@ describe('MetadataEvaluator', function() {
             });
         });
 
-        describe('function values', function() {
-            it('single expression true', function() {
+        describe('Function values', function() {
+            it('Single expression true', function() {
                 let metadata = {
                     name: 'name',
                     required: [{ expression: m => m.name == 'André', value: true }]
@@ -36,7 +36,7 @@ describe('MetadataEvaluator', function() {
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
                 assert.isTrue(evaluation.value);
             });
-            if('single expression undefined', function() {
+            if('Single expression undefined', function() {
                 let metadata = {
                     name: 'name',
                     required: [{ expression: m => m.name == 'André', value: true }]
@@ -44,7 +44,7 @@ describe('MetadataEvaluator', function() {
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
                 assert.isUndefined(evaluation.value);
             });
-            it('multiple expressions', function() {
+            it('Multiple expressions', function() {
                     let metadata = {
                         name: 'value',
                         required: [{ expression: m => m.value < 1000, value: true }, { expression: m => m.name == 'john', value: true }]
@@ -52,7 +52,7 @@ describe('MetadataEvaluator', function() {
                     let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André', value: 1500 });
                     assert.isUndefined(evaluation.value);
                 });
-            it('multiple expressions default value', function() {
+            it('Multiple expressions default value', function() {
                 let metadata = {
                     name: 'value',
                     required: [{ expression: m => m.value < 1000, value: true }, { expression: m => m.name == 'john', value: true }, { expression: 'default', value: false }]
@@ -60,7 +60,7 @@ describe('MetadataEvaluator', function() {
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André', value: 1500 });
                 assert.isFalse(evaluation.value);
             });
-            it('should not trigger exception on evaluating expressions', function() {
+            it('Should not trigger exception on evaluating expressions', function() {
                 let metadata = {
                     name: 'value',
                     required: [{ expression: m => m.nonExitingProperty < 1000, value: true }, { expression: m => m.foo.name == 'john', value: true }, { expression: 'default', value: false }]
