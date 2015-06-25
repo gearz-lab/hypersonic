@@ -112,4 +112,49 @@ describe('Metaform', function () {
             assert.ok(modelToTest);
         });
     });
+
+    describe('Complex', function() {
+
+       it('Something', function() {
+           let entityType = {
+               fields: [
+                   {
+                       name: 'name',
+                       type: 'string',
+                       displayName: 'Name',
+                       placeholder: 'Name',
+                       help: 'Here you should put the name',
+                       invalid: [{
+                           expression: value => value.length > 3,
+                           message: 'The name should not have more than 3 characters'
+                       }]
+                   },
+                   {
+                       name: 'description',
+                       type: 'string',
+                       displayName: 'Description',
+                       placeholder: 'Description',
+                       help: 'Here you should put the description'
+                   }
+               ]
+           };
+
+           let layout = {
+               fields: [
+                   { name: 'name' },
+                   { name: 'description' }
+               ]
+           };
+
+           let model = {
+               name: 'André',
+               description: 'The best'
+           };
+
+           let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
+           var componentNode = React.findDOMNode(instance);
+           console.log(componentNode);
+       })
+
+    });
 });

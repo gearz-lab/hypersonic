@@ -1,6 +1,7 @@
 import React from 'react';
 import Router from 'react-router';
 import componentFactory from '../lib/ComponentFactory';
+import DataEvaluator from '../lib/DataEvaluator.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -11,11 +12,9 @@ var MetaForm = React.createClass({
         model: React.PropTypes.object
     },
 
-    getDefaultProps: function() {
-        // properties that are not rquired have a default value
-        return {
-            model: new Object()
-        }
+    getInitialState: function() {
+        var modelProp = this.props.model ? this.props.model : {};
+        return _.extend({}, modelProp);
     },
 
     /**
@@ -78,7 +77,7 @@ var MetaForm = React.createClass({
      * @private
      */
     _getModel: function() {
-        return this.props.model;
+        return this.state;
     },
 
     _getModelProperty: function(propertyName) {
@@ -90,11 +89,21 @@ var MetaForm = React.createClass({
         // the model is cloned for security reasons, to make it hard for the components to
         // interfere with the MetaForm model. It could even be cloned once per property,
         // but that would impact performance.
-        var model = _.extend({}, this.props.model);
-        var onChange = function() {};
+        var model = this.state;
+        let _this = this;
         return (
             <div>
-                { fields.map(field => componentFactory.buildComponent(field, model, onChange)) }
+                {
+                    fields.map(field => {
+                        var onChange = function(e) {
+                            var modifiedModelDelta = {};
+                            modifiedModelDelta[field.name] = e.value;
+                            _this.setState(modifiedModelDelta);
+                        };
+                        let component = componentFactory.buildComponent(field, model, onChange);
+                        return component;
+                    })
+                }
             </div>
         );
     }

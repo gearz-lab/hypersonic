@@ -21,8 +21,8 @@ describe('TextBox', function () {
 
         var changedValue = undefined;
         var component = ReactTestUtils.renderIntoDocument(<TextBox metadata={metadata} onChange={e => changedValue = e.value} model={model}/>);
-        var inputNode = React.findDOMNode(component);
-        var elementsByTagName = inputNode.getElementsByTagName('input');
+        var componentNode = React.findDOMNode(component);
+        var elementsByTagName = componentNode.getElementsByTagName('input');
 
         ReactTestUtils.Simulate.change(elementsByTagName[0], {target: {value: 'John'}} );
         assert.equal('John', changedValue);

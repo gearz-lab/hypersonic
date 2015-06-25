@@ -26,6 +26,15 @@ var DefaultLayout = React.createClass({
             <link href='assets/main.css' rel='stylesheet' />`
             };
 
+        let bundle;
+        console.log(process.env.NODE_ENV);
+        if(process.env.NODE_ENV == 'production') {
+            bundle = 'assets/bundle.js';
+        }
+        else {
+            bundle = 'http://localhost:8080/assets/bundle.js';
+        }
+
         return (
             <html>
                 <head dangerouslySetInnerHTML={head} />
@@ -40,7 +49,7 @@ var DefaultLayout = React.createClass({
                         <Router.RouteHandler />
                     </div>
                 </body>
-                <script src='assets/bundle.js' />
+                <script src={bundle} />
             </html>
         );
     }

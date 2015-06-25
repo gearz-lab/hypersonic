@@ -42,7 +42,7 @@ describe('MetadataEvaluator', function() {
                     required: true
                 };
                 let evaluation = metadataEvaluator.evaluate(metadata.name, {name: 'André'});
-                assert.equal('name', evaluation.value);
+                assert.equal('name' ,evaluation.value);
             });
         });
 
@@ -55,7 +55,7 @@ describe('MetadataEvaluator', function() {
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
                 assert.isTrue(evaluation.value);
             });
-            if('Single expression undefined', function() {
+            it('Single expression true', function() {
                 let metadata = {
                     name: 'name',
                     required: [{ expression: m => m.name == 'André', value: true }]
@@ -63,6 +63,16 @@ describe('MetadataEvaluator', function() {
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
                 assert.isUndefined(evaluation.value);
             });
+
+            it('Single expression true 2', function() {
+                    let metadata = {
+                        name: 'name',
+                        required: [{ expression: m => m.name.length > 2, value: true }]
+                    };
+                    let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
+                    assert.isTrue(evaluation.value);
+                });
+
             it('Multiple expressions', function() {
                     let metadata = {
                         name: 'value',

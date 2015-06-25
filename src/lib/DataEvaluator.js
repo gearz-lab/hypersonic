@@ -1,4 +1,5 @@
 class DataEvaluator {
+
     evaluate(metadata, model) {
         if(!model) {
             return undefined;
@@ -6,7 +7,13 @@ class DataEvaluator {
         if(model.hasOwnProperty(metadata.name)) {
             return model[metadata.name];
         }
-        throw new Error(`Object should contain property. Property: ${metadata.name}`);
+        return undefined;
+    }
+
+    setValue(value, metadata, model) {
+        if(model && metadata) {
+            model[metadata.name] = value;
+        }
     }
 }
 

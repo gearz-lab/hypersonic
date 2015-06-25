@@ -35,6 +35,7 @@ export default {
 
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('[name].css'),
         new webpack.DefinePlugin({
             'process.env': {

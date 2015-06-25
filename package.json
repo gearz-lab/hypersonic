@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node run-babel index.js",
-    "start-watch": "nodemon run-babel index.js",
+    "start-watch": "SET NODE_ENV=development && nodemon run-babel index.js",
     "webpack-dev-server": "webpack-dev-server",
     "test": "karma start"
   },

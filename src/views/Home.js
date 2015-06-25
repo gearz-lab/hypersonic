@@ -17,7 +17,8 @@ var Home = React.createClass({
                     placeholder: 'Name',
                     help: 'Here you should put the name',
                     invalid: [{
-                        expression: value => value.length > 3,
+                        expression: m => m.name.length > 3,
+                        value: true,
                         message: 'The name should not have more than 3 characters'
                     }]
                 },
@@ -26,20 +27,30 @@ var Home = React.createClass({
                     type: 'string',
                     displayName: 'Description',
                     placeholder: 'Description',
-                    help: 'Here you should put the description'
+                    help: 'Here you should put the description',
+                    invisible: [{
+                        expression: m => m.name == 'Andre',
+                        value: true
+                    }]
                 }
             ]
         };
+
         let layout = {
             fields: [
-                'name',
-                'description'
+                { name: 'name' },
+                { name: 'description' }
             ]
+        };
+
+        let model = {
+            name: 'Andre 2',
+            description: 'The best'
         };
 
         return (
             <div>
-                <MetaForm entityType={entityType} layout={layout} />
+                <MetaForm entityType={entityType} layout={layout} model={model} />
             </div>
         );
     }

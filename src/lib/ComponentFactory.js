@@ -133,7 +133,7 @@ class ComponentFactory {
                 key: metadata.name,
                 metadata: metadata,
                 model: model,
-                onChange: function() {}
+                onChange: onChange
             });
     }
 }

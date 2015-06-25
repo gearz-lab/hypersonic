@@ -20,7 +20,7 @@ const TextBox = React.createClass({
         let metadata = this.props.metadata;
         let model = this.props.model;
         var invalid = metadataEvaluator.evaluate(metadata.invalid, model);
-        if(invalid) {
+        if(invalid.value) {
             return 'error';
         }
         return 'success';
@@ -33,7 +33,7 @@ const TextBox = React.createClass({
         let metadata = this.props.metadata;
         let model = this.props.model;
         var invisible = metadataEvaluator.evaluate(metadata.invisible, model);
-        if(invisible) {
+        if(invisible.value) {
             return 'hide';
         }
         return '';
