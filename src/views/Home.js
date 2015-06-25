@@ -14,10 +14,10 @@ var Home = React.createClass({
                     name: 'name',
                     type: 'string',
                     displayName: 'Name',
-                    placeholder: 'Name',
+                    placeholder: 'You should put something funny here',
                     help: 'Here you should put the name',
                     invalid: [{
-                        expression: m => m.name.length > 3,
+                        expression: 'name.length > 5',
                         value: true,
                         message: 'The name should not have more than 3 characters'
                     }]
@@ -28,9 +28,13 @@ var Home = React.createClass({
                     displayName: 'Description',
                     placeholder: 'Description',
                     help: 'Here you should put the description',
-                    invisible: [{
-                        expression: m => m.name == 'Andre',
+                    readOnly: [{
+                        expression: 'name == "Andre2"',
                         value: true
+                    }],
+                    addonBefore: [{
+                        expression: 'name == "Andre"',
+                        value: 'something weird'
                     }]
                 }
             ]

@@ -55,6 +55,11 @@ const TextBox = React.createClass({
         let placeholder = metadataEvaluator.evaluate(metadata.placeholder, model).value;
         let displayName = metadataEvaluator.evaluate(metadata.displayName, model).value;
         let help = metadataEvaluator.evaluate(metadata.help, model).value;
+        let readOnly = metadataEvaluator.evaluate(metadata.readOnly, model).value;
+        let addonBefore = metadataEvaluator.evaluate(metadata.addonBefore, model).value;
+        let addonAfter = metadataEvaluator.evaluate(metadata.addonAfter, model).value;
+
+
 
         // styles
         let validStyle = this._getValidStyle();
@@ -72,7 +77,10 @@ const TextBox = React.createClass({
                 ref='input'
                 groupClassName={`group-class ${visibleStyle}`}
                 labelClassName='label-class'
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+                readOnly={readOnly}
+                addonBefore={addonBefore}
+                addonAfter={addonAfter}/>
         );
     }
 });
