@@ -1,6 +1,6 @@
 import TypeProcessor from './TypeProcessor.js';
 
-class IntTypeProcessor extends TypeProcessor {
+class FloatTypeProcessor extends TypeProcessor {
 
     /**
      * Processes a string as an integer
@@ -15,7 +15,7 @@ class IntTypeProcessor extends TypeProcessor {
             };
         }
         // if the value is a valid integer
-        if(value.match(/^(\-|\+)?([0-9]+)$/)) {
+        if(value.match(/^(\-|\+)?([0-9]+(\.[0-9]+)?)$/)) {
             return {
                 convertedValue: Number(value),
                 validationResult: 'success'
@@ -31,4 +31,4 @@ class IntTypeProcessor extends TypeProcessor {
     }
 }
 
-export default new IntTypeProcessor();
+export default new FloatTypeProcessor();

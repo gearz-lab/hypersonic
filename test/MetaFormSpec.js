@@ -153,7 +153,6 @@ describe('Metaform', function () {
 
            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
            var componentNode = React.findDOMNode(instance);
-           console.log(componentNode);
        })
 
     });
