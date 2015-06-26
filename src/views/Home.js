@@ -13,7 +13,7 @@ var Home = React.createClass({
                 {
                     name: 'name',
                     type: 'string',
-                    displayName: 'Name',
+                    displayName: 'Password',
                     placeholder: 'You should put something funny here',
                     help: 'Here you should put the name',
                     invalid: [{
@@ -25,9 +25,9 @@ var Home = React.createClass({
                 {
                     name: 'description',
                     type: 'string',
-                    displayName: 'Description',
+                    displayName: 'Confirm password',
                     placeholder: 'Description',
-                    help: 'Here you should put the description',
+                    help: 'Put anything you want here',
                     readOnly: [{
                         expression: 'name == "Andre2"',
                         value: true
