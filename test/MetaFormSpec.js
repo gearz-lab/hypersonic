@@ -156,4 +156,31 @@ describe('Metaform', function () {
        })
 
     });
+
+    describe('Working with integers', function() {
+        it('Basic usage', function() {
+            let entityType = {
+                fields: [
+                    {
+                        name: 'number',
+                        type: 'int',
+                        displayName: 'Number of something'
+                    }
+                ]
+            };
+
+            let layout = {
+                fields: [
+                    { name: 'number' }
+                ]
+            };
+
+            let model = {
+                number: '24'
+            };
+
+            let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
+            var componentNode = React.findDOMNode(instance);
+        });
+    });
 });

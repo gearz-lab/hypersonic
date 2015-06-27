@@ -8,14 +8,14 @@ class IntTypeProcessor extends TypeProcessor {
      */
     process(value) {
         // if the value is null or undefined
-        if(value === undefined || value === null) {
+        if(value === undefined || value === null || value === '') {
             return {
-                validationResult: 'sucess',
-                convertedValue: null
+                validationResult: 'success',
+                convertedValue: undefined
             };
         }
         // if the value is a valid integer
-        if(value.match(/^(\-|\+)?([0-9]+)$/)) {
+        else if(value.match(/^(\-|\+)?([0-9]+)$/)) {
             return {
                 convertedValue: Number(value),
                 validationResult: 'success'

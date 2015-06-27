@@ -14,6 +14,17 @@ describe('ComponentFactory', function () {
         it('Should return definitions for the string type', function () {
             const definitions = ComponentFactory.getComponents('string');
             assert.isArray(definitions);
+            assert.equal(1, definitions.length);
+        });
+        it('Should return definitions for the int type', function () {
+            const definitions = ComponentFactory.getComponents('int');
+            assert.isArray(definitions);
+            assert.equal(1, definitions.length);
+        });
+        it('Should return definitions for the float type', function () {
+            const definitions = ComponentFactory.getComponents('int');
+            assert.isArray(definitions);
+            assert.equal(1, definitions.length);
         });
     });
 
@@ -26,9 +37,30 @@ describe('ComponentFactory', function () {
         });
     });
 
+    describe('getDefaultComponent', function() {
+        describe('Should get default component for primitive types', function() {
+
+            it('string', function() {
+                    let defaultComponent = ComponentFactory.getDefaultComponent('string');
+                    ReactTestUtils.isElement(defaultComponent);
+                });
+
+            it('float', function() {
+                    let defaultComponent = ComponentFactory.getDefaultComponent('float');
+                    ReactTestUtils.isElement(defaultComponent);
+                });
+
+            it('int', function() {
+                    let defaultComponent = ComponentFactory.getDefaultComponent('int');
+                    ReactTestUtils.isElement(defaultComponent);
+            });
+        });
+    });
+
     describe('buildComponent', function() {
         it('Should throw exception when getting a component definition specifying an unknown component', function () {
             const metadata = {
+                name: 'name',
                 type: 'string',
                 component: 'foo'
             };
@@ -37,6 +69,7 @@ describe('ComponentFactory', function () {
 
         it('Should return the component when specifying the component explicitly', function() {
             const metadata = {
+                name: 'name',
                 type: 'string',
                 component: 'textbox'
             };
@@ -46,6 +79,7 @@ describe('ComponentFactory', function () {
 
         it('Should return the component when specifying the type only', function() {
             const metadata = {
+                name: 'name',
                 type: 'string'
             };
             const component = ComponentFactory.buildComponent(metadata, {}, e => {});
@@ -54,9 +88,19 @@ describe('ComponentFactory', function () {
 
         it('Should throw an exception when the type doesn\'t exist', function() {
             const metadata = {
+                name: 'name',
                 type: 'foo'
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata, {}, e => {}), /Coundn't find any component for the given type/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata, {}, e => {}), /Couldn't find any component for the given type/);
+        });
+
+        it('Should work with integers', function() {
+            const metadata = {
+                name: 'number',
+                type: 'int'
+            };
+            const component = ComponentFactory.buildComponent(metadata, {}, e => {});
+            assert.isTrue(ReactTestUtils.isElement(component));
         });
     });
 });

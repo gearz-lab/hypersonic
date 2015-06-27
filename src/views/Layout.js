@@ -27,7 +27,6 @@ var DefaultLayout = React.createClass({
             };
 
         let bundle;
-        console.log(process.env.NODE_ENV);
         if(process.env.NODE_ENV == 'production') {
             bundle = 'assets/bundle.js';
         }

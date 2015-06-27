@@ -53,7 +53,7 @@
     "less-loader": "^2.2.0",
     "lodash": "^3.7.0",
     "mocha": "^2.2.5",
-    "react": "^0.13.1",
+    "react": "^0.13.3",
     "react-bootstrap": "^0.20.3",
     "react-hot-loader": "^1.2.7",
     "react-router": "^0.13.2",

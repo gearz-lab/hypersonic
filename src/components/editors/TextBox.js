@@ -3,6 +3,7 @@ import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input';
 import DataEvaluator from '../../lib/DataEvaluator.js';
 import MetadataEvaluator from '../../lib/MetadataEvaluator.js';
+import TypeProcessor from '../../lib/TypeProcessor.js';
 const metadataEvaluator = new MetadataEvaluator();
 
 const TextBox = React.createClass({
@@ -40,8 +41,26 @@ const TextBox = React.createClass({
     },
 
     handleChange(event){
+        let newValue = event.target.value;
+        if(this.typeProcessor) {
+            // if there's a type processor, we need to validate the processing
+            // if the value is valid, we trigger the onChange considering the converted value
+            let processingResult = this.typeProcessor.process(newValue);
+            if(processingResult.validationResult == 'success') {
+                this.props.onChange({name: this.props.metadata.name, value: processingResult.convertedValue});
+            } else {
+                // the provided value was not accepted by the processor
+            }
+        }
+        else {
+            // if there's no type processor, we just trigger the onChange considering the raw value
+            this.props.onChange({name: this.props.metadata.name, value: newValue});
+        }
+    },
 
-        this.props.onChange({name: this.props.metadata.name, value: event.target.value});
+    componentWillMount() {
+        let metadata = this.props.metadata;
+        this.typeProcessor = TypeProcessor.getProcessor(metadata.type);
     },
 
     render() {
@@ -50,6 +69,11 @@ const TextBox = React.createClass({
         let model = this.props.model;
 
         let value = DataEvaluator.evaluate(metadata, model);
+        if(value === undefined) {
+            // the value never can be undefined, because the Input will act as 'uncontrolled' if so, meaning that
+            // it will allow whatever the user inputs
+            value = '';
+        }
 
         // metadata
         let placeholder = metadataEvaluator.evaluate(metadata.placeholder, model).value;
@@ -58,8 +82,6 @@ const TextBox = React.createClass({
         let readOnly = metadataEvaluator.evaluate(metadata.readOnly, model).value;
         let addonBefore = metadataEvaluator.evaluate(metadata.addonBefore, model).value;
         let addonAfter = metadataEvaluator.evaluate(metadata.addonAfter, model).value;
-
-
 
         // styles
         let validStyle = this._getValidStyle();

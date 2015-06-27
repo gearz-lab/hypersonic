@@ -11,45 +11,21 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'name',
-                    type: 'string',
-                    displayName: 'Password',
-                    placeholder: 'You should put something funny here',
-                    help: 'Here you should put the name',
-                    invalid: [{
-                        expression: 'name.length > 5',
-                        value: true,
-                        message: 'The name should not have more than 3 characters'
-                    }]
-                },
-                {
-                    name: 'description',
-                    type: 'string',
-                    displayName: 'Confirm password',
-                    placeholder: 'Description',
-                    help: 'Put anything you want here',
-                    readOnly: [{
-                        expression: 'name == "Andre2"',
-                        value: true
-                    }],
-                    addonBefore: [{
-                        expression: 'name == "Andre"',
-                        value: 'something weird'
-                    }]
+                    name: 'number',
+                    type: 'int',
+                    displayName: 'Number of something'
                 }
             ]
         };
 
         let layout = {
             fields: [
-                { name: 'name' },
-                { name: 'description' }
+                { name: 'number' }
             ]
         };
 
         let model = {
-            name: 'Andre 2',
-            description: 'The best'
+            number: null
         };
 
         return (

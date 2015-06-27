@@ -29,6 +29,8 @@ class ComponentFactory {
             throw "Metadata should not be null or undefined";
         if(!metadata.type)
             throw "Metadata should have a type";
+        if(!metadata.name)
+            throw "Metadata should have a name";
     }
 
     /**
@@ -43,9 +45,9 @@ class ComponentFactory {
         for(var i = 0; i < types.length; i++)
         {
             const type = types[i];
-            if(!this.componentsByType[type])
+            if(!(type in this.componentsByType))
                 this.componentsByType[type] = [];
-            this.componentsByType[type].push({ id: id, component: component} );
+            this.componentsByType[type].push(component);
         }
         // registers the component definition
         this.componentsById[id] = component;
@@ -83,7 +85,7 @@ class ComponentFactory {
         const componentsForType = this.getComponents(type);
         const component = _.first(componentsForType);
         if(!component)
-            throw `Coundn\'t find any component for the given type. Type: ${type}`;
+            throw new Error(`Couldn't find any component for the given type. Type: ${type}. Make sure the proper component was registered in the ComponentFactory.`);
         return component;
     }
 
@@ -126,7 +128,7 @@ class ComponentFactory {
             componentType = this.getDefaultComponent(metadata.type);
         }
         if(!componentType)
-            throw new Error('somerthing weird happened');
+            throw new Error(`Could not resolve the component for type type. Type: ${metadata.type}`);
 
         return React.createElement(componentType,
             {
@@ -141,7 +143,7 @@ class ComponentFactory {
 var componentFactory = new ComponentFactory();
 
 // Registers all component definitions
-componentFactory.registerComponent('textbox', ['string'], TextBox);
+componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
 
 // Registers the component defaults
 componentFactory.setDefaultComponents({
