@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import webpack from 'webpack';
 import yargs from 'yargs';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
     entry: [
@@ -25,8 +24,8 @@ export default {
     module: {
         loaders: [
             {test: /\.js/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
-            {test: /\.css/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-            {test: /\.less$/, loader:  ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
+            {test: /\.css/, loader: 'style-loader!css-loader'},
+            {test: /\.less$/, loader:  'style!css!less'},
             {test: /\.json$/, loader: 'json'},
             {test: /\.jpe?g$|\.gif$|\.png$/, loader: 'file?name=[name].[ext]'},
             {test: /\.eot$|\.ttf$|\.svg$|\.woff2?$/, loader: 'file?name=[name].[ext]'}
@@ -36,7 +35,6 @@ export default {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new ExtractTextPlugin('[name].css'),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': "'development'"
