@@ -31,7 +31,13 @@ describe('FloatTypeProcessor', function() {
 
         it('Invalid float - float US', function() {
             var result = FloatTypeProcessor.process('2.3');
-            assert.equal(result.convertedValue, 2.3);
+            assert.strictEqual(result.convertedValue, 2.3);
+            assert.equal('success', result.validationResult);
+        });
+
+        it('Invalid float - float US multiple decimal places', function() {
+            var result = FloatTypeProcessor.process('2.334');
+            assert.strictEqual(result.convertedValue, 2.334);
             assert.equal('success', result.validationResult);
         });
 
@@ -43,55 +49,55 @@ describe('FloatTypeProcessor', function() {
 
         it('Valid float', function() {
             var result = FloatTypeProcessor.process('2837');
-            assert.equal(2837, result.convertedValue);
+            assert.strictEqual(2837, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float zero', function() {
             var result = FloatTypeProcessor.process('0');
-            assert.equal(0, result.convertedValue);
+            assert.strictEqual(0, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float padded zero', function() {
             var result = FloatTypeProcessor.process('0000');
-            assert.equal(0, result.convertedValue);
+            assert.strictEqual(0, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float positive zero', function() {
             var result = FloatTypeProcessor.process('+0000');
-            assert.equal(0, result.convertedValue);
+            assert.strictEqual(0, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float negative zero', function() {
             var result = FloatTypeProcessor.process('-0000');
-            assert.equal(0, result.convertedValue);
+            assert.strictEqual(0, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float integer', function() {
             var result = FloatTypeProcessor.process('+2837');
-            assert.equal(2837, result.convertedValue);
+            assert.strictEqual(2837, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float padded integer', function() {
             var result = FloatTypeProcessor.process('+0002837');
-            assert.equal(2837, result.convertedValue);
+            assert.strictEqual(2837, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float integer', function() {
             var result = FloatTypeProcessor.process('-2837');
-            assert.equal(-2837, result.convertedValue);
+            assert.strictEqual(-2837, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
 
         it('Valid float padded integer', function() {
             var result = FloatTypeProcessor.process('-0002837');
-            assert.equal(-2837, result.convertedValue);
+            assert.strictEqual(-2837, result.convertedValue);
             assert.equal('success', result.validationResult);
         });
     });
