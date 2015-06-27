@@ -69,8 +69,9 @@ const TextBox = React.createClass({
         let model = this.props.model;
 
         let value = DataEvaluator.evaluate(metadata, model);
-        if(value === undefined) {
-            // the value never can be undefined, because the Input will act as 'uncontrolled' if so, meaning that
+
+        if(value === undefined || value === null) {
+            // the value never can be null or undefined, because the Input will act as 'uncontrolled' if so, meaning that
             // it will allow whatever the user inputs
             value = '';
         }
