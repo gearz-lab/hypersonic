@@ -11,7 +11,9 @@ const TextBox = React.createClass({
     propTypes: {
         metadata: React.PropTypes.object.isRequired,
         model: React.PropTypes.node.isRequired,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        // custom type processor. If not specified, will fall back to the default one for the type
+        typeProcessor: React.PropTypes.object
     },
 
     /**
@@ -60,7 +62,9 @@ const TextBox = React.createClass({
 
     componentWillMount() {
         let metadata = this.props.metadata;
-        this.typeProcessor = TypeProcessor.getProcessor(metadata.type);
+
+        // if a custom typeprocessor has been passed as prop, uses it, otherwise, uses the default one for the type
+        this.typeProcessor = this.props.typeProcessor ? this.props.typeProcessor : TypeProcessor.getProcessor(metadata.type);
     },
 
     render() {
