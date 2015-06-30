@@ -1,7 +1,6 @@
 {
-  "name": "gearz-node",
-  "version": "0.0.0",
-  "private": true,
+  "name": "gearz",
+  "version": "0.0.1",
   "scripts": {
     "start": "node run-babel index.js",
     "start-watch": "SET NODE_ENV=development && nodemon run-babel index.js",
@@ -9,6 +8,7 @@
     "test": "karma start"
   },
   "dependencies": {
+    "accounting": "^0.4.1",
     "body-parser": "~1.12.0",
     "cookie-parser": "~1.3.4",
     "debug": "~2.1.1",
