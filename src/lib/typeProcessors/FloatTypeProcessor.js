@@ -3,23 +3,24 @@ import TypeProcessor from './TypeProcessor.js';
 
 class FloatTypeProcessor extends TypeProcessor {
 
+    constructor(config) {
+        this.config = config ? config : Config.numberFormat;
+        if(!this.config || !this.config.decimalMark) {
+            throw new Error(`Could not get the number configuration. Make sure you have a file called gearz.config.js and that it exports an object like this: { numberFormat: { decimalMark:\'.\' } }`);
+        }
+    }
+
     /**
      * Processes a string as an integer
      * @param value
      */
-    process(value, config) {
+    process(value) {
 
-        if(!config) {
-            config = Config.numberFormat
-        }
-        if(!config || !config.decimalMark) {
-            throw new Error(`Could not get the number configuration. Make sure you have a file called gearz.config.js and that it exports an object like this: { numberFormat: { decimalMark:\'.\' } }`);
-        }
-
-        let floatValidationRegex = `^(\\-|\\+)?([0-9]+(\\${config.decimalMark}[0-9]+)?)$`;
+        let decimalMark = this.config.decimalMark;
+        let floatValidationRegex = `^(\\-|\\+)?([0-9]+(\\${decimalMark}[0-9]+)?)$`;
 
         // if the value is null or undefined
-        if(value === undefined || value === null) {
+        if(value === undefined || value === null || value === '') {
             return {
                 validationResult: 'sucess',
                 convertedValue: null
@@ -28,7 +29,7 @@ class FloatTypeProcessor extends TypeProcessor {
         // if the value is a valid integer
         if(value.match(new RegExp(floatValidationRegex, 'gi'))) {
             return {
-                convertedValue: Number(value),
+                convertedValue: Number(value.replace(',','.')),
                 validationResult: 'success'
             };
         }
@@ -42,4 +43,4 @@ class FloatTypeProcessor extends TypeProcessor {
     }
 }
 
-export default new FloatTypeProcessor();
+export default FloatTypeProcessor;

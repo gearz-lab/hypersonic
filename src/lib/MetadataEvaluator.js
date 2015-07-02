@@ -1,16 +1,7 @@
-import ExpressionEvaluator from './ExpressionEvaluator.js';
+import ExpressionEvaluator from './expressionEvaluator.js';
+import _ from 'underscore';
 
 class MetadataEvaluator {
-
-    _validate(metadata) {
-        if(!metadata) {
-            return true;
-        }
-        if(metadata instanceof Array) {
-
-        }
-        throw new Error('metadata should either be a boolean or an array');
-    }
 
     /**
      * Evaluates the given expression agains the model
@@ -28,25 +19,35 @@ class MetadataEvaluator {
      * @param model
      */
     evaluate(metadata, model) {
-        if(metadata instanceof Array) {
-            let resultingValue = { value: undefined, messages: [] };
-            let defaultMetadata;
-            metadata.forEach(item => {
-                if(item.expression == 'default'){
-                    // this is the default expression. Let's store it
-                    defaultMetadata = item;
-                }
-                else if(this.evaluateExpression(item.expression, model)){
-                    resultingValue.value = item.value;
-                }
-            });
-            if(resultingValue.value === undefined && defaultMetadata != undefined){
-                resultingValue.value = defaultMetadata.value;
+
+        let evaluateMetadataObject = (metadata, model) => {
+            if (metadata.expression && metadata.expressionText) {
+                throw new Error('Metadata cannot define both expression and expressionText')
             }
-            return resultingValue;
+            let expression = metadata.expression ? metadata.expression : metadata.expressionText;
+            let evaluation = {value: this.evaluateExpression(expression, model)};
+            _.extend(evaluation, metadata);
+
+            delete evaluation.expression;
+            delete evaluation.expressionText;
+
+            return evaluation;
+        };
+
+        if(metadata instanceof Array) {
+            let result = [];
+            metadata.forEach(item => {
+                result.push(evaluateMetadataObject(item, model));
+            });
+            return result;
+        }
+        else if(metadata instanceof Object) {
+            let result = [];
+            result.push(evaluateMetadataObject(metadata, model));
+            return result;
         }
         else {
-            return { value: metadata };
+            return [{ value: metadata }];
         }
     }
 }

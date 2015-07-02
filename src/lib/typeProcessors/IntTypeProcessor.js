@@ -31,4 +31,4 @@ class IntTypeProcessor extends TypeProcessor {
     }
 }
 
-export default new IntTypeProcessor();
+export default IntTypeProcessor;

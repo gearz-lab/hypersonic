@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 import TextBox from '../src/components/editors/TextBox';
+import FloatTypeProcessor from '../src/lib/typeProcessors/FloatTypeProcessor';
 import chai from 'Chai';
 import _ from 'underscore';
+
 const assert = chai.assert;
 
 describe('TextBox', function () {
@@ -27,13 +29,12 @@ describe('TextBox', function () {
         assert.equal('John', changedValue);
     });
 
-    describe('Working with integers', function() {
+    describe('Working with ints', function() {
         it('Basic usage', function () {
             var metadata =
             {
                 name: 'number',
-                type: 'int',
-                displayName: 'Name'
+                type: 'int'
             };
 
             var model = {
@@ -53,8 +54,7 @@ describe('TextBox', function () {
             var metadata =
             {
                 name: 'number',
-                type: 'int',
-                displayName: 'Name'
+                type: 'int'
             };
 
             var model = {
@@ -82,8 +82,7 @@ describe('TextBox', function () {
             var metadata =
             {
                 name: 'number',
-                type: 'int',
-                displayName: 'Name'
+                type: 'int'
             };
 
             var model = {
@@ -102,8 +101,7 @@ describe('TextBox', function () {
             var metadata =
             {
                 name: 'number',
-                type: 'int',
-                displayName: 'Name'
+                type: 'int'
             };
 
             var model = {
@@ -119,5 +117,27 @@ describe('TextBox', function () {
             assert.notEqual('a', changedValue);
         });
     });
+
+    describe('Working with floats', function() {
+        it('Basic usage', function () {
+            var metadata =
+            {
+                name: 'number',
+                type: 'float'
+            };
+
+            var model = {
+                number: 0
+            };
+
+            var changedValue = undefined;
+            var component = ReactTestUtils.renderIntoDocument(<TextBox metadata={metadata} onChange={e => changedValue = e.value} model={model}/>);
+            var componentNode = React.findDOMNode(component);
+            var elementsByTagName = componentNode.getElementsByTagName('input');
+
+            ReactTestUtils.Simulate.change(elementsByTagName[0], {target: {value: '56'}} );
+            assert.strictEqual(56, changedValue);
+        });
+    })
 
 });

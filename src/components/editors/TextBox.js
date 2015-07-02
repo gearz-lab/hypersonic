@@ -1,9 +1,9 @@
 import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input';
-import DataEvaluator from '../../lib/DataEvaluator.js';
+import DataEvaluator from '../../lib/dataEvaluator.js';
 import MetadataEvaluator from '../../lib/MetadataEvaluator.js';
-import TypeProcessor from '../../lib/TypeProcessor.js';
+import typeProcessorFactory from '../../lib/typeProcessorFactory.js';
 const metadataEvaluator = new MetadataEvaluator();
 
 const TextBox = React.createClass({
@@ -62,9 +62,16 @@ const TextBox = React.createClass({
 
     componentWillMount() {
         let metadata = this.props.metadata;
-
         // if a custom typeprocessor has been passed as prop, uses it, otherwise, uses the default one for the type
-        this.typeProcessor = this.props.typeProcessor ? this.props.typeProcessor : TypeProcessor.getProcessor(metadata.type);
+        if(this.props.typeProcessor) {
+            this.typeProcessor = this.props.typeProcessor;
+        }
+        else {
+            let ProcessorType = typeProcessorFactory.getProcessorType(metadata.type);
+            if(ProcessorType) {
+                this.typeProcessor = new ProcessorType();
+            }
+        }
     },
 
     render() {

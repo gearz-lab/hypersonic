@@ -1,6 +1,4 @@
-import _ from 'lodash';
 import webpack from 'webpack';
-import yargs from 'yargs';
 
 export default {
     entry: [

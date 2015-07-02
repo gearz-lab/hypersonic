@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'react-router';
-import componentFactory from '../lib/ComponentFactory';
-import DataEvaluator from '../lib/DataEvaluator.js';
+import componentFactory from '../lib/componentFactory';
+import DataEvaluator from '../lib/dataEvaluator.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({

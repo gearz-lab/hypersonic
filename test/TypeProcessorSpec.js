@@ -1,21 +1,23 @@
-import TypeProcessor from '../src/lib/TypeProcessor.js';
+import typeProcessorFactory from '../src/lib/typeProcessorFactory.js';
 import chai from 'Chai';
 const assert = chai.assert;
 
-describe('TypeProcessor', function() {
+describe('TypeProcessorFactory', function() {
     it('Should work for a valid type', function() {
-        var processor = TypeProcessor.getProcessor('int');
-        var processingResult = processor.process('2');
+        let ProcessorType = typeProcessorFactory.getProcessorType('int');
+        assert.ok(ProcessorType);
+        let processor = new ProcessorType();
+        let processingResult = processor.process('2');
         assert.equal(2, processingResult.convertedValue);
     });
     it('Should return undefined for an unknown type', function() {
-        var processor = TypeProcessor.getProcessor('int2');
-        assert.isUndefined(processor);
+        let ProcessorType = typeProcessorFactory.getProcessorType('int2');
+        assert.isUndefined(ProcessorType);
     });
     if('Should throw for falsy values', function() {
-        assert.throws(() => TypeProcessor.getProcessor(''), /Could not get processor for type/);
-        assert.throws(() => TypeProcessor.getProcessor(undefined), /Could not get processor for type/);
-        assert.throws(() => TypeProcessor.getProcessor(null), /Could not get processor for type/);
-        assert.throws(() => TypeProcessor.getProcessor(0), /Could not get processor for type/);
+        assert.throws(() => typeProcessorFactory.getProcessorType(''), /Could not get processor for type/);
+        assert.throws(() => typeProcessorFactory.getProcessorType(undefined), /Could not get processor for type/);
+        assert.throws(() => typeProcessorFactory.getProcessorType(null), /Could not get processor for type/);
+        assert.throws(() => typeProcessorFactory.getProcessorType(0), /Could not get processor for type/);
     });
 });

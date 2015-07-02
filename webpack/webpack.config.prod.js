@@ -1,6 +1,4 @@
-import _ from 'lodash';
 import webpack from 'webpack';
-import yargs from 'yargs';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
