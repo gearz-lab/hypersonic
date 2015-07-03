@@ -4,7 +4,7 @@ import _ from 'underscore';
 class MetadataEvaluator {
 
     /**
-     * Evaluates the given expression agains the model
+     * Evaluates the given expression against the model
      * @param expression
      * @param model
      * @private
@@ -14,16 +14,30 @@ class MetadataEvaluator {
     }
 
     /**
-     * Evaluates the fieldMetadata against the model
+     * Evaluates the field metadata against the model
      * @param metadata
      * @param model
      */
     evaluate(metadata, model) {
 
         let evaluateMetadataObject = (metadata, model) => {
+
             if (metadata.expression && metadata.expressionText) {
                 throw new Error('Metadata cannot define both expression and expressionText')
             }
+
+            if (metadata.expression) {
+                if(!(typeof(metadata.expression) === 'function')) {
+                    throw new Error(`Error evaluating expression. Expression should be a function. Expression is of type: ${typeof metadata.expression}`);
+                }
+            }
+
+            if (metadata.expressionText) {
+                if(!(typeof(metadata.expressionText) === 'string')) {
+                    throw new Error(`Error evaluating ExpressionText. ExpressionText should be a string representing a function. ExpressionText is of type: ${typeof metadata.expressionText}`);
+                }
+            }
+
             let expression = metadata.expression ? metadata.expression : metadata.expressionText;
             let evaluation = {value: this.evaluateExpression(expression, model)};
             _.extend(evaluation, metadata);
@@ -49,6 +63,21 @@ class MetadataEvaluator {
         else {
             return [{ value: metadata }];
         }
+    }
+
+    /**
+     * Tries to find a metadata definition that equals the value that equals value
+     * @param metadata
+     * @param value
+     * @param model
+     */
+    evaluateFirst(metadata, value, model) {
+        let evaluation = this.evaluate(metadata, model);
+        let foundElement = _.find(evaluation, m => m.value == value);
+        if(foundElement) {
+            return foundElement;
+        }
+        return { value: undefined };
     }
 }
 
