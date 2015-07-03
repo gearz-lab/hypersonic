@@ -22,7 +22,7 @@ export default {
                 case 'string':
                     return textExpressionEvaluator.evaluate(expression, data);
                 default:
-                    throw new Error('Expression should be either a function or a string');
+                    throw new Error(`Expression should be either a function or a string. Expression is ${typeof expression}.`);
             }
         }
     };

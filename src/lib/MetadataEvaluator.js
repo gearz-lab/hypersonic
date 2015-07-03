@@ -71,7 +71,7 @@ class MetadataEvaluator {
      * @param value
      * @param model
      */
-    evaluateFirst(metadata, value, model) {
+    evaluateFirst(metadata, model, value) {
         let evaluation = this.evaluate(metadata, model);
         let foundElement = _.find(evaluation, m => m.value == value);
         if(foundElement) {

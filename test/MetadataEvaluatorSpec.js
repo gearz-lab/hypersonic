@@ -12,7 +12,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: true
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+            let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
             assert.isTrue(evaluation[0].value);
         });
 
@@ -20,7 +20,7 @@ describe('MetadataEvaluator', function() {
             let metadata = {
                 name: 'name'
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+            let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
             assert.isUndefined(evaluation.value);
         });
 
@@ -29,7 +29,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: true
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.name, {name: 'André'});
+            let evaluation = metadataEvaluator.evaluate(metadata.name, {name: 'Andre'});
             assert.equal('name' ,evaluation[0].value);
         });
 
@@ -37,7 +37,7 @@ describe('MetadataEvaluator', function() {
             let metadata = {
                 required: { expression: () => true }
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.required, {name: 'André'});
+            let evaluation = metadataEvaluator.evaluate(metadata.required, {name: 'Andre'});
             assert.isTrue(evaluation[0].value);
         });
 
@@ -53,8 +53,8 @@ describe('MetadataEvaluator', function() {
 
             it('False', function() {
                 let metadata = {
-                    name: 'name',
-                    required: [{ expression: m => m.name == 'André' }]
+                    name: 'name'Andre
+                    required: [{ expression: m => m.name == 'Andre' }]
                 };
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
                 assert.isUndefined(evaluation.value);
@@ -63,9 +63,9 @@ describe('MetadataEvaluator', function() {
             it('Multiple expressions', function() {
                 let metadata = {
                     name: 'value',
-                    required: [{ expression: m => m.name.length > 2 }, { expression: m => m.name == 'André' }]
+                    required: [{ expression: m => m.name.length > 2 }, { expression: m => m.name == 'Andre' }]
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'André' });
+                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
                 assert.isTrue(evaluation[0].value);
                 assert.isTrue(evaluation[1].value);
             });
@@ -99,7 +99,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: false
             };
-            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, true, { name: 'André' });
+            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, { name: 'Andre' }, true);
             assert.isUndefined(evaluation.value);
         });
         it('Literal, existing', function() {
@@ -107,7 +107,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: true
             };
-            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, true, { name: 'André' });
+            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, { name: 'Andre' }, true);
             assert.isTrue(evaluation.value);
         });
         it('Object, non-existing', function() {
@@ -115,7 +115,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: {expression: m => m.name == 'John'}
             };
-            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, true, { name: 'André' });
+            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, { name: 'Andre' }, true);
             assert.isUndefined(evaluation.value);
         });
         it('Object, existing', function() {
@@ -123,7 +123,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: {expression: m => m.name == 'John'}
             };
-            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, true, { name: 'John' });
+            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, { name: 'John' }, true);
             assert.isTrue(evaluation.value);
         });
         it('Object list, non-existing', function() {
@@ -131,7 +131,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: [{expression: m => m.name == 'John'}, {expression: m => m.name == 'Josepth'}]
             };
-            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, true, { name: 'André' });
+            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, { name: 'Andre' }, true);
             assert.isUndefined(evaluation.value);
         });
         it('Object list, existing', function() {
@@ -139,7 +139,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: [{expression: m => m.name == 'John'}, {expression: m => m.name == 'Josepth'}]
             };
-            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, true, { name: 'John' });
+            let evaluation = metadataEvaluator.evaluateFirst(metadata.required, { name: 'John' }, true);
             assert.isTrue(evaluation.value);
         });
     });
