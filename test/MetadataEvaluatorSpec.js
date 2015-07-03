@@ -53,7 +53,7 @@ describe('MetadataEvaluator', function() {
 
             it('False', function() {
                 let metadata = {
-                    name: 'name'Andre
+                    name: 'Andre',
                     required: [{ expression: m => m.name == 'Andre' }]
                 };
                 let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
