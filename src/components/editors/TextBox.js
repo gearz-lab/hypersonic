@@ -22,7 +22,7 @@ const TextBox = React.createClass({
     _getValidStyle() {
         let metadata = this.props.metadata;
         let model = this.props.model;
-        var invalid = metadataEvaluator.evaluate(metadata.invalid, model);
+        var invalid = metadataEvaluator.evaluateFirst(metadata.invalid, model, true);
         if(invalid.value) {
             return 'error';
         }
@@ -35,7 +35,7 @@ const TextBox = React.createClass({
     _getVisibleStyle() {
         let metadata = this.props.metadata;
         let model = this.props.model;
-        var invisible = metadataEvaluator.evaluate(metadata.invisible, model);
+        var invisible = metadataEvaluator.evaluateFirst(metadata.invisible, model, true);
         if(invisible.value) {
             return 'hide';
         }
@@ -80,7 +80,6 @@ const TextBox = React.createClass({
         let model = this.props.model;
 
         let value = DataEvaluator.evaluate(metadata, model);
-
         if(value === undefined || value === null) {
             // the value can never be null or undefined, because the Input will act as 'uncontrolled' if so, meaning that
             // it will allow whatever the user inputs
@@ -88,12 +87,12 @@ const TextBox = React.createClass({
         }
 
         // metadata
-        let placeholder = metadataEvaluator.evaluate(metadata.placeholder, model).value;
-        let displayName = metadataEvaluator.evaluate(metadata.displayName, model).value;
-        let help = metadataEvaluator.evaluate(metadata.help, model).value;
-        let readOnly = metadataEvaluator.evaluate(metadata.readOnly, model).value;
-        let addonBefore = metadataEvaluator.evaluate(metadata.addonBefore, model).value;
-        let addonAfter = metadataEvaluator.evaluate(metadata.addonAfter, model).value;
+        let placeholder = metadataEvaluator.evaluateSingle(metadata.placeholder, model).value;
+        let displayName = metadataEvaluator.evaluateSingle(metadata.displayName, model).value;
+        let help = metadataEvaluator.evaluateSingle(metadata.help, model).value;
+        let readOnly = metadataEvaluator.evaluateFirst(metadata.readOnly, model, true).value;
+        let addonBefore = metadataEvaluator.evaluateSingle(metadata.addonBefore, model).value;
+        let addonAfter = metadataEvaluator.evaluateSingle(metadata.addonAfter, model).value;
 
         // styles
         let validStyle = this._getValidStyle();

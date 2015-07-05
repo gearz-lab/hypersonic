@@ -93,7 +93,7 @@ describe('MetadataEvaluator', function() {
 
     });
 
-    describe('evaluateAny', function() {
+    describe('evaluateFirst', function() {
         it('Literal, non-existing', function() {
             let metadata = {
                 name: 'name',

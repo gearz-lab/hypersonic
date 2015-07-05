@@ -9,8 +9,18 @@ class MetadataEvaluator {
      * @param model
      * @private
      */
-    evaluateExpression(expression, model){
+    _evaluateExpression(expression, model){
         return ExpressionEvaluator.evaluate(expression, model);
+    }
+
+    /**
+     * Returns whether or not the given property exists in the given metadata
+     * @param metadata
+     * @param property
+     * @returns {*|boolean}
+     */
+    exists(metadata, property) {
+        return metadata && metadata.hasOwnProperty(property);
     }
 
     /**
@@ -39,7 +49,7 @@ class MetadataEvaluator {
             }
 
             let expression = metadata.expression ? metadata.expression : metadata.expressionText;
-            let evaluation = {value: this.evaluateExpression(expression, model)};
+            let evaluation = {value: this._evaluateExpression(expression, model)};
             _.extend(evaluation, metadata);
 
             delete evaluation.expression;
@@ -78,6 +88,22 @@ class MetadataEvaluator {
             return foundElement;
         }
         return { value: undefined };
+    }
+
+    /**
+     * Evaluates metadata when metadata cannot contain more than one element
+     * @param metadata
+     * @param model
+     * @returns {*}
+     */
+    evaluateSingle(metadata, model) {
+        if (metadata instanceof Array) {
+            if(metadata.lenth > 1) {
+                throw new Error('Metadata should not contain more than one element');
+            }
+        }
+        let evaluation = this.evaluate(metadata, model);
+        return evaluation[0];
     }
 }
 

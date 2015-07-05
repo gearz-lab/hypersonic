@@ -11,21 +11,43 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'number',
-                    type: 'int',
-                    displayName: 'Number of something'
+                    name: 'password',
+                    type: 'string',
+                    displayName: 'Password',
+                    placeholder: 'Type in a secure password'
+                }, {
+                    name: 'confirmPassword',
+                    type: 'string',
+                    displayName: 'Confirm password',
+                    placeholder: 'Confirm password',
+                    readOnly: [
+                        { expressionText: 'password.length > 3' }
+                    ],
+                    help: [
+                        {
+                            expression: m => 'this value must be equal to ' + m.password
+                        }
+                    ],
+                    addonBefore: [
+                        {
+                            expression: m => 'this value must be equal to ' + m.password
+                        }
+                    ],
+                    value: 'fuccccck',
+                    addonAfter: 'something not that cool'
                 }
             ]
         };
 
         let layout = {
             fields: [
-                { name: 'number' }
+                { name: 'password' },
+                { name: 'confirmPassword'}
             ]
         };
 
         let model = {
-            number: null
+            password: ''
         };
 
         return (
