@@ -48,7 +48,7 @@ const TextBox = React.createClass({
             // if there's a type processor, we need to validate the processing
             // if the value is valid, we trigger the onChange considering the converted value
             let processingResult = this.typeProcessor.process(newValue);
-            if(processingResult.validationResult == 'success') {
+            if(processingResult.valid) {
                 this.props.onChange({name: this.props.metadata.name, value: processingResult.convertedValue});
             } else {
                 // the provided value was not accepted by the processor

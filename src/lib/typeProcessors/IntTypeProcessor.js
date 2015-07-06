@@ -10,21 +10,21 @@ class IntTypeProcessor extends TypeProcessor {
         // if the value is null or undefined
         if(value === undefined || value === null || value === '') {
             return {
-                validationResult: 'success',
+                valid: true,
                 convertedValue: undefined
             };
         }
         // if the value is a valid integer
         else if(value.match(/^(\-|\+)?([0-9]+)$/)) {
             return {
-                convertedValue: Number(value),
-                validationResult: 'success'
+                valid: true,
+                convertedValue: Number(value)
             };
         }
         // if the value is not a valid integer
         else {
             return {
-                validationResult: 'error',
+                valid: false,
                 convertedValue: undefined
             };
         }

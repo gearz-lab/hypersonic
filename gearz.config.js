@@ -1,6 +1,6 @@
 let config = {
     numberFormat: {
-        decimalMark: '.'
+        decimal: '.'
     }
 };
 
