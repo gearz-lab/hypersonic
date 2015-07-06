@@ -14,34 +14,47 @@ var Home = React.createClass({
                     name: 'password',
                     type: 'string',
                     displayName: 'Password',
+                    addonBefore:  [
+                        {
+                            expression: m => {
+                                if(m.password.length > 5)
+
+                                    return 'strong';
+                                return 'weak';
+                            }
+                        }
+                    ],
                     placeholder: 'Type in a secure password'
-                }, {
+                },
+                {
                     name: 'confirmPassword',
                     type: 'string',
                     displayName: 'Confirm password',
-                    placeholder: 'Confirm password',
+                    placeholder: 'This must be equal to the password',
+                    invalid: [
+                        {
+                            expression: m => m.password != m.confirmPassword
+                        }
+                    ],
                     readOnly: [
-                        { expressionText: 'password.length > 3' }
+                        {
+                            expressionText: 'password == "bolinha2"'
+                        }
                     ],
                     help: [
                         {
-                            expression: m => 'this value must be equal to ' + m.password
+                            expressionText: '"voce digitou " + password'
                         }
-                    ],
-                    addonBefore: [
-                        {
-                            expression: m => 'this value must be equal to ' + m.password
-                        }
-                    ],
-                    value: 'fuccccck',
-                    addonAfter: 'something not that cool'
+                    ]
                 }
             ]
         };
 
         let layout = {
             fields: [
-                { name: 'password' },
+                {
+                    name: 'password'
+                },
                 { name: 'confirmPassword'}
             ]
         };
