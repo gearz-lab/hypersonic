@@ -1,6 +1,19 @@
 import TypeProcessor from './TypeProcessor.js';
+import config from '../../../gearz.config.js';
+import formato from 'formato';
 
 class IntTypeProcessor extends TypeProcessor {
+
+    /**
+     * Verifies whether a number is an integer
+     * @param value
+     * @returns {boolean}
+     */
+    isInt(value) {
+        return !isNaN(value) &&
+            parseInt(Number(value)) == value &&
+            !isNaN(parseInt(value, 10));
+    }
 
     /**
      * Processes a string as an integer
@@ -14,11 +27,14 @@ class IntTypeProcessor extends TypeProcessor {
                 convertedValue: undefined
             };
         }
+
+        let convertedValue = formato.unformat(value);
+
         // if the value is a valid integer
-        else if(value.match(/^(\-|\+)?([0-9]+)$/)) {
+        if(this.isInt(convertedValue)) {
             return {
                 valid: true,
-                convertedValue: Number(value)
+                convertedValue: convertedValue
             };
         }
         // if the value is not a valid integer

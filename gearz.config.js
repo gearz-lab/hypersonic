@@ -1,6 +1,7 @@
 let config = {
     numberFormat: {
-        decimal: '.'
+        decimal: '.',
+        thousand: ','
     }
 };
 

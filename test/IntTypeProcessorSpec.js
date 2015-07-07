@@ -42,52 +42,52 @@ describe('IntTypeProcessor', function() {
             assert.equal(false, result.valid);
         });
 
-        it('Invalid integer - float BR', function() {
-            var result = intTypeProcessor.process('2,3');
-            assert.isUndefined(result.convertedValue);
-            assert.equal(false, result.valid);
-        });
-
         it('Valid integer', function() {
             var result = intTypeProcessor.process('2837');
             assert.strictEqual(2837, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.isTrue(result.valid);
         });
 
         it('Valid integer zero', function() {
             var result = intTypeProcessor.process('0');
-            assert.strictEqual(0, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.strictEqual(result.convertedValue, 0);
+            assert.isTrue(result.valid);
+        });
+
+        it('Valid integer - using thousand in the middle', function() {
+            var result = intTypeProcessor.process('2,3');
+            assert.strictEqual(result.convertedValue, 23);
+            assert.isTrue(result.valid);
         });
 
         it('Valid integer padded zero', function() {
             var result = intTypeProcessor.process('0000');
-            assert.strictEqual(0, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.strictEqual(result.convertedValue, 0);
+            assert.isTrue(result.valid);
         });
 
         it('Valid integer positive zero', function() {
             var result = intTypeProcessor.process('+0000');
-            assert.strictEqual(0, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.strictEqual(result.convertedValue, 0);
+            assert.isTrue(result.valid);
         });
 
         it('Valid integer negative zero', function() {
             var result = intTypeProcessor.process('-0000');
-            assert.strictEqual(0, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.strictEqual(result.convertedValue, 0);
+            assert.isTrue(result.valid);
         });
 
         it('Valid positive integer', function() {
             var result = intTypeProcessor.process('+2837');
-            assert.strictEqual(2837, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.strictEqual(result.convertedValue, 2837);
+            assert.isTrue(result.valid);
         });
 
         it('Valid positive padded integer', function() {
             var result = intTypeProcessor.process('+0002837');
             assert.strictEqual(2837, result.convertedValue);
-            assert.equal(true, result.valid);
+            assert.isTrue(result.valid);
         });
 
         it('Valid negative integer', function() {
