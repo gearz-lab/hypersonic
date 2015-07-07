@@ -81,7 +81,7 @@ class MetadataEvaluator {
      * @param value
      * @param model
      */
-    evaluateFirst(metadata, model, value) {
+    evaluatePropertyFirst(metadata, model, value) {
         let evaluation = this.evaluateProperty(metadata, model);
         let foundElement = _.find(evaluation, m => m.value == value);
         if(foundElement) {
@@ -96,7 +96,7 @@ class MetadataEvaluator {
      * @param model
      * @returns {*}
      */
-    evaluateSingle(metadata, model) {
+    evaluatePropertySingle(metadata, model) {
         if (metadata instanceof Array) {
             if(metadata.lenth > 1) {
                 throw new Error('Metadata should not contain more than one element');
