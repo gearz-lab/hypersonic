@@ -1,8 +1,15 @@
 import TypeProcessor from './TypeProcessor.js';
-import config from '../../../gearz.config.js';
+import Config from '../../../gearz.config.js';
 import formato from 'formato';
 
 class IntTypeProcessor extends TypeProcessor {
+
+    constructor(config) {
+        this.config = config ? config : Config.numberFormat;
+        if(!this.config || !this.config.decimal) {
+            throw new Error(`Could not get the number configuration. Make sure you have a file called gearz.config.js and that it exports an object like this: { numberFormat: { decimalMark:\'.\' } }`);
+        }
+    }
 
     /**
      * Verifies whether a number is an integer
@@ -28,7 +35,7 @@ class IntTypeProcessor extends TypeProcessor {
             };
         }
 
-        let convertedValue = formato.unformat(value);
+        let convertedValue = formato.unformat(value, this.config);
 
         // if the value is a valid integer
         if(this.isInt(convertedValue)) {

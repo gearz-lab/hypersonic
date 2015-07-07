@@ -1,5 +1,6 @@
 import Config from '../../../gearz.config.js';
 import TypeProcessor from './TypeProcessor.js';
+import formato from 'formato';
 
 class FloatTypeProcessor extends TypeProcessor {
 
@@ -16,9 +17,6 @@ class FloatTypeProcessor extends TypeProcessor {
      */
     process(value) {
 
-        let decimal = this.config.decimal;
-        let floatValidationRegex = `^(\\-|\\+)?([0-9]+(\\${decimal}[0-9]+)?)$`;
-
         // if the value is null or undefined
         if(value === undefined || value === null || value === '') {
             return {
@@ -26,19 +24,19 @@ class FloatTypeProcessor extends TypeProcessor {
                 convertedValue: null
             };
         }
-        // if the value is a valid integer
-        if(value.match(new RegExp(floatValidationRegex, 'gi'))) {
+
+        let convertedValue = formato.unformat(value, this.config);
+        if(!isNaN(convertedValue)) {
             return {
                 valid: true,
-                convertedValue: Number(value.replace(',','.'))
+                convertedValue: convertedValue
             };
         }
-        // if the value is not a valid integer
         else {
             return {
                 valid: false,
                 convertedValue: undefined
-            };
+            }
         }
     }
 }

@@ -42,14 +42,8 @@ describe('FloatTypeProcessor', function() {
             assert.equal(true, result.valid);
         });
 
-        it('Invalid float - float BR - when not passing a config', function() {
-            var result = defaultFloatProcessor.process('2,3');
-            assert.isUndefined(result.convertedValue);
-            assert.equal(false, result.valid);
-        });
-
         it('Invalid float - float BR - when passing a config', function() {
-            let brProcessor = new FloatTypeProcessor({decimal: ','});
+            let brProcessor = new FloatTypeProcessor({decimal: ',', thousand: '.'});
             let result = brProcessor.process('2,3');
             assert.strictEqual(result.convertedValue, 2.3);
             assert.equal(true, result.valid);
@@ -65,6 +59,12 @@ describe('FloatTypeProcessor', function() {
             var result = defaultFloatProcessor.process('0');
             assert.strictEqual(0, result.convertedValue);
             assert.equal(true, result.valid);
+        });
+
+        it('Valid float - float BR - when not passing a config', function() {
+            var result = defaultFloatProcessor.process('2,3');
+            assert.strictEqual(result.convertedValue, 23);
+            assert.isTrue(result.valid);
         });
 
         it('Valid float padded zero', function() {
