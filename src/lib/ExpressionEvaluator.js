@@ -1,4 +1,5 @@
 import textExpressionEvaluator from './textExpressionEvaluator.js';
+import expressionHelper from './expressionHelper.js';
 
 /**
  * Evaluates expressions
@@ -14,13 +15,13 @@ export default {
             switch (typeof expression) {
                 case 'function':
                     try {
-                        return expression(data);
+                        return expression(data, expressionHelper);
                     }catch(ex) {
                         // expressions shouldn't trigger an error
                         return undefined;
                     }
                 case 'string':
-                    return textExpressionEvaluator.evaluate(expression, data);
+                    return textExpressionEvaluator.evaluate(expression, data, expressionHelper);
                 default:
                     throw new Error(`Expression should be either a function or a string. Expression is ${typeof expression}.`);
             }

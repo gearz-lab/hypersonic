@@ -28,7 +28,7 @@ class MetadataEvaluator {
      * @param metadata
      * @param model
      */
-    evaluate(metadata, model) {
+    evaluateProperty(metadata, model) {
 
         let evaluateMetadataObject = (metadata, model) => {
 
@@ -82,7 +82,7 @@ class MetadataEvaluator {
      * @param model
      */
     evaluateFirst(metadata, model, value) {
-        let evaluation = this.evaluate(metadata, model);
+        let evaluation = this.evaluateProperty(metadata, model);
         let foundElement = _.find(evaluation, m => m.value == value);
         if(foundElement) {
             return foundElement;
@@ -102,7 +102,7 @@ class MetadataEvaluator {
                 throw new Error('Metadata should not contain more than one element');
             }
         }
-        let evaluation = this.evaluate(metadata, model);
+        let evaluation = this.evaluateProperty(metadata, model);
         return evaluation[0];
     }
 }

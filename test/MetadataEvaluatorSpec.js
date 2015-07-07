@@ -5,14 +5,14 @@ const metadataEvaluator = new MetadataEvaluator();
 
 describe('MetadataEvaluator', function() {
 
-    describe('evaluate', function() {
+    describe('evaluateProperty', function() {
 
         it('Literal', function() {
             let metadata = {
                 name: 'name',
                 required: true
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
+            let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'Andre' });
             assert.isTrue(evaluation[0].value);
         });
 
@@ -20,7 +20,7 @@ describe('MetadataEvaluator', function() {
             let metadata = {
                 name: 'name'
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
+            let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'Andre' });
             assert.isUndefined(evaluation.value);
         });
 
@@ -29,7 +29,7 @@ describe('MetadataEvaluator', function() {
                 name: 'name',
                 required: true
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.name, {name: 'Andre'});
+            let evaluation = metadataEvaluator.evaluateProperty(metadata.name, {name: 'Andre'});
             assert.equal('name' ,evaluation[0].value);
         });
 
@@ -37,7 +37,7 @@ describe('MetadataEvaluator', function() {
             let metadata = {
                 required: { expression: () => true }
             };
-            let evaluation = metadataEvaluator.evaluate(metadata.required, {name: 'Andre'});
+            let evaluation = metadataEvaluator.evaluateProperty(metadata.required, {name: 'Andre'});
             assert.isTrue(evaluation[0].value);
         });
 
@@ -47,7 +47,7 @@ describe('MetadataEvaluator', function() {
                     name: 'name',
                     required: [{ expression: m => m.name.length > 2 }]
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
+                let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'John' });
                 assert.isTrue(evaluation[0].value);
             });
 
@@ -56,7 +56,7 @@ describe('MetadataEvaluator', function() {
                     name: 'Andre',
                     required: [{ expression: m => m.name == 'Andre' }]
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'John' });
+                let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'John' });
                 assert.isUndefined(evaluation.value);
             });
 
@@ -65,7 +65,7 @@ describe('MetadataEvaluator', function() {
                     name: 'value',
                     required: [{ expression: m => m.name.length > 2 }, { expression: m => m.name == 'Andre' }]
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
+                let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'Andre' });
                 assert.isTrue(evaluation[0].value);
                 assert.isTrue(evaluation[1].value);
             });
@@ -75,7 +75,7 @@ describe('MetadataEvaluator', function() {
                     name: 'value',
                     required: [{ expression: m => m.nonExistingProperty < 1000 }, { expression: m => m.name == 'Andre' }]
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
+                let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'Andre' });
                 assert.isFalse(evaluation[0].value); // this is not the desired behavior. undefined < 1000 returns false instead of triggering an exception
                 assert.isTrue(evaluation[1].value);
             });
@@ -85,7 +85,7 @@ describe('MetadataEvaluator', function() {
                     name: 'value',
                     required: [{ expression: m => m.foo.nonExistingProperty < 1000 }, { expression: m => m.name == 'Andre' }]
                 };
-                let evaluation = metadataEvaluator.evaluate(metadata.required, { name: 'Andre' });
+                let evaluation = metadataEvaluator.evaluateProperty(metadata.required, { name: 'Andre' });
                 assert.isUndefined(evaluation[0].value);
                 assert.isTrue(evaluation[1].value);
             });
