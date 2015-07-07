@@ -147,7 +147,9 @@ componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBo
 
 // Registers the component defaults
 componentFactory.setDefaultComponents({
-    "string": 'textbox'
+    "string": 'textbox',
+    "int": 'textbox',
+    "float": 'textbox'
 });
 
 export default componentFactory;

@@ -43,6 +43,12 @@ const TextBox = React.createClass({
     },
 
     handleChange(event){
+        let metadata = this.props.metadata;
+        // if the field is calculated, it cannot be edited
+        if(metadataEvaluator.exists(metadata, 'value')) {
+            return;
+        }
+
         let newValue = event.target.value;
         if(this.typeProcessor) {
             // if there's a type processor, we need to validate the processing
@@ -79,7 +85,15 @@ const TextBox = React.createClass({
         let metadata = this.props.metadata;
         let model = this.props.model;
 
-        let value = DataEvaluator.evaluate(metadata, model);
+
+        let value;
+        if(metadataEvaluator.exists(metadata, 'value')) {
+            value = metadataEvaluator.evaluateSingle(metadata.value, model).value;
+        }
+        else {
+            value = DataEvaluator.evaluate(metadata, model);
+        }
+
         if(value === undefined || value === null) {
             // the value can never be null or undefined, because the Input will act as 'uncontrolled' if so, meaning that
             // it will allow whatever the user inputs

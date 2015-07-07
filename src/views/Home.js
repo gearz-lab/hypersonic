@@ -11,41 +11,17 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'password',
-                    type: 'string',
-                    displayName: 'Password',
-                    addonBefore:  [
-                        {
-                            expression: m => {
-                                if(m.password.length > 5)
-
-                                    return 'strong';
-                                return 'weak';
-                            }
-                        }
-                    ],
-                    placeholder: 'Type in a secure password'
+                    name: 'valorDaCausa',
+                    type: 'float',
                 },
                 {
-                    name: 'confirmPassword',
-                    type: 'string',
-                    displayName: 'Confirm password',
-                    placeholder: 'This must be equal to the password',
-                    invalid: [
+                    name: 'taxaDeRetorno',
+                    value: [
                         {
-                            expression: m => m.password != m.confirmPassword
+                            expressionText: 'valorDaCausa * 0.2'
                         }
                     ],
-                    readOnly: [
-                        {
-                            expressionText: 'password == "bolinha2"'
-                        }
-                    ],
-                    help: [
-                        {
-                            expressionText: '"voce digitou " + password'
-                        }
-                    ]
+                    type: 'int',
                 }
             ]
         };
@@ -53,9 +29,9 @@ var Home = React.createClass({
         let layout = {
             fields: [
                 {
-                    name: 'password'
+                    name: 'valorDaCausa'
                 },
-                { name: 'confirmPassword'}
+                { name: 'taxaDeRetorno'}
             ]
         };
 
