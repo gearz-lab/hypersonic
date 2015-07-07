@@ -18,10 +18,10 @@ var Home = React.createClass({
                     name: 'taxaDeRetorno',
                     value: [
                         {
-                            expressionText: 'valorDaCausa * 0.2'
+                            expression: (m, h) => m.valorDaCausa * 2
                         }
                     ],
-                    type: 'int',
+                    type: 'string',
                 }
             ]
         };
