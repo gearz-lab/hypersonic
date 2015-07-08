@@ -2,9 +2,8 @@ import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input';
 import DataEvaluator from '../../lib/dataEvaluator.js';
-import MetadataEvaluator from '../../lib/MetadataEvaluator.js';
+import metadataEvaluator from '../../lib/MetadataEvaluator.js';
 import typeProcessorFactory from '../../lib/typeProcessorFactory.js';
-const metadataEvaluator = new MetadataEvaluator();
 
 const TextBox = React.createClass({
 

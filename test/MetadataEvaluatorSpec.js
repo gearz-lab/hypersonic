@@ -1,7 +1,6 @@
 import Chai from 'Chai';
-import MetadataEvaluator from '../src/lib/MetadataEvaluator.js';
+import metadataEvaluator from '../src/lib/MetadataEvaluator.js';
 const assert = Chai.assert;
-const metadataEvaluator = new MetadataEvaluator();
 
 describe('MetadataEvaluator', function() {
 
