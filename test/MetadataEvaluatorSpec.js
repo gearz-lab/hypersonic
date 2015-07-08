@@ -5,6 +5,50 @@ const metadataEvaluator = new MetadataEvaluator();
 
 describe('MetadataEvaluator', function() {
 
+    describe('_evaluateRaw', function() {
+        it('Basic usage', function() {
+            let metadata = {
+                name: 'Andre',
+                required: true,
+                invalid: undefined
+            };
+            let metadataEvaluation = metadataEvaluator._evaluateRaw(metadata, { name: 'Andre'});
+            assert.isTrue(metadataEvaluation.required[0].value);
+            assert.strictEqual('Andre', metadataEvaluation.name[0].value);
+            assert.isUndefined(metadataEvaluation.invalid[0].value);
+        });
+    });
+
+    describe('evaluate', function() {
+        it('Basic usage', function() {
+            let metadata = {
+                name: 'Andre',
+                required: true,
+                invalid: undefined
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre'});
+            assert.strictEqual(metadataEvaluation.name.value, 'Andre');
+            assert.isTrue(metadataEvaluation.required.value);
+            assert.isFalse(metadataEvaluation.invalid.value); //the invalid metadata has a description that says that if noone is true, than it's false
+        });
+        it('Required, when one of the expressions return true', function() {
+            let metadata = {
+                name: 'Andre',
+                required: [
+                    {
+                        expression: m => m.name == 'Marc'
+                    },
+                    {
+                        expression: m => m.name == 'Joseph'
+                    }
+                ],
+                invalid: undefined
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre'});
+            assert.isFalse(metadataEvaluation.required.value); //the required metadata has a description that says that if noone is true, than it's false
+        });
+    });
+
     describe('evaluateProperty', function() {
 
         it('Literal', function() {

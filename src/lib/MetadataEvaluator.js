@@ -1,4 +1,5 @@
 import ExpressionEvaluator from './expressionEvaluator.js';
+import metadataDescriptor from './metadataDescriptor.js';
 import _ from 'underscore';
 
 class MetadataEvaluator {
@@ -14,13 +15,33 @@ class MetadataEvaluator {
     }
 
     /**
-     * Returns whether or not the given property exists in the given metadata
+     * Evaluates all metadata in the given metadata object and return their values in raw
+     * mode, meaning each of them will be represented by an array instead of an actuall value
      * @param metadata
-     * @param property
-     * @returns {*|boolean}
+     * @param model
      */
-    exists(metadata, property) {
-        return metadata && metadata.hasOwnProperty(property);
+    _evaluateRaw(metadata, model) {
+        if(!metadata) {
+            throw new Error('metadata parameter is required');
+        }
+        let result = {};
+        for (var property in metadata) {
+            if (metadata.hasOwnProperty(property)) {
+                result[property] = this.evaluateProperty(metadata[property], model);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Evaluates all metadata in the given metadata object and return their values
+     * @param metadata
+     * @param model
+     * @returns {*}
+     */
+    evaluate(metadata, model) {
+        let rawEvaluation = this._evaluateRaw(metadata, model);
+        return metadataDescriptor.getConvertedMetadata(rawEvaluation);
     }
 
     /**
@@ -105,6 +126,17 @@ class MetadataEvaluator {
         let evaluation = this.evaluateProperty(metadata, model);
         return evaluation[0];
     }
+
+    /**
+     * Returns whether or not the given property exists in the given metadata
+     * @param metadata
+     * @param property
+     * @returns {*|boolean}
+     */
+    exists(metadata, property) {
+        return metadata && metadata.hasOwnProperty(property);
+    }
+
 }
 
 export default MetadataEvaluator;
