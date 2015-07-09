@@ -49,8 +49,6 @@ const TextBox = React.createClass({
             value = '';
         }
 
-        console.log(value);
-
         // metadata
         let props = {
             value: value,
