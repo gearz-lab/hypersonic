@@ -122,6 +122,7 @@ describe('TextBox', function () {
         it('Basic usage', function () {
             var metadata =
             {
+
                 name: 'number',
                 type: 'float'
             };

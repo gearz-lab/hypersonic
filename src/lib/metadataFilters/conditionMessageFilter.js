@@ -2,8 +2,8 @@ import expressionEvaluator from '../expressionEvaluator.js';
 
 class ConditionMessageFilter {
     filter(metadataValue, model) {
-        if(!metadataValue) {
-            throw new Error('metadata is required');
+        if(metadataValue === undefined) {
+            return undefined;
         }
         if(!model) {
             throw new Error('model is required');
