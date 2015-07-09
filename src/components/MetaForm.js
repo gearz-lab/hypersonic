@@ -81,10 +81,6 @@ var MetaForm = React.createClass({
         return this.state;
     },
 
-    _getModelProperty: function(propertyName) {
-
-    },
-
     render: function() {
         var fields = this._getFields();
         // the model is cloned for security reasons, to make it hard for the components to

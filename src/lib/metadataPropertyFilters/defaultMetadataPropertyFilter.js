@@ -1,6 +1,6 @@
 import expressionEvaluator from '../expressionEvaluator.js';
 
-class DefaultMetadataFilter {
+class DefaultMetadataPropertyFilter {
     filter(metadataValue, model) {
         if(!model) {
             throw new Error('model is required');
@@ -12,4 +12,4 @@ class DefaultMetadataFilter {
         return metadataValue;
     }
 }
-export default new DefaultMetadataFilter();
+export default new DefaultMetadataPropertyFilter();

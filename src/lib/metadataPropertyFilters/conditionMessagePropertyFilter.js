@@ -1,6 +1,6 @@
 import expressionEvaluator from '../expressionEvaluator.js';
 
-class ConditionMessageFilter {
+class ConditionMessagePropertyFilter {
     filter(metadataValue, model) {
         if(metadataValue === undefined) {
             return undefined;
@@ -26,4 +26,4 @@ class ConditionMessageFilter {
         }
     }
 }
-export default new ConditionMessageFilter();
+export default new ConditionMessagePropertyFilter();
