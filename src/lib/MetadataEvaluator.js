@@ -1,6 +1,6 @@
 import expressionEvaluator from './expressionEvaluator.js';
-import defaultMetadataFilter from 'metadataPropertyFilters/defaultMetadataFilter.js';
-import conditionMessageFilter from 'metadataPropertyFilters/conditionMessageFilter.js';
+import defaultMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
+import conditionMessageFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
 
 class MetadataEvaluator {
