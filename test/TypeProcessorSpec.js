@@ -10,9 +10,9 @@ describe('TypeProcessorFactory', function() {
         let processingResult = processor.process('2');
         assert.equal(2, processingResult.convertedValue);
     });
-    it('Should return undefined for an unknown type', function() {
+    it('Should return the StringTypeProcessor for an unknown type', function() {
         let ProcessorType = typeProcessorFactory.getProcessorType('int2');
-        assert.isUndefined(ProcessorType);
+        assert.ok(ProcessorType);
     });
     if('Should throw for falsy values', function() {
         assert.throws(() => typeProcessorFactory.getProcessorType(''), /Could not get processor for type/);

@@ -1,3 +1,4 @@
+import StringTypeProcessor from './typeProcessors/StringTypeProcessor.js';
 import IntTypeProcessor from './typeProcessors/IntTypeProcessor.js';
 import FloatTypeProcessor from './typeProcessors/FloatTypeProcessor.js';
 
@@ -15,12 +16,13 @@ class TypeProcessorFactory {
         if(type in this.processorsByType) {
             return this.processorsByType[type];
         }
-        return undefined;
+        return StringTypeProcessor;
     }
 }
 
 let typeProcessorFactory = new TypeProcessorFactory();
 
+typeProcessorFactory.registerProcessorType('string', StringTypeProcessor);
 typeProcessorFactory.registerProcessorType('int', IntTypeProcessor);
 typeProcessorFactory.registerProcessorType('float', FloatTypeProcessor);
 
