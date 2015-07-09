@@ -1,7 +1,8 @@
 import React from 'react';
 import Router from 'react-router';
 import componentFactory from '../lib/componentFactory';
-import DataEvaluator from '../lib/dataEvaluator.js';
+import metadataEvaluator from '../lib/metadataEvaluator.js';
+import dataEvaluator from '../lib/dataEvaluator.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -100,7 +101,8 @@ var MetaForm = React.createClass({
                             modifiedModelDelta[field.name] = e.value;
                             _this.setState(modifiedModelDelta);
                         };
-                        let component = componentFactory.buildComponent(field, model, onChange);
+                        let fieldMetadataProcessed = metadataEvaluator.evaluate(field, model);
+                        let component = componentFactory.buildComponent(fieldMetadataProcessed, model, onChange);
                         return component;
                     })
                 }

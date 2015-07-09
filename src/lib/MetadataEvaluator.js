@@ -1,5 +1,4 @@
 import expressionEvaluator from './expressionEvaluator.js';
-import metadataDescriptor from './metadataDescriptor.js';
 import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
 import conditionMessageFilter from './metadataFilters/conditionMessageFilter.js';
 import _ from 'underscore';
@@ -21,31 +20,12 @@ class MetadataEvaluator {
     }
 
     /**
-     * Evaluates all metadata in the given metadata object and return their values in raw
-     * mode, meaning each of them will be represented by an array instead of an actuall value
-     * @param metadata
-     * @param model
-     */
-    _evaluateRaw(metadata, model) {
-        if(!metadata) {
-            throw new Error('metadata parameter is required');
-        }
-        let result = {};
-        for (var property in metadata) {
-            if (metadata.hasOwnProperty(property)) {
-                result[property] = this.evaluateProperty(metadata[property], model);
-            }
-        }
-        return result;
-    }
-
-    /**
      * Evaluates the given expression against the model
      * @param metadata
      * @param model
      * @returns {{}}
      */
-    evaluateNew(metadata, model) {
+    evaluate(metadata, model) {
         if(!metadata) {
             throw new Error('metadata parameter is required');
         }
@@ -81,17 +61,6 @@ class MetadataEvaluator {
             throw new Error('filter is required');
         }
         this.metadataFilters[metadataName] = filter;
-    }
-
-    /**
-     * Evaluates all metadata in the given metadata object and return their values
-     * @param metadata
-     * @param model
-     * @returns {*}
-     */
-    evaluate(metadata, model) {
-        let rawEvaluation = this._evaluateRaw(metadata, model);
-        return metadataDescriptor.getConvertedMetadata(rawEvaluation);
     }
 
     /**
@@ -144,37 +113,6 @@ class MetadataEvaluator {
         else {
             return [{ value: metadata }];
         }
-    }
-
-    /**
-     * Tries to find a metadata definition that equals the value that equals value
-     * @param metadata
-     * @param value
-     * @param model
-     */
-    evaluatePropertyFirst(metadata, model, value) {
-        let evaluation = this.evaluateProperty(metadata, model);
-        let foundElement = _.find(evaluation, m => m.value == value);
-        if(foundElement) {
-            return foundElement;
-        }
-        return { value: undefined };
-    }
-
-    /**
-     * Evaluates metadata when metadata cannot contain more than one element
-     * @param metadata
-     * @param model
-     * @returns {*}
-     */
-    evaluatePropertySingle(metadata, model) {
-        if (metadata instanceof Array) {
-            if(metadata.lenth > 1) {
-                throw new Error('Metadata should not contain more than one element');
-            }
-        }
-        let evaluation = this.evaluateProperty(metadata, model);
-        return evaluation[0];
     }
 
     /**

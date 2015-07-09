@@ -1,29 +1,26 @@
 import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input';
-import DataEvaluator from '../../lib/dataEvaluator.js';
-import metadataEvaluator from '../../lib/MetadataEvaluator.js';
-import typeProcessorFactory from '../../lib/typeProcessorFactory.js';
 
 const TextBox = React.createClass({
 
     propTypes: {
-        metadata: React.PropTypes.object.isRequired,
-        model: React.PropTypes.node.isRequired,
         onChange: React.PropTypes.func.isRequired,
-        // custom type processor. If not specified, will fall back to the default one for the type
-        typeProcessor: React.PropTypes.object
+        name: React.PropTypes.string.isRequired
     },
 
     /**
      * Returns the style due to the valid state
      */
     _getValidStyle() {
-        let metadata = this.props.metadata;
-        let model = this.props.model;
-        var invalid = metadataEvaluator.evaluatePropertyFirst(metadata.invalid, model, true);
-        if(invalid.value) {
-            return 'error';
+        if(this.props.invalid) {
+            if(!this.props.invalid.value) {
+                throw new Error('invalid prop should have a value property');
+            }
+            var invalid = this.props.invalid.value;
+            if(invalid.value) {
+                return 'error';
+            }
         }
         return 'success';
     },
@@ -32,80 +29,35 @@ const TextBox = React.createClass({
      * Returns the style due to the visible state
      */
     _getVisibleStyle() {
-        let metadata = this.props.metadata;
-        let model = this.props.model;
-        var invisible = metadataEvaluator.evaluatePropertyFirst(metadata.invisible, model, true);
-        if(invisible.value) {
+        var invisible = this.props.invisible;
+        if(invisible) {
             return 'hide';
         }
         return '';
     },
 
     handleChange(event){
-        let metadata = this.props.metadata;
-        // if the field is calculated, it cannot be edited
-        if(metadataEvaluator.exists(metadata, 'value')) {
-            return;
-        }
-
         let newValue = event.target.value;
-        if(this.typeProcessor) {
-            // if there's a type processor, we need to validate the processing
-            // if the value is valid, we trigger the onChange considering the converted value
-            let processingResult = this.typeProcessor.process(newValue);
-            if(processingResult.valid) {
-                this.props.onChange({name: this.props.metadata.name, value: processingResult.convertedValue});
-            } else {
-                // the provided value was not accepted by the processor
-            }
-        }
-        else {
-            // if there's no type processor, we just trigger the onChange considering the raw value
-            this.props.onChange({name: this.props.metadata.name, value: newValue});
-        }
-    },
-
-    componentWillMount() {
-        let metadata = this.props.metadata;
-        // if a custom typeprocessor has been passed as prop, uses it, otherwise, uses the default one for the type
-        if(this.props.typeProcessor) {
-            this.typeProcessor = this.props.typeProcessor;
-        }
-        else {
-            let ProcessorType = typeProcessorFactory.getProcessorType(metadata.type);
-            if(ProcessorType) {
-                this.typeProcessor = new ProcessorType();
-            }
-        }
+        this.props.onChange({name: this.props.name, value: newValue});
     },
 
     render() {
-
-        let metadata = this.props.metadata;
-        let model = this.props.model;
-
-
-        let value;
-        if(metadataEvaluator.exists(metadata, 'value')) {
-            value = metadataEvaluator.evaluatePropertySingle(metadata.value, model).value;
-        }
-        else {
-            value = DataEvaluator.evaluate(metadata, model);
-        }
-
+        let value = this.props.value;
         if(value === undefined || value === null) {
             // the value can never be null or undefined, because the Input will act as 'uncontrolled' if so, meaning that
             // it will allow whatever the user inputs
             value = '';
         }
 
+        console.log(value);
+
         // metadata
-        let placeholder = metadataEvaluator.evaluatePropertySingle(metadata.placeholder, model).value;
-        let displayName = metadataEvaluator.evaluatePropertySingle(metadata.displayName, model).value;
-        let help = metadataEvaluator.evaluatePropertySingle(metadata.help, model).value;
-        let readOnly = metadataEvaluator.evaluatePropertyFirst(metadata.readOnly, model, true).value;
-        let addonBefore = metadataEvaluator.evaluatePropertySingle(metadata.addonBefore, model).value;
-        let addonAfter = metadataEvaluator.evaluatePropertySingle(metadata.addonAfter, model).value;
+        let placeholder = this.props.placeholder;
+        let displayName = this.props.displayName;
+        let help = this.props.help;
+        let readOnly = this.props.readOnly;
+        let addonBefore = this.props.addonBefore;
+        let addonAfter = this.props.addonAfter;
 
         // styles
         let validStyle = this._getValidStyle();

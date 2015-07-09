@@ -1,5 +1,6 @@
 import React from 'react';
 import TextBox from '../components/editors/TextBox';
+import dataEvaluator from '../lib/dataEvaluator.js';
 import _ from 'underscore';
 
 // component definitions
@@ -130,13 +131,19 @@ class ComponentFactory {
         if(!componentType)
             throw new Error(`Could not resolve the component for type type. Type: ${metadata.type}`);
 
-        return React.createElement(componentType,
-            {
-                key: metadata.name,
-                metadata: metadata,
-                model: model,
-                onChange: onChange
-            });
+        let props = {
+            key: metadata.name,
+            name: metadata.name,
+            onChange: onChange
+        };
+
+        _.extend(props, metadata);
+
+        if(!props.hasOwnProperty('value')) {
+            props.value = dataEvaluator.evaluate(metadata, model);
+        }
+
+        return React.createElement(componentType, props);
     }
 }
 

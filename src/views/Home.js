@@ -12,15 +12,21 @@ var Home = React.createClass({
             fields: [
                 {
                     name: 'valorDaCausa',
+                    displayName: 'Valor da causa',
+                    addonBefore: m => {
+                        if(m.valorDaCausa.length > 7) {
+                            return 'strong';
+                        } else if (m.valorDaCausa.length > 3) {
+                            return 'medium';
+                        }
+                        return 'weak';
+                    },
                     type: 'float',
                 },
                 {
                     name: 'taxaDeRetorno',
-                    value: [
-                        {
-                            expression: (m, h) => m.valorDaCausa * 2
-                        }
-                    ],
+                    displayName: 'Taxa de retorno',
+                    value: (m, h) => m.valorDaCausa * 0.2,
                     type: 'string',
                 }
             ]
