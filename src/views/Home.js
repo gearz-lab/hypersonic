@@ -14,13 +14,16 @@ var Home = React.createClass({
                     name: 'valorDaCausa',
                     displayName: 'Valor da causa',
                     addonBefore: m => {
-                        if(m.valorDaCausa.length > 7) {
-                            return 'strong';
-                        } else if (m.valorDaCausa.length > 3) {
-                            return 'medium';
-                        }
+                        try {
+                            if (m.valorDaCausa.length > 7) {
+                                return 'strong';
+                            } else if (m.valorDaCausa.length > 3) {
+                                return 'medium';
+                            }
+                        }catch(ex) {}
                         return 'weak';
                     },
+                    hasFeedback: true,
                     type: 'float',
                 },
                 {

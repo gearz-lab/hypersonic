@@ -52,33 +52,30 @@ const TextBox = React.createClass({
         console.log(value);
 
         // metadata
-        let placeholder = this.props.placeholder;
-        let displayName = this.props.displayName;
-        let help = this.props.help;
-        let readOnly = this.props.readOnly;
-        let addonBefore = this.props.addonBefore;
-        let addonAfter = this.props.addonAfter;
+        let props = {
+            value: value,
+            placeholder: this.props.placeholder,
+            label: this.props.displayName,
+            help: this.props.help,
+            readOnly: this.props.readOnly,
+            addonBefore: this.props.addonBefore,
+            addonAfter: this.props.addonAfter,
+            hasFeedback: this.props.hasFeedback,
+            groupClassName: `group-class ${this._getVisibleStyle()}`,
+            labelClassName: 'label-class',
+            onChange:this.handleChange
+        };
 
-        // styles
-        let validStyle = this._getValidStyle();
-        let visibleStyle = this._getVisibleStyle();
+        if(props.hasFeedback) {
+            props.bsStyle = this._getValidStyle()
+        }
 
         return (
             <Input
                 type='text'
-                value={value}
-                placeholder={placeholder}
-                label={displayName}
-                help={help}
-                bsStyle={validStyle}
-                hasFeedback
                 ref='input'
-                groupClassName={`group-class ${visibleStyle}`}
-                labelClassName='label-class'
-                onChange={this.handleChange}
-                readOnly={readOnly}
-                addonBefore={addonBefore}
-                addonAfter={addonAfter}/>
+                {...props }
+                />
         );
     }
 });
