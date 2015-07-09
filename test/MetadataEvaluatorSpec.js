@@ -4,17 +4,94 @@ const assert = Chai.assert;
 
 describe('MetadataEvaluator', function() {
 
-    describe('_evaluateRaw', function() {
-        it('Basic usage', function() {
+    //describe('_evaluateRaw', function() {
+    //    it('Basic usage', function() {
+    //        let metadata = {
+    //            name: 'Andre',
+    //            required: true,
+    //            invalid: undefined
+    //        };
+    //        let metadataEvaluation = metadataEvaluator._evaluateRaw(metadata, { name: 'Andre'});
+    //        assert.isTrue(metadataEvaluation.required[0].value);
+    //        assert.strictEqual('Andre', metadataEvaluation.name[0].value);
+    //        assert.isUndefined(metadataEvaluation.invalid[0].value);
+    //    });
+    //});
+
+    describe('evaluateNew', function() {
+        it('DefaultMetadataFilter with literals', function() {
+            let metadata = {
+                name: 'Andre',
+                required: true
+            };
+            let metadataEvaluation = metadataEvaluator.evaluateNew(metadata, { name: 'Andre'});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isTrue(metadataEvaluation.required);
+
+        });
+        it('DefaultMetadataFilter with a function', function() {
+            let metadata = {
+                name: 'Andre',
+                required: m => m.number > 500
+            };
+            let metadataEvaluation = metadataEvaluator.evaluateNew(metadata, { name: 'Andre', number: 3445});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isTrue(metadataEvaluation.required);
+        });
+        it('ConditionMessageFilter, when there is one and one truthy', function() {
             let metadata = {
                 name: 'Andre',
                 required: true,
-                invalid: undefined
+                invalid: [
+                    {
+                        condition: m => m.name == 'Andre',
+                        message: 'Name should not be andre'
+                    }
+                ]
             };
-            let metadataEvaluation = metadataEvaluator._evaluateRaw(metadata, { name: 'Andre'});
-            assert.isTrue(metadataEvaluation.required[0].value);
-            assert.strictEqual('Andre', metadataEvaluation.name[0].value);
-            assert.isUndefined(metadataEvaluation.invalid[0].value);
+            let metadataEvaluation = metadataEvaluator.evaluateNew(metadata, { name: 'Andre'});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isTrue(metadataEvaluation.invalid.value);
+            assert.strictEqual('Name should not be andre', metadataEvaluation.invalid.message);
+        });
+        it('ConditionMessageFilter, when there is multiple and one truthy', function() {
+            let metadata = {
+                name: 'Andre',
+                required: true,
+                invalid: [
+                    {
+                        condition: m => m.name == 'John',
+                        message: 'Name should not be andre'
+                    },
+                    {
+                        condition: m => m.number === 1000,
+                        message: 'Number should not be 1000'
+                    }
+                ]
+            };
+            let metadataEvaluation = metadataEvaluator.evaluateNew(metadata, { name: 'Andre', number: 1000});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isTrue(metadataEvaluation.invalid.value);
+            assert.strictEqual('Number should not be 1000', metadataEvaluation.invalid.message);
+        });
+        it('ConditionMessageFilter, when there is multiple and not a truthy', function() {
+            let metadata = {
+                name: 'Andre',
+                required: true,
+                invalid: [
+                    {
+                        condition: m => m.name == 'John',
+                        message: 'Name should not be andre'
+                    },
+                    {
+                        condition: m => m.number === 400,
+                        message: 'Number should not be 1000'
+                    }
+                ]
+            };
+            let metadataEvaluation = metadataEvaluator.evaluateNew(metadata, { name: 'Andre', number: 1000});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isFalse(metadataEvaluation.invalid.value);
         });
     });
 

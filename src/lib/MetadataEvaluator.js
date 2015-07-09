@@ -1,8 +1,14 @@
-import ExpressionEvaluator from './expressionEvaluator.js';
+import expressionEvaluator from './expressionEvaluator.js';
 import metadataDescriptor from './metadataDescriptor.js';
+import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
+import conditionMessageFilter from './metadataFilters/conditionMessageFilter.js';
 import _ from 'underscore';
 
 class MetadataEvaluator {
+
+    constructor() {
+        this.metadataFilters = {};
+    }
 
     /**
      * Evaluates the given expression against the model
@@ -11,7 +17,7 @@ class MetadataEvaluator {
      * @private
      */
     _evaluateExpression(expression, model){
-        return ExpressionEvaluator.evaluate(expression, model);
+        return expressionEvaluator.evaluate(expression, model);
     }
 
     /**
@@ -31,6 +37,50 @@ class MetadataEvaluator {
             }
         }
         return result;
+    }
+
+    /**
+     * Evaluates the given expression against the model
+     * @param metadata
+     * @param model
+     * @returns {{}}
+     */
+    evaluateNew(metadata, model) {
+        if(!metadata) {
+            throw new Error('metadata parameter is required');
+        }
+        let result = {};
+        for (var property in metadata) {
+            if (metadata.hasOwnProperty(property)) {
+                let filter;
+                if (this.metadataFilters.hasOwnProperty(property)) {
+                    // if there's a particular filter for the given property
+                    filter = this.metadataFilters[property];
+                }
+                else {
+                    // if there's not a particular filter for the given property
+                    filter = defaultMetadataFilter;
+                }
+                result[property] = filter.filter(metadata[property], model);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Sets the filter for the given metadata name
+     * @param metadataName
+     * @param filter
+     */
+    setFilter(metadataName, filter) {
+        if(!metadataName) {
+            throw new Error('metadataName is required');
+        }
+        if(!filter) {
+            throw new Error('filter is required');
+        }
+        this.metadataFilters[metadataName] = filter;
     }
 
     /**
@@ -139,4 +189,7 @@ class MetadataEvaluator {
 
 }
 
-export default MetadataEvaluator;
+let metadataEvaluator = new MetadataEvaluator();
+metadataEvaluator.setFilter('invalid', conditionMessageFilter);
+
+export default metadataEvaluator;
