@@ -1,4 +1,5 @@
 import expressionEvaluator from './expressionEvaluator.js';
+import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
 import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
@@ -10,6 +11,8 @@ class MetadataEvaluator {
         // metadataPropertyFilters that don't have a property associated will act on all properties
         // in the order they were registered
         this.metadataPropertyFilters = [];
+        // this array contains metadata filters
+        this.metadataFilters = [];
     }
 
     /**
@@ -41,11 +44,22 @@ class MetadataEvaluator {
                 result[property] = this.filterProperty(property, metadata[property], model);
             }
         }
-        return result;
+        return this.filter(result);
     }
 
     /**
-     * Sets the filter for the given metadata name
+     * Adds the given filter
+     * @param filter
+     */
+    addFilter(filter) {
+        if(!filter) {
+            throw new Error('filter is required');
+        }
+        this.metadataFilters.push(filter);
+    }
+
+    /**
+     * Adds the given filter for the given metadata property name
      * @param metadataProperty
      * @param filter
      */
@@ -70,6 +84,20 @@ class MetadataEvaluator {
             }
         }
         return processedMetadataProperty;
+    }
+
+    /**
+     * Filters the given metadata against the model
+     * @param metadata
+     * @param model
+     * @returns {*}
+     */
+    filter(metadata, model) {
+        let processedMetadata = metadata;
+        for(let i=0; i<this.metadataFilters.length; i++) {
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model);
+        }
+        return processedMetadata;
     }
 
     /**
