@@ -8,7 +8,7 @@ const assert = chai.assert;
 describe('Metaform', function () {
 
     describe('EntityType and layout', function() {
- 
+
         it('It should be possible to extend an existing field', function () {
             let entityType = {
                 fields: [
@@ -31,7 +31,7 @@ describe('Metaform', function () {
                 name: 'Andre'
             };
             let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
-            var fields = instance._getFields();
+            var fields = instance._getMergedFields();
             var nameField = _.find(fields, f => f.name == 'name');
             assert.ok(nameField);
             assert.equal('textbox', nameField.component);
@@ -59,7 +59,7 @@ describe('Metaform', function () {
                 name: 'Andre'
             };
             let instance = ReactTestUtils.renderIntoDocument(<MetaForm entityType={entityType} layout={layout} model={model}/>);
-            var fields = instance._getFields();
+            var fields = instance._getMergedFields();
             var nameField = _.find(fields, f => f.name == 'name');
             assert.ok(nameField);
             assert.equal('it worked', nameField.placeholder);

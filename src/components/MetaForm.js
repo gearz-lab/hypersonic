@@ -33,11 +33,11 @@ var MetaForm = React.createClass({
     },
 
     /**
-     * Gets the fields
+     * Gets the merged fields from the entityType and layout
      * @returns {Array}
      * @private
      */
-    _getFields: function() {
+    _getMergedFields: function() {
         var entityType = this.props.entityType;
         var layout = this.props.layout;
 
@@ -75,7 +75,7 @@ var MetaForm = React.createClass({
     },
 
     render: function() {
-        var fields = this._getFields();
+        var fields = this._getMergedFields();
         // the model is cloned for security reasons, to make it hard for the components to
         // interfere with the MetaForm model. It could even be cloned once per property,
         // but that would impact performance.
