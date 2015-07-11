@@ -15,7 +15,7 @@ describe('MetadataEvaluator', function() {
             assert.isTrue(metadataEvaluation.required);
 
         });
-        it('DefaultMetadataFilter with a function', function() {
+        it('DefaultMetadataFilter with a function, returning true', function() {
             let metadata = {
                 name: 'Andre',
                 required: m => m.number > 500
@@ -23,6 +23,15 @@ describe('MetadataEvaluator', function() {
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre', number: 3445});
             assert.strictEqual('Andre', metadataEvaluation.name);
             assert.isTrue(metadataEvaluation.required);
+        });
+        it('DefaultMetadataFilter with a function, returning false', function() {
+            let metadata = {
+                name: 'Andre',
+                required: m => m.number < 500
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre', number: 3445});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isFalse(metadataEvaluation.required);
         });
         it('DefaultMetadataFilter with a function, passing an array', function() {
             let metadata = [{
@@ -40,7 +49,7 @@ describe('MetadataEvaluator', function() {
         });
         it('ConditionMessageFilter, when there is one and one truthy', function() {
             let metadata = {
-                name: 'Andre',
+                name: 'name',
                 required: true,
                 invalid: [
                     {
@@ -50,13 +59,13 @@ describe('MetadataEvaluator', function() {
                 ]
             };
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre'});
-            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.strictEqual('name', metadataEvaluation.name);
             assert.isTrue(metadataEvaluation.invalid.value);
             assert.strictEqual('Name should not be andre', metadataEvaluation.invalid.message);
         });
         it('ConditionMessageFilter, when there is multiple and one truthy', function() {
             let metadata = {
-                name: 'Andre',
+                name: 'name',
                 required: true,
                 invalid: [
                     {
@@ -70,13 +79,13 @@ describe('MetadataEvaluator', function() {
                 ]
             };
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre', number: 1000});
-            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.strictEqual('name', metadataEvaluation.name);
             assert.isTrue(metadataEvaluation.invalid.value);
             assert.strictEqual('Number should not be 1000', metadataEvaluation.invalid.message);
         });
         it('ConditionMessageFilter, when there is multiple and not a truthy', function() {
             let metadata = {
-                name: 'Andre',
+                name: 'name',
                 required: true,
                 invalid: [
                     {
@@ -90,8 +99,29 @@ describe('MetadataEvaluator', function() {
                 ]
             };
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre', number: 1000});
-            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.strictEqual('name', metadataEvaluation.name);
             assert.isFalse(metadataEvaluation.invalid.value);
+        });
+        it('Checking for a required property, when not passing', function() {
+            let metadata = {
+                name: 'name',
+                required: true
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: ''});
+            assert.strictEqual('name', metadataEvaluation.name);
+            assert.isTrue(metadataEvaluation.required);
+            assert.isTrue(metadataEvaluation.invalid.value);
+            assert.strictEqual(metadataEvaluation.invalid.message, 'The field \'name\' is required');
+        });
+        it('Checking for a required property, when passing', function() {
+            let metadata = {
+                name: 'name',
+                required: true
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre'});
+            assert.strictEqual('name', metadataEvaluation.name);
+            assert.isTrue(metadataEvaluation.required);
+            assert.isUndefined(metadataEvaluation.invalid);
         });
     });
 

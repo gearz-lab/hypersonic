@@ -44,7 +44,7 @@ class MetadataEvaluator {
                 result[property] = this.filterProperty(property, metadata[property], model);
             }
         }
-        return this.filter(result);
+        return this.filter(result, model);
     }
 
     /**
@@ -167,5 +167,6 @@ class MetadataEvaluator {
 let metadataEvaluator = new MetadataEvaluator();
 metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
 metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
+metadataEvaluator.addFilter(defaultMetadataFilter);
 
 export default metadataEvaluator;

@@ -1,4 +1,5 @@
 import expressionEvaluator from '../expressionEvaluator.js';
+import dataEvaluator from '../dataEvaluator.js';
 
 class DefaultMetadataFilter {
     filter(metadata, model) {
@@ -8,8 +9,9 @@ class DefaultMetadataFilter {
         if(!model) {
             throw new Error('model is required');
         }
-        if(metadata.required) {
-            metadata.invalid = {value: true, message: `The field ${metadata.name} is required`};
+        let value = dataEvaluator.evaluate(metadata, model);
+        if(metadata.required && (value === null || value === undefined || value === '')) {
+            metadata.invalid = {value: true, message: `The field '${metadata.name}' is required`};
         }
         return metadata;
     }
