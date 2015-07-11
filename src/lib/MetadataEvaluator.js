@@ -1,12 +1,15 @@
 import expressionEvaluator from './expressionEvaluator.js';
-import defaultMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
-import conditionMessageFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
+import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
+import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
 
 class MetadataEvaluator {
 
     constructor() {
-        this.metadataFilters = {};
+        // this array contains objects like: { property: 'invalid', filter: filter }
+        // metadataPropertyFilters that don't have a property associated will act on all properties
+        // in the order they were registered
+        this.metadataPropertyFilters = [];
     }
 
     /**
@@ -26,47 +29,47 @@ class MetadataEvaluator {
      * @returns {{}}
      */
     evaluate(metadata, model) {
-
         if(!metadata) {
             throw new Error('metadata parameter is required');
         }
-
         if(metadata.constructor === Array) {
             return metadata.map(i => this.evaluate(i, model));
         }
-
         let result = {};
         for (var property in metadata) {
             if (metadata.hasOwnProperty(property)) {
-                let filter;
-                if (this.metadataFilters.hasOwnProperty(property)) {
-                    // if there's a particular filter for the given property
-                    filter = this.metadataFilters[property];
-                }
-                else {
-                    // if there's not a particular filter for the given property
-                    filter = defaultMetadataFilter;
-                }
-                result[property] = filter.filter(metadata[property], model);
+                result[property] = this.filterProperty(property, metadata[property], model);
             }
         }
-
         return result;
     }
 
     /**
      * Sets the filter for the given metadata name
-     * @param metadataName
+     * @param metadataProperty
      * @param filter
      */
-    setFilter(metadataName, filter) {
-        if(!metadataName) {
-            throw new Error('metadataName is required');
-        }
+    addPropertyFilter(filter, metadataProperty) {
         if(!filter) {
             throw new Error('filter is required');
         }
-        this.metadataFilters[metadataName] = filter;
+        this.metadataPropertyFilters.push({ property: metadataProperty, filter: filter });
+    }
+
+    /**
+     * Filters the given property against the model
+     * @param propertyName
+     * @param propertyValue
+     * @param model
+     */
+    filterProperty(propertyName, propertyValue, model) {
+        let processedMetadataProperty = propertyValue;
+        for(let i=0; i < this.metadataPropertyFilters.length; i++) {
+            if(!this.metadataPropertyFilters[i].property || this.metadataPropertyFilters[i].property === propertyName) {
+                processedMetadataProperty = this.metadataPropertyFilters[i].filter.filter(processedMetadataProperty, model);
+            }
+        }
+        return processedMetadataProperty;
     }
 
     /**
@@ -134,6 +137,7 @@ class MetadataEvaluator {
 }
 
 let metadataEvaluator = new MetadataEvaluator();
-metadataEvaluator.setFilter('invalid', conditionMessageFilter);
+metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
+metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
 
 export default metadataEvaluator;

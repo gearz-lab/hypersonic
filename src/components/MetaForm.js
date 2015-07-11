@@ -34,7 +34,7 @@ var MetaForm = React.createClass({
                 open: false
             },
             model: model,
-            // array
+            // array containing the original merged fields from the metadata and the model
             originalFields: mergedFields,
             // object with a key for each property
             processedFields: processedFields,
