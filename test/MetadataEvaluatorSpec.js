@@ -24,6 +24,20 @@ describe('MetadataEvaluator', function() {
             assert.strictEqual('Andre', metadataEvaluation.name);
             assert.isTrue(metadataEvaluation.required);
         });
+        it('DefaultMetadataFilter with a function, passing an array', function() {
+            let metadata = [{
+                name: 'Andre',
+                required: m => m.number > 500
+            },{
+                name: 'Joseph',
+                required: m => m.number > 1000
+            }];
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, { name: 'Andre', number: 3445});
+            assert.strictEqual('Andre', metadataEvaluation[0].name);
+            assert.isTrue(metadataEvaluation[0].required);
+            assert.strictEqual('Joseph', metadataEvaluation[1].name);
+            assert.isTrue(metadataEvaluation[1].required);
+        });
         it('ConditionMessageFilter, when there is one and one truthy', function() {
             let metadata = {
                 name: 'Andre',

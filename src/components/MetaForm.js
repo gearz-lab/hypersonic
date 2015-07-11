@@ -1,5 +1,8 @@
 import React from 'react';
 import Router from 'react-router';
+//import ReactBootstrap from 'react-bootstrap';
+//import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
+//import Input from 'react-bootstrap/lib/Input';
 import componentFactory from '../lib/componentFactory';
 import metadataEvaluator from '../lib/metadataEvaluator.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
@@ -13,19 +16,19 @@ var MetaForm = React.createClass({
         model: React.PropTypes.object
     },
 
-    getInitialState: function() {
-        var modelProp = this.props.model ? this.props.model : {};
-        return _.extend({}, modelProp);
-    },
-
     /**
      * Validates a field metadata
      * @param metadata
      * @private
      */
-    _validateMetadata: function(metadata) {
+    _validateFieldMetadata: function(metadata) {
         if(!metadata) throw new Error('metadata should not be null or undefined');
         if(!metadata.name) throw new Error('metadata\'s "name" property is required');
+    },
+
+    getInitialState: function() {
+        var modelProp = this.props.model ? this.props.model : {};
+        return _.extend({}, modelProp);
     },
 
     /**
@@ -52,7 +55,7 @@ var MetaForm = React.createClass({
                 if(!field)
                     throw new Error(`Property not found. Property: ${item}`);
                 field = _.extend({}, field);
-                this._validateMetadata(field);
+                this._validateFieldMetadata(field);
                 return field;
             }
 
@@ -65,7 +68,7 @@ var MetaForm = React.createClass({
                 field = {};
             }
             field = _.extend(field, item);
-            this._validateMetadata(field);
+            this._validateFieldMetadata(field);
             return field;
         });
 
@@ -90,18 +93,21 @@ var MetaForm = React.createClass({
         let _this = this;
         return (
             <div>
-                {
-                    fields.map(field => {
-                        var onChange = function(e) {
-                            var modifiedModelDelta = {};
-                            modifiedModelDelta[field.name] = e.value;
-                            _this.setState(modifiedModelDelta);
-                        };
-                        let fieldMetadataProcessed = metadataEvaluator.evaluate(field, model);
-                        let component = componentFactory.buildComponent(fieldMetadataProcessed, model, onChange);
-                        return component;
-                    })
-                }
+                <div>
+                    {
+                        fields.map(field => {
+                            var onChange = function(e) {
+                                var modifiedModelDelta = {};
+                                modifiedModelDelta[field.name] = e.value;
+                                _this.setState(modifiedModelDelta);
+                            };
+                            let fieldMetadataProcessed = metadataEvaluator.evaluate(field, model);
+                            let component = componentFactory.buildComponent(fieldMetadataProcessed, model, onChange);
+                            return component;
+                        })
+                    }
+                </div>
+                <p>Holy crap</p>
             </div>
         );
     }

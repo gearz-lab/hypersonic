@@ -26,9 +26,15 @@ class MetadataEvaluator {
      * @returns {{}}
      */
     evaluate(metadata, model) {
+
         if(!metadata) {
             throw new Error('metadata parameter is required');
         }
+
+        if(metadata.constructor === Array) {
+            return metadata.map(i => this.evaluate(i, model));
+        }
+
         let result = {};
         for (var property in metadata) {
             if (metadata.hasOwnProperty(property)) {
