@@ -27,6 +27,7 @@ var MetaForm = React.createClass({
     },
 
     getInitialState: function() {
+
         var modelProp = this.props.model ? this.props.model : {};
         return _.extend({}, modelProp);
     },
@@ -49,17 +50,6 @@ var MetaForm = React.createClass({
 
             let field;
 
-            if(typeof item == 'string') {
-                // in this case, the item represents a property in the entityType
-                field = _.find(entityType.fields, property => property.name == item);
-                if(!field)
-                    throw new Error(`Property not found. Property: ${item}`);
-                field = _.extend({}, field);
-                this._validateFieldMetadata(field);
-                return field;
-            }
-
-            // in this case, the item doesn't represent a property in the entityType
             let existingEntityProperty = _.find(entityType.fields, property => property.name == item.name);
             if(existingEntityProperty) {
                 field = _.extend({}, existingEntityProperty);
