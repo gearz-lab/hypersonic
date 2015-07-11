@@ -20,8 +20,8 @@ class MetadataEvaluator {
     }
 
     /**
-     * Evaluates the given expression against the model
-     * @param metadata
+     * Evaluates the given metadata against the model
+     * @param metadata - Can be either an object or an array of objects
      * @param model
      * @returns {{}}
      */

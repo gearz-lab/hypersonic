@@ -1,11 +1,9 @@
 import React from 'react';
 import Router from 'react-router';
-//import ReactBootstrap from 'react-bootstrap';
-//import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
-//import Input from 'react-bootstrap/lib/Input';
 import componentFactory from '../lib/componentFactory';
 import metadataEvaluator from '../lib/metadataEvaluator.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
+import collectionHelper from '../lib/helpers/collectionHelper.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -27,9 +25,37 @@ var MetaForm = React.createClass({
     },
 
     getInitialState: function() {
+        let model = _.extend({},this.props.model ? this.props.model : {});
+        let mergedFields = this._getMergedFields();
+        let processedFields = this._getProcessedFields(mergedFields, model);
 
-        var modelProp = this.props.model ? this.props.model : {};
-        return _.extend({}, modelProp);
+        return {
+            validationSummary: {
+                open: false
+            },
+            model: model,
+            // array
+            originalFields: mergedFields,
+            // object with a key for each property
+            processedFields: processedFields,
+            // object with a key for each property
+            rawValues: { }
+        }
+    },
+
+    /**
+     * Returns an object with a property for each given field metadata. The value is the metadata already
+     * processed for the given model
+     * @param fields
+     * @param model
+     * @returns {Object}
+     * @private
+     */
+    _getProcessedFields: function(fields, model) {
+        // will evaluate all the fields and return an array
+        let processedFields = metadataEvaluator.evaluate(fields, model);
+        // will convert the array into an object
+        return collectionHelper.toObject(processedFields, 'name');
     },
 
     /**
@@ -71,7 +97,7 @@ var MetaForm = React.createClass({
      * @private
      */
     _getModel: function() {
-        return this.state;
+        return this.state.model;
     },
 
     render: function() {
@@ -79,7 +105,6 @@ var MetaForm = React.createClass({
         // the model is cloned for security reasons, to make it hard for the components to
         // interfere with the MetaForm model. It could even be cloned once per property,
         // but that would impact performance.
-        var model = this.state;
         let _this = this;
         return (
             <div>
@@ -87,10 +112,11 @@ var MetaForm = React.createClass({
                     {
                         fields.map(field => {
                             var onChange = function(e) {
-                                var modifiedModelDelta = {};
-                                modifiedModelDelta[field.name] = e.value;
-                                _this.setState(modifiedModelDelta);
+                                let newState = _.extend({}, _this.state);
+                                newState.model[field.name] = e.value;
+                                _this.setState(newState);
                             };
+                            let model = _.extend({}, _this.state.model);
                             let fieldMetadataProcessed = metadataEvaluator.evaluate(field, model);
                             let component = componentFactory.buildComponent(fieldMetadataProcessed, model, onChange);
                             return component;
