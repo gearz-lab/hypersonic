@@ -7,13 +7,14 @@ import collectionHelper from '../lib/helpers/collectionHelper.js';
 import typeProcessorFactory from '../lib/typeProcessorFactory.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
+import ValidationSummary from './ValidationSummary.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
 
     propTypes: {
         title: React.PropTypes.string,
-        fields: React.PropTypes.object.isRequired,
+        fields: React.PropTypes.array.isRequired,
         model: React.PropTypes.object
     },
 
@@ -24,7 +25,7 @@ var MetaForm = React.createClass({
         return {
             validationSummary: {
                 open: false,
-                messages: []
+                messages: this.getValidationSummaryMessages(componentProps)
             },
             model: model,
             // object with a key for each property
@@ -46,7 +47,7 @@ var MetaForm = React.createClass({
      * @param componentProps
      * @returns {Array}
      */
-    getValidationSummary: function(componentProps) {
+    getValidationSummaryMessages: function(componentProps) {
         let result = [];
         for(let key in componentProps) {
             if(componentProps.hasOwnProperty(key)) {
@@ -84,9 +85,8 @@ var MetaForm = React.createClass({
         return collectionHelper.toObject(processedFields, 'name');
     },
 
-    updateState(fieldMetadata, newValue) {
+    updateState: function(fieldMetadata, newValue) {
         let newState = _.extend({}, this.state);
-        console.log(newState);
 
         let typeProcessorType = typeProcessorFactory.getProcessorType(fieldMetadata.type);
         let typeProcessor = new typeProcessorType();
@@ -97,7 +97,7 @@ var MetaForm = React.createClass({
             newState.model[fieldMetadata.name] = typeProcessed.convertedValue;
             newState.componentProps = this.getComponentProps(this.props.fields, newState.model);
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
-            newState.validationSummary = this.getValidationSummary(newState.componentProps);
+            newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
         else {
             // the user input is not valid for it's type.
@@ -106,11 +106,17 @@ var MetaForm = React.createClass({
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
             newState.componentProps[fieldMetadata.name].invalid = {
                 value: true,
-                message: `This field should be a valid ${fieldMetadata.type}`
+                message: `The field '${fieldMetadata.name}' should be a valid ${fieldMetadata.type}`
             }
-            newState.validationSummary = this.getValidationSummary(newState.componentProps);
+            newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
 
+        this.setState(newState);
+    },
+
+    handleValidationSummaryDismiss: function() {
+        let newState = _.extend({}, this.state);
+        newState.validationSummary.open = false;
         this.setState(newState);
     },
 
@@ -127,6 +133,7 @@ var MetaForm = React.createClass({
                         Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))
                     }
                 </div>
+                <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
                 <div className='pull-right'>
                     <ButtonToolbar>
                         <Button bsStyle='primary'>Save</Button>
