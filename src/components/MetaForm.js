@@ -106,7 +106,7 @@ var MetaForm = React.createClass({
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
             newState.componentProps[fieldMetadata.name].invalid = {
                 value: true,
-                message: `The field '${fieldMetadata.name}' should be a valid ${fieldMetadata.type}`
+                message: `The field '${fieldMetadata.name}' should be a valid ${fieldMetadata.type}.`
             }
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }

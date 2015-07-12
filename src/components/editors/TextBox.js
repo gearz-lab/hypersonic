@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input';
 
 const TextBox = React.createClass({
@@ -79,7 +78,8 @@ const TextBox = React.createClass({
         }
 
         return (
-            <Input {...props } />
+            <Input                {...props }
+                />
         );
     }
 });

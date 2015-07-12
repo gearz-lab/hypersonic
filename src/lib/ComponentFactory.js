@@ -1,5 +1,6 @@
 import React from 'react';
 import TextBox from '../components/editors/TextBox';
+import Label from '../components/editors/Label.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
 import _ from 'underscore';
 
@@ -132,6 +133,7 @@ var componentFactory = new ComponentFactory();
 
 // Registers all component definitions
 componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
+componentFactory.registerComponent('label', ['string', 'int', 'float'], Label);
 
 // Registers the component defaults
 componentFactory.setDefaultComponents({

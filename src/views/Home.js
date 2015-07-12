@@ -14,25 +14,32 @@ var Home = React.createClass({
                 {
                     name: 'valorDaCausa',
                     displayName: 'Valor da causa',
-                    addonBefore: m => {
-                        try {
-                            if (m.valorDaCausa.length > 7) {
-                                return 'strong';
-                            } else if (m.valorDaCausa.length > 3) {
-                                return 'medium';
-                            }
-                        }catch(ex) {}
-                        return 'weak';
-                    },
                     hasFeedback: true,
+                    invalid: [
+                        {condition: m => m.valorDaCausa > 100,
+                        message: 'Valor da causa nao deveria ser maior que 100'}
+                    ],
                     type: 'float',
                 },
                 {
                     name: 'taxaDeRetorno',
                     displayName: 'Taxa de retorno',
-                    value: (m, h) => 'R$ ' + h.format(m.valorDaCausa * 0.2, {precision: 2}),
+                    component: 'label',
+                    value: (m, h) => 'R$ ' + h.format(m.valorDaCausa * 0.2, {precision: 2, decimal:',', thousand:'.'}),
                     readOnly: true,
                     type: 'string',
+                },
+                {
+                    name: 'valorCobrado',
+                    displayName: 'Valor cobrado',
+                    readOnly: false,
+                    type: 'float',
+                    invalid: [
+                        {
+                            condition: m => m.valorCobrado < m.valorDaCausa,
+                            message: 'O valor cobrado nao pode ser menor do que o valor da causa'
+                        }
+                    ]
                 }
             ]
         };
@@ -42,7 +49,12 @@ var Home = React.createClass({
                 {
                     name: 'valorDaCausa'
                 },
-                { name: 'taxaDeRetorno'}
+                {
+                    name: 'taxaDeRetorno'
+                },
+                {
+                    name: 'valorCobrado'
+                }
             ]
         };
 
