@@ -5,6 +5,8 @@ import metadataEvaluator from '../lib/metadataEvaluator.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
 import collectionHelper from '../lib/helpers/collectionHelper.js';
 import typeProcessorFactory from '../lib/typeProcessorFactory.js';
+import Button from 'react-bootstrap/lib/Button.js';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -125,7 +127,12 @@ var MetaForm = React.createClass({
                         Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))
                     }
                 </div>
-                <p>Holy crap</p>
+                <div className='pull-right'>
+                    <ButtonToolbar>
+                        <Button bsStyle='primary'>Save</Button>
+                        <Button>Cancel</Button>
+                    </ButtonToolbar>
+                </div>
             </div>
         );
     }
