@@ -14,11 +14,11 @@ const TextBox = React.createClass({
      */
     _getValidStyle() {
         if(this.props.invalid) {
-            if(!this.props.invalid.value) {
+            if(this.props.invalid.value === undefined || this.props.invalid.value === null) {
                 throw new Error('invalid prop should have a value property');
             }
             var invalid = this.props.invalid.value;
-            if(invalid.value) {
+            if(invalid) {
                 return 'error';
             }
         }
@@ -42,7 +42,7 @@ const TextBox = React.createClass({
     },
 
     render() {
-        let value = this.props.value;
+        let value = this.props.rawValue ? this.props.rawValue : this.props.value;
         if(value === undefined || value === null) {
             // the value can never be null or undefined, because the Input will act as 'uncontrolled' if so, meaning that
             // it will allow whatever the user inputs

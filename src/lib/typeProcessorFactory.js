@@ -13,7 +13,7 @@ class TypeProcessorFactory {
     }
 
     getProcessorType(type) {
-        if(type in this.processorsByType) {
+        if(this.processorsByType.hasOwnProperty(type)) {
             return this.processorsByType[type];
         }
         return StringTypeProcessor;

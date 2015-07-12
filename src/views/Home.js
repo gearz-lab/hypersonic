@@ -51,7 +51,10 @@ var Home = React.createClass({
 
         return (
             <div>
-                <MetaForm fields={metadataProvider.mergeFields(entityType.fields, layout.fields)} model={model} />
+                <MetaForm
+                    fields={metadataProvider.mergeFields(entityType.fields, layout.fields)}
+                    model={model}
+                    title='Editing contact'/>
             </div>
         );
     }

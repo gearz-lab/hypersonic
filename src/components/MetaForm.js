@@ -10,6 +10,7 @@ import _ from 'underscore';
 var MetaForm = React.createClass({
 
     propTypes: {
+        title: React.PropTypes.string,
         fields: React.PropTypes.object.isRequired,
         model: React.PropTypes.object
     },
@@ -83,12 +84,16 @@ var MetaForm = React.createClass({
 
     updateState(fieldMetadata, newValue) {
         let newState = _.extend({}, this.state);
-        let typeProcessor = typeProcessorFactory.getProcessorType(fieldMetadata.type);
+        console.log(newState);
+
+        let typeProcessorType = typeProcessorFactory.getProcessorType(fieldMetadata.type);
+        let typeProcessor = new typeProcessorType();
         let typeProcessed = typeProcessor.process(newValue);
 
         if(typeProcessed.valid) {
             // the user input is valid for it's type
             newState.model[fieldMetadata.name] = typeProcessed.value;
+            console.log(newState);
             newState.componentProps = this.getComponentProps(this.props.fields, newState.model);
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
             newState.validationSummary = this.getValidationSummary(newState.componentProps);
@@ -99,7 +104,7 @@ var MetaForm = React.createClass({
             // the componentProps
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
             newState.componentProps[fieldMetadata.name].invalid = {
-                value: false,
+                value: true,
                 message: `This field should be a valid ${fieldMetadata.type}`
             }
             newState.validationSummary = this.getValidationSummary(newState.componentProps);
@@ -115,6 +120,7 @@ var MetaForm = React.createClass({
         let _this = this;
         return (
             <div>
+                <h3>{_this.props.title}</h3>
                 <div>
                     {
                         Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))
