@@ -12,6 +12,12 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
+                    name: 'date',
+                    displayName: 'Data de cadastro',
+                    type: 'string',
+                    inputType: 'date'
+                },
+                {
                     name: 'enableSomething',
                     displayName: 'Notificar envolvidos',
                     hasFeedback: true,
@@ -54,6 +60,9 @@ var Home = React.createClass({
 
         let layout = {
             fields: [
+                {
+                    name: 'date'
+                },
                 {
                     name: 'enableSomething'
                 },
