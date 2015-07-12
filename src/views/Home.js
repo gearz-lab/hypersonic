@@ -30,7 +30,8 @@ var Home = React.createClass({
                 {
                     name: 'taxaDeRetorno',
                     displayName: 'Taxa de retorno',
-                    value: (m, h) => m.valorDaCausa * 0.2,
+                    value: (m, h) => 'R$ ' + h.format(m.valorDaCausa * 0.2, {precision: 2}),
+                    readOnly: true,
                     type: 'string',
                 }
             ]

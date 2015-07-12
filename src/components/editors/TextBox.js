@@ -36,7 +36,15 @@ const TextBox = React.createClass({
         return '';
     },
 
+    /**
+     * Returns the input type for the given property type
+     */
+    _getInputType(type) {
+        return 'text';
+    },
+
     handleChange(event){
+        console.log(event.target.value);
         let newValue = event.target.value;
         this.props.onChange({name: this.props.name, value: newValue});
     },
@@ -52,6 +60,8 @@ const TextBox = React.createClass({
         // metadata
         let props = {
             value: value,
+            ref: 'input',
+            type: this._getInputType(this.props.type),
             placeholder: this.props.placeholder,
             label: this.props.displayName,
             help: this.props.help,
@@ -69,11 +79,7 @@ const TextBox = React.createClass({
         }
 
         return (
-            <Input
-                type='text'
-                ref='input'
-                {...props }
-                />
+            <Input {...props } />
         );
     }
 });
