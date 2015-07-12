@@ -92,8 +92,7 @@ var MetaForm = React.createClass({
 
         if(typeProcessed.valid) {
             // the user input is valid for it's type
-            newState.model[fieldMetadata.name] = typeProcessed.value;
-            console.log(newState);
+            newState.model[fieldMetadata.name] = typeProcessed.convertedValue;
             newState.componentProps = this.getComponentProps(this.props.fields, newState.model);
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
             newState.validationSummary = this.getValidationSummary(newState.componentProps);
