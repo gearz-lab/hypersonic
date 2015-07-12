@@ -62,44 +62,49 @@ describe('ComponentFactory', function () {
             const metadata = {
                 name: 'name',
                 type: 'string',
-                component: 'foo'
+                component: 'foo',
+                onChange: e => {}
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata, e => {}), /Could not find the given component/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata), /Could not find the given component/);
         });
 
         it('Should return the component when specifying the component explicitly', function() {
             const metadata = {
                 name: 'name',
                 type: 'string',
-                component: 'textbox'
+                component: 'textbox',
+                onChange: e => {}
             };
-            const component = ComponentFactory.buildComponent(metadata, {}, e => {});
+            const component = ComponentFactory.buildComponent(metadata);
             assert.isTrue(ReactTestUtils.isElement(component));
         });
 
         it('Should return the component when specifying the type only', function() {
             const metadata = {
                 name: 'name',
-                type: 'string'
+                type: 'string',
+                onChange: e => {}
             };
-            const component = ComponentFactory.buildComponent(metadata, {}, e => {});
+            const component = ComponentFactory.buildComponent(metadata);
             assert.isTrue(ReactTestUtils.isElement(component));
         });
 
         it('Should throw an exception when the type doesn\'t exist', function() {
             const metadata = {
                 name: 'name',
-                type: 'foo'
+                type: 'foo',
+                onChange: e => {}
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata, {}, e => {}), /Couldn't find any component for the given type/);
+            assert.throws(() => ComponentFactory.buildComponent(metadata), /Couldn't find any component for the given type/);
         });
 
         it('Should work with integers', function() {
             const metadata = {
                 name: 'number',
-                type: 'int'
+                type: 'int',
+                onChange: e => {}
             };
-            const component = ComponentFactory.buildComponent(metadata, {}, e => {});
+            const component = ComponentFactory.buildComponent(metadata);
             assert.isTrue(ReactTestUtils.isElement(component));
         });
     });

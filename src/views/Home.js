@@ -3,6 +3,7 @@ import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input'
 import TextBox from '../components/editors/TextBox';
 import MetaForm from '../components/MetaForm';
+import metadataProvider from '../lib/metadataProvider.js';
 
 var Home = React.createClass({
 
@@ -50,7 +51,7 @@ var Home = React.createClass({
 
         return (
             <div>
-                <MetaForm entityType={entityType} layout={layout} model={model} />
+                <MetaForm fields={metadataProvider.mergeFields(entityType.fields, layout.fields)} model={model} />
             </div>
         );
     }

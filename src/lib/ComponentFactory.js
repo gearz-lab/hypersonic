@@ -100,48 +100,29 @@ class ComponentFactory {
 
     /**
      * Gets the appropriate component based on the given metadata
-     * @param metadata
-     * @param model
-     * @param onChange
+     * @param props
      * @returns {*}
      */
-    buildComponent(metadata, model, onChange) {
-
-        if(!metadata) {
+    buildComponent(props) {
+        if(!props) {
             throw new Error('The metadata parameter is required');
         }
 
-        if(!model) {
-            throw new Error('The model parameter is required');
-        }
-
-        this._validateMetadata(metadata);
+        this._validateMetadata(props);
         let componentType;
-        if(metadata.component) {
+        if(props.component) {
             // if the metadata explicitly specify a component, let's use it
-            componentType = this.getComponent(metadata.component);
+            componentType = this.getComponent(props.component);
         }
         else
         {
             // If the metadata doesn't explicitly specify a component, let's return
             // the default component for type. If there's no default, let's take the first
             // that matches the type
-            componentType = this.getDefaultComponent(metadata.type);
+            componentType = this.getDefaultComponent(props.type);
         }
         if(!componentType)
-            throw new Error(`Could not resolve the component for type type. Type: ${metadata.type}`);
-
-        let props = {
-            key: metadata.name,
-            name: metadata.name,
-            onChange: onChange
-        };
-
-        _.extend(props, metadata);
-
-        if(!props.hasOwnProperty('value')) {
-            props.value = dataEvaluator.evaluate(metadata, model);
-        }
+            throw new Error(`Could not resolve the component for type type. Type: ${props.type}`);
 
         return React.createElement(componentType, props);
     }
