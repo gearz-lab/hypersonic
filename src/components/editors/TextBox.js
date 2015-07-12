@@ -38,12 +38,18 @@ const TextBox = React.createClass({
     /**
      * Returns the input type for the given property type
      */
-    _getInputType(type) {
+    _getInputType(type, subType) {
+        switch(type) {
+            case 'string':
+                if(subType == 'password') {
+                    return 'password';
+                }
+                return 'text';
+        }
         return 'text';
     },
 
     handleChange(event){
-        console.log(event.target.value);
         let newValue = event.target.value;
         this.props.onChange({name: this.props.name, value: newValue});
     },
@@ -60,7 +66,8 @@ const TextBox = React.createClass({
         let props = {
             value: value,
             ref: 'input',
-            type: this._getInputType(this.props.type),
+            type: this._getInputType(this.props.type, this.props.subType),
+            subType: this.props.type,
             placeholder: this.props.placeholder,
             label: this.props.displayName,
             help: this.props.help,

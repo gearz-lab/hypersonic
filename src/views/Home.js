@@ -12,14 +12,22 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
+                    name: 'enableSomething',
+                    displayName: 'Notificar envolvidos',
+                    hasFeedback: true,
+                    type: 'bool'
+                },
+                {
                     name: 'valorDaCausa',
                     displayName: 'Valor da causa',
                     hasFeedback: true,
+                    invisible: m => !m.enableSomething,
                     invalid: [
                         {condition: m => m.valorDaCausa > 100,
                         message: 'Valor da causa nao deveria ser maior que 100'}
                     ],
-                    type: 'float',
+                    type: 'string',
+                    subType: 'password'
                 },
                 {
                     name: 'taxaDeRetorno',
@@ -46,6 +54,9 @@ var Home = React.createClass({
 
         let layout = {
             fields: [
+                {
+                    name: 'enableSomething'
+                },
                 {
                     name: 'valorDaCausa'
                 },
