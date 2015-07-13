@@ -14,6 +14,7 @@
     "express": "~4.12.2",
     "express-react-views": "^0.8.1",
     "formato": "^1.0.4",
+    "moment": "^2.10.3",
     "mongoose": "^4.0.1",
     "morgan": "~1.5.1",
     "react-bootstrap": "^0.23.4",
