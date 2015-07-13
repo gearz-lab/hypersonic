@@ -14,17 +14,17 @@ describe('ComponentFactory', function () {
         it('Should return definitions for the string type', function () {
             const definitions = ComponentFactory.getComponents('string');
             assert.isArray(definitions);
-            assert.equal(1, definitions.length);
+            assert.equal(definitions.length, 2);
         });
         it('Should return definitions for the int type', function () {
             const definitions = ComponentFactory.getComponents('int');
             assert.isArray(definitions);
-            assert.equal(1, definitions.length);
+            assert.equal(2, definitions.length);
         });
         it('Should return definitions for the float type', function () {
             const definitions = ComponentFactory.getComponents('int');
             assert.isArray(definitions);
-            assert.equal(1, definitions.length);
+            assert.equal(2, definitions.length);
         });
     });
 

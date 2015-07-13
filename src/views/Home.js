@@ -12,47 +12,19 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'date',
-                    displayName: 'Data de cadastro',
-                    type: 'string',
-                    inputType: 'date'
-                },
-                {
-                    name: 'enableSomething',
-                    displayName: 'Notificar envolvidos',
-                    hasFeedback: true,
-                    type: 'bool'
-                },
-                {
-                    name: 'valorDaCausa',
-                    displayName: 'Valor da causa',
-                    hasFeedback: true,
-                    invisible: m => !m.enableSomething,
-                    invalid: [
-                        {condition: m => m.valorDaCausa > 100,
-                        message: 'Valor da causa nao deveria ser maior que 100'}
+                    name: 'tipo',
+                    type: 'int',
+                    displayName: 'Tipo',
+                    component: 'select',
+                    options: [
+                        { value: 1, text: 'Cliente'},
+                        { value: 2, text: 'Honorario'}
                     ],
-                    type: 'string',
-                    subType: 'password'
-                },
-                {
-                    name: 'taxaDeRetorno',
-                    displayName: 'Taxa de retorno',
-                    component: 'label',
-                    value: (m, h) => 'R$ ' + h.format(m.valorDaCausa * 0.2, {precision: 2, decimal:',', thousand:'.'}),
-                    readOnly: true,
-                    type: 'string',
-                },
-                {
-                    name: 'valorCobrado',
-                    displayName: 'Valor cobrado',
-                    readOnly: false,
-                    type: 'float',
+                    addonBefore: 'Fuck',
+                    help: 'fuck',
+                    hasFeedback: true,
                     invalid: [
-                        {
-                            condition: m => m.valorCobrado < m.valorDaCausa,
-                            message: 'O valor cobrado nao pode ser menor do que o valor da causa'
-                        }
+                        { condition: m => true, message: 'fuck this shit' }
                     ]
                 }
             ]
@@ -61,19 +33,7 @@ var Home = React.createClass({
         let layout = {
             fields: [
                 {
-                    name: 'date'
-                },
-                {
-                    name: 'enableSomething'
-                },
-                {
-                    name: 'valorDaCausa'
-                },
-                {
-                    name: 'taxaDeRetorno'
-                },
-                {
-                    name: 'valorCobrado'
+                    name: 'tipo'
                 }
             ]
         };

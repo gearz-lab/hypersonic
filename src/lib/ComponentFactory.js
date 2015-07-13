@@ -2,6 +2,7 @@ import React from 'react';
 import TextBox from '../components/editors/TextBox';
 import Label from '../components/editors/Label.js';
 import CheckBox from '../components/editors/CheckBox.js';
+import Select from '../components/editors/Select.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
 import _ from 'underscore';
 
@@ -135,6 +136,7 @@ var componentFactory = new ComponentFactory();
 // Registers all component definitions
 componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
 componentFactory.registerComponent('label', ['string', 'int', 'float'], Label);
+componentFactory.registerComponent('select', ['string', 'int', 'float'], Select);
 componentFactory.registerComponent('checkbox', ['bool'], CheckBox);
 
 // Registers the component defaults
