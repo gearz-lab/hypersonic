@@ -12,20 +12,31 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'tipo',
-                    type: 'int',
-                    displayName: 'Tipo',
+                    name: 'temValor',
+                    type: 'bool',
+                    displayName: 'Tem valor'
+                },
+                {
+                    name: 'valor',
+                    type: 'float',
                     component: 'select',
                     options: [
-                        { value: 1, text: 'Cliente'},
-                        { value: 2, text: 'Honorario'}
+                        { value: 1000, text: 'R$ 1000,000'},
+                        { value: 2000, text: 'R$ 2000,000'}
                     ],
-                    addonBefore: 'Fuck',
-                    help: 'fuck',
-                    hasFeedback: true,
-                    invalid: [
-                        { condition: m => true, message: 'fuck this shit' }
-                    ]
+                    displayName: 'Valor',
+                    help: m => 'The contact name is ' + m.valor,
+                    readOnly: m => !m.temValor,
+                    addonBeforeGlyphicon: 'usd',
+                    addonAfter: '.00'
+                },
+                {
+                    name: 'taxaDeRetorno',
+                    displayName: 'Taxa de retorno',
+                    component: 'label',
+                    type: 'string',
+                    value: (m,h) => 'R$ ' + h.format(m.valor * 0.2, {precision: 2, decimal: ',', thousand: '.'}),
+                    readOnly: true
                 }
             ]
         };
@@ -33,7 +44,13 @@ var Home = React.createClass({
         let layout = {
             fields: [
                 {
-                    name: 'tipo'
+                    name: 'temValor'
+                },
+                {
+                    name: 'valor'
+                },
+                {
+                    name: 'taxaDeRetorno'
                 }
             ]
         };

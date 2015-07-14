@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from 'react-bootstrap/lib/Input';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 
 const TextBox = React.createClass({
 
@@ -52,9 +53,30 @@ const TextBox = React.createClass({
         return 'text';
     },
 
+    /**
+     * Returns an addon
+     */
+    _getAddon(addonText, addonGlyphicon) {
+        if(addonGlyphicon) {
+            return <Glyphicon glyph={addonGlyphicon} />;
+        } else {
+            return addonText;
+        }
+    },
+
     handleChange(event){
         let newValue = event.target.value;
-        this.props.onChange({name: this.props.name, value: newValue});
+        if(newValue && this.props.maxLength) {
+            if(newValue.length <= this.props.maxLength) {
+                this.props.onChange({name: this.props.name, value: newValue});
+            }
+            else {
+
+            }
+        }
+        else {
+            this.props.onChange({name: this.props.name, value: newValue});
+        }
     },
 
     render() {
@@ -71,12 +93,13 @@ const TextBox = React.createClass({
             ref: 'input',
             type: this._getInputType(this.props.inputType, this.props.type, this.props.subType),
             subType: this.props.type,
+            maxLength: this.props.maxLength,
             placeholder: this.props.placeholder,
             label: this.props.displayName,
             help: this.props.help,
             readOnly: this.props.readOnly,
-            addonBefore: this.props.addonBefore,
-            addonAfter: this.props.addonAfter,
+            addonBefore: this._getAddon( this.props.addonBefore, this.props.addonBeforeGlyphicon),
+            addonAfter: this._getAddon( this.props.addonAfter, this.props.addonAfterGlyphicon),
             hasFeedback: this.props.hasFeedback,
             groupClassName: `group-class ${this._getVisibleStyle()}`,
             labelClassName: 'label-class',

@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from 'react-bootstrap/lib/Input';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 
 const Select = React.createClass({
 
@@ -43,6 +44,16 @@ const Select = React.createClass({
         return '';
     },
 
+    /**
+     * Returns an addon
+     */
+        _getAddon(addonText, addonGlyphicon) {
+        if(addonGlyphicon) {
+            return <Glyphicon glyph={addonGlyphicon} />;
+        } else {
+            return addonText;
+        }
+    },
 
     render: function() {
         let value = this.props.rawValue ? this.props.rawValue : this.props.value;
@@ -60,18 +71,14 @@ const Select = React.createClass({
             placeholder: this.props.placeholder,
             label: this.props.displayName,
             help: this.props.help,
-            readOnly: this.props.readOnly,
-            addonBefore: this.props.addonBefore,
-            addonAfter: this.props.addonAfter,
+            addonBefore: this._getAddon( this.props.addonBefore, this.props.addonBeforeGlyphicon),
+            addonAfter: this._getAddon( this.props.addonAfter, this.props.addonAfterGlyphicon),
             hasFeedback: this.props.hasFeedback,
             groupClassName: `group-class ${this._getVisibleStyle()}`,
             labelClassName: 'label-class',
-            onChange:this.handleChange
+            onChange:this.handleChange,
+            disabled: this.props.readOnly
         };
-
-        if(props.hasFeedback) {
-            props.bsStyle = this._getValidStyle()
-        }
 
         if(props.hasFeedback) {
             props.bsStyle = this._getValidStyle()
