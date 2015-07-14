@@ -101,8 +101,9 @@ const TextBox = React.createClass({
             addonBefore: this._getAddon( this.props.addonBefore, this.props.addonBeforeGlyphicon),
             addonAfter: this._getAddon( this.props.addonAfter, this.props.addonAfterGlyphicon),
             hasFeedback: this.props.hasFeedback,
-            groupClassName: `group-class ${this._getVisibleStyle()}`,
-            labelClassName: 'label-class',
+            groupClassName: `group-class ${this._getVisibleStyle()} ${this.props.groupClassName}`,
+            labelClassName: `label-class ${this.props.labelClassName}`,
+            wrapperClassName: ``,
             onChange:this.handleChange
         };
 

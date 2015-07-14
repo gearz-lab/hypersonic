@@ -19,16 +19,12 @@ var Home = React.createClass({
                 {
                     name: 'valor',
                     type: 'float',
-                    component: 'select',
-                    options: [
-                        { value: 1000, text: 'R$ 1000,000'},
-                        { value: 2000, text: 'R$ 2000,000'}
-                    ],
                     displayName: 'Valor',
                     help: m => 'The contact name is ' + m.valor,
                     readOnly: m => !m.temValor,
-                    addonBeforeGlyphicon: 'usd',
-                    addonAfter: '.00'
+                    addonBeforeGlyphicon: m => m.valor > 1000 ? 'usd' : 'star',
+                    addonAfter: '.00',
+                    groupClassName: m => m.valor >= 0 ? 'green' : 'red'
                 },
                 {
                     name: 'taxaDeRetorno',
@@ -36,7 +32,9 @@ var Home = React.createClass({
                     component: 'label',
                     type: 'string',
                     value: (m,h) => 'R$ ' + h.format(m.valor * 0.2, {precision: 2, decimal: ',', thousand: '.'}),
-                    readOnly: true
+                    readOnly: true,
+                    labelClassName: 'blue',
+                    groupClassName: m => m.valor >= 0 ? 'green' : 'red'
                 }
             ]
         };
