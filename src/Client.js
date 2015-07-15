@@ -1,5 +1,5 @@
 import bootstrap from 'bootstrap/less/bootstrap.less';
-import reactSelect from 'react-select/dist/default.css';
+import reactSelect from './styles/thirdParty/lookup.less';
 import styles from './styles/styles.less';
 
 import React from 'react';
