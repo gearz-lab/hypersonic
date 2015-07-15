@@ -12,29 +12,20 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'temValor',
-                    type: 'bool',
-                    displayName: 'Tem valor'
-                },
-                {
-                    name: 'valor',
-                    type: 'float',
-                    displayName: 'Valor',
-                    help: m => 'The contact name is ' + m.valor,
-                    readOnly: m => !m.temValor,
-                    addonBeforeGlyphicon: m => m.valor > 1000 ? 'usd' : 'star',
-                    addonAfter: '.00',
-                    groupClassName: m => m.valor >= 0 ? 'green' : 'red'
-                },
-                {
-                    name: 'taxaDeRetorno',
-                    displayName: 'Taxa de retorno',
-                    component: 'label',
+                    name: 'type',
                     type: 'string',
-                    value: (m,h) => 'R$ ' + h.format(m.valor * 0.2, {precision: 2, decimal: ',', thousand: '.'}),
-                    readOnly: true,
-                    labelClassName: 'blue',
-                    groupClassName: m => m.valor >= 0 ? 'green' : 'red'
+                    component: 'select2',
+                    displayName: 'Type',
+                    options: [
+                        { value: "1", label: 'Person'},
+                        { value: "2", label: 'Company'}
+                    ]
+                },
+                {
+                    name: 'name',
+                    type: 'string',
+                    displayName: 'Name',
+                    readOnly: true
                 }
             ]
         };
@@ -42,19 +33,16 @@ var Home = React.createClass({
         let layout = {
             fields: [
                 {
-                    name: 'temValor'
+                    name: 'type'
                 },
                 {
-                    name: 'valor'
-                },
-                {
-                    name: 'taxaDeRetorno'
+                    name: 'name'
                 }
             ]
         };
 
         let model = {
-            password: ''
+            type: ''
         };
 
         return (
