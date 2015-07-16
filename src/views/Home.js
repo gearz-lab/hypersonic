@@ -12,20 +12,14 @@ var Home = React.createClass({
         let entityType = {
             fields: [
                 {
-                    name: 'type',
-                    type: 'string',
-                    component: 'select2',
-                    displayName: 'Type',
-                    options: [
-                        { value: "1", label: 'Person'},
-                        { value: "2", label: 'Company'}
-                    ]
-                },
-                {
                     name: 'name',
                     type: 'string',
-                    displayName: 'Name',
-                    readOnly: true
+                    displayName: 'Name'
+                },
+                {
+                    name: 'date',
+                    type: 'date',
+                    displayName: 'Date'
                 }
             ]
         };
@@ -33,10 +27,10 @@ var Home = React.createClass({
         let layout = {
             fields: [
                 {
-                    name: 'type'
+                    name: 'name'
                 },
                 {
-                    name: 'name'
+                    name: 'date'
                 }
             ]
         };

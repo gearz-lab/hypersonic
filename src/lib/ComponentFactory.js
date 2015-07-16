@@ -4,6 +4,7 @@ import Label from '../components/editors/Label.js';
 import CheckBox from '../components/editors/CheckBox.js';
 import Select from '../components/editors/Select.js';
 import Select2 from '../components/editors/Select2.js';
+import DatePicker from '../components/editors/DatePicker.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
 import _ from 'underscore';
 
@@ -140,13 +141,15 @@ componentFactory.registerComponent('label', ['string', 'int', 'float'], Label);
 componentFactory.registerComponent('select', ['string', 'int', 'float'], Select);
 componentFactory.registerComponent('select2', ['string', 'int', 'float'], Select2);
 componentFactory.registerComponent('checkbox', ['bool'], CheckBox);
+componentFactory.registerComponent('datepicker', ['bool'], DatePicker);
 
 // Registers the component defaults
 componentFactory.setDefaultComponents({
     "string": 'textbox',
     "int": 'textbox',
     "float": 'textbox',
-    "bool": 'checkbox'
+    "bool": 'checkbox',
+    "date": 'datepicker'
 });
 
 export default componentFactory;
