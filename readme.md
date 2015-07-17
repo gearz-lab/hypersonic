@@ -109,7 +109,8 @@ Gearz is [MIT](./LICENSE).
 Contributing
 ---
 
-There's still no guideline for contributing but we'd love to have you. Please e-mail me at andrerpena@gmail.com for details.
+There's still no guideline for contributing but we'd love to have you. Please e-mail me at andrerpena@gmail.com if you
+want to get onboard. We can even schedule a Skype session.
 
 
 
