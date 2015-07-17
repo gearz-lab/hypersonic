@@ -10,12 +10,13 @@ Gearz is a platform for developing data-centric business applications.
  - [RethinkDB](http://rethinkdb.com/)
 
 **Project status**
-Gearz is under development. 1.0 release is planned for 2016 Q3. For more details, please refer to the [roadmap](https://github.com/gearz-lab/gearz/milestones)
+
+Gearz is under development. 1.0 release is planned for 2016 Q3. For more details, please refer to the [roadmap](https://github.com/gearz-lab/gearz/milestones).
  
 About
 ---
 
-Gearz is not a library, nor a framework. It is a platform. One important thing to understand is that Gearz is not 
+Gearz is not a library, nor a framework. It is a platform. The most important thing to understand is that Gearz is not 
 suited for any type of applications, it is a platform for creating *data-centric business applications*. So, what is this?
 It's any application which the primary goal is to allow the user to manipulate entities. It allows users to input
 data, search and compile the information into charts and reports. It's a management system. The entities that the users manipulate depend on the
