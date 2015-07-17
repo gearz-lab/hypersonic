@@ -47,14 +47,18 @@ There are some amazing platforms on the market already. Some examples are:
  - [SalesForce1](https://developer.salesforce.com/platform/overview)
  - [Visual Studio LightSwitch](https://msdn.microsoft.com/en-us/library/lightswitch.aspx)
 
-However, an interesting thing about technology is that, once a more modern and powerful underlying technology arrives, it 
-creates room for improvement. Some times, corporates are not dynamic enough to reshape on time. That enables new ideas
-and projects to rise. Besides, Gearz is free and based on free-to-use only components. 
-
+We truly respect these platforms. However, an interesting thing about technology is that, once a more modern and powerful 
+underlying technology arrives, it creates room for improvement. Some times, corporates are not dynamic enough to reshape
+ on time. That enables new ideas and projects to rise. Besides, Gearz is free, even for commercial use, and it's based 
+ solely on free-to-use components.
+ 
 Node.js is [showing and unprecedented growth](http://apmblog.dynatrace.com/2015/04/09/node-js-is-hitting-the-big-time-in-enterprise-markets/)
-, and it's perfect for dynamic applications. We all love the security of static-typed languages, but experience is 
-showing that, for dynamic applications, with need for dynamic schemas, maybe a dynamic language like JavaScript is a better
+. We all love the security of static-typed languages, but experience is 
+showing that, for dynamic applications, with the need for dynamic schemas, maybe a dynamic language like JavaScript is a better
 fit.
+
+
+
 
 
  
