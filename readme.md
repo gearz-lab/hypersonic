@@ -71,5 +71,21 @@ Did I forget to mention? Gearz is free and solely based on free-to-use component
 Core concepts
 ---
 
+**Metadata over programming**
+
+**Extreme customization**
+
+**Mobile first**
+
+About the author
+---
+
+License
+---
+
+Contributing
+---
+
+
 
  
