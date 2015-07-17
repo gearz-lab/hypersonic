@@ -58,17 +58,18 @@ Node.js is [showing an unprecedented growth](http://apmblog.dynatrace.com/2015/0
 showing that, for dynamic applications, with the need for dynamic schemas, maybe a dynamic language like JavaScript is a better
 fit.
 
-Facebook's React.js is amazing. It fits perfectly for creating reactive and responsive client-side components. One of
+Facebook's [React.js](https://facebook.github.io/react/) is amazing. It fits perfectly for creating reactive and responsive client-side components. One of
 the reasons it excels is the ability to render the app both in the server and in the client, which is called "isomorphic" behavior.
 As a bonus, it's learning curve is incredibly low.
  
-RethingDB is perfect for variable schema applications. It's reliable, really easy to shard and replicate and it
+[RethinkDB](http://rethinkdb.com/) is perfect for variable schema applications. It's reliable, really easy to shard and replicate and it
  supports server-side joins. Additionally, it's possible to subscribe for data change, which makes it a perfect fit for
  real-time applications.
 
 Did I forget to mention? Gearz is free and solely based on free-to-use components.
 
-
+Core concepts
+---
 
 
  
