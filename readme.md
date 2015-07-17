@@ -23,28 +23,38 @@ data, search and compile the information into charts and reports. It's a managem
 application niche. If we're talking about a CRM, for instance, there will probably be entities for Customer, Organization, Lead and Sale.
 The universe of entities that the user can manipulate is called the `Application Domain`.
   
-Fortunately, virtually every *data-centric business applications* share most of it's DNA, 
-regardless of the application domain. It doesn't matter which entities you wish to allow your users to manipulate, there's
+Fortunately, virtually every *data-centric business application* share most of it's DNA, 
+regardless of the application domain. It doesn't matter which entities the application handles, there's
 always a plethora of common problems that have to be tackled:
  
- - Authentication
- - Authorization / Access Control
- - API and integration
- - Auditing / Change Tracking
- - Dynamic SCRUD forms (search, create, read, update and delete)
- - Charts
- - Reports
+ - Authentication.
+ - Authorization / Access Control.
+ - API and integration.
+ - Auditing / Change Tracking.
+ - Dynamic SCRUD forms (search, create, read, update and delete).
+ - Custom entities and forms.
+ - Charts.
+ - Reports.
    
 Gearz aims to provide you with the tools you need to create a successful application without having to deal with all these
 hurdles.
  
-Some of the similar platforms available:
-
- - [SalesForce1](https://developer.salesforce.com/platform/overview)
- - [Visual Studio LightSwitch](https://msdn.microsoft.com/en-us/library/lightswitch.aspx)
- 
 Why do we need another platform?
 ---
 
-The market is 
+There are some amazing platforms on the market already. Some examples are:
+
+ - [SalesForce1](https://developer.salesforce.com/platform/overview)
+ - [Visual Studio LightSwitch](https://msdn.microsoft.com/en-us/library/lightswitch.aspx)
+
+However, an interesting thing about technology is that, once a more modern and powerful underlying technology arrives, it 
+creates room for improvement. Some times, corporates are not dynamic enough to reshape on time. That enables new ideas
+and projects to rise. Besides, Gearz is free and based on free-to-use only components. 
+
+Node.js is [showing and unprecedented growth](http://apmblog.dynatrace.com/2015/04/09/node-js-is-hitting-the-big-time-in-enterprise-markets/)
+, and it's perfect for dynamic applications. We all love the security of static-typed languages, but experience is 
+showing that, for dynamic applications, with need for dynamic schemas, maybe a dynamic language like JavaScript is a better
+fit.
+
+
  
