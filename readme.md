@@ -2,12 +2,15 @@
 
 Gearz is a platform for developing data-centric business applications.
 
-Stack:
+**Stack:**
 
  - [React.js](https://facebook.github.io/react/)
  - [Express.js](http://expressjs.com/)
  - [Node.js](https://nodejs.org/)
  - [RethinkDB](http://rethinkdb.com/)
+
+**Project status**
+Gearz is under development. 1.0 release is planned for 2016 Q3. For more details, please refer to the [roadmap](https://github.com/gearz-lab/gearz/milestones)
  
 About
 ---
