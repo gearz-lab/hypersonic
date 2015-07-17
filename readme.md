@@ -52,11 +52,20 @@ underlying technology arrives, it creates room for improvement. Some times, corp
  on time. That enables new ideas and projects to rise. Besides, Gearz is free, even for commercial use, and it's based 
  solely on free-to-use components.
  
-Node.js is [showing and unprecedented growth](http://apmblog.dynatrace.com/2015/04/09/node-js-is-hitting-the-big-time-in-enterprise-markets/)
-. We all love the security of static-typed languages, but experience is 
+Gearz is based on a modern stack. Designed for creating dynamic, real-time and responsive apps:
+
+Node.js is [showing an unprecedented growth](http://apmblog.dynatrace.com/2015/04/09/node-js-is-hitting-the-big-time-in-enterprise-markets/)
+. It's amazing how powerful is the community behind [NPM](https://www.npmjs.com/). We all love the security of static-typed languages, but experience is 
 showing that, for dynamic applications, with the need for dynamic schemas, maybe a dynamic language like JavaScript is a better
 fit.
 
+Facebook's React.js is amazing. It fits perfectly for creating reactive and responsive client-side components. One of
+the reasons it excels is the ability to render the app both in the server and in the client, which is called "isomorphic" behavior.
+As a bonus, it's learning curve is incredibly low.
+ 
+RethingDB is perfect for variable schema applications. It's reliable, really easy to shard and replicate and it
+ supports server-side joins. As a bonus, it's possible to subscribe for data change, which makes it a perfect fit for
+ real-time applications.
 
 
 
