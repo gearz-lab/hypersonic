@@ -9,9 +9,9 @@ Gearz is a platform for developing data-centric business applications.
  - [Node.js](https://nodejs.org/)
  - [RethinkDB](http://rethinkdb.com/)
 
-**Project status**
+**Project status:**
 
-Gearz is under development. 1.0 release is planned for 2016 Q3. For more details, please refer to the [roadmap](https://github.com/gearz-lab/gearz/milestones).
+Gearz is under active development. 1.0 release is planned for 2016 Q3. For more details, please refer to the [roadmap](https://github.com/gearz-lab/gearz/milestones).
  
 About
 ---
@@ -51,7 +51,7 @@ We truly respect these platforms. However, an interesting thing about technology
 underlying technology arrives, it creates room for improvement. Some times, corporates are not dynamic enough to reshape
  on time.
  
-Gearz is based on a modern stack. Designed for creating dynamic, real-time and responsive apps:
+Gearz is based on a modern and open stack. Designed for creating dynamic, real-time and responsive apps:
 
 Node.js is [showing an unprecedented growth](http://apmblog.dynatrace.com/2015/04/09/node-js-is-hitting-the-big-time-in-enterprise-markets/)
 . It's amazing how powerful is the community behind [NPM](https://www.npmjs.com/). We all love the security of static-typed languages, but experience is 
@@ -66,12 +66,16 @@ As a bonus, it's learning curve is incredibly low.
  supports server-side joins. Additionally, it's possible to subscribe for data change, which makes it a perfect fit for
  real-time applications.
 
-Did I forget to mention? Gearz is free and solely based on free-to-use components.
+Did I forget to mention? Gearz is free, even for commercial use, and it's solely based on free-to-use components.
 
 Core concepts
 ---
 
-**Metadata over programming**
+**Configuration over programming**
+
+As mentioned before, **data-centric business applications** share a common DNA. Most of the business logic should be
+ handled by the platform, not the application. Gearz provides a framework that allows for *configuring* rather then
+ *coding* for most of the scenarios.
 
 **Extreme customization**
 
