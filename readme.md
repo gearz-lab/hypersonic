@@ -6,6 +6,7 @@ Gearz is a platform for developing data-centric business applications.
 
  - [React.js](https://facebook.github.io/react/)
  - [Express.js](http://expressjs.com/)
+ - [Bootstrap](http://getbootstrap.com/)
  - [Node.js](https://nodejs.org/)
  - [RethinkDB](http://rethinkdb.com/)
 
@@ -73,22 +74,42 @@ Core concepts
 
 **Configuration over programming**
 
-As mentioned before, **data-centric business applications** share a common DNA. Most of the business logic should be
- handled by the platform, not the application. Gearz provides a framework that allows for *configuring* rather then
+As mentioned before, *data-centric business applications* share a common DNA. Most of the business logic should be
+ handled by the platform, not the application. Gearz provides a framework that allows for *configuring* rather than
  *coding* for most of the scenarios.
+ 
+Gearz relies heavily on *declarative reactive metadata*. Instead of coding, it's possible to *define* the existence of entities
+as well as all of it's metadata. It's possible, for instance, to declare that an entity's property is invalid when a give
+expression is true. The UI reacts automatically accordingly.
 
 **Extreme customization**
 
+In today's scenario, it's impossible to think of a *data-centric business application* that doesn't allow the customer
+to extend it. Gearz is designed, from the core, to allow for maximum customization. Actually, the application developer
+and the end-user share virtually the same capabilities.  
+
 **Mobile first**
+
+No need for comments. Gearz is designed to be mobile first. As we rely mostly on configuration and not on programming, we plan to use [React Native](https://facebook.github.io/react-native/)
+to automatically generate mobile native builds with little to no code.
 
 About the author
 ---
 
+Hello, I'm André Pena, from Brazil. I work for Thomson Reuters as a Software Development Specialist and I work on Gearz
+on most of the time that is left. I hope you will enjoy using it as much as I enjoy implementing it.
+
+[Follow me on twitter](https://twitter.com/andrerpena).
+
 License
 ---
 
+Gearz is [MIT](./LICENSE). 
+
 Contributing
 ---
+
+There's still no guideline for contributing but we'd love to have you. Please e-mail me at andrerpena@gmail.com for details.
 
 
 
