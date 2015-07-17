@@ -32,6 +32,7 @@ always a plethora of common problems that have to be tackled:
  - Authorization / Access Control.
  - API and integration.
  - Auditing / Change Tracking.
+ - Notifications.
  - Dynamic SCRUD forms (search, create, read, update and delete).
  - Custom entities and forms.
  - Charts.
@@ -93,11 +94,15 @@ and the end-user share virtually the same capabilities.
 No need for comments. Gearz is designed to be mobile first. As we rely mostly on configuration and not on programming, we plan to use [React Native](https://facebook.github.io/react-native/)
 to automatically generate mobile native builds with little to no code.
 
+**Internationalization**
+
+Gearz is designed to support translations, time-zones and multiple date and number formats. 
+
 About the author
 ---
 
 Hello, I'm André Pena, from Brazil. I work for Thomson Reuters as a Software Development Specialist and I work on Gearz
-on most of the time that is left. I hope you will enjoy using it as much as I enjoy implementing it.
+on most of the time that is left. [My SO profile](http://stackoverflow.com/users/192729/andrerpena?tab=profile) if you are interested. I hope you will enjoy using it as much as I enjoy implementing it.
 
 [Follow me on twitter](https://twitter.com/andrerpena).
 
