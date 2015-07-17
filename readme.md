@@ -49,8 +49,7 @@ There are some amazing platforms on the market already. Some examples are:
 
 We truly respect these platforms. However, an interesting thing about technology is that, once a more modern and powerful 
 underlying technology arrives, it creates room for improvement. Some times, corporates are not dynamic enough to reshape
- on time. That enables new ideas and projects to rise. Besides, Gearz is free, even for commercial use, and it's based 
- solely on free-to-use components.
+ on time.
  
 Gearz is based on a modern stack. Designed for creating dynamic, real-time and responsive apps:
 
@@ -64,8 +63,10 @@ the reasons it excels is the ability to render the app both in the server and in
 As a bonus, it's learning curve is incredibly low.
  
 RethingDB is perfect for variable schema applications. It's reliable, really easy to shard and replicate and it
- supports server-side joins. As a bonus, it's possible to subscribe for data change, which makes it a perfect fit for
+ supports server-side joins. Additionally, it's possible to subscribe for data change, which makes it a perfect fit for
  real-time applications.
+
+Did I forget to mention? Gearz is free and solely based on free-to-use components.
 
 
 
