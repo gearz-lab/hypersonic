@@ -17,12 +17,22 @@ var Home = React.createClass({
                         {
                             name: 'name',
                             type: 'string',
-                            displayName: 'Name'
+                            displayName: 'Name',
+                            addonBefore: 'Something 2'
                         },
                         {
                             name: 'date',
                             type: 'date',
                             displayName: 'Date'
+                        }
+                    ]
+                },
+                {
+                    name: 'phone',
+                    fields: [
+                        {
+                            name: 'number',
+                            type: 'string'
                         }
                     ]
                 }
@@ -36,6 +46,14 @@ var Home = React.createClass({
                         },
                         {
                             name: 'date'
+                        }
+                    ]
+                },
+                {
+                    name: 'phone-edit',
+                    fields: [
+                        {
+                            name: 'number'
                         }
                     ]
                 }
