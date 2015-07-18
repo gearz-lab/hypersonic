@@ -10,5 +10,5 @@ import routes from './Routes';
 window.React = React;
 
 Router.run(routes, Router.HistoryLocation, Handler => {
-    React.render(<Handler/>, document);
+    React.render(<Handler/>, document.getElementById('#app_container'));
 });

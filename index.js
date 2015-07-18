@@ -1,21 +1,22 @@
 var express = require('express');
+var expressReactViews = require('express-react-views');
 var React = require('react');
-var Router = require('react-router');
-var routes = require('./src/Routes');
 
 var app  = express();
 
+app.set('views', './src/express/views');
 app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine({ jsx: { harmony: true } }));
+app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
 
 
 app.use(express.static('./dist'));
 
-app.use(function(req, res, next) {
-        Router.run(routes, req.url, Handler => {
-            let html = React.renderToString(<Handler />);
-            res.send(html);
-    });
-})
+app.get('/api/*', function(req, res) {
+    res.send('API');
+});
 
-app.listen(3000);
+app.get('/**', require('./src/express/routes').index);
+
+app.listen(3000, function() {
+    console.log('Gearz is running on port 3000');
+});
