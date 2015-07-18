@@ -2,8 +2,8 @@
   "name": "gearz",
   "version": "0.0.1",
   "scripts": {
-    "start": "SET NODE_ENV=production && node run-babel index.js",
-    "start-dev": "SET NODE_ENV=development && nodemon run-babel index.js",
+    "start": "SET NODE_ENV=production&& node run-babel index.js",
+    "start-dev": "SET NODE_ENV=development&& nodemon run-babel index.js",
     "wds": "webpack-dev-server",
     "test": "karma start"
   },

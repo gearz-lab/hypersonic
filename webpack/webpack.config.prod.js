@@ -9,7 +9,7 @@ export default {
     output: {
         filename: 'bundle.js',
         path: './dist/assets',
-        publicPath: 'assets/'
+        publicPath: '/assets/'
     },
 
     externals: undefined,

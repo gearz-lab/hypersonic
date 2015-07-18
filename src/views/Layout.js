@@ -26,6 +26,7 @@ var DefaultLayout = React.createClass({
             headHtml = `<title>ReactUI - Bootstrap based data components for React</title>
             <meta http-equiv='X-UA-Compatible' content='IE=edge' />
             <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+            <meta name="production" />
             <link href='assets/main.css' rel='stylesheet' />`;
 
             bundle = 'assets/bundle.js';
