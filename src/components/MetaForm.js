@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import componentFactory from '../lib/componentFactory';
 import metadataEvaluator from '../lib/metadataEvaluator.js';
+import metadataProvider from '../lib/metadataProvider.js';
 import dataEvaluator from '../lib/dataEvaluator.js';
 import collectionHelper from '../lib/helpers/collectionHelper.js';
 import typeProcessorFactory from '../lib/typeProcessorFactory.js';
@@ -14,19 +15,23 @@ var MetaForm = React.createClass({
 
     propTypes: {
         title: React.PropTypes.string,
-        fields: React.PropTypes.array.isRequired,
+        schema: React.PropTypes.object.isRequired,
+        entityName: React.PropTypes.string.isRequired,
+        layoutName: React.PropTypes.string.isRequired,
         model: React.PropTypes.object
     },
 
     getInitialState: function() {
         let model = this.props.model;
-        let componentProps = this.getComponentProps(this.props.fields, model);
+        let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+        let componentProps = this.getComponentProps(fields, model);
 
         return {
             validationSummary: {
                 open: false,
                 messages: this.getValidationSummaryMessages(componentProps)
             },
+            fields: fields,
             model: model,
             // object with a key for each property
             componentProps: componentProps
@@ -95,7 +100,7 @@ var MetaForm = React.createClass({
         if(typeProcessed.valid) {
             // the user input is valid for it's type
             newState.model[fieldMetadata.name] = typeProcessed.convertedValue;
-            newState.componentProps = this.getComponentProps(this.props.fields, newState.model);
+            newState.componentProps = this.getComponentProps(newState.fields, newState.model);
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }

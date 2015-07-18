@@ -49,7 +49,9 @@ var Home = React.createClass({
         return (
             <div>
                 <MetaForm
-                    fields={metadataProvider.getFields(schema, 'contact', 'contact-edit')}
+                    schema={schema}
+                    entityName='contact'
+                    layoutName='contact-edit'
                     model={model}
                     title='Editing contact'/>
             </div>

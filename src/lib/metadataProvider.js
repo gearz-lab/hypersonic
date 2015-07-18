@@ -14,9 +14,9 @@ class MetadataProvider {
 
     /**
      * Merges the given field collection
-     * @param entityFields
-     * @param layoutFields
-     * @returns {Array}
+     * @param schema
+     * @param entityName
+     * @layoutName layoutName
      */
     getFields(schema, entityName, layoutName) {
 
