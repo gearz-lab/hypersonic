@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node run-babel index.js",
-    "start-watch": "SET NODE_ENV=development && nodemon run-babel index.js",
+    "start-dev": "SET NODE_ENV=development && nodemon run-babel index.js",
     "wds": "webpack-dev-server",
     "test": "karma start"
   },
