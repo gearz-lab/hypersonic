@@ -18,12 +18,13 @@ var MetaForm = React.createClass({
         schema: React.PropTypes.object.isRequired,
         entityName: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
+        fields: React.PropTypes.object,
         model: React.PropTypes.object
     },
 
     getInitialState: function() {
-        let model = this.props.model;
-        let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+        let model = this.props.model ? this.props.model : {};
+        let fields = this.props.fields ? this.props.fields : metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
         let componentProps = this.getComponentProps(fields, model);
 
         return {
@@ -36,6 +37,10 @@ var MetaForm = React.createClass({
             // object with a key for each property
             componentProps: componentProps
         }
+    },
+
+    resetState: function(){
+        this.replaceState(this.getInitialState());
     },
 
     /**

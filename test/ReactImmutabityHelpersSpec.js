@@ -12,6 +12,5 @@ describe('Immutability helpers', function() {
         assert.equal(updatedObject.somethingElse, 1);
         assert.equal(updatedObject.model.value, 2);
         //assert.equal(originalObject, updatedObject);
-        console.log(updatedObject.model == originalObject.model);
     });
 });

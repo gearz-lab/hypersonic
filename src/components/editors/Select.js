@@ -13,7 +13,6 @@ const Select = React.createClass({
 
     handleChange(event){
         let newValue = event.target.value;
-        console.log(newValue);
         this.props.onChange({name: this.props.name, value: newValue});
     },
 

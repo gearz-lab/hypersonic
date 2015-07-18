@@ -8,7 +8,6 @@ describe('CollectionHelper', function() {
         it('Basic usage', function () {
             let myArray = [{id: "a", val: 55}, {id: "b", val: 1}];
             let object = metadataEvaluator.toObject(myArray, 'id');
-            console.log(object);
             assert.strictEqual(object.a.id, 'a');
             assert.strictEqual(object.a.val, 55);
             assert.strictEqual(object.b.id, 'b');
@@ -17,7 +16,6 @@ describe('CollectionHelper', function() {
         it('Using arbitrary property as key', function () {
             let myArray = [{name: "a", val: 55}, {name: "b", val: 1}];
             let object = metadataEvaluator.toObject(myArray, 'name');
-            console.log(object);
             assert.strictEqual(object.a.name, 'a');
             assert.strictEqual(object.a.val, 55);
             assert.strictEqual(object.b.name, 'b');

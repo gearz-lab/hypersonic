@@ -125,4 +125,7 @@ describe('MetadataEvaluator', function() {
         });
     });
 
+    describe('evaluateSchema', function() {
+
+    });
 });

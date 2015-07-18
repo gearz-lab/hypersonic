@@ -10,6 +10,7 @@ class MetadataProvider {
     validateFieldMetadata(metadata) {
         if(!metadata) throw new Error('metadata should not be null or undefined');
         if(!metadata.name) throw new Error('metadata\'s "name" property is required');
+        if(!metadata.type) throw new Error('metadata\'s "type" property is required');
     }
 
     /**
@@ -22,6 +23,14 @@ class MetadataProvider {
 
         if (schema === null || schema === undefined) {
             throw new Error(`'mergeFields' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
+        }
+
+        if(schema.layouts === undefined || schema.layouts === null) {
+            throw new Error('Parameter should not be null or undefined. Parameter: ' + schema.layout);
+        }
+
+        if(schema.entities === undefined || schema.entities === null) {
+            throw new Error('Parameter should not be null or undefined. Parameter: ' + schema.entity);
         }
 
         if (entityName === null || entityName === undefined) {
@@ -52,6 +61,7 @@ class MetadataProvider {
             return field;
         });
 
+        // validate fields
         return fields;
     }
 }

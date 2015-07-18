@@ -21,6 +21,7 @@ export default {
     module: {
         loaders: [
             {test: /\.js/, loaders: ['babel'], exclude: /node_modules/ },
+            {test: /\.jsx/, loaders: ['babel'], exclude: /node_modules/ },
             {test: /\.css/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
             {test: /\.less$/, loader:  ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
             {test: /\.json$/, loader: 'json'},

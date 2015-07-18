@@ -11,7 +11,6 @@ const S = React.createClass({
     },
 
     handleChange(value){
-        console.log(value);
         this.props.onChange({name: this.props.name, value: value});
     },
 

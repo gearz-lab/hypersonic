@@ -5,6 +5,7 @@ import formato from 'formato';
 class IntTypeProcessor extends TypeProcessor {
 
     constructor(config) {
+        super();
         this.config = config ? config : Config.numberFormat;
         if(!this.config || !this.config.decimal) {
             throw new Error(`Could not get the number configuration. Make sure you have a file called gearz.config.js and that it exports an object like this: { numberFormat: { decimalMark:\'.\' } }`);

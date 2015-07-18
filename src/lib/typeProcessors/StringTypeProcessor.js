@@ -3,6 +3,7 @@ import TypeProcessor from './TypeProcessor.js';
 class StringTypeProcessor extends TypeProcessor {
 
     constructor() {
+        super();
     }
 
     /**
