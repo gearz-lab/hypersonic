@@ -117,6 +117,42 @@ Contributing
 There's still no guideline for contributing but we'd love to have you. Please e-mail me at andrerpena@gmail.com if you
 want to get onboard. We can even schedule a Skype session.
 
+Getting started
+---
+
+**Installing global dependencies**
+
+Gearz depend on `webpack-dev-server`, `gulp` and `karma`
+
+    npm install -g gulp
+    npm install -g karma-cli
+    npm install -g webpack-dev-server
+
+**Installing**
+
+Install by cloning the GitHub repo:
+
+    git clone https://github.com/gearz-lab/gearz.git
+    
+**Starting in development mode**
+
+Start the webpack-dev-server:
+
+    npm run wps
+    
+Start the app:
+
+    npm run start-dev
+    
+**Starting in production mode**
+
+Build:
+
+    gulp
+    
+Start the app:
+
+    npm run start
 
 
  
