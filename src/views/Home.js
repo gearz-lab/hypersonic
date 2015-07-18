@@ -9,28 +9,35 @@ var Home = React.createClass({
 
     render: function() {
 
-        let entityType = {
-            fields: [
+        let schema = {
+            entities: [
                 {
-                    name: 'name',
-                    type: 'string',
-                    displayName: 'Name'
-                },
-                {
-                    name: 'date',
-                    type: 'date',
-                    displayName: 'Date'
+                    name: 'contact',
+                    fields: [
+                        {
+                            name: 'name',
+                            type: 'string',
+                            displayName: 'Name'
+                        },
+                        {
+                            name: 'date',
+                            type: 'date',
+                            displayName: 'Date'
+                        }
+                    ]
                 }
-            ]
-        };
-
-        let layout = {
-            fields: [
+            ],
+            layouts: [
                 {
-                    name: 'name'
-                },
-                {
-                    name: 'date'
+                    name: 'contact-edit',
+                    fields: [
+                        {
+                            name: 'name'
+                        },
+                        {
+                            name: 'date'
+                        }
+                    ]
                 }
             ]
         };
@@ -42,7 +49,7 @@ var Home = React.createClass({
         return (
             <div>
                 <MetaForm
-                    fields={metadataProvider.mergeFields(entityType.fields, layout.fields)}
+                    fields={metadataProvider.getFields(schema, 'contact', 'contact-edit')}
                     model={model}
                     title='Editing contact'/>
             </div>

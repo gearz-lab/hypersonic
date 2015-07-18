@@ -19,7 +19,7 @@ var MetaForm = React.createClass({
     },
 
     getInitialState: function() {
-        let model = _.extend({},this.props.model ? this.props.model : {});
+        let model = this.props.model;
         let componentProps = this.getComponentProps(this.props.fields, model);
 
         return {
