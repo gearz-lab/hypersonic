@@ -4,7 +4,7 @@
   "scripts": {
     "start": "SET NODE_ENV=production&& node run-babel index.js",
     "start-dev": "SET NODE_ENV=development&& nodemon run-babel index.js",
-    "wds": "webpack-dev-server",
+    "wds": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "karma start"
   },
   "dependencies": {
@@ -67,6 +67,7 @@
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.12.1",
+    "uglify-loader": "^1.2.0",
     "webpack": "^1.9.11",
     "yargs": "^3.8.0"
   }
