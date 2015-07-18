@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-describe('Basic usage', function() {
+describe('Moment', function() {
     it('something', function() {
         let x = moment().format('x');
     })
-})
+});
