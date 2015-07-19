@@ -2,7 +2,7 @@ import React from 'react';
 import Select2 from 'react-select';
 import FormGroup from './FormGroup.js';
 
-const S = React.createClass({
+const Lookup = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string.isRequired,
@@ -30,7 +30,8 @@ const S = React.createClass({
             }),
             onChange: this.handleChange,
             disabled: this.props.readOnly,
-            displayName: this.props.displayName
+            displayName: this.props.displayName,
+            placeholder: this.props.placeholder
         };
 
         return (
@@ -41,4 +42,4 @@ const S = React.createClass({
     }
 });
 
-export default S;
+export default Lookup;

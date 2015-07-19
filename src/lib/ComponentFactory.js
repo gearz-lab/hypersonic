@@ -139,7 +139,7 @@ var componentFactory = new ComponentFactory();
 componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
 componentFactory.registerComponent('label', ['string', 'int', 'float'], Label);
 componentFactory.registerComponent('select', ['string', 'int', 'float'], Select);
-componentFactory.registerComponent('select2', ['string', 'int', 'float'], Select2);
+componentFactory.registerComponent('lookup', ['string', 'int', 'float'], Select2);
 componentFactory.registerComponent('checkbox', ['bool'], CheckBox);
 componentFactory.registerComponent('datepicker', ['bool'], DatePicker);
 

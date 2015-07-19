@@ -136,7 +136,7 @@ var MetaForm = React.createClass({
         // but that would impact performance.
         let _this = this;
         return (
-            <div>
+            <div className="meta-form">
                 <h3>{_this.props.title}</h3>
                 <div>
                     {
@@ -144,8 +144,8 @@ var MetaForm = React.createClass({
                     }
                 </div>
                 <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
-                <div className='pull-right'>
-                    <ButtonToolbar>
+                <div className='meta-form-bottom-bar'>
+                    <ButtonToolbar className='pull-right'>
                         <Button bsStyle='primary'>Save</Button>
                         <Button>Cancel</Button>
                     </ButtonToolbar>
