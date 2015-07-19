@@ -20,8 +20,8 @@ let presetsConfig = [];
 import basic from './liveSchemaEditorPresets/basic.js';
 presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(basic)) });
 // myLittleIde
-import myLittleIde from './liveSchemaEditorPresets/myLittleIde.js';
-presetsConfig.push({value: 'myLittleIde', text: 'My Little IDE', title:'My Little IDE', entityName:'code', layoutName: 'code-edit', code: jsBeautify(JSON.stringify(myLittleIde)) });
+import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.js';
+presetsConfig.push({value: 'myLittleIde', text: 'My Little JavaScript IDE', title:'My Little JavaScript IDE', entityName:'code', layoutName: 'code-edit', code: jsBeautify(JSON.stringify(myLittleIde)) });
 
 
 

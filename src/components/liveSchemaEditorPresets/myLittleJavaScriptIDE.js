@@ -11,7 +11,8 @@ export default
             "type": "string",
             "displayName": "Code",
             "component": "codeeditor",
-            "height": "200px"
+            "height": "200px",
+            "mode": "javascript"
         }]
     }],
     "layouts": [{
