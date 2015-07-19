@@ -1,5 +1,6 @@
 import React from 'react';
 import Select2 from 'react-select';
+import FormGroup from './FormGroup.js';
 
 const S = React.createClass({
 
@@ -22,14 +23,14 @@ const S = React.createClass({
             name: this.props.name,
             options: this.props.options,
             onChange: this.handleChange,
-            disabled: true
+            disabled: this.props.readOnly,
+            displayName: this.props.displayName
         };
 
         return (
-            <div className="form-group">
-                <label className="control-label label-class"><span>Name</span></label>
+            <FormGroup {...props}>
                 <Select2 {...props} />
-            </div>
+            </FormGroup>
         );
     }
 });

@@ -64,7 +64,7 @@ const LiveSchemaEditor = React.createClass({
      */
     buildMetaform: function() {
         try {
-            let schema = JSON.parse(this.state.text);
+            let schema = eval('(' + this.state.text + ')');
             let fields = metadataProvider.getFields(schema, this.state.entityName, this.state.layoutName);
             return <Metaform
                 schema={schema}
