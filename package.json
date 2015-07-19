@@ -18,6 +18,7 @@
     "express-react-views": "^0.8.1",
     "formato": "^1.0.4",
     "install": "^0.1.8",
+    "js-beautify": "^1.5.10",
     "moment": "^2.10.3",
     "mongoose": "^4.0.1",
     "morgan": "~1.5.1",

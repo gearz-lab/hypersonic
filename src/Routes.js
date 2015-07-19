@@ -3,7 +3,7 @@ import React from 'react';
 import App from './views/App.js';
 import HomePage from './views/Home.js';
 import About from './views/About.js';
-import LiveSchemaEditor from './views/LiveSchemaEditor.js';
+import LiveSchemaEditor from './views/LiveSchema.js';
 
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 

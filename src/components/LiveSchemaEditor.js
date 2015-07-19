@@ -2,27 +2,66 @@ import React from 'react/addons.js';
 import brace  from 'brace';
 import AceEditor from 'react-ace-wrapper';
 import braceJavaScriptMode from 'brace/mode/jsx';
-import gitHubTheme from 'brace/theme/github';
+import gitHubTheme from 'brace/theme/github.js';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
-import Input from 'react-bootstrap/lib/Input.js';
+import TextBox from './editors/TextBox.js';
 import Metaform from './MetaForm.js';
 import metadataProvider from '../lib/metadataProvider.js';
 import Alert from 'react-bootstrap/lib/Alert.js';
 import CheckBox from './editors/CheckBox.js';
+import Lookup from './editors/Lookup.js';
+import JsBeautify from 'js-beautify';
+import _ from 'underscore';
+
+let jsBeautify = JsBeautify.js_beautify;
+
+// presets
+import basic from './liveSchemaEditorPresets/basic.js';
+let presetsConfig = [];
+presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(basic)) });
+
 
 const LiveSchemaEditor = React.createClass({
 
     getInitialState: function() {
-      return {
-       text: 'something really cool',
-          schema: {},
-          entityName: '',
-          layoutName: '',
-          model: {},
-          title: '',
-          autoUpdateMetaform: false
-      };
+        let initialPreset = 'basic';
+        let presetConfig = _.find(presetsConfig, p => p.value == initialPreset);
+        if(!presetConfig) {
+            throw new Error(`Could not find the given preset`);
+        }
+        return {
+              schema: {},
+              entityName: presetConfig.entityName,
+              layoutName: presetConfig.layoutName,
+              model: {},
+              title: presetConfig.title,
+              autoUpdateMetaform: true,
+              presets: presetsConfig,
+              selectedPreset: 'basic',
+              text: presetConfig.code
+            };
+    },
+
+    onPresetChange: function(event) {
+        let preset = event.value;
+        let updatedState;
+        if(!preset) {
+            updatedState = React.addons.update(this.state, { selectedPreset: {$set: preset} });
+            this.setState(updatedState);
+            return;
+        }
+        let presetConfig = _.find(presetsConfig, p => p.value == preset);
+        if(!presetConfig) {
+            throw new Error(`Could not find the given preset`);
+        }
+        updatedState = _.extend({}, this.state);
+        updatedState.selectedPreset = preset;
+        updatedState.title = presetConfig.title;
+        updatedState.entityName = presetConfig.entityName;
+        updatedState.layoutName = presetConfig.layoutName;
+        updatedState.text = presetConfig.code;
+        this.setState(updatedState);
     },
 
     onTextChange: function(event) {
@@ -33,23 +72,18 @@ const LiveSchemaEditor = React.createClass({
         }
     },
 
-    onAutoupdateChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { autoUpdateMetaform: {$set: event} });
-        this.setState(updatedState);
-    },
-
     onMainEntityNameChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { entityName: {$set: event.target.value} });
+        let updatedState = React.addons.update(this.state, { entityName: {$set: event.value} });
         this.setState(updatedState);
     },
 
     onMainLayoutNameChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { layoutName: {$set: event.target.value} });
+        let updatedState = React.addons.update(this.state, { layoutName: {$set: event.value} });
         this.setState(updatedState);
     },
 
     onFormTitleChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { title: {$set: event.target.value} });
+        let updatedState = React.addons.update(this.state, { title: {$set: event.value} });
         this.setState(updatedState);
     },
 
@@ -98,32 +132,24 @@ const LiveSchemaEditor = React.createClass({
                 <div className="col-md-6">
 
                     <div className='row'>
-                        <div className="col-md-6">
-                            <Input type='select' placeholder='select'>
-                                <option value='select'>Select preset</option>
-                            </Input>
-                        </div>
-                        <div className="col-md-3">
-                            <Button bsStyle="primary" onClick={()=> _this.resetMetaform()} block><Glyphicon glyph="refresh"/> Update </Button>
-                        </div>
-                        <div className="col-md-3">
-                            <CheckBox value={this.state.autoUpdateMetaform} displayName="Auto update" onChange={this.onAutoupdateChanged} />
+                        <div className="col-md-12">
+                            <Lookup name="presets" displayName="Presets" options={this.state.presets} onChange={this.onPresetChange} value={this.state.selectedPreset}/>
                         </div>
                     </div>
 
 
                     <div className="row">
                         <div className="col-md-6">
-                            <Input label="Main entity name" type="text" onChange={this.onMainEntityNameChanged} />
+                            <TextBox displayName="Main entity name" value={this.state.entityName} onChange={this.onMainEntityNameChanged} />
                         </div>
                         <div className="col-md-6">
-                            <Input label="Main layout name" type="text" onChange={this.onMainLayoutNameChanged}/>
+                            <TextBox displayName="Main layout name" value={this.state.layoutName} onChange={this.onMainLayoutNameChanged}/>
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-md-12">
-                            <Input label="Form title" type="text" onChange={this.onFormTitleChanged}/>
+                            <TextBox displayName="Form title" value={this.state.title} onChange={this.onFormTitleChanged}/>
                         </div>
                     </div>
 
