@@ -21,7 +21,13 @@ const S = React.createClass({
         let props = {
             value: this.props.value,
             name: this.props.name,
-            options: this.props.options,
+            options: this.props.options.map(i =>
+            {
+                return {
+                    value: i.value,
+                    label: i.text
+                }
+            }),
             onChange: this.handleChange,
             disabled: this.props.readOnly,
             displayName: this.props.displayName
