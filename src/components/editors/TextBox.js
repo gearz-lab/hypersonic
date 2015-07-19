@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from 'react-bootstrap/lib/Input';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
+import GearzMixin from '../mixins/GearzMixin.js';
 
 const TextBox = React.createClass({
 
@@ -8,6 +9,8 @@ const TextBox = React.createClass({
         onChange: React.PropTypes.func.isRequired,
         name: React.PropTypes.string.isRequired
     },
+
+    mixins: [GearzMixin],
 
     /**
      * Returns the style due to the valid state
@@ -23,17 +26,6 @@ const TextBox = React.createClass({
             }
         }
         return 'success';
-    },
-
-    /**
-     * Returns the style due to the visible state
-     */
-    _getVisibleStyle() {
-        var invisible = this.props.invisible;
-        if(invisible) {
-            return 'hide';
-        }
-        return '';
     },
 
     /**
@@ -101,8 +93,8 @@ const TextBox = React.createClass({
             addonBefore: this._getAddon( this.props.addonBefore, this.props.addonBeforeGlyphicon),
             addonAfter: this._getAddon( this.props.addonAfter, this.props.addonAfterGlyphicon),
             hasFeedback: this.props.hasFeedback,
-            groupClassName: `group-class ${this._getVisibleStyle()} ${this.props.groupClassName}`,
-            labelClassName: `label-class ${this.props.labelClassName}`,
+            groupClassName: `${this.getVisibleStyle()} ${this.props.groupClassName}`,
+            labelClassName: `${this.props.labelClassName}`,
             wrapperClassName: ``,
             onChange:this.handleChange
         };

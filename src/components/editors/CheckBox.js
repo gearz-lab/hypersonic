@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from 'react-bootstrap/lib/Input';
+import GearzMixin from '../mixins/GearzMixin.js';
 
 const CheckBox = React.createClass({
 
@@ -9,21 +10,12 @@ const CheckBox = React.createClass({
         displayName: React.PropTypes.string
     },
 
+    mixins: [GearzMixin],
+
     handleChange(event){
         let oldValue = this.props.value === true ? true : false;
         let newValue = !oldValue;
         this.props.onChange({name: this.props.name, value: newValue});
-    },
-
-    /**
-     * Returns the style due to the visible state
-     */
-        _getVisibleStyle() {
-        var invisible = this.props.invisible;
-        if(invisible) {
-            return 'hide';
-        }
-        return '';
     },
 
     render: function() {
@@ -33,8 +25,8 @@ const CheckBox = React.createClass({
             value: this.props.value,
             label: this.props.displayName,
             readOnly: this.props.readOnly,
-            groupClassName: `group-class ${this._getVisibleStyle()}`,
-            labelClassName: 'label-class',
+            groupClassName: `${this.getVisibleStyle()}`,
+            labelClassName: `${this.props.labelClassName}`,
             onChange:this.handleChange,
             help: this.props.help
         };
