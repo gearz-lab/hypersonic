@@ -7,6 +7,9 @@ import React from 'react';
 import Router from 'react-router';
 import routes from './Routes';
 
+// favicon
+import favicon from '../assets/favicon.ico';
+
 window.React = React;
 
 Router.run(routes, Router.HistoryLocation, Handler => {

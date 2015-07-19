@@ -26,7 +26,7 @@ export default {
             {test: /\.css/, loader: 'style-loader!css-loader'},
             {test: /\.less$/, loader:  'style!css!less'},
             {test: /\.json$/, loader: 'json'},
-            {test: /\.jpe?g$|\.gif$|\.png$/, loader: 'file?name=[name].[ext]'},
+            {test: /\.jpe?g$|\.gif$|\.png$|\.ico$/, loader: 'file?name=[name].[ext]'},
             {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'}
         ]
     },

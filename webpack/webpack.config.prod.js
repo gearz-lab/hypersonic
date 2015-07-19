@@ -25,7 +25,7 @@ export default {
             {test: /\.css/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
             {test: /\.less$/, loader:  ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
             {test: /\.json$/, loader: 'json'},
-            {test: /\.jpe?g$|\.gif$|\.png$/, loader: 'file?name=[name].[ext]'},
+            {test: /\.jpe?g$|\.gif$|\.png$|\.ico$/, loader: 'file?name=[name].[ext]'},
             {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'}
         ]
     },
