@@ -124,12 +124,12 @@ const LiveSchemaEditor = React.createClass({
 
     render: function() {
         let _this = this;
-        return <div>
+        return <div className="live-schema-editor">
             <div className='row'>
                 <div className="col-md-12">
                     <h2>Gearz schema live editor</h2>
                     </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
 
                     <div className='row'>
                         <div className="col-md-12">
@@ -162,8 +162,8 @@ const LiveSchemaEditor = React.createClass({
                         value={this.state.text}
                         />
                     </div>
-                <div className="col-md-6" style={{backgroundColor: '#eeeeee'}}>
-                    <div id="#mountNode" >
+                <div className="col-md-8">
+                    <div className="live-schema-editor-mount-node" >
                         {this.buildMetaform()}
                     </div>
                 </div>

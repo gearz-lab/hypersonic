@@ -1,7 +1,7 @@
 import bootstrap from 'bootstrap/less/bootstrap.less';
-import reactSelect from './styles/thirdParty/lookup.less';
+import reactSelect from './less/thirdParty/lookup.less';
 import datePicker from 'react-widgets/dist/css/react-widgets.css';
-import styles from './styles/styles.less';
+import styles from './less/styles.less';
 
 import React from 'react';
 import Router from 'react-router';
