@@ -1,8 +1,5 @@
 import React from 'react/addons.js';
-import brace  from 'brace';
-import AceEditor from 'react-ace-wrapper';
-import braceJavaScriptMode from 'brace/mode/jsx';
-import gitHubTheme from 'brace/theme/github.js';
+import CodeEditor from './editors/CodeEditor.js';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import TextBox from './editors/TextBox.js';
@@ -12,6 +9,7 @@ import Alert from 'react-bootstrap/lib/Alert.js';
 import CheckBox from './editors/CheckBox.js';
 import Lookup from './editors/Lookup.js';
 import JsBeautify from 'js-beautify';
+
 import _ from 'underscore';
 
 let jsBeautify = JsBeautify.js_beautify;
@@ -64,8 +62,8 @@ const LiveSchemaEditor = React.createClass({
         this.setState(updatedState);
     },
 
-    onTextChange: function(event) {
-        let updatedState = React.addons.update(this.state, { text: {$set: event} });
+    onCodeChange: function(event) {
+        let updatedState = React.addons.update(this.state, { text: {$set: event.value} });
         this.setState(updatedState);
         if(this.state.autoUpdateMetaform) {
             this.resetMetaform();
@@ -153,14 +151,13 @@ const LiveSchemaEditor = React.createClass({
                         </div>
                     </div>
 
-                    <AceEditor
-                        mode="jsx"
-                        width="100%"
-                        theme="github"
-                        onChange={this.onTextChange}
+                    <CodeEditor
+                        displayName="Schema"
+                        onChange={this.onCodeChange}
                         name="liveSchemaEditor"
                         value={this.state.text}
                         />
+
                     </div>
                 <div className="col-md-8">
                     <div className="live-schema-editor-mount-node" >

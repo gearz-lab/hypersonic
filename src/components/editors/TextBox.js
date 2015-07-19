@@ -57,6 +57,9 @@ const TextBox = React.createClass({
     },
 
     handleChange(event){
+        if(!this.props.onChange) {
+            return;
+        }
         let newValue = event.target.value;
         if(newValue && this.props.maxLength) {
             if(newValue.length <= this.props.maxLength) {
@@ -103,10 +106,7 @@ const TextBox = React.createClass({
             props.bsStyle = this._getValidStyle()
         }
 
-        return (
-            <Input                {...props }
-                />
-        );
+        return <Input {...props } />;
     }
 });
 
