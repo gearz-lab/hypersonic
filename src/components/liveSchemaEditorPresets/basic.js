@@ -23,12 +23,6 @@ export default
             "type": "date",
             "displayName": "Date or birth"
         }]
-    }, {
-        "name": "phone",
-        "fields": [{
-            "name": "number",
-            "type": "string"
-        }]
     }],
     "layouts": [{
         "name": "contact-edit",
@@ -38,11 +32,6 @@ export default
             "name": "name"
         }, {
             "name": "date"
-        }]
-    }, {
-        "name": "phone-edit",
-        "fields": [{
-            "name": "number"
         }]
     }]
 }

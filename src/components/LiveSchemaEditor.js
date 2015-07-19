@@ -15,9 +15,14 @@ import _ from 'underscore';
 let jsBeautify = JsBeautify.js_beautify;
 
 // presets
-import basic from './liveSchemaEditorPresets/basic.js';
 let presetsConfig = [];
+// basic
+import basic from './liveSchemaEditorPresets/basic.js';
 presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(basic)) });
+// myLittleIde
+import myLittleIde from './liveSchemaEditorPresets/myLittleIde.js';
+presetsConfig.push({value: 'myLittleIde', text: 'My Little IDE', title:'My Little IDE', entityName:'code', layoutName: 'code-edit', code: jsBeautify(JSON.stringify(myLittleIde)) });
+
 
 
 const LiveSchemaEditor = React.createClass({
@@ -59,7 +64,7 @@ const LiveSchemaEditor = React.createClass({
         updatedState.entityName = presetConfig.entityName;
         updatedState.layoutName = presetConfig.layoutName;
         updatedState.text = presetConfig.code;
-        this.setState(updatedState);
+        this.setState(updatedState, () => { this.resetMetaform(); });
     },
 
     onCodeChange: function(event) {
