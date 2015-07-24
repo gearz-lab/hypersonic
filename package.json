@@ -2,8 +2,8 @@
   "name": "gearz",
   "version": "0.0.1",
   "scripts": {
-    "start": "SET NODE_ENV=production&& nodemon index.js",
-    "start-dev": "SET NODE_ENV=development&& nodemon index.js",
+    "start": "NODE_ENV=production&& babel-node index.js",
+    "start-dev": "NODE_ENV=development&& babel-node index.js",
     "wpds": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "karma start"
   },
@@ -40,7 +40,8 @@
     "underscore": "^1.8.3",
     "webpack-dev-server": "^1.9.0",
     "react-hot-loader": "~1.2.8",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "style-loader": "^0.12.1"
   },
   "devDependencies": {
     "babel-eslint": "^2.0.2",
@@ -76,7 +77,6 @@
     "reactui": "0.0.5",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
-    "style-loader": "^0.12.1",
     "uglify-loader": "^1.2.0",
     "webpack": "^1.9.11",
     "yargs": "^3.8.0"

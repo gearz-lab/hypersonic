@@ -1,5 +1,5 @@
-import expressionEvaluator from '../expressionEvaluator.js';
-import dataEvaluator from '../dataEvaluator.js';
+import expressionEvaluator from '../ExpressionEvaluator.js';
+import dataEvaluator from '../DataEvaluator.js';
 
 class DefaultMetadataFilter {
     filter(metadata, model) {
