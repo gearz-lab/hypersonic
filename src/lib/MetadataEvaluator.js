@@ -1,4 +1,4 @@
-import expressionEvaluator from './expressionEvaluator.js';
+import expressionEvaluator from './ExpressionEvaluator.js';
 import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
 import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';

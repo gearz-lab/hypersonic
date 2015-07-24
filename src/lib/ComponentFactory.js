@@ -6,7 +6,7 @@ import Select from '../components/editors/Select.js';
 import Lookup from '../components/editors/Lookup.js';
 import DatePicker from '../components/editors/DatePicker.js';
 import CodeEditor from '../components/editors/CodeEditor.js';
-import dataEvaluator from '../lib/dataEvaluator.js';
+import dataEvaluator from '../lib/DataEvaluator.js';
 import _ from 'underscore';
 
 // component definitions
