@@ -47,6 +47,7 @@ export default {
         contentBase: "./dist",
         hot: true,
         noInfo: true,
-        headers: { 'Access-Control-Allow-Origin': '*' }
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        port: 8081
     }
 };
