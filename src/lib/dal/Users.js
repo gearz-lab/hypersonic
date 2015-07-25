@@ -1,9 +1,16 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from '../rethinkDb/constants.js';
+import rc from '../rethinkDb/rethinkConstants.js';
 
 class UserDal {
+
+    constructor(options) {
+        this.options = _.extend({
+            dbName: rc.DB_GEARZ_GLOBAL,
+            tableName: rc.TABLE_USERS
+        }, options);
+    }
 
     /**
      * Creates a user
@@ -13,8 +20,8 @@ class UserDal {
      * @param next
      */
     create(connection, user, next) {
-        r.db(rc.DB_GEARZ_GLOBAL)
-            .table(rc.TABLE_USERS)
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
             .insert({
                 name: user.userName,
                 pictureUrl: user.pictureUrl
@@ -29,8 +36,8 @@ class UserDal {
      * @param next
      */
     filterCursor(connection, filter, next) {
-        r.db(rc.DB_GEARZ_GLOBAL)
-            .table(rc.TABLE_USERS)
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
             .filter(filter)
             .run(connection, next);
     }
@@ -42,8 +49,8 @@ class UserDal {
      * @param next
      */
     filter(connection, filter, next) {
-        r.db(rc.DB_GEARZ_GLOBAL)
-            .table(rc.TABLE_USERS)
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
             .filter(filter)
             .run(connection, (error, result) => {
                 if(error) {
@@ -59,4 +66,4 @@ class UserDal {
     }
 }
 
-export default new UserDal();
+export default UserDal;

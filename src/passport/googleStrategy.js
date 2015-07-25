@@ -1,5 +1,7 @@
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var usersDal = require('../lib/dal/users');
+var UserDal = require('../lib/dal/Users');
+
+var users = new UserDal();
 
 module.exports = new GoogleStrategy(
     {

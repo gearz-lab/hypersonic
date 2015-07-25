@@ -1,7 +1,7 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from './constants.js';
+import rc from './rethinkConstants.js';
 
 class RethinkHelpers {
 
@@ -77,6 +77,19 @@ class RethinkHelpers {
                 next(null);
             }
         });
+    }
+
+    /**
+     * Creates each given table if they don't exist
+     * @param connection
+     * @param dbName
+     * @param tableNames
+     * @param next
+     */
+    createTables(connection, dbName, tableNames, next) {
+        // creates one task for creating a table for each table that has been passed in
+        let tasks = _.map(tableNames, (tableName) => (cb) => this.createTable(connection, dbName, tableName, cb ));
+        async.parallel(tasks, next);
     }
 }
 

@@ -1,5 +1,5 @@
 import rh from "../src/lib/rethinkDb/rethinkHelpers.js";
-import constants from "./constants.js";
+import constants from "./testConstants.js";
 
 class DbTestSession {
 
@@ -9,9 +9,11 @@ class DbTestSession {
 
     /**
      * Sets up a test session
-     * @param test
+     * @param before
+     * @param after
+     * @param tables - The needed tables for this test session
      */
-    setupSession(before, after) {
+    setupSession(before, after, tables) {
 
         // calls 'before', creating a connection and a test database
         before((done) => {
@@ -26,10 +28,23 @@ class DbTestSession {
 
                 this.connection = conn;
                 rh.createDb(this.connection, constants.DB_TESTS, (error) => {
+                    // the database has been created
                     if(error) {
                         throw error;
                     }
-                    done();
+                    if(tables) {
+                        // if we should create tables, then let's create them
+                        rh.createTables(this.connection, constants.DB_TESTS, tables, (error) => {
+                            if(error) {
+                                throw error;
+                            }
+                            done();
+                        })
+                    }
+                    else{
+                        // in this case we should not create tables
+                        done();
+                    }
                 });
             });
         });

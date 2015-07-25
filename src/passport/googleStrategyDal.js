@@ -1,6 +1,8 @@
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var usersDal = require('../lib/dal/users');
+var UserDal = require('../lib/dal/Users');
 var rh = require('../lib/rethinkDb/rethinkHelpers');
+
+var users = new UserDal();
 
 class GoogleStrategyDal {
 
@@ -18,14 +20,14 @@ class GoogleStrategyDal {
      */
     findOrCreateUser(profile, next) {
         rh.connect((error, connection) => {
-            let existingGoogleUser = usersDal.filter({googleId: profile.id}, (error, result) => {
+            let existingGoogleUser = users.filter({googleId: profile.id}, (error, result) => {
                 if(error) {
                     next(error);
                 }
                 if(result.length) {
                     // in this case, the user with such googleId does not exist
                     // let's try to find the user by the e-mail
-                    usersDal.filter({email: profile.emails[0]}, (error, result) => {
+                    users.filter({email: profile.emails[0]}, (error, result) => {
                         if(error) {
                             next(error);
                         }

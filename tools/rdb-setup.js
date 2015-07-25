@@ -1,9 +1,11 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from '../src/lib/rethinkDb/constants.js';
+import rc from '../src/lib/rethinkDb/rethinkConstants.js';
 import rh from '../src/lib/rethinkDb/rethinkHelpers.js';
-import users from '../src/lib/dal/users.js';
+import UserDal from '../src/lib/dal/Users.js';
+
+let users = new UserDal();
 
 rh.connect((error, connection) => {
     if (error) {
