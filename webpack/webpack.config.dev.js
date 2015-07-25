@@ -2,7 +2,7 @@ import webpack from 'webpack';
 
 export default {
     entry: [
-        'webpack-dev-server/client?http://localhost:8080',
+        'webpack-dev-server/client?http://localhost:8081',
         'webpack/hot/only-dev-server',
         './src/Pack.js'
     ],
@@ -10,7 +10,7 @@ export default {
     output: {
         filename: 'bundle.js',
         path: './dist/assets',
-        publicPath: 'http://localhost:8080/assets/'
+        publicPath: 'http://localhost:8081/assets/'
     },
 
     externals: undefined,
