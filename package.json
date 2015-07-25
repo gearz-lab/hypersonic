@@ -4,6 +4,8 @@
   "scripts": {
     "start": "NODE_ENV=production&& babel-node index.js",
     "start-dev": "NODE_ENV=development&& babel-node index.js",
+    "start-watch": "nodemon --exec npm run start",
+    "start-dev-watch": "nodemon --exec npm run start-dev",
     "wpds": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "karma start"
   },
