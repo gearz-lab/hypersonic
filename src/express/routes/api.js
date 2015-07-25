@@ -1,10 +1,10 @@
-import express from 'express';
-import passport from 'passport';
+var express = require('express');
+var passport = require('passport');
 
-let router = express.Router();
+var router = express.Router();
 
 router.route('*').get(function(req, res) {
     res.send('it works');
 });
 
-export default router;
+module.exports = router;

@@ -1,7 +1,7 @@
-import express from 'express';
-import passport from 'passport';
+var express = require('express');
+var passport = require('passport');
 
-let router = express.Router();
+var router = express.Router();
 
 router.route('/google/callback').get(passport.authenticate('google', {
     successRedirect: '/users/',
@@ -13,4 +13,4 @@ router.route('/google').get(passport.authenticate('google', {
     'https://www.googleapis.com/auth/userinfo.email']
 }));
 
-export default router;
+module.exports = router;
