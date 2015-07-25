@@ -25,12 +25,7 @@ class RethinkHelpers {
             }
             if(!_.contains(result, dbName)) {
                 //  if the db doesn't exist already
-                r.dbCreate(dbName).run(connection, (error, result) => {
-                    if(error) {
-                        next(error);
-                    }
-                    next(null, result);
-                });
+                r.dbCreate(dbName).run(connection, next);
             }
             else {
                 // if the db already exists
@@ -53,12 +48,7 @@ class RethinkHelpers {
             }
             if(!_.contains(result, tableName)) {
                 //  if the table doesn't exist already
-                r.db(dbName).tableCreate(tableName).run(connection, (error, result) => {
-                    if(error) {
-                        next(error);
-                    }
-                    next(null);
-                });
+                r.db(dbName).tableCreate(tableName).run(connection, next);
             }
             else {
                 // if the table already exists

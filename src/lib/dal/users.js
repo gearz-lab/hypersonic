@@ -19,12 +19,7 @@ class UsersDal {
                 name: user.userName,
                 pictureUrl: user.pictureUrl
             })
-            .run(connection, (error, result) => {
-                if(error) {
-                    next(error);
-                }
-                next(null, result);
-            });
+            .run(connection, next);
     }
 
     /**
@@ -33,16 +28,11 @@ class UsersDal {
      * @param googleId
      * @param next
      */
-    findByGoogleId(connection, googleId, next) {
+    filter(connection, filter, next) {
         r.db(rc.DB_GEARZ_GLOBAL)
             .table(rc.TABLE_USERS)
-            .filter({googleId: googleId})
-            .run(connection, (error, result) => {
-                if(error) {
-                    next(error);
-                }
-                next(null, result);
-            });
+            .filter(filter)
+            .run(connection, next);
     }
 }
 
