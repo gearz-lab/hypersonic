@@ -14,7 +14,7 @@ class RethinkHelpers {
     }
 
     /**
-     * Creates a database if it doesn't exist yet
+     * Creates the given database if it doesn't exist yet
      * @param connection
      * @param next
      */
@@ -26,6 +26,28 @@ class RethinkHelpers {
             if(!_.contains(result, dbName)) {
                 //  if the db doesn't exist already
                 r.dbCreate(dbName).run(connection, next);
+            }
+            else {
+                // if the db already exists
+                next(null);
+            }
+        });
+    }
+
+    /**
+     * Deletes the given database if it exists
+     * @param connection
+     * @param dbName
+     * @param next
+     */
+    dropDb(connection, dbName, next) {
+        r.dbList().run(connection, (error, result) => {
+            if(error) {
+                next(error);
+            }
+            if(_.contains(result, dbName)) {
+                //  if the db doesn't exist already
+                r.dbDrop(dbName).run(connection, next);
             }
             else {
                 // if the db already exists
