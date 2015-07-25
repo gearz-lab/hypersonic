@@ -2,7 +2,9 @@
 // Generated on Sat Jun 20 2015 11:42:43 GMT-0300 (E. South America Standard Time)
 require('./register-babel');
 
-var webpackConfig = require('./webpack/webpack.config.dev.js');
+var webpackConfig = require('./webpack/webpack.config.test.js');
+webpackConfig.devtool = 'inline-source-map';
+webpackConfig.watch = true;
 
 module.exports = function(config) {
   config.set({
@@ -10,14 +12,12 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [
       'mocha',
       'chai',
-      'sinon',
-      'sinon-chai'
+      'sinon'
     ],
 
     // list of files / patterns to load in the browser
@@ -63,7 +63,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode

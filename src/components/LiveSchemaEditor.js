@@ -112,7 +112,6 @@ const LiveSchemaEditor = React.createClass({
                 title={this.state.title}/>;
         }
         catch(ex) {
-            console.log(ex.message);
             return <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss}>
                 <h4>Oh snap! The schema is not valid.</h4>
                 <p>Detailed information: <b>{ex.message}</b></p>
