@@ -12,6 +12,8 @@ class DbTestSession {
      * @param test
      */
     setupSession(before, after) {
+
+        // calls 'before', creating a connection and a test database
         before((done) => {
             rh.connect((error, conn) => {
                 if(error) {
@@ -32,6 +34,7 @@ class DbTestSession {
             });
         });
 
+        // calls 'after', closing the connection
         after((done) => {
             rh.dropDb(this.connection, constants.DB_TESTS, (error) => {
                 if(error) {
