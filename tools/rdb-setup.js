@@ -5,7 +5,7 @@ import rc from '../src/lib/rethinkDb/constants.js';
 import rh from '../src/lib/rethinkDb/rethinkHelpers.js';
 import users from '../src/lib/dal/users.js';
 
-r.connect( {host: 'localhost', port: 28015}, function(error, connection) {
+rh.connect((error, connection) => {
     if (error) {
         throw error;
     }

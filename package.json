@@ -42,7 +42,8 @@
     "webpack-dev-server": "^1.9.0",
     "react-hot-loader": "~1.2.8",
     "bootstrap": "~3.3.5",
-    "style-loader": "^0.12.1"
+    "style-loader": "^0.12.1",
+    "node-uuid": "~1.4.3"
   },
   "devDependencies": {
     "babel-eslint": "^2.0.2",

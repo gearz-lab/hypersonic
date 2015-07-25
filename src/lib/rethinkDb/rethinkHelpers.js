@@ -6,6 +6,14 @@ import rc from './constants.js';
 class RethinkHelpers {
 
     /**
+     * Connects to RethinkDB
+     * @param next
+     */
+    connect(next) {
+        r.connect({host: 'localhost', port: 28015}, next);
+    }
+
+    /**
      * Creates a database if it doesn't exist yet
      * @param connection
      * @param next
@@ -56,25 +64,6 @@ class RethinkHelpers {
                 // if the table already exists
                 next(null);
             }
-        });
-    }
-
-    /**
-     * Creates a user
-     * @param connection
-     * @param userName
-     * @param pictureUrl
-     * @param next
-     */
-    createUser(connection, userName, pictureUrl, next) {
-        r.db(rc.DB_GEARZ_GLOBAL).table(rc.TABLE_USERS).insert({
-            name: userName,
-            pictureUrl: pictureUrl
-        }).run(connection, (error, result) => {
-            if(error) {
-                throw error;
-            }
-            next();
         });
     }
 }

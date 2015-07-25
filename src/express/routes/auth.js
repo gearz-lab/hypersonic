@@ -11,7 +11,7 @@ router.route('/authenticate').get(function(req, res) {
     authCookie.user = {
       name: req.user.displayName,
       image: req.user._json.image.url
-    }
+    };
     res.cookie('gearz.auth', JSON.stringify(authCookie), { maxAge: 9000000, httpOnly: false });
   }
   res.redirect('/');

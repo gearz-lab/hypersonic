@@ -26,6 +26,24 @@ class UsersDal {
                 next(null, result);
             });
     }
+
+    /**
+     * Finds a user by the google id
+     * @param connection
+     * @param googleId
+     * @param next
+     */
+    findByGoogleId(connection, googleId, next) {
+        r.db(rc.DB_GEARZ_GLOBAL)
+            .table(rc.TABLE_USERS)
+            .filter({googleId: googleId})
+            .run(connection, (error, result) => {
+                if(error) {
+                    next(error);
+                }
+                next(null, result);
+            });
+    }
 }
 
 export default new UsersDal();

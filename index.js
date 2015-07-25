@@ -3,7 +3,7 @@ var expressReactViews = require('express-react-views');
 var React = require('react');
 var passport = require('passport');
 var session = require('express-session');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var googleStrategy = require('./src/passport/googleStrategy');
 
 // routs
 var auth = require('./src/express/routes/auth');
@@ -12,17 +12,7 @@ var def = require('./src/express/routes/default');
 
 var app  = express();
 
-passport.use(new GoogleStrategy(
-    {
-        clientID: '825114884884-p0u14nm266brkoh3in70ohiqv47on063.apps.googleusercontent.com',
-        clientSecret: 'rilPqu9oV3a5dnVIrIOtbAj3',
-        callbackURL: 'http://localhost:3000/auth/google/callback'
-    },
-    function(accessToken, refreshToken, profile, done) {
-        console.log(profile);
-        done(null, profile);
-    }
-));
+passport.use(googleStrategy);
 
 app.set('views', './src/express/views');
 app.set('view engine', 'jsx');
