@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 export default {
     /**
-     * Creates the Gearz global db if it doesn't exist yet.
+     * Creates a database if it doesn't exist yet
      * @param connection
      * @param next
      */
@@ -14,6 +14,31 @@ export default {
             }
             if(!_.contains(result, dbName)) {
                 r.dbCreate(dbName).run(connection, (error, result) => {
+                    if(error) {
+                        throw error;
+                    }
+                    next();
+                });
+            }
+            else {
+                next();
+            }
+        });
+    },
+    /**
+     * Creates a table if it doesn't exist yet
+     * @param dbName
+     * @param tableName
+     * @param connection
+     * @param next
+     */
+    createTable: (dbName, tableName, connection, next) => {
+        r.db(dbName).tableList().run(connection, (error, result) => {
+            if(error) {
+                throw error;
+            }
+            if(!_.contains(result, tableName)) {
+                r.db(dbName).tableCreate(tableName).run(connection, (error, result) => {
                     if(error) {
                         throw error;
                     }

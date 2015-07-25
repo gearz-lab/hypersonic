@@ -1,3 +1,4 @@
 export default {
-    GEARZ_GLOBAL: '_gearz_global'
+    DB_GEARZ_GLOBAL: '_gearz_global',
+    TABLE_USERS: 'users'
 }
