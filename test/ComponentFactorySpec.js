@@ -1,7 +1,7 @@
 import ReactTestUtils from 'react/lib/ReactTestUtils';
-import ComponentFactory from '../src/lib/componentFactory';
-import Chai from 'Chai';
-const assert = Chai.assert;
+import ComponentFactory from '../src/lib/ComponentFactory';
+import chai from 'chai';
+const assert = chai.assert;
 
 describe('ComponentFactory', function () {
 

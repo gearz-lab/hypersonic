@@ -1,5 +1,5 @@
 import typeProcessorFactory from '../src/lib/typeProcessorFactory.js';
-import chai from 'Chai';
+import chai from 'chai';
 const assert = chai.assert;
 
 describe('TypeProcessorFactory', function() {

@@ -2,7 +2,7 @@
 //import ReactTestUtils from 'react/lib/ReactTestUtils';
 //import MetaForm from '../src/components/MetaForm';
 //import dataProvider from '../src/lib/metadataProvider.js';
-//import chai from 'Chai';
+//import chai from 'chai';
 //import _ from 'underscore';
 //const assert = chai.assert;
 //
@@ -122,7 +122,7 @@
 //           };
 //
 //           let model = {
-//               name: 'André',
+//               name: 'Andrï¿½',
 //               description: 'The best'
 //           };
 //

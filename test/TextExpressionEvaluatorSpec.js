@@ -1,4 +1,4 @@
-import textExpressionEvaluator from '../src/lib/expressionEvaluator.js';
+import textExpressionEvaluator from '../src/lib/ExpressionEvaluator.js';
 
 describe('Text expression evaluator', function() {
     describe('Literals', function() {

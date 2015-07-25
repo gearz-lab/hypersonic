@@ -1,5 +1,5 @@
-import Chai from 'Chai';
-let assert = Chai.assert;
+import chai from 'chai';
+let assert = chai.assert;
 
 describe('Babel', () => {
     it('x', () => {

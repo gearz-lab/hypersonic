@@ -1,6 +1,6 @@
-import Chai from 'Chai';
+import chai from 'chai';
 import metadataProvider from '../src/lib/metadataProvider.js';
-const assert = Chai.assert;
+const assert = chai.assert;
 
 describe('MetadataProvider', function() {
     describe('Should merge fields', function () {

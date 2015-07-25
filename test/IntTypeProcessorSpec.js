@@ -1,7 +1,7 @@
-import Chai from 'Chai';
+import chai from 'chai';
 import IntTypeProcessor from '../src/lib/typeProcessors/IntTypeProcessor.js';
 const intTypeProcessor = new IntTypeProcessor();
-const assert = Chai.assert;
+const assert = chai.assert;
 
 describe('IntTypeProcessor', function() {
     describe('process', function() {

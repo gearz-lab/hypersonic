@@ -1,7 +1,7 @@
-import Chai from 'Chai';
+import chai from 'chai';
 import FloatTypeProcessor from '../src/lib/typeProcessors/FloatTypeProcessor.js';
 const defaultFloatProcessor = new FloatTypeProcessor();
-const assert = Chai.assert;
+const assert = chai.assert;
 
 describe('FloatTypeProcessor', function() {
     describe('process', function() {

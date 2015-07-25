@@ -1,4 +1,4 @@
-import expressionEvaluator from '../src/lib/expressionEvaluator.js';
+import expressionEvaluator from '../src/lib/ExpressionEvaluator.js';
 import formato from 'formato';
 
 
