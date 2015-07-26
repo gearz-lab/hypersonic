@@ -91,6 +91,31 @@ class RethinkHelpers {
         let tasks = _.map(tableNames, (tableName) => (cb) => this.createTable(connection, dbName, tableName, cb ));
         async.parallel(tasks, next);
     }
+
+    /**
+     * Deletes all data in the given table
+     * @param connection
+     * @param dbName
+     * @param tableName
+     * @param next
+     */
+    clearTable(connection, dbName, tableName, next) {
+        r.db(dbName).table(tableName).delete().run(connection, next);
+    }
+
+
+    /**
+     * Deletes all data in the given tables
+     * @param connection
+     * @param dbName
+     * @param tableNames
+     * @param next
+     */
+    clearTables(connection, dbName, tableNames, next) {
+        // creates one task for clearing a table for each table that has been passed in
+        let tasks = _.map(tableNames, (tableName) => (cb) => this.clearTable(connection, dbName, tableName, cb ));
+        async.parallel(tasks, next);
+    }
 }
 
 export default new RethinkHelpers();
