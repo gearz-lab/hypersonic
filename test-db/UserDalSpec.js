@@ -15,18 +15,38 @@ describe('BaseDal', function() {
     testSession.setupSession(before, beforeEach, after, afterEach, [rc.TABLE_USERS]);
 
     it('Create and filter', (done) => {
-        users.upsert(testSession.connection, {
+        users.insert(testSession.connection, {
             displayName: 'André Pena',
             photo: 'pic134'
         }, (error) => {
             if(error) {
                 throw error;
             }
-            users.filter(testSession.connection, { photo: 'pic134'}, (error, result) => {
+            users.filter(testSession.connection, { photo: 'pic134'}, (error, users) => {
                 if(error) {
                     throw error;
                 }
-                assert.strictEqual(result.length, 1);
+                assert.strictEqual(users.length, 1);
+                done();
+            });
+        });
+    });
+
+    it('Create and find', (done) => {
+        users.insert(testSession.connection, {
+            id: 'b446822f-8057-4124-8337-01c78209cf70',
+            displayName: 'André Pena',
+            photo: 'pic134'
+        }, (error) => {
+            if(error) {
+                throw error;
+            }
+            users.find(testSession.connection, 'b446822f-8057-4124-8337-01c78209cf70', (error, user) => {
+                if(error) {
+                    throw error;
+                }
+                assert.strictEqual(user.id, 'b446822f-8057-4124-8337-01c78209cf70');
+                assert.strictEqual(user.displayName, 'André Pena');
                 done();
             });
         });
