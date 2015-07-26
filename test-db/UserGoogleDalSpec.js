@@ -28,4 +28,22 @@ describe('UserGoogleDalSpec', function() {
             });
         })
     });
+
+    it('updateUserFromGoogleProfile', (done) => {
+        users.insert(testSession.connection, {
+            email: 'andrerpena@gmail.com'
+        }, () => {
+            // finds the user by e-mail
+            users.findByEmail(testSession.connection, 'andrerpena@gmail.com', (error, user) => {
+                // updates the user based on the google profile
+                users.updateUserFromGoogleProfile(testSession.connection, user, googleProfileSample, (error) => {
+                    // now gets the user again to see if it's updated in the database
+                    users.findByEmail(testSession.connection, 'andrerpena@gmail.com', (error, user) => {
+                        assert.strictEqual(user.displayName, 'André Pena');
+                        done();
+                    });
+                });
+            });
+        })
+    });
 });
