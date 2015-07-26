@@ -36,7 +36,7 @@ describe('UserGoogleDalSpec', function() {
             // finds the user by e-mail
             users.findByEmail(testSession.connection, 'andrerpena@gmail.com', (error, user) => {
                 // updates the user based on the google profile
-                users.updateUserFromGoogleProfile(testSession.connection, user, googleProfileSample, (error) => {
+                users.updateFromGoogleProfile(testSession.connection, user, googleProfileSample, (error) => {
                     // now gets the user again to see if it's updated in the database
                     users.findByEmail(testSession.connection, 'andrerpena@gmail.com', (error, user) => {
                         assert.strictEqual(user.displayName, 'André Pena');
@@ -44,6 +44,48 @@ describe('UserGoogleDalSpec', function() {
                     });
                 });
             });
-        })
+        });
+    });
+
+    it('updateUserFromGoogleProfile', (done) => {
+        users.insert(testSession.connection, {
+            email: 'andrerpena@gmail.com'
+        }, () => {
+            // finds the user by e-mail
+            users.findByEmail(testSession.connection, 'andrerpena@gmail.com', (error, user) => {
+                // updates the user based on the google profile
+                users.updateFromGoogleProfile(testSession.connection, user, googleProfileSample, (error) => {
+                    // now gets the user again to see if it's updated in the database
+                    users.findByEmail(testSession.connection, 'andrerpena@gmail.com', (error, user) => {
+                        assert.strictEqual(user.displayName, 'André Pena');
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
+    describe('findOrCreateFromGoogleProfile', () => {
+        it('When the user did not exist yet', (done) => {
+            users.findOrCreateFromGoogleProfile(testSession.connection, googleProfileSample, (error, user) => {
+                assert.strictEqual(user.email, 'andrerpena@gmail.com');
+                done();
+            });
+        });
+        it('When a user with the same e-mail address already existed', (done) => {
+            users.insert(testSession.connection, {
+                email: 'andrerpena@gmail.com'
+            }, () => {
+                users.findOrCreateFromGoogleProfile(testSession.connection, googleProfileSample, (error, user) => {
+                    assert.strictEqual(user.email, 'andrerpena@gmail.com');
+                    assert.ok(user.externalProfiles.google);
+                    // Gotta make sure there's only one user with the same e-mail
+                    users.filter(testSession.connection, {email: 'andrerpena@gmail.com'}, (error, result) => {
+                        assert.strictEqual(1, result.length);
+                        done();
+                    });
+                });
+            });
+        });
     });
 });

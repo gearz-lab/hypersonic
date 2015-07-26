@@ -15,7 +15,7 @@ class UserDal extends BaseDal {
     }
 
     /**
-     * Finds a user by e-mail
+     * Finds a user by e-mail. If the user does not exist, returns undefined
      * @param connection
      * @param email
      * @param next
@@ -26,7 +26,10 @@ class UserDal extends BaseDal {
                 next(error);
             }
             else {
-                next(null, result[0]);
+                if(result.length > 1) {
+                    next('Found more than one user with the same e-mail');
+                }
+                next(null, result.length > 0 ? result[0] : undefined);
             }
         });
     }

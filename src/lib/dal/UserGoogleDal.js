@@ -39,7 +39,7 @@ class UserGoogleDal extends UserDal {
      * @param profile
      * @param next
      */
-    updateUserFromGoogleProfile(connection, existingUser, profile, next ) {
+    updateFromGoogleProfile(connection, existingUser, profile, next ) {
         if(!existingUser.displayName) {
             existingUser.displayName = profile.displayName;
         }
@@ -69,25 +69,24 @@ class UserGoogleDal extends UserDal {
         if(!email) {
             throw new Error('Google profile is not valid');
         }
-        this.findByEmail(connection, email, (error, result) => {
+        this.findByEmail(connection, email, (error, user) => {
             if(error) {
                 next(error);
             }
-            if(result.length) {
+            if(user) {
                 // the user already exists
-                let existingUser = result[0];
-                let existingUserGoogleId = objectHelper.safeRead((u) => u.externalProfiles.google.id, existingUser, null);
+                let existingUserGoogleId = objectHelper.safeRead((u) => u.externalProfiles.google.id, user, null);
                 if(existingUserGoogleId) {
                     // the user exists and is already associated with Google
-                    next(null, existingUser);
+                    next(null, user);
                 } else {
                     // the user exists but is not associated with Google already
-                    this.updateUserFromGoogleProfile(connection, existingUser, profile, (error) => {
+                    this.updateFromGoogleProfile(connection, user, profile, (error) => {
                         if(error) {
                             next(error);
                         }
                         else {
-                            next(null, existingUser);
+                            next(null, user);
                         }
                     })
                 }
