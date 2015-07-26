@@ -9,7 +9,7 @@ var passport = require('passport');
 var googleStrategy = require('./src/passport/googleStrategy');
 
 var db = require('./src/lib/database/dbHelper');
-var users = new require('./src/lib/dal/UserDal')();
+var UserDal = require('./src/lib/dal/UserDal');
 
 // routes
 var auth = require('./src/express/routes/auth');
@@ -17,6 +17,7 @@ var api = require('./src/express/routes/api');
 var def = require('./src/express/routes/app');
 
 var app  = express();
+var users = new UserDal();
 
 passport.use(googleStrategy);
 
@@ -40,6 +41,7 @@ passport.deserializeUser(function(user, done) {
         }
         else {
             users.find(connection, id, (user) => {
+                connection.close();
                 done(null, user);
             });
         }

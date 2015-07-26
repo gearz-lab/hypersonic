@@ -17,8 +17,8 @@ module.exports = new GoogleStrategy(
             }
             else {
                 users.findOrCreateFromGoogleProfile(connection, profile, (error, user) => {
-                    done(error, user);
                     connection.close();
+                    done(error, user);
                 });
             }
         });
