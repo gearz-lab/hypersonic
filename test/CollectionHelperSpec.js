@@ -2,7 +2,7 @@ import chai from 'chai';
 import metadataEvaluator from '../src/lib/helpers/collectionHelper.js';
 const assert = chai.assert;
 
-describe('CollectionHelper', function() {
+describe('ObjectHelper', function() {
 
     describe('toObject', function () {
         it('Basic usage', function () {

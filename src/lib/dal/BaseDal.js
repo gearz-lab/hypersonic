@@ -19,16 +19,30 @@ class BaseDal {
     }
 
     /**
-     * Creates a user
+     * Creates an object
      * @param connection
      * @param userName
      * @param pictureUrl
      * @param next
      */
-    create(connection, object, next) {
+    insert(connection, object, next) {
         r.db(this.options.dbName)
             .table(this.options.tableName)
-            .insert(this.formatObject(object))
+            .insert(this.formatObject(object), { conflict: 'error' })
+            .run(connection, next);
+    }
+
+    /**
+     * Creates or updates an object
+     * @param connection
+     * @param userName
+     * @param pictureUrl
+     * @param next
+     */
+    upsert(connection, object, next) {
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
+            .insert(this.formatObject(object), { conflict: 'update' })
             .run(connection, next);
     }
 

@@ -3,6 +3,7 @@ import _ from 'underscore';
 import async from 'async';
 import rc from '../rethinkDb/rethinkConstants.js';
 import BaseDal from './BaseDal.js';
+import objectHelper from '../helpers/objectHelper.js';
 
 class UserDal extends BaseDal {
 
@@ -14,26 +15,22 @@ class UserDal extends BaseDal {
     }
 
     /**
-     * Creates a user from the given Google Profile
+     * Finds a user by e-mail
      * @param connection
-     * @param profile
+     * @param email
      * @param next
      */
-    createFromGoogleProfile(connection, profile, next) {
-        let user = {
-            name: profile.name,
-            displayName: profile.displayName,
-            photo: profile.photos[0].value,
-            email: profile.emails[0].value,
-            extenalProfiles: {
-                google: {
-                    id: profile.id,
-                    raw: profile
-                }
+    findByEmail(connection, email, next) {
+        this.filter(connection, { email: email}, (error, result) => {
+            if(error) {
+                next(error);
             }
-        };
-        this.create(connection, user, next);
+            else {
+                next(null, result[0]);
+            }
+        });
     }
+
 }
 
 export default UserDal;
