@@ -8,7 +8,7 @@ import constants from "./testConstants.js";
 const assert = chai.assert;
 let users = new UserDal({dbName: constants.DB_TESTS});
 
-describe('UserDal', function() {
+describe('BaseDal', function() {
 
     let testSession = new DbTestSession();
     testSession.setupSession(before, after, [rc.TABLE_USERS]);

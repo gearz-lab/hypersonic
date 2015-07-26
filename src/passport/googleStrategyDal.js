@@ -24,7 +24,7 @@ class GoogleStrategyDal {
                 if(error) {
                     next(error);
                 }
-                if(result.length) {
+                if(!result.length) {
                     // in this case, the user with such googleId does not exist
                     // let's try to find the user by the e-mail
                     users.filter({email: profile.emails[0]}, (error, result) => {
@@ -41,7 +41,7 @@ class GoogleStrategyDal {
                     // in this case, the user with such googleId exists
                     next(null, result[0]);
                 }
-            })
+            });
         });
     }
 }
