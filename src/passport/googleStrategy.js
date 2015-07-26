@@ -1,7 +1,7 @@
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var UserDal = require('../lib/dal/UserDal');
+var UserGoogleDal = require('../lib/dal/UserGoogleDal');
 
-var users = new UserDal();
+var users = new UserGoogleDal();
 
 module.exports = new GoogleStrategy(
     {
@@ -10,7 +10,7 @@ module.exports = new GoogleStrategy(
         callbackURL: 'http://localhost:3000/auth/google/callback'
     },
     function(accessToken, refreshToken, profile, done) {
-
+        users.findOrCreateFromGoogleProfile()
 
 
         console.log(profile);

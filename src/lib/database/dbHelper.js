@@ -1,9 +1,9 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from './rethinkConstants.js';
+import rc from './constants.js';
 
-class RethinkHelpers {
+class DbHelper {
 
     /**
      * Connects to RethinkDB
@@ -118,4 +118,4 @@ class RethinkHelpers {
     }
 }
 
-export default new RethinkHelpers();
+export default new DbHelper();

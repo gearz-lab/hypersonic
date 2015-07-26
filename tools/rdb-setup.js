@@ -1,8 +1,8 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from '../src/lib/rethinkDb/rethinkConstants.js';
-import rh from '../src/lib/rethinkDb/rethinkHelpers.js';
+import rc from '../src/lib/database/constants.js';
+import rh from '../src/lib/database/dbHelper.js';
 import UserDal from '../src/lib/dal/UserDal.js';
 import googleProfileSample from '../test-db/resources/googleProfileSample.js';
 

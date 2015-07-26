@@ -1,7 +1,7 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from '../rethinkDb/rethinkConstants.js';
+import rc from '../database/constants.js';
 import BaseDal from './BaseDal.js';
 import objectHelper from '../helpers/objectHelper.js';
 
