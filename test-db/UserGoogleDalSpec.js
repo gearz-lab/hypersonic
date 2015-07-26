@@ -12,9 +12,9 @@ let users = new UserGoogleDal({dbName: constants.DB_TESTS});
 describe('UserGoogleDalSpec', function() {
 
     let testSession = new DbTestSession();
-    testSession.setupSession(before, after, [rc.TABLE_USERS]);
+    testSession.setupSession(before, beforeEach, after, afterEach, [rc.TABLE_USERS]);
 
-    it('Create from Google profile', (done) => {
+    it('createFromGoogleProfile', (done) => {
         users.createFromGoogleProfile(testSession.connection, googleProfileSample, (error) => {
             if(error) {
                 throw error;

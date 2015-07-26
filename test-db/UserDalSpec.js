@@ -12,7 +12,7 @@ let users = new UserDal({dbName: constants.DB_TESTS});
 describe('BaseDal', function() {
 
     let testSession = new DbTestSession();
-    testSession.setupSession(before, after, [rc.TABLE_USERS]);
+    testSession.setupSession(before, beforeEach, after, afterEach, [rc.TABLE_USERS]);
 
     it('Create and filter', (done) => {
         users.upsert(testSession.connection, {
