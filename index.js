@@ -52,7 +52,7 @@ app.use(express.static('./dist'));
 
 app.use('/auth', auth);
 app.use('/api', api);
-app.get('/', def);
+app.get('*', def);
 
 app.listen(3000, function() {
     console.log('Gearz is running on port 3000');
