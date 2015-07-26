@@ -1,5 +1,5 @@
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var UserDal = require('../lib/dal/Users');
+var UserDal = require('../lib/dal/UserDal');
 var rh = require('../lib/rethinkDb/rethinkHelpers');
 
 var users = new UserDal();
