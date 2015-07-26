@@ -60,6 +60,18 @@ class BaseDal {
     }
 
     /**
+     * Finds a user by id
+     * @param connection
+     * @param id
+     */
+    find(connection, id, next) {
+        r.db(this.options.dbName)
+        .table(this.options.tableName)
+        .get(id)
+        .run(connection, next);
+    }
+
+    /**
      * Finds a user by the google id
      * @param connection
      * @param filter

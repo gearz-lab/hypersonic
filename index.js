@@ -1,14 +1,20 @@
 var express = require('express');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+
 var expressReactViews = require('express-react-views');
 var React = require('react');
 var passport = require('passport');
-var session = require('express-session');
 var googleStrategy = require('./src/passport/googleStrategy');
 
-// routs
+var db = require('./src/lib/database/dbHelper');
+var users = new require('./src/lib/dal/UserDal')();
+
+// routes
 var auth = require('./src/express/routes/auth');
 var api = require('./src/express/routes/api');
-var def = require('./src/express/routes/default');
+var def = require('./src/express/routes/app');
 
 var app  = express();
 
@@ -18,14 +24,26 @@ app.set('views', './src/express/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
 
-app.use(session({secret: 'anything'}));
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 passport.deserializeUser(function(user, done) {
-   done(null, user);
+    db.connect((error, connection) => {
+        if(error) {
+            done(error);
+        }
+        else {
+            users.find(connection, id, (user) => {
+                done(null, user);
+            });
+        }
+    });
 });
 
 app.use(express.static('./dist'));

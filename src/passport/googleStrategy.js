@@ -1,5 +1,6 @@
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var UserGoogleDal = require('../lib/dal/UserGoogleDal');
+var db = require('../lib/database/dbHelper');
 
 var users = new UserGoogleDal();
 
@@ -10,10 +11,16 @@ module.exports = new GoogleStrategy(
         callbackURL: 'http://localhost:3000/auth/google/callback'
     },
     function(accessToken, refreshToken, profile, done) {
-        users.findOrCreateFromGoogleProfile()
-
-
-        console.log(profile);
-        done(null, profile);
+        db.connect((error, connection) => {
+            if(error) {
+                done(error);
+            }
+            else {
+                users.findOrCreateFromGoogleProfile(connection, profile, (error, user) => {
+                    done(error, user);
+                    connection.close();
+                });
+            }
+        });
     }
 );

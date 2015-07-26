@@ -18,8 +18,8 @@ router.route('/authenticate').get(function(req, res) {
 });
 
 router.route('/google/callback').get(passport.authenticate('google', {
-    successRedirect: '/auth/authenticate',
-    failure: '/error'
+    successRedirect: '/',
+    failureRedirect: '/error'
 }));
 
 router.route('/google').get(passport.authenticate('google', {
