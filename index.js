@@ -1,3 +1,5 @@
+var baber_require = require('./register-babel');
+
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -35,12 +37,12 @@ passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 passport.deserializeUser(function(user, done) {
-    db.connect((error, connection) => {
+    db.connect(function(error, connection) {
         if(error) {
             done(error);
         }
         else {
-            users.find(connection, id, (user) => {
+            users.find(connection, id, function (user) {
                 connection.close();
                 done(null, user);
             });
