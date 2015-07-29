@@ -34,6 +34,16 @@ class UserDal extends BaseDal {
         });
     }
 
+    /**
+     * Authenticates the g
+     * @param connection
+     * @param email
+     * @param password
+     */
+    authenticate(connection, email, password) {
+        return true;
+    }
+
 }
 
 export default UserDal;
