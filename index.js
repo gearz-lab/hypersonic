@@ -9,7 +9,6 @@ var cookieSession = require('cookie-session');
 var expressReactViews = require('express-react-views');
 var React = require('react');
 var passport = require('passport');
-var passportHack = require('./src/passport/sessionHack');
 var googleStrategy = require('./src/passport/googleStrategy');
 
 var db = require('./src/lib/database/dbHelper');
@@ -39,7 +38,6 @@ passport.deserializeUser(function(userId, done) {
         else {
             users.find(connection, userId, function (error, user) {
                 connection.close();
-                console.log(`find result: userId: ${userId}. User result: ${user}`);
                 done(null, user);
             });
         }
@@ -56,7 +54,6 @@ app.use(cookieSession({
     name: 'session',
     keys: ['key1', 'key2']
 }));
-app.use(passportHack(passport));
 app.use(passport.initialize());
 app.use(passport.session());
 
