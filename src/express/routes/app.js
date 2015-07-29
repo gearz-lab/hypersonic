@@ -9,6 +9,7 @@ router.route('/login').get((req, res) => {
 
 router.route('*').get((req, res) => {
 
+    console.log(`from the app route: ${req.user}`);
     if(!req.user) {
         res.redirect('/login');
     }

@@ -9,6 +9,7 @@ var cookieSession = require('cookie-session');
 var expressReactViews = require('express-react-views');
 var React = require('react');
 var passport = require('passport');
+var passportHack = require('./src/passport/sessionHack');
 var googleStrategy = require('./src/passport/googleStrategy');
 
 var db = require('./src/lib/database/dbHelper');
@@ -22,44 +23,44 @@ var def = require('./src/express/routes/app');
 var app  = express();
 var users = new UserDal();
 
-    app.set('views', './src/express/views');
-    app.set('view engine', 'jsx');
-    app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
+app.set('views', './src/express/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
 
-    passport.serializeUser(function(userId, done) {
-        done(null, userId);
+passport.serializeUser(function(userId, done) {
+    done(null, userId);
+});
+passport.deserializeUser(function(userId, done) {
+
+    db.connect(function(error, connection) {
+        if(error) {
+            done(error);
+        }
+        else {
+            users.find(connection, userId, function (error, user) {
+                connection.close();
+                console.log(`find result: userId: ${userId}. User result: ${user}`);
+                done(null, user);
+            });
+        }
     });
-    passport.deserializeUser(function(userId, done) {
-        console.trace("Here I am!")
-        db.connect(function(error, connection) {
-            if(error) {
-                done(error);
-            }
-            else {
-                users.find(connection, userId, function (user) {
-                    connection.close();
-                    done(null, user);
-                });
-            }
-        });
-    });
+});
 
-    app.use(express.static('./dist'));
-    app.use(cookieParser());
-    app.use(bodyParser.json());
-    app.use( bodyParser.urlencoded({
-        extended: true
-    }));
-    app.use(cookieSession({
-        name: 'session',
-        keys: ['key1', 'key2']
-    }));
-    app.use(passport.initialize());
-    app.use(passport.session());
+app.use(express.static('./dist'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use( bodyParser.urlencoded({
+    extended: true
+}));
+app.use(cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2']
+}));
+app.use(passportHack(passport));
+app.use(passport.initialize());
+app.use(passport.session());
 
-
-
-    passport.use(googleStrategy);
+passport.use(googleStrategy);
 
 app.use('/auth', auth);
 app.use('/api', api);

@@ -6,7 +6,9 @@ var router = express.Router();
 router.route('/google/callback').get(passport.authenticate('google', {
     failureRedirect: '/error'
 }), function(req, res) {
-    // Successful authenticvation, redirect home
+    // this is a hack, I'm storing this value just so I can obtain it back
+    // in my own connect-middleware on every request
+    req.session.userId = req.user;
     res.redirect('/index');
 });
 
