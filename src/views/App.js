@@ -1,5 +1,7 @@
 import React from 'react';
 
+import loggedUserActions from '../flux/actions/LoggedUserActions.js';
+
 var Router = require('react-router')
     , RouteHandler = Router.RouteHandler
     , Route = Router.Route;
@@ -15,6 +17,8 @@ var ReactRouterBootstrap = require('react-router-bootstrap')
     , NavItemLink = ReactRouterBootstrap.NavItemLink
     , ButtonLink = ReactRouterBootstrap.ButtonLink
     , ListGroupItemLink = ReactRouterBootstrap.ListGroupItemLink;
+
+
 
 var DefaultLayout = React.createClass({
     render: function() {

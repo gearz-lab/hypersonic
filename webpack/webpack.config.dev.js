@@ -13,8 +13,6 @@ export default {
         publicPath: 'http://localhost:8081/assets/'
     },
 
-    externals: undefined,
-
     resolve: {
         extensions: ['', '.js', '.json']
     },

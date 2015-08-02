@@ -9,8 +9,8 @@ class DbHelper {
      * Connects to RethinkDB
      * @param next
      */
-    connect(next) {
-        r.connect({host: 'localhost', port: 28015}, next);
+    connect(connection) {
+        r.connect({host: 'localhost', port: 28015}, connection);
     }
 
     /**
