@@ -9,5 +9,11 @@ class HttpApi {
     }
 }
 
-export default new HttpApi();
+let httpApi = new HttpApi();
+
+if(window) {
+    window.httpApi = httpApi;
+}
+
+export default httpApi;
 
