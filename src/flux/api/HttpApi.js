@@ -5,7 +5,13 @@ class HttpApi {
         if(!params) {
             params = {}
         }
-        request.get(url, params).then(next);
+        try {
+            request.get(url, params)
+                .then(next)
+                .catch((error) => { next(error); })
+        } catch(error) {
+            next(error);
+        }
     }
 }
 
