@@ -14,13 +14,19 @@ var LoggedUserStore = _.extend({}, EventEmitter.prototype, {
     initialize: function() {
         // Register callback to handle all updates
         AppDispatcher.register(function(action) {
+            console.log('action triggered. Action:' + action.actionType);
+
             switch (action.actionType) {
-                case LoggedUserConstants.LOAD_LOGGED_SUCESS:
+                case LoggedUserConstants.LOAD_LOGGED_SUCCESS:
                     this.loggedUser = action.data;
                     this.emitChange();
                     break;
             }
         });
+    },
+
+    getLoggedUser: function() {
+        return this.loggedUser;
     },
 
     emitChange: function() {

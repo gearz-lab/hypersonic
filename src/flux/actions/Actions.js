@@ -9,11 +9,11 @@ class Actions {
         if(!loadAction) {
             throw new Error('Load action is required');
         }
-        let successAction = option.successAction;
+        let successAction = options.successAction;
         if(!successAction) {
             throw new Error('Success action is required');
         }
-        let failAction = option.failAction;
+        let failAction = options.failAction;
         if(!failAction) {
             throw new Error('Fail action is required');
         }
@@ -24,13 +24,16 @@ class Actions {
 
         // client API callback
         let clientApiCallback = function(error, data) {
+            console.log('clientApiCallback called.');
+            console.log(error);
+            console.log(data);
             if(error) {
                 AppDispatcher.dispatch({
                     actionType: failAction
                 });
             }
             else {
-                App.dispatch({
+                AppDispatcher.dispatch({
                     actionType: successAction,
                     data: data
                 });
@@ -45,4 +48,4 @@ class Actions {
         clientApiFunction.call(null, clientApiCallback);
     }
 }
-export default Action;
+export default Actions;

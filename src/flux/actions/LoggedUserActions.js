@@ -13,7 +13,7 @@ class LoggedUserAction extends Actions {
         this.load({
             loadAction: LoggedUserConstants.LOAD_LOGGED_USER,
             failAction: LoggedUserConstants.LOAD_LOGGED_FAIL,
-            successAction: LoggedUserConstants.LOAD_LOGGED_SUCESS,
+            successAction: LoggedUserConstants.LOAD_LOGGED_SUCCESS,
             clientApiFunction: clientApi.users.getLoggedUser
         });
 
