@@ -19,6 +19,8 @@ var ReactRouterBootstrap = require('react-router-bootstrap')
     , ButtonLink = ReactRouterBootstrap.ButtonLink
     , ListGroupItemLink = ReactRouterBootstrap.ListGroupItemLink;
 
+import UserBadge from '../components/UserBadge.js';
+
 
 
 var DefaultLayout = React.createClass({
@@ -55,7 +57,7 @@ var DefaultLayout = React.createClass({
                         <NavItemLink to='liveSchemaEditor'>Live Schema Editor</NavItemLink>
                     </Nav>
                     <Nav right>
-                        <NavItemLink to='home'>{this.state.loggedUser ? this.state.loggedUser.displayName : ''}</NavItemLink>
+                        <UserBadge user={this.state.loggedUser} />
                     </Nav>
                 </Navbar>
                 <div className="container-fluid">
