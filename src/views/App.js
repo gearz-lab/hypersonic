@@ -46,20 +46,16 @@ var DefaultLayout = React.createClass({
 
     render: function() {
 
-        let loggedUser = this.state.loggedUser;
-        let loggedUserBadge = <div></div>;
-        if(loggedUser) {
-            loggedUserBadge = <div>{loggedUser.displayName}</div>;
-        }
-
         return (
             <div>
-                <loggedUserBadge/>
                 <Navbar brand='Gearz' fluid staticTop>
                     <Nav eventKey={0}>
                         <NavItemLink to='home'>Home</NavItemLink>
                         <NavItemLink to='about'>About</NavItemLink>
                         <NavItemLink to='liveSchemaEditor'>Live Schema Editor</NavItemLink>
+                    </Nav>
+                    <Nav right>
+                        <NavItemLink to='home'>{this.state.loggedUser ? this.state.loggedUser.displayName : ''}</NavItemLink>
                     </Nav>
                 </Navbar>
                 <div className="container-fluid">
