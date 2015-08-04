@@ -3,7 +3,7 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import LoggedUserConstants from './LoggedUserConstants.js';
 import clientApi from '../api/clientApi.js';
 
-class LoggedUserAction extends Actions {
+class LoggedUserActions extends Actions {
 
     /**
      * Loads the current logged user
@@ -20,4 +20,4 @@ class LoggedUserAction extends Actions {
     }
 }
 
-export default new LoggedUserAction();
+export default new LoggedUserActions();

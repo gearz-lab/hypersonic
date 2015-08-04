@@ -22,10 +22,14 @@ class Actions {
             throw new Error('Client API function is required');
         }
 
-        // client API callback
-        let clientApiCallback = function(error, data) {
+        // dispatches the load action
+        AppDispatcher.dispatch({
+            actionType: loadAction
+        });
+
+        // calls the client API passing the callback above
+        clientApiFunction((error, data) => {
             console.log('clientApiCallback called.');
-            console.log(error);
             console.log(data);
             if(error) {
                 AppDispatcher.dispatch({
@@ -38,14 +42,7 @@ class Actions {
                     data: data
                 });
             }
-        };
-
-        // dispatches the load action
-        AppDispatcher.dispatch({
-            actionType: loadAction
         });
-        // calls the client API passing the callback above
-        clientApiFunction.call(null, clientApiCallback);
     }
 }
 export default Actions;

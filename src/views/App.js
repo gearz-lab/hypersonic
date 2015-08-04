@@ -1,7 +1,7 @@
 import React from 'react';
 
-import loggedUserActions from '../flux/actions/LoggedUserActions.js';
-import loggedUserStore from '../flux/stores/LoggedUserStore.js';
+import clientActions from '../flux/actions/clientActions.js';
+import clientStores from '../flux/stores/clientStores.js';
 
 var Router = require('react-router')
     , RouteHandler = Router.RouteHandler
@@ -25,22 +25,22 @@ var DefaultLayout = React.createClass({
 
     getInitialState: function() {
         return {
-            loggedUser: loggedUserStore.getLoggedUser()
+            loggedUser: clientStores.loggedUser.getLoggedUser()
         }
     },
 
     componentDidMount: function() {
-        loggedUserStore.addChangeListener(this.loggedUserChanged);
-        loggedUserActions.loadLoggedUser();
+        clientStores.loggedUser.addChangeListener(this.loggedUserChanged);
+        clientActions.loggedUser.loadLoggedUser();
     },
 
     componentWillUnmount: function() {
-        loggedUserStore.removeChangeListener(this.loggedUserChanged);
+        clientStores.loggedUser.removeChangeListener(this.loggedUserChanged);
     },
 
     loggedUserChanged: function() {
         this.setState({
-            loggedUser: loggedUserStore.getLoggedUser()
+            loggedUser: clientStores.loggedUser.getLoggedUser()
         })
     },
 
