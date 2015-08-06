@@ -14,7 +14,7 @@ export default {
     },
 
     resolve: {
-        extensions: ['', '.js', '.json']
+        extensions: ['', '.js', '.json', '.ts']
     },
 
     module: {
@@ -25,7 +25,9 @@ export default {
             {test: /\.less$/, loader:  'style!css!less'},
             {test: /\.json$/, loader: 'json'},
             {test: /\.jpe?g$|\.gif$|\.png$|\.ico$/, loader: 'file?name=[name].[ext]'},
-            {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'}
+            {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'},
+            // typescript
+            {text: /\.ts/, loaders: ['ts-loader'] }
         ]
     },
 
