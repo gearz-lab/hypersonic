@@ -9,6 +9,8 @@ var Router = require('react-router')
 
 import Navbar from 'react-bootstrap/lib/Navbar';
 
+import MainMenu from '../components/navigation/TreeView/TreeView.js';
+
 var ReactBootstrap = require('react-bootstrap')
     , Nav = ReactBootstrap.Nav
     , NavItem = ReactBootstrap.NavItem
@@ -48,6 +50,41 @@ var DefaultLayout = React.createClass({
 
     render: function() {
 
+        const treeNodes = {
+            page: {
+                display: "PageControl",
+                nodes: {
+                    editPanel: {
+                        display: "StackPanelControl",
+                        nodes: {
+                            panel: {
+                                display: "Panel (Main)",
+                                nodes: {
+                                    name: {
+                                        display: "TexboxControl (Name)"
+                                    },
+                                    dateOfBirth: {
+                                        display: "DatePickerControl (Date of Birth)"
+                                    },
+                                    gender: {
+                                        display: "ToggleButtonControl (Gender)"
+                                    }
+                                }
+                            },
+                            panel2: {
+                                display: "Panel (Additional Info)",
+                                nodes: {
+                                    isResponsible: {
+                                        display: "ToogleButtonControl (Is Responsible)"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
         return (
             <div>
                 <Navbar brand='Gearz' fluid staticTop>
@@ -61,7 +98,14 @@ var DefaultLayout = React.createClass({
                     </Nav>
                 </Navbar>
                 <div className="container-fluid">
-                    <Router.RouteHandler />
+                    <div className="row">
+                        <div className="col-md-3">
+                            <MainMenu nodes={treeNodes} />
+                        </div>
+                        <div className="col-md-9">
+                            <Router.RouteHandler />
+                        </div>
+                    </div>
                 </div>
             </div>
         );
