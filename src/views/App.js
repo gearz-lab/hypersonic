@@ -50,41 +50,6 @@ var DefaultLayout = React.createClass({
 
     render: function() {
 
-        const treeNodes = {
-            page: {
-                display: "PageControl",
-                nodes: {
-                    editPanel: {
-                        display: "StackPanelControl",
-                        nodes: {
-                            panel: {
-                                display: "Panel (Main)",
-                                nodes: {
-                                    name: {
-                                        display: "TexboxControl (Name)"
-                                    },
-                                    dateOfBirth: {
-                                        display: "DatePickerControl (Date of Birth)"
-                                    },
-                                    gender: {
-                                        display: "ToggleButtonControl (Gender)"
-                                    }
-                                }
-                            },
-                            panel2: {
-                                display: "Panel (Additional Info)",
-                                nodes: {
-                                    isResponsible: {
-                                        display: "ToogleButtonControl (Is Responsible)"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
         return (
             <div>
                 <Navbar brand='Gearz' fluid staticTop>
