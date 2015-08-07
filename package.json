@@ -57,6 +57,7 @@
     "style-loader": "^0.12.1",
     "swig": "^1.4.2",
     "ts-loader": "^0.5.0",
+    "typescript": "^1.6.0-dev.20150806",
     "underscore": "^1.8.3",
     "webpack-dev-server": "^1.9.0"
   },
