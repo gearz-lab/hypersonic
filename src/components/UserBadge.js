@@ -9,7 +9,7 @@ var ReactRouterBootstrap = require('react-router-bootstrap')
 
 var UserBadge = React.createClass({
     propTypes: {
-        fields: React.PropTypes.object.isRequired
+        user: React.PropTypes.object.isRequired
     },
     render: function() {
         let user = this.props.user;
