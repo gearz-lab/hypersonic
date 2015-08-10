@@ -1,7 +1,9 @@
 import LoggedUserActions from './LoggedUserActions.js';
+import MainMenuActions from './MainMenuActions.js';
 
 let clientActions = {
-    loggedUser: LoggedUserActions
+    loggedUser: LoggedUserActions,
+    mainMenu: MainMenuActions
 };
 
 if(window) {

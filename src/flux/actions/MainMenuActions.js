@@ -3,12 +3,12 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import MainMenuConstants from './MainMenuConstants.js';
 import clientApi from '../api/clientApi.js';
 
-class LoggedUserActions extends Actions {
+class MainMenuActions extends Actions {
 
     /**
      * Loads the current logged user
      */
-    loadLoggedUser() {
+    loadMainMenu() {
 
         this.load({
             loadAction: MainMenuConstants.LOAD_MAIN_MENU,
@@ -20,4 +20,4 @@ class LoggedUserActions extends Actions {
     }
 }
 
-export default new LoggedUserActions();
+export default new MainMenuActions();

@@ -23,29 +23,40 @@ var ReactRouterBootstrap = require('react-router-bootstrap')
 
 import UserBadge from '../components/UserBadge.js';
 
-
-
 var DefaultLayout = React.createClass({
 
     getInitialState: function() {
         return {
-            loggedUser: clientStores.loggedUser.getLoggedUser()
+            loggedUser: clientStores.loggedUser.getLoggedUser(),
+            mainMenu: clientStores.mainMenu.getMainMenu()
         }
     },
 
     componentDidMount: function() {
+        // logged user
         clientStores.loggedUser.addChangeListener(this.loggedUserChanged);
         clientActions.loggedUser.loadLoggedUser();
+
+        // main menu
+        clientStores.mainMenu.addChangeListener(this.mainMenuChanged);
+        clientActions.mainMenu.loadMainMenu();
     },
 
     componentWillUnmount: function() {
         clientStores.loggedUser.removeChangeListener(this.loggedUserChanged);
+        clientStores.mainMenu.removeChangeListener(this.mainMenuChanged);
     },
 
     loggedUserChanged: function() {
         this.setState({
             loggedUser: clientStores.loggedUser.getLoggedUser()
-        })
+        });
+    },
+
+    mainMenuChanged: function() {
+        this.setState({
+            mainMenu: clientStores.mainMenu.getMainMenu()
+        });
     },
 
     render: function() {
@@ -65,7 +76,7 @@ var DefaultLayout = React.createClass({
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-3">
-                            <MainMenu nodes={treeNodes} />
+                            <MainMenu nodes={this.state.mainMenu} />
                         </div>
                         <div className="col-md-9">
                             <Router.RouteHandler />
