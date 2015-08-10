@@ -1,5 +1,5 @@
-import users from './UserApi.js';
-import mainMenu from './MainMenuApi.js';
+import users from './LoggedUserClientApi.js';
+import mainMenu from './MainMenuClientApi.js';
 
 class ClientApi{
     constructor() {
