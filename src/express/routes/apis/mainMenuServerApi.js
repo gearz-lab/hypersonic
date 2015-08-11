@@ -20,7 +20,8 @@ export default {
                                     display: "Entities",
                                     nodes: {
                                         search: {
-                                            display: "Search"
+                                            display: "Search",
+                                            route: "liveSchemaEditor"
                                         },
                                         new: {
                                             display: "New"

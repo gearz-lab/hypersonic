@@ -1,5 +1,6 @@
 var React = require("react");
 var gearzMixin = require("./mixin.js");
+var Link = require('react-router').Link;
 
 var TreeRow = React.createClass({
     mixins: [gearzMixin],
@@ -24,18 +25,22 @@ var TreeRow = React.createClass({
     },
     render: function () {
 
-        var nodes = this.get("nodes");
-        var collapsed = !!this.get("collapsed");
-        var display = this.get("display");
-        var path = this.get("path");
+        var nodes = this.props.nodes;
+        var collapsed = !!this.props.collapsed;
+        var display = this.props.display;
+        var path = this.props.path;
 
         var hasChildren = this.hasChildren(nodes);
         var cardinality = this.cardinality(nodes);
 
         var indentation = 10 + path.length * 15 + "px";
 
-        return (
-            <li className="list-group-item noselect" style={{paddingLeft: indentation}}>
+        var route = this.props.route;
+        if(route) {
+            console.log(route);
+        }
+
+       return  <li className="list-group-item noselect" style={{paddingLeft: indentation}}>
                 <span
                     className={
                         !hasChildren ? "rui-treeView-toggle-button" :
@@ -45,11 +50,9 @@ var TreeRow = React.createClass({
                     onClick={ this.setter("collapsed", !collapsed) } >
                 </span>
                 <span className="rui-treeView-content">
-                        { display }
+                        { route ? <Link to={route}>{display}</Link> : display }
                 </span>
-                { hasChildren && cardinality !== null ? <span className="badge">{ cardinality }</span> : null }
-            </li>
-        );
+            </li>;
     }
 });
 

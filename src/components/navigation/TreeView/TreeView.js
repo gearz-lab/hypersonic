@@ -99,10 +99,10 @@ var TreeView = React.createClass({
         var result = typeof main == 'object' ? {} : Array.isArray(main) ? [] : null;
 
         if (!result)
-            throw new Error("Argument `main` must be an object or an array.");
+            throw Error("Argument `main` must be an object or an array.");
 
         if (typeof defaults != 'object' && Array.isArray(defaults))
-            throw new Error("Argument `defaults` must be an object or an array.");
+            throw Error("Argument `defaults` must be an object or an array.");
 
         for (var key2 in defaults)
             if (defaults.hasOwnProperty(key2) && key2 != "nodes")
@@ -211,6 +211,7 @@ var TreeView = React.createClass({
                     collapsed={info.node.collapsed}
                     display={info.node.display}
                     path={info.path}
+                    route={info.node.route}
                     onAnyChange={e => {
                         var newPath = Object.freeze([].concat(info.path));
                         var eventData = e.merge({
