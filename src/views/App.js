@@ -48,12 +48,16 @@ var DefaultLayout = React.createClass({
     },
 
     loggedUserChanged: function() {
+        console.log('Got store value');
+        console.log(clientStores.loggedUser.getLoggedUser());
         this.setState({
             loggedUser: clientStores.loggedUser.getLoggedUser()
         });
     },
 
     mainMenuChanged: function() {
+        console.log('Got store value');
+        console.log(clientStores.mainMenu.getMainMenu());
         this.setState({
             mainMenu: clientStores.mainMenu.getMainMenu()
         });

@@ -4,14 +4,18 @@ var Constants = require('./StoreConstants');
 
 class BaseStore
 {
+    constructor() {
+
+    }
+
     /**
      * Constructs a new instance of the BaseStore
      * @param actionHandlers - An object in which the key is the
      * action name and the value the function that should handle it
      */
-    constructor(actionHandlers) {
+    initialize(actionHandlers) {
         if(!actionHandlers) {
-            throw new Error('actionHandlers is required');
+            throw Error('actionHandlers is required');
         }
 
         this.eventEmitter = new EventEmitter();
@@ -19,8 +23,7 @@ class BaseStore
         _this.data = null; // the original value for data. This should be populated by the action handlers
 
         AppDispatcher.register(function(action) {
-            console.log('action triggered. Action:' + action.actionType);
-            if(action in actionHandlers) {
+            if(action.actionType in actionHandlers) {
                 actionHandlers[action].call(_this, action);
             }
         });
