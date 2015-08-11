@@ -29,8 +29,6 @@ class Actions {
 
         // calls the client API passing the callback above
         clientApiFunction((error, data) => {
-            console.log('clientApiCallback called.');
-            console.log(data);
             if(error) {
                 AppDispatcher.dispatch({
                     actionType: failAction

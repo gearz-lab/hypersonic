@@ -24,7 +24,7 @@ class BaseStore
 
         AppDispatcher.register(function(action) {
             if(action.actionType in actionHandlers) {
-                actionHandlers[action].call(_this, action);
+                actionHandlers[action.actionType].call(_this, action);
             }
         });
     }
