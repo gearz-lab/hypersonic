@@ -10,31 +10,20 @@ export default {
         router.route('/mainmenu/load').get(function(req, res) {
 
             const mainMenu = {
-                page: {
-                    display: "PageControl",
+                settings: {
+                    display: "Settings",
                     nodes: {
-                        editPanel: {
-                            display: "StackPanelControl",
+                        customization: {
+                            display: "Customization",
                             nodes: {
-                                panel: {
-                                    display: "Panel (Main)",
+                                entities: {
+                                    display: "Entities",
                                     nodes: {
-                                        name: {
-                                            display: "TexboxControl (Name)"
+                                        search: {
+                                            display: "Search"
                                         },
-                                        dateOfBirth: {
-                                            display: "DatePickerControl (Date of Birth)"
-                                        },
-                                        gender: {
-                                            display: "ToggleButtonControl (Gender)"
-                                        }
-                                    }
-                                },
-                                panel2: {
-                                    display: "Panel (Additional Info)",
-                                    nodes: {
-                                        isResponsible: {
-                                            display: "ToogleButtonControl (Is Responsible)"
+                                        new: {
+                                            display: "New"
                                         }
                                     }
                                 }
