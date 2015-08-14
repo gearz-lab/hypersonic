@@ -1,6 +1,6 @@
 import httpApi from './HttpApi.js';
 
-class UsersApi {
+class LoggedUserClientApi {
 
     /**
      * Gets the user logged in
@@ -24,4 +24,4 @@ class UsersApi {
     }
 }
 
-export default new UsersApi();
+export default new LoggedUserClientApi();

@@ -1,6 +1,6 @@
 import httpApi from './HttpApi.js';
 
-class MainMenuApi {
+class MainMenuClientApi {
 
     load(next) {
         httpApi.get('/api/mainmenu/load', null, (response) => {
@@ -9,4 +9,4 @@ class MainMenuApi {
     }
 }
 
-export default new MainMenuApi();
+export default new MainMenuClientApi();
