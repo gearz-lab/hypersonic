@@ -40,19 +40,19 @@ var TreeRow = React.createClass({
             console.log(route);
         }
 
-       return  <li className="list-group-item noselect" style={{paddingLeft: indentation}}>
-                <span
-                    className={
-                        !hasChildren ? "rui-treeView-toggle-button" :
-                            collapsed ? "rui-treeView-toggle-button glyphicon glyphicon-triangle-right" :
-                                "rui-treeView-toggle-button glyphicon glyphicon-triangle-bottom"
-                        }
-                    onClick={ this.setter("collapsed", !collapsed) } >
-                </span>
-                <span className="rui-treeView-content">
-                        { route ? <Link to={route}>{display}</Link> : display }
-                </span>
-            </li>;
+       return  <li className="list-group-item" style={{paddingLeft: indentation}}>
+                    <span
+                        className={
+                            !hasChildren ? "rui-treeView-toggle-button" :
+                                collapsed ? "rui-treeView-toggle-button glyphicon glyphicon-triangle-right" :
+                                    "rui-treeView-toggle-button glyphicon glyphicon-triangle-bottom"
+                            }
+                        onClick={ this.setter("collapsed", !collapsed) } >
+                    </span>
+                    <span className="rui-treeView-content">
+                            { route ? <Link to={route}>{display}</Link> : display }
+                    </span>
+                </li>;
     }
 });
 
