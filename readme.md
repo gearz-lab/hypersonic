@@ -12,8 +12,7 @@ Gearz is a platform for developing data-centric business applications.
 
 **Project status:**
 
-Gearz is under active development. 1.0 release is planned for 2016 Q3. For more details, please refer to the [roadmap](https://github.com/gearz-lab/gearz/milestones).
- 
+Gearz is under active development. 1.0 release is planned for 2016 Q3.
 About
 ---
 
@@ -101,7 +100,7 @@ Gearz is designed to support translations, time-zones and multiple date and numb
 About the author
 ---
 
-Hello, I'm André Pena, from Brazil. I work for Thomson Reuters as a Software Development Specialist and I work on Gearz
+Hello, I'm AndrÃ© Pena, from Brazil. I work for Thomson Reuters as a Software Development Specialist and I work on Gearz
 on most of the time that is left. [My SO profile](http://stackoverflow.com/users/192729/andrerpena?tab=profile) if you are interested. I hope you will enjoy using it as much as I enjoy implementing it.
 
 [Follow me on twitter](https://twitter.com/andrerpena).
