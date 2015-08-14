@@ -1,9 +1,11 @@
 import LoggedUserStore from './LoggedUserStore.js';
 import MainMenuStore from './MainMenuStore.js';
+import ApplicationDomainStore from './ApplicationDomainStore.js';
 
 let clientStores = {
     loggedUser: LoggedUserStore,
-    mainMenu: MainMenuStore
+    mainMenu: MainMenuStore,
+    applicationDomain: ApplicationDomainStore
 };
 
 if(window) {

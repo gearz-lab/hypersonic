@@ -8,7 +8,7 @@ class ApplicationDomainActions extends Actions {
     /**
      * Loads the current logged user
      */
-    loadMainMenu() {
+    loadApplicationDomain() {
 
         this.load({
             loadAction: ApplicationDomainConstants.LOAD_APPLICATION_DOMAIN,
