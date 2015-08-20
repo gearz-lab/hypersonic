@@ -10,8 +10,11 @@ var Home = React.createClass({
     render: function() {
 
         return (
-            <div>
-                <div> Editing: {this.props.params.entity}. Id: {this.props.params.id} </div>
+            <div className="document">
+                <div className="document-header">Editing something</div>
+                <div className="document-body">
+                    <div> Editing: {this.props.params.entity}. Id: {this.props.params.id} </div>
+                </div>
             </div>
         );
     }
