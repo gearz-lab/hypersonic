@@ -14,7 +14,10 @@ import {Route, Routes, DefaultRoute, NotFoundRoute} from 'react-router';
 export default (
     <Route>
         <Route name='app' path='/' handler={App}>
-            <Route name='edit-paradigm' path='edit/:entity/:id' handler={EditParadigm} />
+
+            <Route name='edit-with-layout' path='/e/:entity/:layout/edit/:id' handler={EditParadigm} />
+            <Route name='edit' path='/e/:entity/edit/:id' handler={EditParadigm} />
+
             <Route name='home' path='index' handler={HomePage} />
             <Route name='about' path='about' handler={About} />
             <Route name='liveSchemaEditor' path='liveSchemaEditor' handler={LiveSchemaEditor}  />
