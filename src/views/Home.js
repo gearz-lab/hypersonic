@@ -66,6 +66,7 @@ var Home = React.createClass({
 
         return (
             <div>
+                <div>This is something very cool: {this.props.params.id} </div>
                 <MetaForm
                     schema={schema}
                     entityName='contact'
