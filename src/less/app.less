@@ -2,9 +2,13 @@
   border-width: 1px;
   border-color: @border-color;
   border-style: solid;
-  margin-left: -15px;
   border-radius: 4px;
+  @media (min-width: @screen-sm-min) {
+    margin-left: -@grid-gutter-width/2;
+  }
 }
+
+
 
 .document-header {
   background-color: @medium-background-color;

@@ -1,5 +1,4 @@
 // styles
-import bootstrap from 'bootstrap/less/bootstrap.less';
 import reactSelect from './less/thirdParty/lookup.less';
 import datePicker from 'react-widgets/dist/css/react-widgets.css';
 import fontAwesome from 'font-awesome/less/font-awesome.less';
