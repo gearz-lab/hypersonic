@@ -25,13 +25,24 @@ var Home = React.createClass({
         });
     },
 
+    /**
+     * Returns the document title
+     * @returns {*}
+     */
+    getDocumentTitle: function() {
+        if(this.props.params.id) {
+            return `Editing ${this.props.params.entity}`;
+        }
+        return `New ${this.props.params.entity}`;
+    },
+
     render: function() {
 
         // if the application domain hasn't been loaded already
         if(!this.state || !this.state.applicationDomain) {
             return (
                 <div className="document">
-                    <div className="document-header">Editing {this.props.params.entity}</div>
+                    <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
                         <div> Editing: {this.props.params.entity}. Id: {this.props.params.id} </div>
                     </div>
@@ -48,7 +59,7 @@ var Home = React.createClass({
         if(!entity) {
             return (
                 <div className="document">
-                    <div className="document-header">Editing... Oh wait. Editing what?</div>
+                    <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
                         <Alert bsStyle='danger'>
                             <h4>Oh snap! Cound not find entity: <b>{entityName}</b> </h4>
@@ -70,7 +81,7 @@ var Home = React.createClass({
         if(!layout) {
             return (
                 <div className="document">
-                    <div className="document-header">Editing {this.props.params.entity}</div>
+                    <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
                         <Alert bsStyle='danger'>
                             <h4>Oh snap! The entity is fine, but couldn't find the layout: <b>{layoutName}</b> </h4>
@@ -83,7 +94,7 @@ var Home = React.createClass({
         // if the application domain has loaded successfully
         return (
             <div className="document">
-                <div className="document-header">Editing {this.props.params.entity}</div>
+                <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
                     <MetaForm
                         schema={applicationDomain}
