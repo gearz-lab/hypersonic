@@ -40,6 +40,7 @@ var Home = React.createClass({
         }
 
         let entityName = this.props.params.entity;
+        let layoutName = this.props.params.layout;
         let applicationDomain = this.state.applicationDomain;
 
         // try to find the appropriate entity
@@ -57,17 +58,39 @@ var Home = React.createClass({
             );
         }
 
+        if(!layoutName) {
+            if (entity.defaultLayouts && entity.defaultLayouts.edit) {
+                layoutName = entity.defaultLayouts.edit;
+            }
+            else {
+                layoutName = `${entityName}-edit`;
+            }
+        }
+        let layout = _.find(applicationDomain.layouts, e => e.name == layoutName);
+        if(!layout) {
+            return (
+                <div className="document">
+                    <div className="document-header">Editing {this.props.params.entity}</div>
+                    <div className="document-body">
+                        <Alert bsStyle='danger'>
+                            <h4>Oh snap! The entity is fine, but couldn't find the layout: <b>{layoutName}</b> </h4>
+                        </Alert>
+                    </div>
+                </div>
+            );
+        }
+
         // if the application domain has loaded successfully
         return (
             <div className="document">
                 <div className="document-header">Editing {this.props.params.entity}</div>
                 <div className="document-body">
                     <MetaForm
-                        schema={schema}
-                        entityName='contact'
-                        layoutName='contact-edit'
-                        model={model}
-                        title='Editing contact'/>
+                        schema={applicationDomain}
+                        entityName={entityName}
+                        layoutName={layoutName}
+                        model={{}}
+                        title={`Editing ${entityName}`}/>
                 </div>
             </div>
         );
