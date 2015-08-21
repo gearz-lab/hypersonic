@@ -19,7 +19,8 @@ var MetaForm = React.createClass({
         entityName: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
         fields: React.PropTypes.object,
-        model: React.PropTypes.object
+        model: React.PropTypes.object,
+        showBottomBar: React.PropTypes.bool
     },
 
     getInitialState: function() {
@@ -144,6 +145,19 @@ var MetaForm = React.createClass({
             </div>;
         }
 
+        let bottomBar = null;
+        if(this.props.showBottomBar === undefined || this.props.showBottomBar === true) {
+            bottomBar = <div>
+                    <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
+                    <div className='meta-form-bottom-bar'>
+                        <ButtonToolbar className='pull-right'>
+                            <Button bsStyle='primary'>Save</Button>
+                            <Button>Cancel</Button>
+                        </ButtonToolbar>
+                    </div>
+                </div>;
+        }
+
         return (
             <div className="meta-form">
                 {title}
@@ -152,13 +166,7 @@ var MetaForm = React.createClass({
                         Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))
                     }
                 </div>
-                <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
-                <div className='meta-form-bottom-bar'>
-                    <ButtonToolbar className='pull-right'>
-                        <Button bsStyle='primary'>Save</Button>
-                        <Button>Cancel</Button>
-                    </ButtonToolbar>
-                </div>
+                {bottomBar}
             </div>
         );
     }

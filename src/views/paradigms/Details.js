@@ -94,6 +94,7 @@ var Details = React.createClass({
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
                     <MetaForm
+                        showBottomBar={false}
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
