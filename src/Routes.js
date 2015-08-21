@@ -7,8 +7,8 @@ import LiveSchemaEditor from './views/LiveSchema.js';
 import Login from './views/Login.js';
 
 //paradigms
-import EditParadigm from './views/paradigms/Edit.js';
-import DetailsParadigm from './views/paradigms/Details.js';
+import EditParadigm from './views/scrud/Edit.js';
+import DetailsParadigm from './views/scrud/Details.js';
 
 import {Route, Routes, DefaultRoute, NotFoundRoute} from 'react-router';
 
