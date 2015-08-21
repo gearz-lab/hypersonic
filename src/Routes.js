@@ -16,7 +16,9 @@ export default (
         <Route name='app' path='/' handler={App}>
 
             <Route name='edit-with-layout' path='/e/:entity/:layout/edit/:id' handler={EditParadigm} />
+            <Route name='edit-with-layout-no-id' path='/e/:entity/:layout/edit' handler={EditParadigm} />
             <Route name='edit' path='/e/:entity/edit/:id' handler={EditParadigm} />
+            <Route name='edit-no-id' path='/e/:entity/edit' handler={EditParadigm} />
 
             <Route name='home' path='index' handler={HomePage} />
             <Route name='about' path='about' handler={About} />
