@@ -44,6 +44,14 @@ export default {
                         ]
                     },
                     {
+                        name: 'contact-edit-simple',
+                        fields: [
+                            {
+                                name: 'name'
+                            }
+                        ]
+                    },
+                    {
                         name: 'phone-edit',
                         fields: [
                             {

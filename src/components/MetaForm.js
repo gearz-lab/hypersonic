@@ -135,9 +135,18 @@ var MetaForm = React.createClass({
         // interfere with the MetaForm model. It could even be cloned once per property,
         // but that would impact performance.
         let _this = this;
+
+        let title = null;
+        if(this.props.title) {
+            title = <div>
+                <h3>{_this.props.title}</h3>
+
+            </div>;
+        }
+
         return (
             <div className="meta-form">
-                <h3>{_this.props.title}</h3>
+                {title}
                 <div>
                     {
                         Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))

@@ -89,8 +89,7 @@ var Home = React.createClass({
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
-                        model={{}}
-                        title={`Editing ${entityName}`}/>
+                        model={{}}/>
                 </div>
             </div>
         );
