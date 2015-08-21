@@ -8,12 +8,16 @@ import Login from './views/Login.js';
 
 //paradigms
 import EditParadigm from './views/paradigms/Edit.js';
+import DetailsParadigm from './views/paradigms/Details.js';
 
 import {Route, Routes, DefaultRoute, NotFoundRoute} from 'react-router';
 
 export default (
     <Route>
         <Route name='app' path='/' handler={App}>
+
+            <Route name='details-with-layout' path='/e/:entity/:layout/details/:id' handler={DetailsParadigm} />
+            <Route name='details' path='/e/:entity/details/:id' handler={DetailsParadigm} />
 
             <Route name='edit-with-layout' path='/e/:entity/:layout/edit/:id' handler={EditParadigm} />
             <Route name='edit-with-layout-no-id' path='/e/:entity/:layout/edit' handler={EditParadigm} />

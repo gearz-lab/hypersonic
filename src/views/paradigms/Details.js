@@ -11,7 +11,7 @@ import clientActions from '../../flux/actions/clientActions.js';
 import clientStores from '../../flux/stores/clientStores.js';
 
 
-var Edit = React.createClass({
+var Details = React.createClass({
 
     componentDidMount: function() {
         // logged user
@@ -30,10 +30,7 @@ var Edit = React.createClass({
      * @returns {*}
      */
     getDocumentTitle: function() {
-        if(this.props.params.id) {
-            return `Editing ${this.props.params.entity}`;
-        }
-        return `New ${this.props.params.entity}`;
+        return `Viewing ${this.props.params.entity}`;
     },
 
     render: function() {
@@ -107,4 +104,4 @@ var Edit = React.createClass({
     }
 });
 
-export default Edit;
+export default Details;
