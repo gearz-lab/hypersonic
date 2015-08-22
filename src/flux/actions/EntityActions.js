@@ -12,9 +12,9 @@ class EntityActions extends Actions {
      */
     saveEntity(entityName, entity) {
         this.trigger({
-            loadAction: EntityConstants.LOAD_ENTITY,
-            failAction: EntityConstants.LOAD_ENTITY_FAILED,
-            successAction: EntityConstants.LOAD_ENTITY_SUCCESS,
+            loadAction: EntityConstants.SAVE_ENTITY,
+            failAction: EntityConstants.SAVE_ENTITY_FAILED,
+            successAction: EntityConstants.SAVE_ENTITY_SUCCESS,
             clientApiFunction: (next) => clientApi.entity.save(entityName, entity, next)
         });
     }

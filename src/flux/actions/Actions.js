@@ -11,19 +11,19 @@ class Actions {
         // check options
         let loadAction = options.loadAction;
         if(!loadAction) {
-            throw new Error('Load action is required');
+            throw Error('Load action is required');
         }
         let successAction = options.successAction;
         if(!successAction) {
-            throw new Error('Success action is required');
+            throw Error('Success action is required');
         }
         let failAction = options.failAction;
         if(!failAction) {
-            throw new Error('Fail action is required');
+            throw Error('Fail action is required');
         }
         let clientApiFunction = options.clientApiFunction;
         if(!clientApiFunction) {
-            throw new Error('Client API function is required');
+            throw Error('Client API function is required');
         }
 
         // dispatches the load action
