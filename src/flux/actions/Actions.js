@@ -35,7 +35,8 @@ class Actions {
         clientApiFunction((error, data) => {
             if(error) {
                 AppDispatcher.dispatch({
-                    actionType: failAction
+                    actionType: failAction,
+                    error: error
                 });
             }
             else {

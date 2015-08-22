@@ -7,8 +7,8 @@ import LiveSchemaEditor from './views/LiveSchema.js';
 import Login from './views/Login.js';
 
 //paradigms
-import EditParadigm from './views/scrud/Edit.js';
-import DetailsParadigm from './views/scrud/Details.js';
+import Edit from './views/scrud/Edit.js';
+import Details from './views/scrud/Details.js';
 
 import {Route, Routes, DefaultRoute, NotFoundRoute} from 'react-router';
 
@@ -16,13 +16,13 @@ export default (
     <Route>
         <Route name='app' path='/' handler={App}>
 
-            <Route name='details-with-layout' path='/e/:entity/:layout/details/:id' handler={DetailsParadigm} />
-            <Route name='details' path='/e/:entity/details/:id' handler={DetailsParadigm} />
+            <Route name='details-with-layout' path='/e/:entity/:layout/details/:id' handler={Details} />
+            <Route name='details' path='/e/:entity/details/:id' handler={Details} />
 
-            <Route name='edit-with-layout' path='/e/:entity/:layout/edit/:id' handler={EditParadigm} />
-            <Route name='edit-with-layout-no-id' path='/e/:entity/:layout/edit' handler={EditParadigm} />
-            <Route name='edit' path='/e/:entity/edit/:id' handler={EditParadigm} />
-            <Route name='edit-no-id' path='/e/:entity/edit' handler={EditParadigm} />
+            <Route name='edit-with-layout' path='/e/:entity/:layout/edit/:id' handler={Edit} />
+            <Route name='edit-with-layout-no-id' path='/e/:entity/:layout/edit' handler={Edit} />
+            <Route name='edit' path='/e/:entity/edit/:id' handler={Edit} />
+            <Route name='edit-no-id' path='/e/:entity/edit' handler={Edit} />
 
             <Route name='home' path='index' handler={HomePage} />
             <Route name='about' path='about' handler={About} />
