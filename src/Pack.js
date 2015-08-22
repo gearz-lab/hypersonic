@@ -1,3 +1,6 @@
+// router
+import routerActions from './flux/actions/RouterActions.js';
+
 // styles
 import reactSelect from './less/thirdParty/lookup.less';
 import datePicker from 'react-widgets/dist/css/react-widgets.css';
@@ -16,6 +19,7 @@ import favicon from '../assets/favicon.ico';
 
 window.React = React;
 
-Router.run(routes, Router.HistoryLocation, Handler => {
+Router.run(routes, Router.HistoryLocation, (Handler, state) => {
+    routerActions.changeRoute(state);
     React.render(<Handler/>, document.getElementById('#app_container'));
 });

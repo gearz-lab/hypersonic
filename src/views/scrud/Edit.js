@@ -9,9 +9,15 @@ import Alert from 'react-bootstrap/lib/Alert'
 
 import clientActions from '../../flux/actions/clientActions.js';
 import clientStores from '../../flux/stores/clientStores.js';
-
+import clientApi from '../../flux/api/clientApi.js';
 
 var Edit = React.createClass({
+
+    propTypes: {
+        entity: React.PropTypes.string.isRequired,
+        layout: React.PropTypes.string,
+        id: React.PropTypes.string
+    },
 
     componentDidMount: function() {
         // logged user
@@ -34,6 +40,18 @@ var Edit = React.createClass({
             return `Editing ${this.props.params.entity}`;
         }
         return `New ${this.props.params.entity}`;
+    },
+
+    /**
+     * Handles when the user saves the entity
+     * @param model
+     */
+    handleSave: function(model) {
+        let entityName = this.props.params.entity;
+        let entityId = this.props.params.id
+        clientApi.entity.save(entityName, entityId, (error, next) => {
+
+        });
     },
 
     render: function() {
@@ -100,7 +118,9 @@ var Edit = React.createClass({
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
-                        model={{}}/>
+                        model={{}}
+                        onSave={this.handleSave}
+                        />
                 </div>
             </div>
         );
