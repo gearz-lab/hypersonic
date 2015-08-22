@@ -1,7 +1,7 @@
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import RouterConstants from './RouterConstants.js';
 
-class RouterActions extends Actions {
+class RouterActions {
 
     /**
      * Changes the current route
