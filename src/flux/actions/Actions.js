@@ -2,6 +2,10 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 
 class Actions {
 
+    /**
+     * Triggers a load action
+     * @param options
+     */
     load(options) {
 
         // check options
@@ -42,5 +46,6 @@ class Actions {
             }
         });
     }
+
 }
 export default Actions;

@@ -6,15 +6,29 @@ import clientApi from '../api/clientApi.js';
 class EntityActions extends Actions {
 
     /**
-     * Loads the current logged user
+     * Saves the given entity
+     * @param entityName
+     * @param entity
      */
-    loadEntity() {
+    saveEntity(entityName, entity) {
+        this.load({
+            loadAction: EntityConstants.LOAD_ENTITY,
+            failAction: EntityConstants.LOAD_ENTITY_FAILED,
+            successAction: EntityConstants.LOAD_ENTITY_SUCCESS,
+            clientApiFunction: (next) => clientApi.entity.save(entityName, entity, next)
+        });
+    }
+
+    /**
+     * Loads the given entity
+     */
+    loadEntity(entityName, entityId) {
 
         this.load({
             loadAction: EntityConstants.LOAD_ENTITY,
             failAction: EntityConstants.LOAD_ENTITY_FAILED,
             successAction: EntityConstants.LOAD_ENTITY_SUCCESS,
-            clientApiFunction: clientApi.entity.load
+            clientApiFunction: (next) => clientApi.entity.load(entityName, entityId, next)
         });
 
     }
