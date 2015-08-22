@@ -1,12 +1,14 @@
-import users from './LoggedUserClientApi.js';
-import mainMenu from './MainMenuClientApi.js';
-import applicationDomain from './ApplicationDomainClientApi.js';
+import loggedUserClientApi from './LoggedUserClientApi.js';
+import mainMenuClientApi from './MainMenuClientApi.js';
+import applicationDomainClientApi from './ApplicationDomainClientApi.js';
+import entityClientApi from './EntityClientApi.js';
 
 class ClientApi{
     constructor() {
-        this.users = users;
-        this.mainMenu = mainMenu;
-        this.applicationDomain = applicationDomain;
+        this.users = loggedUserClientApi;
+        this.mainMenu = mainMenuClientApi;
+        this.applicationDomain = applicationDomainClientApi;
+        this.entity = entityClientApi;
     }
 }
 

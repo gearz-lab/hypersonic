@@ -1,13 +1,15 @@
-import UserDal from '../../../lib/dal/UserDal.js';
+import EntityDal from '../../../lib/dal/EntityDal.js.js';
 import db from '../../../lib/database/dbHelper.js';
-let users = new UserDal();
+let entities = new EntityDal();
 
 export default {
     setup(router) {
 
         router.route('/entity/:entity/new/').post(function(req, res) {
-            var entityName = req.params.entity;
-
+            //var entityName = req.params.entity;
+            //db.connect((connection) => {
+            //    entities.insert(connection, entityName, )
+            //});
         });
 
     }

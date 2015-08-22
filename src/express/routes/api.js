@@ -1,13 +1,16 @@
 var express = require('express');
 var passport = require('passport');
-var usersApi = require('./api/usersServerApi');
-var mainMenuApi = require('./api/mainMenuServerApi');
-var applicationDomainApi = require('./api/applicationDomainServerApi');
+
+var usersServerApi = require('./api/usersServerApi');
+var mainMenuServerApi = require('./api/mainMenuServerApi');
+var applicationDomainServerApi = require('./api/applicationDomainServerApi');
+var entityServerApi = require('./api/entityServerApi');
 
 var router = express.Router();
 
-usersApi.setup(router);
-mainMenuApi.setup(router);
-applicationDomainApi.setup(router);
+usersServerApi.setup(router);
+mainMenuServerApi.setup(router);
+applicationDomainServerApi.setup(router);
+entityServerApi.setup(router);
 
 module.exports = router;
