@@ -6,6 +6,7 @@ export default {
     setup(router) {
 
         router.route('/entity/:entity/new/').post(function(req, res) {
+            var entityName = req.params.entity;
 
         });
 

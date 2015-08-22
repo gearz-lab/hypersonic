@@ -1,7 +1,6 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from '../database/constants.js';
 
 class BaseDal {
 
