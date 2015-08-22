@@ -4,14 +4,14 @@ class EntityClientApi {
 
     /**
      * Saves the given entity
-     * @param entity
+     * @param entityName
      * @param next
      */
-    save(entity, next) {
-        if(!entity) {
+    save(entityName, entity, next) {
+        if(!entityName) {
             throw Error('entity is required');
         }
-        httpApi.post(`/entity/${entity}/new/`, null, (response) => {
+        httpApi.post(`/api/entity/${entityName}/new/`, entity, (response) => {
             next(null, response.data);
         })
     }
