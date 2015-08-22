@@ -14,6 +14,17 @@ class DbHelper {
     }
 
     /**
+     * Returns the customer database name based on the given user
+     * @param user
+     */
+    getCustomerDbName(user) {
+        if(!user) {
+            throw new Error('user should not be null');
+        }
+        return 'customerDb';
+    }
+
+    /**
      * Creates the given database if it doesn't exist yet
      * @param connection
      * @param next
