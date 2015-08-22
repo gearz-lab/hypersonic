@@ -6,7 +6,7 @@ class Actions {
      * Triggers a load action
      * @param options
      */
-    load(options) {
+    trigger(options) {
 
         // check options
         let loadAction = options.loadAction;

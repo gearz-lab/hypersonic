@@ -11,7 +11,7 @@ class EntityActions extends Actions {
      * @param entity
      */
     saveEntity(entityName, entity) {
-        this.load({
+        this.trigger({
             loadAction: EntityConstants.LOAD_ENTITY,
             failAction: EntityConstants.LOAD_ENTITY_FAILED,
             successAction: EntityConstants.LOAD_ENTITY_SUCCESS,
@@ -24,7 +24,7 @@ class EntityActions extends Actions {
      */
     loadEntity(entityName, entityId) {
 
-        this.load({
+        this.trigger({
             loadAction: EntityConstants.LOAD_ENTITY,
             failAction: EntityConstants.LOAD_ENTITY_FAILED,
             successAction: EntityConstants.LOAD_ENTITY_SUCCESS,

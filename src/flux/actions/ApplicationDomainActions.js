@@ -10,7 +10,7 @@ class ApplicationDomainActions extends Actions {
      */
     loadApplicationDomain() {
 
-        this.load({
+        this.trigger({
             loadAction: ApplicationDomainConstants.LOAD_APPLICATION_DOMAIN,
             failAction: ApplicationDomainConstants.LOAD_APPLICATION_DOMAIN_FAILED,
             successAction: ApplicationDomainConstants.LOAD_APPLICATION_DOMAIN_SUCCESS,

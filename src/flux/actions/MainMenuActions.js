@@ -10,7 +10,7 @@ class MainMenuActions extends Actions {
      */
     loadMainMenu() {
 
-        this.load({
+        this.trigger({
             loadAction: MainMenuConstants.LOAD_MAIN_MENU,
             failAction: MainMenuConstants.LOAD_MAIN_MENU_FAILED,
             successAction: MainMenuConstants.LOAD_MAIN_MENU_SUCCESS,

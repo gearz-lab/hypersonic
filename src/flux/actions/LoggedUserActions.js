@@ -10,7 +10,7 @@ class LoggedUserActions extends Actions {
      */
     loadLoggedUser() {
 
-        this.load({
+        this.trigger({
             loadAction: LoggedUserConstants.LOAD_LOGGED_USER,
             failAction: LoggedUserConstants.LOAD_LOGGED_FAIL,
             successAction: LoggedUserConstants.LOAD_LOGGED_SUCCESS,
