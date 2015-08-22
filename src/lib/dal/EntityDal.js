@@ -29,8 +29,8 @@ class EntityDal {
     /**
      * Creates an object
      * @param connection
-     * @param userName
-     * @param pictureUrl
+     * @param tableName
+     * @param object
      * @param next
      */
     insert(connection, tableName, object, next) {
@@ -45,8 +45,8 @@ class EntityDal {
     /**
      * Creates or updates an object
      * @param connection
-     * @param userName
-     * @param pictureUrl
+     * @param tableName
+     * @param object
      * @param next
      */
     upsert(connection, tableName, object, next) {
@@ -61,6 +61,7 @@ class EntityDal {
     /**
      * Finds an object by the google id
      * @param connection
+     * @param tableName
      * @param filter
      * @param next
      */
@@ -76,7 +77,9 @@ class EntityDal {
     /**
      * Finds an object by id
      * @param connection
+     * @param tableName
      * @param id
+     * @param next
      */
     find(connection, tableName, id, next) {
         this.upsertTable(connection, tableName, () => {
@@ -90,6 +93,7 @@ class EntityDal {
     /**
      * Finds an object by the given search
      * @param connection
+     * @param tableName
      * @param filter
      * @param next
      */
