@@ -48,13 +48,21 @@ var Edit = React.createClass({
      */
     handleSave: function(model) {
         let entityName = this.props.params.entity;
-        let entityId = this.props.params.id
-        clientApi.entity.save(entityName, entityId, (error, next) => {
-
-        });
+        let entityId = this.props.params.id;
+        if(this.props.onNotification) {
+            this.props.onNotification({
+                message: `${entityName} saved`,
+                level: 'success'
+            });
+        }
+        //clientApi.entity.save(entityName, entityId, (error, next) => {
+        //
+        //});
     },
 
     render: function() {
+
+
 
         // if the application domain hasn't been loaded already
         if(!this.state || !this.state.applicationDomain) {

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import _ from 'underscore';
 import clientActions from '../flux/actions/clientActions.js';
 import clientStores from '../flux/stores/clientStores.js';
 
@@ -21,6 +22,8 @@ var ReactRouterBootstrap = require('react-router-bootstrap')
     , ButtonLink = ReactRouterBootstrap.ButtonLink
     , ListGroupItemLink = ReactRouterBootstrap.ListGroupItemLink;
 
+import NotificationSystem from 'react-notification-system';
+
 import UserBadge from '../components/UserBadge.js';
 
 var DefaultLayout = React.createClass({
@@ -40,6 +43,8 @@ var DefaultLayout = React.createClass({
         // main menu
         clientStores.mainMenu.addChangeListener(this.mainMenuChanged);
         clientActions.mainMenu.loadMainMenu();
+
+        this._notificationSystem = this.refs.notificationSystem;
     },
 
     componentWillUnmount: function() {
@@ -57,6 +62,16 @@ var DefaultLayout = React.createClass({
         this.setState({
             mainMenu: clientStores.mainMenu.getMainMenu()
         });
+    },
+
+    /**
+     * Handles when there's a new notification
+     */
+    handleNotification(notification) {
+        if(this._notificationSystem) {
+            notification = _.extend({ position: 'bl'}, notification);
+            this._notificationSystem.addNotification(notification);
+        }
     },
 
     render: function() {
@@ -79,10 +94,11 @@ var DefaultLayout = React.createClass({
                             <MainMenu nodes={this.state.mainMenu} />
                         </div>
                         <div className="col-md-9">
-                            <Router.RouteHandler />
+                            <Router.RouteHandler onNotification={this.handleNotification} />
                         </div>
                     </div>
                 </div>
+                <NotificationSystem ref="notificationSystem" />
             </div>
         );
     }
