@@ -7,13 +7,15 @@ import dbHelper from '../database/dbHelper.js';
 
 class EntityDal {
 
-
     constructor(options) {
-        this.options = options;
+        this.options =_.extend({
+            dbName: rc.DB_GEARZ_GLOBAL
+        }, options);
     }
 
     /**
      * Upserts a table
+     * @param connection
      * @param tableName
      * @param next
      */
