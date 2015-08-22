@@ -20,7 +20,9 @@ var MetaForm = React.createClass({
         layoutName: React.PropTypes.string.isRequired,
         fields: React.PropTypes.object,
         model: React.PropTypes.object,
-        showBottomBar: React.PropTypes.bool
+        showBottomBar: React.PropTypes.bool,
+        // the onSave handler receives the model as a parameter
+        onSave: React.PropTypes.func
     },
 
     getInitialState: function() {
@@ -118,7 +120,7 @@ var MetaForm = React.createClass({
             newState.componentProps[fieldMetadata.name].invalid = {
                 value: true,
                 message: `The field '${fieldMetadata.name}' should be a valid ${fieldMetadata.type}.`
-            }
+            };
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
 
@@ -129,6 +131,21 @@ var MetaForm = React.createClass({
         let newState = _.extend({}, this.state);
         newState.validationSummary.open = false;
         this.setState(newState);
+    },
+
+    /**
+     * Handles the save button
+     */
+    handleSave() {
+        if(this.state.validationSummary.messages.length) {
+            // if the validation summary has any message, the 'save' button won't
+            // do anything. Actually the 'handleSave' method shouldn't even
+            // be called in this case, but anyways...
+            return;
+        }
+        if(this.props.onSave) {
+            this.props.onSave(this.state.model);
+        }
     },
 
     render: function() {
@@ -151,7 +168,7 @@ var MetaForm = React.createClass({
                     <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
                     <div className='meta-form-bottom-bar'>
                         <ButtonToolbar className='pull-right'>
-                            <Button bsStyle='primary'>Save</Button>
+                            <Button bsStyle='primary' onClick={_this.handleSave}>Save</Button>
                             <Button>Cancel</Button>
                         </ButtonToolbar>
                     </div>
