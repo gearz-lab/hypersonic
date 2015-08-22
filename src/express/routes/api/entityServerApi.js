@@ -10,11 +10,11 @@ export default {
             var entityName = req.params.entity;
             var entity = req.body;
             db.connect((error, connection) => {
-               entities.insert(connection, entityName, entity, (error) => {
+               entities.insert(connection, entityName, entity, (error, next) => {
                    if(error) {
                        throw error;
                    }
-                   res.send(entity);
+                   res.send(next.generated_keys[0]);
                });
             });
         });
