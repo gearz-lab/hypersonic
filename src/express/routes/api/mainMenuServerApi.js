@@ -40,7 +40,13 @@ export default {
                                             }
                                         },
                                         new: {
-                                            display: "New"
+                                            display: "New",
+                                            route: {
+                                                name: "new",
+                                                params: {
+                                                    entity: "entity"
+                                                }
+                                            }
                                         }
                                     }
                                 }

@@ -36,28 +36,31 @@ var MainMenuItem = React.createClass({
         var indentation = 10 + path.length * 15 + "px";
 
         var route = this.props.route;
-        var link;
-        if (route) {
-            link = <Link to={route.name} params={route.params}>{display}</Link>
+
+        if(!hasChildren && !route) {
+            throw Error('Leaf menu items must have a defined route');
+        }
+
+        if (hasChildren) {
+            // non-leaf nodes
+            return <li className="menu-item menu-item-node" style={{paddingLeft: indentation}}>
+                <span className={ collapsed ? "rui-treeView-toggle-button glyphicon glyphicon-triangle-right" :
+                                    "rui-treeView-toggle-button glyphicon glyphicon-triangle-bottom" }
+                      onClick={ this.setter("collapsed", !collapsed) }>
+                        </span>
+                    <span className="rui-treeView-content">
+                        <span>{display}</span>
+                    </span>
+            </li>;
         }
         else {
-            link = <span>{display}</span>
+            // leaf nodes
+            return <li className="menu-item menu-item-leaf">
+                        <Link to={route.name} params={route.params} style={{paddingLeft: indentation}}>{display}</Link>
+                </li>
         }
 
-        var toggleButton = null;
-        if (hasChildren) {
-            toggleButton = <span className={ collapsed ? "rui-treeView-toggle-button glyphicon glyphicon-triangle-right" :
-                                    "rui-treeView-toggle-button glyphicon glyphicon-triangle-bottom" }
-                                 onClick={ this.setter("collapsed", !collapsed) }>
-                        </span>;
-        }
 
-        return <li className="list-group-item" style={{paddingLeft: indentation}}>
-                    { toggleButton }
-                    <span className="rui-treeView-content">
-                        { link }
-                    </span>
-        </li>;
     }
 });
 

@@ -1,0 +1,61 @@
+.rui-treeView-content {
+  margin-left: 5px;
+}
+
+.rui-treeView-toggle-button {
+  cursor: pointer;
+}
+
+.rui-noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.main-menu {
+  padding: 0;
+  border-radius: @border-radius-base;
+}
+
+.menu-item {
+  position: relative;
+  display: block;
+  margin-bottom: -1px;
+  background-color: #ffffff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: @list-group-border;
+  background-color: @list-group-active-color;
+}
+
+.menu-item:first-child {
+  border-top-left-radius: @border-radius-base;
+  border-top-right-radius: @border-radius-base;
+}
+
+.menu-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: @border-radius-base;
+  border-bottom-left-radius: @border-radius-base;
+}
+
+.menu-item.menu-item-node {
+  padding: 10px 15px;
+}
+
+.menu-item.menu-item-leaf {
+
+}
+
+.menu-item a {
+  padding: @padding-small-horizontal @padding-large-vertical;
+  display: block;
+}
+
+.menu-item a.active {
+  background-color: @navbar-default-bg;
+
+}

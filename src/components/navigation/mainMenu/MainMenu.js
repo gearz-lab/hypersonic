@@ -1,5 +1,5 @@
 var React = require("react/addons");
-var TreeRow = require("./MainMenuItem.js");
+var MainMenuItem = require("./MainMenuItem.js");
 var gearzMixin = require("./mixin.js");
 
 var MainMenu = React.createClass({
@@ -206,7 +206,7 @@ var MainMenu = React.createClass({
         var children = flattenNodes.map(info => (
             this.isNodeHidden(mergedNodes, info.path) ?
                 null :
-                <TreeRow
+                <MainMenuItem
                     nodes={info.node.nodes}
                     collapsed={info.node.collapsed}
                     display={info.node.display}
@@ -225,7 +225,7 @@ var MainMenu = React.createClass({
         ));
 
         return (
-            <ul className="list-group">
+            <ul className="main-menu">
                 {children}
             </ul>
         );
