@@ -14,7 +14,13 @@ export default {
                     display: "Contacts",
                     nodes: {
                         new: {
-                            display: "New contact"
+                            display: "New contact",
+                            route: {
+                                name: "new",
+                                params: {
+                                    entity: "contact"
+                                }
+                            }
                         }
                     }
                 },
@@ -29,7 +35,9 @@ export default {
                                     nodes: {
                                         search: {
                                             display: "Search",
-                                            route: "liveSchemaEditor"
+                                            route: {
+                                                name: "liveSchemaEditor"
+                                            }
                                         },
                                         new: {
                                             display: "New"
