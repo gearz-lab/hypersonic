@@ -78,7 +78,7 @@ var DefaultLayout = React.createClass({
 
         return (
             <div>
-                <Navbar brand='Gearz' fluid staticTop>
+                <Navbar brand={<a href="/"></a>} fluid staticTop>
                     <Nav eventKey={0}>
                         <NavItemLink to='home'>Home</NavItemLink>
                         <NavItemLink to='about'>About</NavItemLink>
