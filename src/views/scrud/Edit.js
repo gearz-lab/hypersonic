@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import Router from 'react-router';
+import Router from '../../Router.js';
 import Input from 'react-bootstrap/lib/Input'
 import TextBox from '../../components/editors/TextBox';
 import MetaForm from '../../components/MetaForm';
@@ -31,13 +31,6 @@ var Edit = React.createClass({
         clientStores.applicationDomain.addChangeListener(this.applicationDomainChanged);
         clientActions.applicationDomain.loadApplicationDomain();
 
-        clientStores.currentEntity.addChangeListener(this.currentEntityChanged);
-    },
-
-    currentEntityChanged: function() {
-        this.setState({
-            model: clientStores.currentEntity.getEntity()
-        })
     },
 
     applicationDomainChanged: function() {
@@ -65,7 +58,7 @@ var Edit = React.createClass({
         let entityName = this.props.params.entity;
         let entityId = this.props.params.id;
 
-        clientApi.currentEntity.save(entityName, entityId, model, (error, result) => {
+        clientApi.currentEntity.save(entityName, model, (error, result) => {
 
             if(result.status == 'success') {
                 if(this.props.onNotification) {
@@ -74,10 +67,9 @@ var Edit = React.createClass({
                         level: 'success'
                     });
                 }
+
+                Router.transitionTo('details', { entity: entityName, id: result.generatedKey });
             }
-
-
-
         });
     },
 

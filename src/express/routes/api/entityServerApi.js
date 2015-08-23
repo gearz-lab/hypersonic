@@ -8,7 +8,7 @@ export default {
 
         router.route('/entity/:entity/new/').post(function (req, res) {
             let entities = new EntityDal({dbName: db.getCustomerDbName(req.user)});
-            var entityName = req.params.currentEntity;
+            var entityName = req.params.entity;
             var entity = req.body;
             db.connect((error, connection) => {
                 // validate entity here. If the validation does not succeed, we're going
