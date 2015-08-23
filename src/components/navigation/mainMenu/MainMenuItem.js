@@ -44,15 +44,16 @@ var MainMenuItem = React.createClass({
             link = <span>{display}</span>
         }
 
+        var toggleButton = null;
+        if (hasChildren) {
+            toggleButton = <span className={ collapsed ? "rui-treeView-toggle-button glyphicon glyphicon-triangle-right" :
+                                    "rui-treeView-toggle-button glyphicon glyphicon-triangle-bottom" }
+                                 onClick={ this.setter("collapsed", !collapsed) }>
+                        </span>;
+        }
+
         return <li className="list-group-item" style={{paddingLeft: indentation}}>
-                    <span
-                        className={
-                            !hasChildren ? "rui-treeView-toggle-button" :
-                                collapsed ? "rui-treeView-toggle-button glyphicon glyphicon-triangle-right" :
-                                    "rui-treeView-toggle-button glyphicon glyphicon-triangle-bottom"
-                            }
-                        onClick={ this.setter("collapsed", !collapsed) }>
-                    </span>
+                    { toggleButton }
                     <span className="rui-treeView-content">
                         { link }
                     </span>
