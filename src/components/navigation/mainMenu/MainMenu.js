@@ -1,8 +1,8 @@
 var React = require("react/addons");
-var TreeRow = require("./TreeRow.js");
+var TreeRow = require("./MainMenuItem.js");
 var gearzMixin = require("./mixin.js");
 
-var TreeView = React.createClass({
+var MainMenu = React.createClass({
     mixins: [gearzMixin],
 
     propTypes: {
@@ -232,4 +232,4 @@ var TreeView = React.createClass({
     }
 });
 
-module.exports = TreeView;
+module.exports = MainMenu;

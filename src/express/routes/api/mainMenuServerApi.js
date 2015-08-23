@@ -7,9 +7,17 @@ export default {
 
         // routes
 
-        router.route('/mainmenu/load').get(function(req, res) {
+        router.route('/mainmenu/load').get(function (req, res) {
 
             const mainMenu = {
+                contacts: {
+                    display: "Contacts",
+                    nodes: {
+                        new: {
+                            display: "New contact"
+                        }
+                    }
+                },
                 settings: {
                     display: "Settings",
                     nodes: {

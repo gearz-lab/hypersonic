@@ -10,7 +10,7 @@ var Router = require('react-router')
 
 import Navbar from 'react-bootstrap/lib/Navbar';
 
-import MainMenu from '../components/navigation/TreeView/TreeView.js';
+import MainMenu from '../components/navigation/mainMenu/MainMenu.js';
 
 var ReactBootstrap = require('react-bootstrap')
     , Nav = ReactBootstrap.Nav

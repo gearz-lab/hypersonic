@@ -2,7 +2,7 @@ var React = require("react");
 var gearzMixin = require("./mixin.js");
 var Link = require('react-router').Link;
 
-var TreeRow = React.createClass({
+var MainMenuItem = React.createClass({
     mixins: [gearzMixin],
     propTypes: {
         onAnyChange: React.PropTypes.func,
@@ -56,4 +56,4 @@ var TreeRow = React.createClass({
     }
 });
 
-module.exports = TreeRow;
+module.exports = MainMenuItem;
