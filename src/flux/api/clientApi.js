@@ -8,7 +8,7 @@ class ClientApi{
         this.users = loggedUserClientApi;
         this.mainMenu = mainMenuClientApi;
         this.applicationDomain = applicationDomainClientApi;
-        this.entity = entityClientApi;
+        this.currentEntity = entityClientApi;
     }
 }
 

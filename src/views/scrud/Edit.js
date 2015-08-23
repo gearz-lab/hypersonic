@@ -19,10 +19,25 @@ var Edit = React.createClass({
         id: React.PropTypes.string
     },
 
+    getInitialState: function() {
+        return {
+            applicationDomain: undefined,
+            model: {}
+        }
+    },
+
     componentDidMount: function() {
         // logged user
         clientStores.applicationDomain.addChangeListener(this.applicationDomainChanged);
         clientActions.applicationDomain.loadApplicationDomain();
+
+        clientStores.currentEntity.addChangeListener(this.currentEntityChanged);
+    },
+
+    currentEntityChanged: function() {
+        this.setState({
+            model: clientStores.currentEntity.getEntity()
+        })
     },
 
     applicationDomainChanged: function() {
@@ -49,15 +64,21 @@ var Edit = React.createClass({
     handleSave: function(model) {
         let entityName = this.props.params.entity;
         let entityId = this.props.params.id;
-        if(this.props.onNotification) {
-            this.props.onNotification({
-                message: `${entityName} saved`,
-                level: 'success'
-            });
-        }
-        //clientApi.entity.save(entityName, entityId, (error, next) => {
-        //
-        //});
+
+        clientApi.currentEntity.save(entityName, entityId, model, (error, result) => {
+
+            if(result.status == 'success') {
+                if(this.props.onNotification) {
+                    this.props.onNotification({
+                        message: `${entityName} saved`,
+                        level: 'success'
+                    });
+                }
+            }
+
+
+
+        });
     },
 
     render: function() {

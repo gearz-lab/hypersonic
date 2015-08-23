@@ -7,7 +7,7 @@ class CurrentEntityStore extends BaseStore {
         let handlers = {};
         var _this = this;
         handlers[CurrentEntityConstants.LOAD_ENTITY_SUCCESS] = (action) => {
-            _this.entity = action.data;
+            _this.currentEntity = action.data;
             _this.error = null;
             _this.emitChange();
         };
@@ -19,7 +19,7 @@ class CurrentEntityStore extends BaseStore {
     }
 
     getEntity() {
-        return this.entity;
+        return this.currentEntity;
     }
 
     getError() {
