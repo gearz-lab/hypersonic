@@ -7,12 +7,24 @@ class CurrentEntityStore extends BaseStore {
         let handlers = {};
         var _this = this;
         handlers[CurrentEntityConstants.LOAD_ENTITY_SUCCESS] = (action) => {
-            _this.currentEntity = action.data;
-            _this.error = null;
+            _this.data = {
+                entity: action.data,
+                validationErrors: []
+            }
             _this.emitChange();
         };
-        handlers[CurrentEntityConstants.LOAD_ENTITY_FAIL] = (action) => {
-            _this.error = action.error;
+        handlers[CurrentEntitiesConstants.SAVE_ENTITY_SUCCESS] = (action) => {
+            _this.data = {
+                entity: action.data.entity,
+                validationErrors: []
+            }
+            _this.emitChange();
+        };
+        handlers[CurrentEntitiesConstants.SAVE_ENTITY_SUCCESS] = (action) => {
+            _this.data = {
+                entity: action.data.entity,
+                validationErrors: action.data.validationErrors
+            }
             _this.emitChange();
         };
         this.initialize(handlers);

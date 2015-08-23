@@ -8,35 +8,66 @@ class CurrentEntityActions extends Actions {
     /**
      * Loads an entity
      */
-    load(entityType, entityId) {
+    load(entityName, entityId) {
 
-        this.trigger({
-            loadAction: CurrentEntitiesConstants.LOAD_ENTITY,
-            failAction: CurrentEntitiesConstants.LOAD_ENTITY_FAIL,
-            successAction: CurrentEntitiesConstants.LOAD_ENTITY_SUCCESS,
-            clientApiFunction: (next) => clientApi.currentEntity.loadEntity(entityType, entityId, next)
+        // dispatches the load action
+        AppDispatcher.dispatch({
+            actionType: CurrentEntitiesConstants.LOAD_ENTITY
         });
 
-    }
-
-    /**
-     * Saves an entity
-     * @param entityType
-     * @param entityId
-     * @param entity
-     */
-    save(entityType, entityId, entity, next) {
-
-        clientApi.currentEntity.save(entityType, entityId, entity, (error, data) => {
+        // calls the client API passing the callback above
+        clientApi.currentEntity.load(entityName, entityId, (error, data) => {
             if(error) {
-                next(error);
+                throw error;
             }
             else {
                 AppDispatcher.dispatch({
-                    actionType: CurrentEntitiesConstants.SAVE_ENTITY_SUCCESS,
+                    actionType: CurrentEntitiesConstants.LOAD_ENTITY_SUCCESS,
                     data: data
                 });
             }
+        });
+    }
+
+
+    /**
+     * Saves an entity
+     * @param entityName
+     * @param entity
+     */
+    save(entityName, entity) {
+
+        AppDispatcher.dispatch({
+            actionType: CurrentEntitiesConstants.SAVE_ENTITY
+        });
+
+        clientApi.currentEntity.save(entityName, entity, (error, data) => {
+
+            if (error) {
+                throw error;
+            }
+
+            if (data.status == 'success') {
+                // in this case
+                AppDispatcher.dispatch({
+                    actionType: CurrentEntitiesConstants.SAVE_ENTITY_SUCCESS,
+                    data: {
+                        entity: entity,
+                        generatedKey: data.generatedKey,
+                        validationErrors: {}
+                    }
+                });
+            } else {
+                AppDispatcher.dispatch({
+                    actionType: CurrentEntitiesConstants.SAVE_ENTITY_FAIL,
+                    data: {
+                        entity: entity,
+                        generatedKey: undefined,
+                        validationErrors: data.validationErrors
+                    }
+                });
+            }
+
         });
 
     }
