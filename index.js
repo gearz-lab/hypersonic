@@ -1,5 +1,4 @@
 var util = require('util');
-var baber_require = require('./register-babel');
 
 var express = require('express');
 var cookieParser = require('cookie-parser');
