@@ -8,7 +8,8 @@
     "start-dev-watch": "nodemon --exec npm run start-dev",
     "wpds": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "karma start",
-    "test-db": "mocha --compilers js:babel/register ./test-db/*Spec.js"
+    "test-db": "mocha --compilers js:babel/register ./test-db/*Spec.js",
+    "build-docs": "NODE_ENV=development&& babel-node ./docs/Build.js"
   },
   "dependencies": {
     "async": "^1.4.0",
@@ -76,9 +77,11 @@
     "gulp-run": "^1.6.8",
     "jasmine": "^2.3.1",
     "karma": "^0.12.36",
+    "karma-babel-preprocessor": "~5.2.1",
     "karma-chai": "^0.1.0",
     "karma-cli": "0.0.4",
     "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "~0.2.0",
     "karma-sinon": "^1.0.4",
     "karma-sinon-chai": "^1.0.0",
     "karma-sourcemap-loader": "~0.3.5",
@@ -87,19 +90,18 @@
     "less-loader": "^2.2.0",
     "lodash": "^3.7.0",
     "mocha": "^2.2.5",
+    "phantomjs": "~1.9.17",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.7",
     "react-hot-loader": "^1.2.7",
     "react-router": "^0.13.3",
     "reactui": "0.0.5",
+    "rimraf-promise": "^1.0.0",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
     "uglify-loader": "^1.2.0",
     "webpack": "^1.9.11",
-    "yargs": "^3.8.0",
-    "karma-babel-preprocessor": "~5.2.1",
-    "phantomjs": "~1.9.17",
-    "karma-phantomjs-launcher": "~0.2.0"
+    "yargs": "^3.8.0"
   },
   "repository": {
     "type": "git",
