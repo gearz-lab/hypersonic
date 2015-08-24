@@ -4,7 +4,7 @@ export default {
     entry: [
         'webpack-dev-server/client?http://localhost:8081',
         'webpack/hot/only-dev-server',
-        './src/Pack.js'
+        './src/Client.js'
     ],
 
     output: {

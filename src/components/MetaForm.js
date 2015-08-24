@@ -168,7 +168,7 @@ var MetaForm = React.createClass({
                     <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
                     <div className='meta-form-bottom-bar'>
                         <ButtonToolbar className='pull-right'>
-                            <Button bsStyle='primary' onClick={_this.handleSave}>Save</Button>
+                            <Button bsStyle='danger' onClick={_this.handleSave}>Save</Button>
                             <Button>Cancel</Button>
                         </ButtonToolbar>
                     </div>
