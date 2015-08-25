@@ -7,6 +7,8 @@ const docsBuilt = path.join(repoRoot, 'docs-built');
 
 console.log('Building docs');
 
+let pages = ['home.html', 'liveSchemaEditor.html'];
+
 rimraf(docsBuilt)
     .then(() => fsep.mkdir(docsBuilt))
     .then(() => console.log('Built docs'));
