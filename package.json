@@ -32,6 +32,8 @@
     "flux": "^2.0.3",
     "font-awesome": "^4.3.0",
     "formato": "^1.0.4",
+    "fs-extra": "^0.23.1",
+    "fs-extra-promise": "^0.2.0",
     "install": "^0.1.8",
     "js-beautify": "^1.5.10",
     "keymirror": "^0.1.1",

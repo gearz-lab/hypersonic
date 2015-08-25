@@ -22,7 +22,7 @@ const Root = React.createClass({
     render() {
 
         let head = {
-            __html: `<title>ReactUI - Bootstrap based data components for React</title>
+            __html: `<title>Gearz - A platform for implementing data-centric business apps. </title>
         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <link href='assets/bundle.css' rel='stylesheet' />`
