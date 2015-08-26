@@ -24,19 +24,16 @@ const Root = React.createClass({
         let head = {
             __html: `<title>Gearz - A platform for implementing data-centric business apps. </title>
         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <link href='assets/bundle.css' rel='stylesheet' />`
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />`
         };
 
         return (
             <html>
-            <head dangerouslySetInnerHTML={head}/>
-
-            <body>
-            <Router.RouteHandler />
-
-            <script src='assets/bundle.js'/>
-            </body>
+                <head dangerouslySetInnerHTML={head}/>
+                <body>
+                    <Router.RouteHandler />
+                    <script src='assets/bundle.js'/>
+                </body>
             </html>
         );
     }

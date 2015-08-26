@@ -3,7 +3,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
     entry: [
-        './src/Client.js'
+        './docs/Client.js'
     ],
 
     output: {

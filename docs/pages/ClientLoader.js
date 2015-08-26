@@ -2,12 +2,6 @@ import React from 'react';
 import Router from 'react-router';
 import Routes from '../Routes.js';
 
-if(window) {
-    window.React = React;
-    window.Router = Router;
-    window.Routes = Routes;
-}
-
 const ClientLoader = React.createClass({
 
     render: function () {
