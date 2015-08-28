@@ -5,8 +5,11 @@ import path from 'path';
 import rimraf from 'rimraf-promise';
 import fsep from 'fs-extra-promise';
 import { exec } from 'child-process-promise';
-
 import Routes from './Routes.js';
+
+require.extensions['.txt'] = function (module, filename) {
+    module.exports = fs.readFileSync(filename, 'utf8');
+};
 
 const repoRoot = path.resolve(__dirname, '../');
 const docsBuilt = path.join(repoRoot, 'docs-built');
@@ -30,23 +33,7 @@ rimraf(docsBuilt)
                 if(routeHtml.indexOf('<noscript') === 0) {
                     routeHtml = '';
                 }
-
-                let wrap = `<html>
-<head>
-    <title>Gearz - A platform for implementing data-centric business apps. </title>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-</head>
-<body>
-    <div>
-        <div id="#app_container">${routeHtml}</div>
-    </div>
-    <script src='assets/bundle.js'></script>
-</body>
-</html>`;
-
-
-
+                let wrap = require('./pages/BasePage.txt').replace('${routeHtml}', routeHtml);
                 return fsep.writeFile(path.join(docsBuilt, fileName), wrap)
                     .then(write => resolve(write));
             });

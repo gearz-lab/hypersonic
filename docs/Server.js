@@ -1,3 +1,4 @@
+import fs from 'fs';
 import React from 'react';
 import express from 'express';
 import path from 'path';
@@ -6,6 +7,10 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack/webpack.config.docs.js';
 import Router from 'react-router';
 import routes from './Routes';
+
+require.extensions['.txt'] = function (module, filename) {
+    module.exports = fs.readFileSync(filename, 'utf8');
+};
 
 const development = process.env.NODE_ENV !== 'production';
 let app = express();
@@ -31,22 +36,7 @@ if (development) {
                 if(routeHtml.indexOf('<noscript') === 0) {
                     routeHtml = '';
                 }
-                let wrap = `<html>
-<head>
-    <title>Gearz - A platform for implementing data-centric business apps. </title>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-</head>
-<body>
-    <div>
-        <div id="#app_container">${routeHtml}</div>
-    </div>
-    <script src='assets/bundle.js'></script>
-</body>
-</html>`;
-
-
-
+                let wrap = require('./pages/BasePage.txt').replace('${routeHtml}', routeHtml);
                 res.send(wrap);
             });
         });
