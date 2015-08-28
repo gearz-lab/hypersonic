@@ -27,8 +27,27 @@ if (development) {
         }))
         .use(function renderApp(req, res) {
             Router.run(routes, req.url, Handler => {
-                let html = React.renderToString(<Handler />);
-                res.send(html);
+                let routeHtml = React.renderToString(<Handler />);
+                if(routeHtml.indexOf('<noscript') === 0) {
+                    routeHtml = '';
+                }
+                let wrap = `<html>
+<head>
+    <title>Gearz - A platform for implementing data-centric business apps. </title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+</head>
+<body>
+    <div>
+        <div id="#app_container">${routeHtml}</div>
+    </div>
+    <script src='assets/bundle.js'></script>
+</body>
+</html>`;
+
+
+
+                res.send(wrap);
             });
         });
 } else {
