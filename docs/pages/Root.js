@@ -3,7 +3,9 @@ import Router from 'react-router';
 
 const Root = React.createClass({
     render() {
-        return <Router.RouteHandler />;
+        return <div className="container-fluid">
+                <Router.RouteHandler onNotification={this.handleNotification} />
+            </div>;
     }
 });
 

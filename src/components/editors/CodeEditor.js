@@ -34,7 +34,8 @@ const CodeEditor = React.createClass({
             mode: this.props.mode ? this.props.mode : 'jsx',
             width: this.props.width ? this.props.width : '100%',
             theme: 'github',
-            height: this.props.height
+            height: this.props.height,
+            fontSize: 12
         };
 
         return <FormGroup {...formGroupProps}>
