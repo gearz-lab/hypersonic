@@ -7,13 +7,11 @@ const ClientLoader = React.createClass({
     render: function () {
 
         let browserInitScriptObj = {
-            __html:
-                `
+            __html:`
                 window.Router.run(window.Routes, .window.Router.RefreshLocation, Handler => {
                   React.render(
                     window.React.createElement(Handler), document.getElementById('content_place_holder'));
-                });
-            `
+                });`
         };
 
         return (
