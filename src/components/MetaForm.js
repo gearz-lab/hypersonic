@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'react-router';
 import componentFactory from '../lib/ComponentFactory';
 import metadataEvaluator from '../lib/MetadataEvaluator.js';
 import metadataProvider from '../lib/metadataProvider.js';
