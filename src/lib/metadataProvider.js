@@ -8,9 +8,42 @@ class MetadataProvider {
      * @private
      */
     validateFieldMetadata(metadata) {
-        if(!metadata) throw new Error('metadata should not be null or undefined');
-        if(!metadata.name) throw new Error('metadata\'s "name" property is required');
-        if(!metadata.type) throw new Error('metadata\'s "type" property is required');
+        if(!metadata) throw Error('metadata should not be null or undefined');
+        if(!metadata.name) throw Error('metadata\'s "name" property is required');
+        if(!metadata.type) throw Error('metadata\'s "type" property is required');
+    }
+
+    getFieldsInternal(entityFields, layout, partialResult) {
+        if(!partialResult) {
+            partialResult = [];
+        }
+
+        let thisGroupFields = [];
+
+        if(!layout.fields && !layout.groups) {
+            throw Error('a layout can either have fields or groups. Never both.');
+        }
+
+        if(layout.groups) {
+            for(let i = 0; i < layout.groups.length; i++) {
+                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(entityFields, layout.groups[i], partialResult));
+            }
+        }
+        else if (layout.fields) {
+            thisGroupFields = layout.fields.map(item => {
+                let existingEntityProperty = _.find(entityFields, property => property.name == item.name);
+                let field = existingEntityProperty ? existingEntityProperty : {};
+                field = _.extend({}, field, item);
+                this.validateFieldMetadata(field);
+                return field;
+            });
+        }
+        else {
+            console.log(layout);
+            throw Error('a layout must have either fields or groups.');
+        }
+        return _.union(partialResult, thisGroupFields);
+
     }
 
     /**
@@ -50,19 +83,7 @@ class MetadataProvider {
             throw new Error(`Could not find layout. Layout name: ${layoutName}`);
         }
 
-        let entityFields = entity.fields;
-        let layoutFields = layout.fields;
-
-        const fields = layoutFields.map(item => {
-            let existingEntityProperty = _.find(entityFields, property => property.name == item.name);
-            let field = existingEntityProperty ? existingEntityProperty : {};
-            field = _.extend({}, field, item);
-            this.validateFieldMetadata(field);
-            return field;
-        });
-
-        // validate fields
-        return fields;
+        return this.getFieldsInternal(entity.fields, layout);
     }
 }
 

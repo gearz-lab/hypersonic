@@ -3,7 +3,8 @@ import metadataProvider from '../src/lib/metadataProvider.js';
 const assert = chai.assert;
 
 describe('MetadataProvider', function() {
-    describe('Should merge fields', function () {
+    it('Should merge fields', function () {
+
         let schema = {
             entities: [
                 {
@@ -47,9 +48,64 @@ describe('MetadataProvider', function() {
         assert.strictEqual(fields.length, 2);
         assert.strictEqual(fields[0].layoutOnlyProp, true);
         assert.strictEqual(fields[0].type, 'string');
+
     });
-    describe('Non-existing layout', function () {
+
+    it('Should merge fields with nested layouts', function () {
+
         let schema = {
+            entities: [
+                {
+                    name: 'contact',
+                    fields: [
+                        {
+                            name: 'name',
+                            type: 'string',
+                            displayName: 'Name'
+                        },
+                        {
+                            name: 'date',
+                            type: 'date',
+                            displayName: 'Date'
+                        }
+                    ]
+                }
+            ],
+            layouts: [
+                {
+                    name: 'contact-edit',
+                    groups: [
+                        {
+                            groups: [
+                                {
+                                    fields: [
+                                        {
+                                            name: 'name',
+                                            layoutOnlyProp: true
+                                        },
+                                        {
+                                            name: 'date'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
+        assert.strictEqual(fields.length, 2);
+        assert.strictEqual(fields[0].layoutOnlyProp, true);
+        assert.strictEqual(fields[0].type, 'string');
+
+    });
+
+    it('Non-existing layout', function () {
+
+        let schema = {
+
             entities: [
                 {
                     name: 'contact',
@@ -73,13 +129,11 @@ describe('MetadataProvider', function() {
         assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find layout/);
     });
 
-    describe('Non-existing entity', () => {
-        it('Basic usage', () => {
-            let schema = {
-                entities: [],
-                layouts: []
-            };
-            assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find entity/);
-        });
+    it('Basic usage', () => {
+        let schema = {
+            entities: [],
+            layouts: []
+        };
+        assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find entity/);
     });
 });
