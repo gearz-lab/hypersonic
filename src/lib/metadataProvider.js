@@ -46,14 +46,7 @@ class MetadataProvider {
 
     }
 
-    /**
-     * Merges the given field collection
-     * @param schema
-     * @param entityName
-     * @layoutName layoutName
-     */
-    getFields(schema, entityName, layoutName) {
-
+    getEntityAndLayout(schema, entityName, layoutName) {
         if (schema === null || schema === undefined) {
             throw new Error(`'mergeFields' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
         }
@@ -82,8 +75,21 @@ class MetadataProvider {
         if(!layout) {
             throw new Error(`Could not find layout. Layout name: ${layoutName}`);
         }
+        return {
+            entity: entity,
+            layout: layout
+        }
+    }
 
-        return this.getFieldsInternal(entity.fields, layout);
+    /**
+     * Merges the given field collection
+     * @param schema
+     * @param entityName
+     * @layoutName layoutName
+     */
+    getFields(schema, entityName, layoutName) {
+        let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
+        return this.getFieldsInternal(entityAndLayout.entity.fields, entityAndLayout.layout);
     }
 }
 

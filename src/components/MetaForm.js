@@ -1,5 +1,5 @@
 import React from 'react';
-import componentFactory from '../lib/ComponentFactory';
+import MetaFormGroup from './MetaFormGroup.js';
 import metadataEvaluator from '../lib/MetadataEvaluator.js';
 import metadataProvider from '../lib/metadataProvider.js';
 import dataEvaluator from '../lib/DataEvaluator.js';
@@ -26,7 +26,10 @@ var MetaForm = React.createClass({
 
     getInitialState: function() {
         let model = this.props.model ? this.props.model : {};
-        let fields = this.props.fields ? this.props.fields : metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+
+        let entityAndLayout = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
+        let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+
         let componentProps = this.getComponentProps(fields, model);
 
         return {
@@ -35,6 +38,8 @@ var MetaForm = React.createClass({
                 messages: this.getValidationSummaryMessages(componentProps)
             },
             fields: fields,
+            entity: entityAndLayout.entity,
+            layout: entityAndLayout.layout,
             model: model,
             // object with a key for each property
             componentProps: componentProps
@@ -177,11 +182,7 @@ var MetaForm = React.createClass({
         return (
             <div className="meta-form">
                 {title}
-                <div>
-                    {
-                        Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))
-                    }
-                </div>
+                <MetaFormGroup layout={this.state.layout} componentProps={_this.state.componentProps} />
                 {bottomBar}
             </div>
         );
