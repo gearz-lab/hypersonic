@@ -70,8 +70,9 @@ class UserGoogleDal extends UserDal {
             throw new Error('Google profile is not valid');
         }
         this.findByEmail(connection, email, (error, user) => {
-            if(error) {
-                next(error);
+            // here we better throw instead of passing the error along
+            if( error){
+                throw error;
             }
             if(user) {
                 // the user already exists

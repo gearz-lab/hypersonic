@@ -23,7 +23,7 @@ data, search and compile the information into charts and reports. It's a managem
 application niche. If we're talking about a CRM, for instance, there will probably be entities for Customer, Organization, Lead and Sale.
 The universe of entities that the user can manipulate is called the `Application Domain`.
   
-Fortunately, virtually every *data-centric business application* share most of it's DNA, 
+Fortunately, virtually every *data-centric business application* share most of their DNA, 
 regardless of the application domain. It doesn't matter which entities the application handles, there's
 always a plethora of common problems that have to be tackled:
  

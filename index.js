@@ -28,6 +28,7 @@ app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
 passport.serializeUser(function(userId, done) {
     done(null, userId);
 });
+
 passport.deserializeUser(function(userId, done) {
 
     db.connect(function(error, connection) {
