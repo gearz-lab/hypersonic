@@ -9,14 +9,26 @@ import Alert from 'react-bootstrap/lib/Alert'
 
 import clientActions from '../../flux/actions/clientActions.js';
 import clientStores from '../../flux/stores/clientStores.js';
-
+import clientApi from '../../flux/api/clientApi.js';
 
 var Details = React.createClass({
+
+    getInitialState: function() {
+      return {
+          applicationDomain: undefined,
+          model: {}
+      }
+    },
 
     componentDidMount: function() {
         // logged user
         clientStores.applicationDomain.addChangeListener(this.applicationDomainChanged);
         clientActions.applicationDomain.loadApplicationDomain();
+        clientApi.currentEntity.load(this.props.params.entity, this.props.params.id, (error, result) => {
+            this.setState({
+                model: result
+            });
+        });
     },
 
     applicationDomainChanged: function() {
@@ -98,7 +110,7 @@ var Details = React.createClass({
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
-                        model={{}}/>
+                        model={this.state.model}/>
                 </div>
             </div>
         );

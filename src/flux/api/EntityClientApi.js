@@ -15,7 +15,7 @@ class EntityClientApi {
         if(!entityId) {
             throw Error('entityId is required');
         }
-        httpApi.get(`/api/entity/${entityName}/${entityId}`, null, (response) => {
+        httpApi.get(`/api/entity/${entityName}/get/${entityId}`, null, (response) => {
             next(null, response.data);
         });
     }
