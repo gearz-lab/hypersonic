@@ -13,11 +13,6 @@ var googleStrategy = require('./src/passport/googleStrategy');
 var db = require('./src/lib/database/dbHelper');
 var UserDal = require('./src/lib/dal/UserDal');
 
-// routes
-var auth = require('./src/express/routes/auth');
-var api = require('./src/express/routes/api');
-var def = require('./src/express/routes/app');
-
 var app  = express();
 var users = new UserDal();
 
@@ -59,6 +54,10 @@ app.use(passport.session());
 
 passport.use(googleStrategy);
 
+// routes
+var auth = require('./src/express/routes/auth');
+var api = require('./src/express/routes/api');
+var def = require('./src/express/routes/app');
 app.use('/auth', auth);
 app.use('/api', api);
 app.get('*', def);
