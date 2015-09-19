@@ -11,22 +11,12 @@ export default {
                             {
                                 name: 'name',
                                 type: 'string',
-                                displayName: 'Name',
-                                addonBefore: 'Something 2'
+                                displayName: 'Name'
                             },
                             {
-                                name: 'date',
-                                type: 'date',
-                                displayName: 'Date'
-                            }
-                        ]
-                    },
-                    {
-                        name: 'phone',
-                        fields: [
-                            {
-                                name: 'number',
-                                type: 'string'
+                                name: 'profession',
+                                type: 'string',
+                                displayName: 'Profession'
                             }
                         ]
                     }
@@ -39,23 +29,20 @@ export default {
                                 name: 'name'
                             },
                             {
-                                name: 'date'
+                                name: 'profession'
                             }
                         ]
                     },
                     {
-                        name: 'contact-edit-simple',
+                        name: 'contact-details',
                         fields: [
                             {
-                                name: 'name'
-                            }
-                        ]
-                    },
-                    {
-                        name: 'phone-edit',
-                        fields: [
+                                name: 'name',
+                                component: 'label'
+                            },
                             {
-                                name: 'number'
+                                name: 'profession',
+                                component: 'label'
                             }
                         ]
                     }
