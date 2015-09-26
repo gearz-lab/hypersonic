@@ -18,31 +18,31 @@ export default {
                                 type: 'string',
                                 displayName: 'Profession'
                             }
-                        ]
-                    }
-                ],
-                layouts: [
-                    {
-                        name: 'contact-edit',
-                        fields: [
+                        ],
+                        layouts: [
                             {
-                                name: 'name'
+                                name: 'contact-edit',
+                                fields: [
+                                    {
+                                        name: 'name'
+                                    },
+                                    {
+                                        name: 'profession'
+                                    }
+                                ]
                             },
                             {
-                                name: 'profession'
-                            }
-                        ]
-                    },
-                    {
-                        name: 'contact-details',
-                        fields: [
-                            {
-                                name: 'name',
-                                component: 'label'
-                            },
-                            {
-                                name: 'profession',
-                                component: 'label'
+                                name: 'contact-details',
+                                fields: [
+                                    {
+                                        name: 'name',
+                                        component: 'label'
+                                    },
+                                    {
+                                        name: 'profession',
+                                        component: 'label'
+                                    }
+                                ]
                             }
                         ]
                     }

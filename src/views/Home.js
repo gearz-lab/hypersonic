@@ -2,8 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input'
 import TextBox from '../components/editors/TextBox';
-import MetaForm from '../components/MetaForm';
-import metadataProvider from '../lib/metadataProvider.js';
+import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 
 var Home = React.createClass({
 
@@ -25,6 +24,27 @@ var Home = React.createClass({
                             type: 'date',
                             displayName: 'Date'
                         }
+                    ],
+                    layouts: [
+                        {
+                            name: 'contact-edit',
+                            fields: [
+                                {
+                                    name: 'name'
+                                },
+                                {
+                                    name: 'date'
+                                }
+                            ]
+                        },
+                        {
+                            name: 'phone-edit',
+                            fields: [
+                                {
+                                    name: 'number'
+                                }
+                            ]
+                        }
                     ]
                 },
                 {
@@ -33,27 +53,6 @@ var Home = React.createClass({
                         {
                             name: 'number',
                             type: 'string'
-                        }
-                    ]
-                }
-            ],
-            layouts: [
-                {
-                    name: 'contact-edit',
-                    fields: [
-                        {
-                            name: 'name'
-                        },
-                        {
-                            name: 'date'
-                        }
-                    ]
-                },
-                {
-                    name: 'phone-edit',
-                    fields: [
-                        {
-                            name: 'number'
                         }
                     ]
                 }
@@ -66,8 +65,8 @@ var Home = React.createClass({
 
         return (
             <div>
-                <div>This is something very cool: {this.props.params.id} </div>
                 <MetaForm
+                    componentFactory={DefaultComponentFactory}
                     schema={schema}
                     entityName='contact'
                     layoutName='contact-edit'

@@ -3,7 +3,7 @@ import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input'
 import TextBox from '../../components/editors/TextBox';
-import MetaForm from '../../components/MetaForm';
+import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import metadataProvider from '../../lib/metadataProvider.js';
 import Alert from 'react-bootstrap/lib/Alert'
 
@@ -106,6 +106,7 @@ var Details = React.createClass({
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
                     <MetaForm
+                        componentFactory={DefaultComponentFactory}
                         showBottomBar={false}
                         schema={applicationDomain}
                         entityName={entityName}
