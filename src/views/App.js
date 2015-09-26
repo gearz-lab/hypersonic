@@ -82,7 +82,6 @@ var DefaultLayout = React.createClass({
                     <Nav eventKey={0}>
                         <NavItemLink to='home'>Home</NavItemLink>
                         <NavItemLink to='about'>About</NavItemLink>
-                        <NavItemLink to='liveSchemaEditor'>Live Schema Editor</NavItemLink>
                     </Nav>
                     <Nav right>
                         <UserBadge user={this.state.loggedUser} />

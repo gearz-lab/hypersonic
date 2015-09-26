@@ -1,7 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input'
-import TextBox from '../components/editors/TextBox';
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 
 var Home = React.createClass({

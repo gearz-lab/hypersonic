@@ -2,9 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import Router from 'react-router';
 import Input from 'react-bootstrap/lib/Input'
-import TextBox from '../../components/editors/TextBox';
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
-import metadataProvider from '../../lib/metadataProvider.js';
 import Alert from 'react-bootstrap/lib/Alert'
 
 import clientActions from '../../flux/actions/clientActions.js';
@@ -86,7 +84,7 @@ var Details = React.createClass({
                 layoutName = `${entityName}-details`;
             }
         }
-        let layout = _.find(applicationDomain.layouts, e => e.name == layoutName);
+        let layout = _.find(entity.layouts, e => e.name == layoutName);
         if(!layout) {
             return (
                 <div className="document">

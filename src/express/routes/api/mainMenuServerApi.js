@@ -33,12 +33,6 @@ export default {
                                 entities: {
                                     display: "Entities",
                                     nodes: {
-                                        search: {
-                                            display: "Search",
-                                            route: {
-                                                name: "liveSchemaEditor"
-                                            }
-                                        },
                                         new: {
                                             display: "New",
                                             route: {

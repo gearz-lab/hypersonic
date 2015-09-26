@@ -2,7 +2,6 @@ import _ from 'underscore';
 import React from 'react';
 import Router from '../../Router.js';
 import Input from 'react-bootstrap/lib/Input'
-import TextBox from '../../components/editors/TextBox';
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from 'react-bootstrap/lib/Alert'
 
@@ -115,7 +114,7 @@ var Edit = React.createClass({
                 layoutName = `${entityName}-edit`;
             }
         }
-        let layout = _.find(applicationDomain.layouts, e => e.name == layoutName);
+        let layout = _.find(entity.layouts, e => e.name == layoutName);
         if (!layout) {
             return (
                 <div className="document">
