@@ -1,67 +1,43 @@
 import React from 'react';
 
 import _ from 'underscore';
-import clientActions from '../flux/actions/clientActions.js';
-import clientStores from '../flux/stores/clientStores.js';
+import clientApi from '../flux/api/clientApi.js';
+import async from 'async';
 
 var Router = require('react-router')
     , RouteHandler = Router.RouteHandler
     , Route = Router.Route;
 
 import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
 
 import MainMenu from '../components/navigation/mainMenu/MainMenu.js';
 
-var ReactBootstrap = require('react-bootstrap')
-    , Nav = ReactBootstrap.Nav
-    , NavItem = ReactBootstrap.NavItem
-    , ListGroup = ReactBootstrap.ListGroup;
-
-var ReactRouterBootstrap = require('react-router-bootstrap')
-    , NavItemLink = ReactRouterBootstrap.NavItemLink
-    , ButtonLink = ReactRouterBootstrap.ButtonLink
-    , ListGroupItemLink = ReactRouterBootstrap.ListGroupItemLink;
-
 import NotificationSystem from 'react-notification-system';
-
 import UserBadge from '../components/UserBadge.js';
 
 var DefaultLayout = React.createClass({
 
     getInitialState: function() {
         return {
-            loggedUser: clientStores.loggedUser.getLoggedUser(),
-            mainMenu: clientStores.mainMenu.getMainMenu()
+            loggedUser: undefined,
+            mainMenu: undefined
         }
     },
 
     componentDidMount: function() {
-        // logged user
-        clientStores.loggedUser.addChangeListener(this.loggedUserChanged);
-        clientActions.loggedUser.loadLoggedUser();
-
-        // main menu
-        clientStores.mainMenu.addChangeListener(this.mainMenuChanged);
-        clientActions.mainMenu.loadMainMenu();
+        let _this = this;
+        async.parallel([
+            clientApi.users.getLoggedUser,
+            clientApi.mainMenu.load
+        ], function(errors, results) {
+            _this.setState({
+                loggedUser: results[0],
+                mainMenu: results[1]
+            });
+        });
 
         this._notificationSystem = this.refs.notificationSystem;
-    },
-
-    componentWillUnmount: function() {
-        clientStores.loggedUser.removeChangeListener(this.loggedUserChanged);
-        clientStores.mainMenu.removeChangeListener(this.mainMenuChanged);
-    },
-
-    loggedUserChanged: function() {
-        this.setState({
-            loggedUser: clientStores.loggedUser.getLoggedUser()
-        });
-    },
-
-    mainMenuChanged: function() {
-        this.setState({
-            mainMenu: clientStores.mainMenu.getMainMenu()
-        });
     },
 
     /**
@@ -80,8 +56,6 @@ var DefaultLayout = React.createClass({
             <div>
                 <Navbar brand={<a href="/"></a>} fluid staticTop>
                     <Nav eventKey={0}>
-                        <NavItemLink to='home'>Home</NavItemLink>
-                        <NavItemLink to='about'>About</NavItemLink>
                     </Nav>
                     <Nav right>
                         <UserBadge user={this.state.loggedUser} />

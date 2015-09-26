@@ -4,10 +4,8 @@ import Router from '../../Router.js';
 import Input from 'react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from 'react-bootstrap/lib/Alert'
-
-import clientActions from '../../flux/actions/clientActions.js';
-import clientStores from '../../flux/stores/clientStores.js';
 import clientApi from '../../flux/api/clientApi.js';
+import async from 'async';
 
 var Edit = React.createClass({
 
@@ -25,15 +23,13 @@ var Edit = React.createClass({
     },
 
     componentDidMount: function () {
-        // logged user
-        clientStores.applicationDomain.addChangeListener(this.applicationDomainChanged);
-        clientActions.applicationDomain.loadApplicationDomain();
-
-    },
-
-    applicationDomainChanged: function () {
-        this.setState({
-            applicationDomain: clientStores.applicationDomain.getApplicationDomain()
+        let _this = this;
+        async.parallel([
+            clientApi.applicationDomain.load
+        ], function(errors, results) {
+            _this.setState({
+                applicationDomain: results[0]
+            });
         });
     },
 
