@@ -53,7 +53,7 @@ var Details = React.createClass({
                 <div className="document">
                     <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
-                        <div> Editing: {this.props.params.entity}. Id: {this.props.params.id} </div>
+                        <div> Loading the application domain... </div>
                     </div>
                 </div>
             );
