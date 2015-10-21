@@ -67,7 +67,6 @@
     "webpack-dev-server": "^1.9.0"
   },
   "devDependencies": {
-    "babel-eslint": "2.0.2",
     "chai": "^3.0.0",
     "child-process-promise": "^1.1.0",
     "client-loader": "0.0.1",
