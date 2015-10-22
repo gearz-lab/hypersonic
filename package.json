@@ -73,6 +73,7 @@
     "es5-shim": "^4.1.7",
     "extract-text-webpack-plugin": "^0.7.0",
     "file-loader": "^0.8.1",
+    "flowcheck": "^0.2.7",
     "gulp": "^3.9.0",
     "gulp-run": "^1.6.8",
     "jasmine": "^2.3.1",

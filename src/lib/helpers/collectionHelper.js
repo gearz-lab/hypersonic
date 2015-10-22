@@ -1,3 +1,4 @@
+/* @flow */
 import _ from 'underscore';
 class CollectionHelper {
 
@@ -7,11 +8,13 @@ class CollectionHelper {
      * @param key
      * @returns {Object}
      */
-    toObject(array, key) {
+    toObject(array:Array<any>, key:string) {
         return _.object(_.map(array, function(item) {
                 return [item[key], item]
             }));
     }
 }
+
+
 
 export default new CollectionHelper();
