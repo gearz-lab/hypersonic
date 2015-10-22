@@ -1,4 +1,4 @@
-import _ from 'underscore';
+/* @flow */
 class ObjectHelper {
 
     /**
@@ -8,7 +8,7 @@ class ObjectHelper {
      * @param defaultValue
      * @returns {*}
      */
-    safeRead(expression, object, defaultValue) {
+    safeRead(expression: (m: any) => any, object: any, defaultValue: any): any {
         try {
             return expression(object);
         }
