@@ -67,7 +67,7 @@ class UserGoogleDal extends UserDal {
     findOrCreateFromGoogleProfile(connection, profile, next) {
         let email = objectHelper.safeRead((p) => p.emails[0].value, profile, null);
         if(!email) {
-            throw new Error('Google profile is not valid');
+            throw Error('Google profile is not valid');
         }
         this.findByEmail(connection, email, (error, user) => {
             // here we better throw instead of passing the error along

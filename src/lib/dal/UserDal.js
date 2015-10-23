@@ -9,7 +9,7 @@ class UserDal extends BaseDal {
 
     constructor(options) {
         super(_.extend({
-            dbName: rc.DB_GEARZ_GLOBAL,
+            dbName: rc.DB_DEFAULT,
             tableName: rc.TABLE_USERS
         }, options));
     }
