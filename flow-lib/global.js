@@ -1,0 +1,1 @@
+type defaultCallback = (error:any, success:any) => void;

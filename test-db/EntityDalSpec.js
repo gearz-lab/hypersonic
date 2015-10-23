@@ -9,7 +9,7 @@ import googleProfileSample from "./resources/googleProfileSample.js";
 const assert = chai.assert;
 let entities = new EntityDal({dbName: constants.DB_TESTS});
 
-describe('EntityDal', function() {
+describe('EntityDalFlow', function() {
 
     let testSession = new DbTestSession();
     testSession.setupSession(before, beforeEach, after, afterEach);
