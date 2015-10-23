@@ -77,4 +77,4 @@ var DefaultLayout = React.createClass({
     }
 });
 
-module.exports = DefaultLayout;
+export default DefaultLayout;
