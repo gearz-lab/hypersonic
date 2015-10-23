@@ -5,6 +5,7 @@ declare class Runnable {
     get(id:string): Runnable;
     filter(filter:any): Runnable;
     insert(obj:any): Runnable;
+    replace(obj:any): Runnable;
     run(connection:Connection, callback:(error:any, next:any) => void): void;
 }
 declare class Database {

@@ -27,7 +27,7 @@ class BaseDal<T> {
      * @param pictureUrl
      * @param next
      */
-    insert(connection:Connection, object:T, next:any):void {
+    insert(connection:Connection, object:T, next:defaultCallback):void {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .insert(this.formatObject(object), {conflict: 'error'})
@@ -41,10 +41,25 @@ class BaseDal<T> {
      * @param pictureUrl
      * @param next
      */
-    upsert(connection:Connection, object:T, next:any):void {
+    upsert(connection:Connection, object:T, next:defaultCallback):void {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .insert(this.formatObject(object), {conflict: 'update'})
+            .run(connection, next);
+    }
+
+    /**
+     * Creates or updates an object
+     * @param connection
+     * @param userName
+     * @param pictureUrl
+     * @param next
+     */
+    replace(connection:Connection, id:string, object:T, next:defaultCallback):void {
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
+            .get(id)
+            .replace(this.formatObject(object))
             .run(connection, next);
     }
 
@@ -54,7 +69,7 @@ class BaseDal<T> {
      * @param filter
      * @param next
      */
-    filterCursor(connection:Connection, filter:any, next:any):void {
+    filterCursor(connection:Connection, filter:any, next:defaultCallback):void {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .filter(filter)
@@ -66,7 +81,7 @@ class BaseDal<T> {
      * @param connection
      * @param id
      */
-    find(connection:Connection, id:any, next:any):void {
+    find(connection:Connection, id:any, next:defaultCallback):void {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .get(id)
@@ -79,7 +94,7 @@ class BaseDal<T> {
      * @param filter
      * @param next
      */
-    filter(connection:Connection, filter:any, next:any):void {
+    filter(connection:Connection, filter:any, next:defaultCallback):void {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .filter(filter)
