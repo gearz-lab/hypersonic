@@ -1,5 +1,5 @@
 import chai from 'chai';
-import rh from "../src/lib/database/dbHelper.js";
+import rh from "../src/server/lib/database/dbHelper.js";
 const assert = chai.assert;
 
 describe('RethinkDB', function() {

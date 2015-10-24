@@ -3,10 +3,10 @@
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
-import rc from '../src/lib/database/constants.js';
-import rh from '../src/lib/database/dbHelper.js';
+import rc from '../src/server/lib/database/constants.js';
+import rh from '../src/server/lib/database/dbHelper.js';
 import systemEntitiesProvider from '../src/systemEntityDefinitions/systemEntitiesProvider';
-import EntityDalFlow from '../src/lib/dal/EntityDalFlow';
+import EntityDalFlow from '../src/server/lib/dal/EntityDalFlow';
 import rethinkDbFireStarter from './lib/rethinkDbFireStarter';
 
 let entityDal = new EntityDalFlow(rc.DB_DEFAULT);

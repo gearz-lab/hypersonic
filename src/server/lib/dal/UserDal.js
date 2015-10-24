@@ -3,7 +3,7 @@ import _ from 'underscore';
 import async from 'async';
 import rc from '../database/constants.js';
 import BaseDal from './BaseDal.js';
-import objectHelper from '../helpers/objectHelper.js';
+import objectHelper from '../../../common/lib/helpers/objectHelper.js';
 
 class UserDal extends BaseDal {
 

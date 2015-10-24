@@ -1,6 +1,6 @@
-import EntityDal from '../../lib/dal/EntityDal.js';
-import db from '../../lib/database/dbHelper.js';
-import rc from '../../lib/database/constants.js';
+import EntityDal from '../lib/dal/EntityDal.js';
+import db from '../lib/database/dbHelper.js';
+import rc from '../lib/database/constants.js';
 
 
 export default {

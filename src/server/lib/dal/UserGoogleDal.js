@@ -2,7 +2,7 @@ import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
 import rc from '../database/constants.js';
-import objectHelper from '../helpers/objectHelper.js';
+import objectHelper from '../../../common/lib/helpers/objectHelper.js';
 import UserDal from './UserDal.js';
 
 class UserGoogleDal extends UserDal {

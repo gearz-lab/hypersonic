@@ -1,6 +1,6 @@
 import r from 'rethinkdb';
-import rc from './src/lib/database/constants.js';
-import rh from './src/lib/database/dbHelper.js';
+import rc from 'src/server/lib/database/constants.js';
+import rh from 'src/server/lib/database/dbHelper.js';
 import async from 'async';
 
 rh.connect((error, connection) => {
