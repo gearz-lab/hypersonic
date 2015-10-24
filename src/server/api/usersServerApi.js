@@ -1,5 +1,5 @@
-import UserDal from '../../../lib/dal/UserDal.js';
-import db from '../../../lib/database/dbHelper.js';
+import UserDal from '../../lib/dal/UserDal.js';
+import db from '../../lib/database/dbHelper.js';
 let users = new UserDal();
 
 export default {

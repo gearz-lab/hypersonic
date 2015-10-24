@@ -1,6 +1,6 @@
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
-var UserGoogleDal = require('../lib/dal/UserGoogleDal');
-var db = require('../lib/database/dbHelper');
+var UserGoogleDal = require('../../lib/dal/UserGoogleDal');
+var db = require('../../lib/database/dbHelper');
 
 var users = new UserGoogleDal();
 

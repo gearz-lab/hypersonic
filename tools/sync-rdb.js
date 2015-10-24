@@ -5,7 +5,7 @@ import _ from 'underscore';
 import async from 'async';
 import rc from '../src/lib/database/constants.js';
 import rh from '../src/lib/database/dbHelper.js';
-import systemEntitiesProvider from '../src/entities/systemEntitiesProvider';
+import systemEntitiesProvider from '../src/systemEntityDefinitions/systemEntitiesProvider';
 import EntityDalFlow from '../src/lib/dal/EntityDalFlow';
 import rethinkDbFireStarter from './lib/rethinkDbFireStarter';
 

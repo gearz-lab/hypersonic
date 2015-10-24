@@ -8,7 +8,7 @@ var cookieSession = require('cookie-session');
 var expressReactViews = require('express-react-views');
 var React = require('react');
 var passport = require('passport');
-var googleStrategy = require('./src/passport/googleStrategy');
+var googleStrategy = require('./src/server/passport/googleStrategy');
 
 var db = require('./src/lib/database/dbHelper');
 var UserDal = require('./src/lib/dal/UserDal');
@@ -16,7 +16,7 @@ var UserDal = require('./src/lib/dal/UserDal');
 var app  = express();
 var users = new UserDal();
 
-app.set('views', './src/express/views');
+app.set('views', './src/server/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
 
@@ -55,9 +55,9 @@ app.use(passport.session());
 passport.use(googleStrategy);
 
 // routes
-var auth = require('./src/express/routes/auth');
-var api = require('./src/express/routes/api');
-var def = require('./src/express/routes/app');
+var auth = require('./src/server/routes/auth');
+var api = require('./src/server/routes/api');
+var def = require('./src/server/routes/app');
 app.use('/auth', auth);
 app.use('/api', api);
 app.get('*', def);

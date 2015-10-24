@@ -1,10 +1,7 @@
 /* @flow */
 
 import BaseDal from './BaseDalFlow';
-
-class Entity {
-    name: string;
-}
+import Entity from '../../typings/Entity';
 
 class EntityDalFlow extends BaseDal<Entity> {
     constructor(dbName: string) {
