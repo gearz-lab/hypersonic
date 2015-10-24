@@ -1,13 +1,13 @@
 import _ from 'underscore';
 import React from 'react';
 import Router from 'react-router';
-import Input from 'react-bootstrap/lib/Input'
+import Input from '../../../../node_modules/react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
-import Alert from 'react-bootstrap/lib/Alert'
+import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
 
-import clientActions from '../../client/flux/actions/clientActions.js';
-import clientStores from '../../client/flux/stores/clientStores.js';
-import clientApi from '../../client/flux/api/clientApi.js';
+import clientActions from '../../../client/flux/actions/clientActions.js';
+import clientStores from '../../../client/flux/stores/clientStores.js';
+import clientApi from '../../../client/flux/api/clientApi.js';
 
 var Details = React.createClass({
 

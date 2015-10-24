@@ -1,20 +1,20 @@
 import React from 'react';
 
 import _ from 'underscore';
-import clientApi from '../client/flux/api/clientApi.js';
+import clientApi from '../flux/api/clientApi.js';
 import async from 'async';
 
 var Router = require('react-router')
     , RouteHandler = Router.RouteHandler
     , Route = Router.Route;
 
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
+import Navbar from '../../../node_modules/react-bootstrap/lib/Navbar';
+import Nav from '../../../node_modules/react-bootstrap/lib/Nav';
 
-import MainMenu from '../client/components/navigation/mainMenu/MainMenu.js';
+import MainMenu from '../components/navigation/mainMenu/MainMenu.js';
 
 import NotificationSystem from 'react-notification-system';
-import UserBadge from '../client/components/UserBadge.js';
+import UserBadge from '../components/UserBadge.js';
 
 var DefaultLayout = React.createClass({
 

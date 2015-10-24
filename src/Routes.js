@@ -1,13 +1,13 @@
 import React from 'react';
 
-import App from './views/App.js';
-import HomePage from './views/Home.js';
-import About from './views/About.js';
-import Login from './views/Login.js';
+import App from './client/views/App.js';
+import HomePage from './client/views/Home.js';
+import About from './client/views/About.js';
+import Login from './client/views/Login.js';
 
 //paradigms
-import Edit from './views/scrud/Edit.js';
-import Details from './views/scrud/Details.js';
+import Edit from './client/views/scrud/Edit.js';
+import Details from './client/views/scrud/Details.js';
 
 import {Route, Routes, DefaultRoute, NotFoundRoute} from 'react-router';
 
