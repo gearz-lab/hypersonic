@@ -1,7 +1,7 @@
 import Actions from './Actions.js';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import MainMenuConstants from './MainMenuConstants.js';
-import clientApi from '../api/clientApi.js';
+import clientApi from '../../api/clientApi.js';
 
 class MainMenuActions extends Actions {
 

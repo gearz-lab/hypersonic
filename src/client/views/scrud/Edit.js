@@ -4,7 +4,7 @@ import Router from '../../../Router.js';
 import Input from '../../../../node_modules/react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
-import clientApi from '../../../client/flux/api/clientApi.js';
+import clientApi from '../../api/clientApi.js';
 import async from 'async';
 
 var Edit = React.createClass({

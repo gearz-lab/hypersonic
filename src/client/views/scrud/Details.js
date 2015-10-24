@@ -7,7 +7,7 @@ import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
 
 import clientActions from '../../../client/flux/actions/clientActions.js';
 import clientStores from '../../../client/flux/stores/clientStores.js';
-import clientApi from '../../../client/flux/api/clientApi.js';
+import clientApi from '../../api/clientApi.js';
 
 var Details = React.createClass({
 

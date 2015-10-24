@@ -1,7 +1,7 @@
 import Actions from './Actions.js';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import ApplicationDomainConstants from './ApplicationDomainConstants.js';
-import clientApi from '../api/clientApi.js';
+import clientApi from '../../api/clientApi.js';
 
 class ApplicationDomainActions extends Actions {
 

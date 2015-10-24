@@ -1,7 +1,7 @@
 import Actions from './Actions.js';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import LoggedUserConstants from './LoggedUserConstants.js';
-import clientApi from '../api/clientApi.js';
+import clientApi from '../../api/clientApi.js';
 
 class LoggedUserActions extends Actions {
 

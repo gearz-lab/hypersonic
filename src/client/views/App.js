@@ -1,7 +1,7 @@
 import React from 'react';
 
 import _ from 'underscore';
-import clientApi from '../flux/api/clientApi.js';
+import clientApi from '../api/clientApi.js';
 import async from 'async';
 
 var Router = require('react-router')
