@@ -5,9 +5,9 @@ import Input from 'react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from 'react-bootstrap/lib/Alert'
 
-import clientActions from '../../flux/actions/clientActions.js';
-import clientStores from '../../flux/stores/clientStores.js';
-import clientApi from '../../flux/api/clientApi.js';
+import clientActions from '../../client/flux/actions/clientActions.js';
+import clientStores from '../../client/flux/stores/clientStores.js';
+import clientApi from '../../client/flux/api/clientApi.js';
 
 var Details = React.createClass({
 

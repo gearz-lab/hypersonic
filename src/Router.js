@@ -1,5 +1,5 @@
 // router
-import routerActions from './flux/actions/RouterActions.js';
+import routerActions from 'client/flux/actions/RouterActions.js';
 import React from 'react';
 import Router from 'react-router';
 import routes from './Routes';
