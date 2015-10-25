@@ -89,7 +89,7 @@ class BaseDal<T> {
     }
 
     /**
-     * Finds a user by the google id
+     * Returns entities that match the filter
      * @param connection
      * @param filter
      * @param next
@@ -98,6 +98,27 @@ class BaseDal<T> {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .filter(filter)
+            .run(connection, (error, result) => {
+                if (error) {
+                    next(error);
+                }
+                result.toArray((error, result) => {
+                    if (error) {
+                        next(error);
+                    }
+                    next(null, result);
+                });
+            });
+    }
+
+    /**
+     * Returns all entities
+     * @param connection
+     * @param next
+     */
+    list(connection:Connection, next: defaultCallback): void {
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
             .run(connection, (error, result) => {
                 if (error) {
                     next(error);
