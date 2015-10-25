@@ -1,57 +1,28 @@
-import UserDal from '../lib/dal/UserDal.js';
+/* @flow */
+
+import EntityDal from '../lib/dal/EntityDalFlow';
 import db from '../lib/database/dbHelper.js';
-let users = new UserDal();
+import rc from '../lib/database/constants';
+import menuDataBuilder from '../lib/menuDataBuilder';
 
 export default {
-    setup(router) {
+    setup(router:any):void {
 
         // routes
 
-        router.route('/mainmenu/load').get(function (req, res) {
+        router.route('/mainmenu/load').get(function (req:ExpressRequest, res:ExpressResponse) {
 
-            const mainMenu = {
-                contacts: {
-                    display: "Contacts",
-                    nodes: {
-                        new: {
-                            display: "New contact",
-                            route: {
-                                name: "new",
-                                params: {
-                                    entity: "contact"
-                                }
-                            }
-                        }
+            let entities = new EntityDal(rc.DB_DEFAULT);
+            db.connect((error, connection) => {
+                // find(connection, tableName, id, next) {
+                entities.filter(connection, {system: true, firstClass:true}, (error, entities) => {
+                    if (error) {
+                        throw error;
                     }
-                },
-                settings: {
-                    display: "Settings",
-                    nodes: {
-                        customization: {
-                            display: "Customization",
-                            nodes: {
-                                entities: {
-                                    display: "Entities",
-                                    nodes: {
-                                        new: {
-                                            display: "New",
-                                            route: {
-                                                name: "new",
-                                                params: {
-                                                    entity: "entity"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            res.send(mainMenu);
-
+                    let menuData = menuDataBuilder.getMenuData(entities);
+                    res.send(menuData);
+                });
+            });
         });
 
     }
