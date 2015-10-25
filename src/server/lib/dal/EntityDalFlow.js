@@ -1,7 +1,7 @@
 /* @flow */
 
 import BaseDal from './BaseDalFlow';
-import Entity from '../../typings/Entity';
+import Entity from '../../../common/typings/Entity';
 
 class EntityDalFlow extends BaseDal<Entity> {
     constructor(dbName: string) {
