@@ -15,11 +15,12 @@ class MenuDataBuilder {
     }
 
     getMenuItemsForEntity(entity:Entity):any {
+        let displayName = entity.displayName ? entity.displayName : entity.name;
         return {
-            display: entity.displayName,
+            display: displayName,
             nodes: {
                 new: {
-                    display: `New ${entity.displayName}`,
+                    display: `New ${displayName}`,
                     route: {
                         name: "new",
                         params: {

@@ -1,12 +1,19 @@
 export default
 {
     name: "entity",
+    _system: true,
     fields: [
         {
             name: "name",
             type: "string",
             displayName: "Name"
 
+        },
+        {
+            name: "firstClass",
+            type: "bool",
+            displayName: "First class",
+            help: "Whether or not this entity can be accessed from the menu"
         },
         {
             name: "fields",
@@ -23,6 +30,9 @@ export default
         fields: [
             {
                 name: "name"
+            },
+            {
+                name: "firstClass"
             },
             {
                 name: "fields"

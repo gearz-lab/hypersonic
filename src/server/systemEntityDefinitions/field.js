@@ -1,6 +1,7 @@
 export default {
 
     name: "field",
+    _system: true,
     fields: [
         // basic fields
         {

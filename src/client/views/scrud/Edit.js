@@ -107,13 +107,9 @@ var Edit = React.createClass({
         }
 
         if (!layoutName) {
-            if (entity.defaultLayouts && entity.defaultLayouts.edit) {
-                layoutName = entity.defaultLayouts.edit;
-            }
-            else {
-                layoutName = `${entityName}-edit`;
-            }
+            layoutName = `${entityName}-edit`;
         }
+
         let layout = _.find(entity.layouts, e => e.name == layoutName);
         if (!layout) {
             return (

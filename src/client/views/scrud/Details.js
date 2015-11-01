@@ -77,12 +77,7 @@ var Details = React.createClass({
         }
 
         if(!layoutName) {
-            if (entity.defaultLayouts && entity.defaultLayouts.edit) {
-                layoutName = entity.defaultLayouts.edit;
-            }
-            else {
-                layoutName = `${entityName}-details`;
-            }
+            layoutName = `${entityName}-details`;
         }
         let layout = _.find(entity.layouts, e => e.name == layoutName);
         if(!layout) {
