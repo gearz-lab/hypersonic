@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 
 var expressReactViews = require('express-react-views');
-var React = require('react');
 var passport = require('passport');
 var googleStrategy = require('./src/server/passport/googleStrategy');
 
