@@ -21,7 +21,7 @@ class DbHelper {
         if(!user) {
             throw new Error('user should not be null');
         }
-        return 'customerDb';
+        return rc.DB_DEFAULT;
     }
 
     /**

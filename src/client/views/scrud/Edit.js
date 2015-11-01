@@ -62,6 +62,10 @@ var Edit = React.createClass({
                     });
                 }
 
+                if(!result.generatedKey) {
+                    throw Error('Saving an entity should return a key on success');
+                }
+
                 Router.transitionTo('details', {entity: entityName, id: result.generatedKey});
             }
         });
