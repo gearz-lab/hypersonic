@@ -20,7 +20,6 @@ export default
     ],
     layouts: [{
         name: "entity-edit",
-        title: "Entity",
         fields: [
             {
                 name: "name"
