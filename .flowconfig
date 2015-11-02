@@ -1,7 +1,9 @@
-[include]
-.*/src/.*
+[ignore]
+.*/node_modules/.*
 
 [libs]
-.*/flow-lib/.*
-
-[options]
+./flow-lib/global.js
+./flow-lib/async.js
+./flow-lib/express.js
+./flow-lib/underscore.js
+./flow-lib/rethinkdb.js
