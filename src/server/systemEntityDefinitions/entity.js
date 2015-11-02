@@ -6,8 +6,21 @@ export default
         {
             name: "name",
             type: "string",
-            displayName: "Name"
+            displayName: "Name",
+            required: true
 
+        },
+        {
+            name: "displayNameSingular",
+            type: "string",
+            displayName: "Display name singular",
+            required: true
+        },
+        {
+            name: "displayNamePlural",
+            type: "string",
+            displayName: "Display name plural",
+            required: true
         },
         {
             name: "firstClass",
@@ -27,15 +40,34 @@ export default
     ],
     layouts: [{
         name: "entity-edit",
-        fields: [
+        groups: [
             {
-                name: "name"
+                fields: [
+                    {
+                        name: "name"
+                    }
+                ]
             },
             {
-                name: "firstClass"
+                orientation: "horizontal",
+                fields: [
+                    {
+                        name: "displayNameSingular"
+                    },
+                    {
+                        name: "displayNamePlural"
+                    }
+                ]
             },
             {
-                name: "fields"
+                fields: [
+                    {
+                        name: "firstClass"
+                    },
+                    {
+                        name: "fields"
+                    }
+                ]
             }
         ]
     }]
