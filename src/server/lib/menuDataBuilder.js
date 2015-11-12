@@ -15,7 +15,8 @@ class MenuDataBuilder {
     }
 
     getMenuItemsForEntity(entity:Entity):any {
-        let displayName = entity.displayName ? entity.displayName : entity.name;
+        // todo: Remove backward compatibility. Entitie's displayNameSingular is now required
+        let displayName = entity.displayNameSingular ? entity.displayNameSingular : entity.name;
         return {
             display: displayName,
             nodes: {
