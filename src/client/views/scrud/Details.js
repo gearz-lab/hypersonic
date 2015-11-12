@@ -81,16 +81,7 @@ var Details = React.createClass({
         }
         let layout = _.find(entity.layouts, e => e.name == layoutName);
         if(!layout) {
-            return (
-                <div className="document">
-                    <div className="document-header">{this.getDocumentTitle()}</div>
-                    <div className="document-body">
-                        <Alert bsStyle='danger'>
-                            <h4>Oh snap! The entity is fine, but couldn't find the layout: <b>{layoutName}</b> </h4>
-                        </Alert>
-                    </div>
-                </div>
-            );
+            layoutName = null;
         }
 
         // if the application domain has loaded successfully
