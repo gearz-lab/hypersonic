@@ -39,5 +39,12 @@ export default {
             });
         });
 
+        // search
+        router.route('/entity/:entity/search').get(function(req, res) => {
+            let entities = new EntityDal({dbName: db.getCustomerDbName(req.user)});
+            var entityName = req.params.entity;
+            var entityId = req.params.id;
+            res.send([{}]);
+        });
     }
 }
