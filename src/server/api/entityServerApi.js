@@ -40,7 +40,7 @@ export default {
         });
 
         // search
-        router.route('/entity/:entity/search').get(function(req, res) => {
+        router.route('/entity/:entity/search').get((req, res) => {
             let entities = new EntityDal({dbName: db.getCustomerDbName(req.user)});
             var entityName = req.params.entity;
             var entityId = req.params.id;
