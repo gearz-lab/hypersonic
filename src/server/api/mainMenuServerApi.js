@@ -1,6 +1,6 @@
 /* @flow */
 
-import EntityDal from '../lib/dal/EntityDalFlow';
+import EntityDal from '../lib/dal/EntityDal';
 import db from '../lib/database/dbHelper.js';
 import rc from '../lib/database/constants';
 import menuDataBuilder from '../lib/menuDataBuilder';

@@ -4,7 +4,7 @@ import async from 'async';
 import rc from '../src/server/lib/database/constants.js';
 import rh from '../src/server/lib/database/dbHelper.js';
 import systemEntitiesProvider from '../src/server/systemEntityDefinitions/systemEntitiesProvider';
-import EntityDalFlow from '../src/server/lib/dal/EntityDalFlow';
+import EntityDalFlow from '../src/server/lib/dal/EntityDal';
 import rethinkDbFireStarter from './lib/rethinkDbFireStarter';
 
 let entityDal = new EntityDalFlow(rc.DB_DEFAULT);

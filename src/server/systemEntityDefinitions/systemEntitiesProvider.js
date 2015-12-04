@@ -4,7 +4,6 @@ import entity from './entity';
 import field from './field';
 
 class SystemEntitiesProvider {
-    entities:Array<any>;
 
     constructor() {
         this.entities = [];
@@ -14,11 +13,11 @@ class SystemEntitiesProvider {
      * Entity to be added
      * @param entity
      */
-    add(entity:Object) {
+    add(entity) {
         this.entities.push(entity);
     }
 
-    getEntities(): Array<any> {
+    getEntities() {
         return this.entities;
     }
 }
