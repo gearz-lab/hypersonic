@@ -1,5 +1,3 @@
-/* @flow */
-
 import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
@@ -18,7 +16,7 @@ rh.connect((error, connection: Connection) => {
     console.log('RethinkDB connected.');
     console.log('Setting up the database...');
     async.series([
-        (next) => rethinkDbFireStarter.ignite(connection, rc.DB_DEFAULT, next),
+        (next) => rethinkDbFireStarter.setupDatabase(connection, next),
         (next) => {
             let systemEntities = systemEntitiesProvider.getEntities();
             let entityCreationCallbacks = systemEntities.map(se => {
