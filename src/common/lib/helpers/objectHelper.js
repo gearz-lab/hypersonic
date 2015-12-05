@@ -1,4 +1,3 @@
-/* @flow */
 class ObjectHelper {
 
     /**
@@ -8,7 +7,7 @@ class ObjectHelper {
      * @param defaultValue
      * @returns {*}
      */
-    safeRead(expression: (m: any) => any, object: any, defaultValue: any): any {
+    safeRead(expression) {
         try {
             return expression(object);
         }

@@ -34,14 +34,28 @@ class BaseDal {
     /**
      * Creates or updates an object
      * @param connection
-     * @param userName
-     * @param pictureUrl
+     * @param object
      * @param next
      */
     upsert(connection, object, next) {
         r.db(this.options.dbName)
             .table(this.options.tableName)
             .insert(this.formatObject(object), { conflict: 'update' })
+            .run(connection, next);
+    }
+
+    /**
+     * Creates or updates an object
+     * @param connection
+     * @param id
+     * @param object
+     * @param next
+     */
+    replace(connection:Connection, id, object, next):void {
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
+            .get(id)
+            .replace(this.formatObject(object))
             .run(connection, next);
     }
 

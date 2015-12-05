@@ -1,5 +1,3 @@
-/* @flow */
-
 import entity from './entity';
 import field from './field';
 

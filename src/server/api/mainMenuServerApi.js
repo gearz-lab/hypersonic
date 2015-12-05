@@ -1,5 +1,3 @@
-/* @flow */
-
 import EntityDal from '../lib/dal/EntityDal';
 import db from '../lib/database/dbHelper.js';
 import rc from '../lib/database/constants';
@@ -10,7 +8,7 @@ export default {
 
         // routes
 
-        router.route('/mainmenu/load').get(function (req:ExpressRequest, res:ExpressResponse) {
+        router.route('/mainmenu/load').get(function (req, res) {
 
             let entities = new EntityDal(rc.DB_DEFAULT);
             db.connect((error, connection) => {
@@ -19,7 +17,7 @@ export default {
                 let query = function(d){
                     return d("firstClass").eq(true)
                         .and(d.hasFields("_system").not().or(d("_system").ne(true)))
-                }
+                };
 
                 entities.filter(connection, query, (error, entities) => {
                     if (error) {

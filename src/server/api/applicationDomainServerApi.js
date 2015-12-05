@@ -1,11 +1,9 @@
-/* @flow */
-
 import EntityDal from '../lib/dal/EntityDal';
 import db from '../lib/database/dbHelper.js';
 import rc from '../lib/database/constants';
 
 export default {
-    setup(router:any) {
+    setup(router) {
 
         // routes
         router.route('/applicationdomain/load').get(function(req, res) {
