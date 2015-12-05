@@ -7,22 +7,22 @@ import constants from "./testConstants.js";
 import googleProfileSample from "./resources/googleProfileSample.js";
 
 const assert = chai.assert;
-let entities = new EntityDal({dbName: constants.DB_TESTS});
+let entities = new EntityDal(constants.DB_TESTS);
 
 describe('EntityDal', function() {
 
     let testSession = new DbTestSession();
-    testSession.setupSession(before, beforeEach, after, afterEach);
+    testSession.setupSession(before, beforeEach, after, afterEach, ["entity"]);
 
     it('Create and filter', (done) => {
-        entities.insert(testSession.connection, "contacts", {
-            displayName: 'André Pena',
-            photo: 'pic134'
+        entities.insert(testSession.connection, {
+            name: 'contacts',
+            firstClass: true
         }, (error) => {
             if(error) {
                 throw error;
             }
-            entities.filter(testSession.connection, "contacts", { photo: 'pic134'}, (error, entities) => {
+            entities.filter(testSession.connection, { firstClass: true}, (error, entities) => {
                 if(error) {
                     throw error;
                 }
@@ -33,20 +33,20 @@ describe('EntityDal', function() {
     });
 
     it('Create and find', (done) => {
-        entities.insert(testSession.connection, "contacts", {
+        entities.insert(testSession.connection, {
             id: 'b446822f-8057-4124-8337-01c78209cf70',
-            displayName: 'André Pena',
-            photo: 'pic134'
+            name: 'contacts',
+            firstClass: true
         }, (error) => {
             if(error) {
                 throw error;
             }
-            entities.find(testSession.connection, "contacts", 'b446822f-8057-4124-8337-01c78209cf70', (error, entities) => {
+            entities.find(testSession.connection, 'b446822f-8057-4124-8337-01c78209cf70', (error, entities) => {
                 if(error) {
                     throw error;
                 }
                 assert.strictEqual(entities.id, 'b446822f-8057-4124-8337-01c78209cf70');
-                assert.strictEqual(entities.displayName, 'André Pena');
+                assert.strictEqual(entities.name, 'contacts');
                 done();
             });
         });

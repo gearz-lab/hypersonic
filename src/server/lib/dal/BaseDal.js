@@ -20,8 +20,7 @@ class BaseDal {
     /**
      * Creates an object
      * @param connection
-     * @param userName
-     * @param pictureUrl
+     * @param object
      * @param next
      */
     insert(connection, object, next) {

@@ -35,7 +35,9 @@ export default
             arrayType: "entity",
             entityType: "field",
             layoutName: "field-edit",
-            addText: "Add field"
+            addText: "Add field",
+            component: "ArrayGridContainer",
+            _itemDisplayName: "_exp:m.name"
         }
     ],
     layouts: [{
