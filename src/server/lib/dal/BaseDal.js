@@ -31,6 +31,21 @@ class BaseDal {
     }
 
     /**
+     * Updates a given object
+     * @param connection
+     * @param id
+     * @param updatedObject
+     * @param next
+     */
+    update(connection, id, updatedObject, next) {
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
+            .get(id)
+            .update(updatedObject)
+            .run(connection, next);
+    }
+
+    /**
      * Creates or updates an object
      * @param connection
      * @param object
@@ -75,6 +90,7 @@ class BaseDal {
      * Finds a user by id
      * @param connection
      * @param id
+     * @param next
      */
     find(connection, id, next) {
         r.db(this.options.dbName)

@@ -32,22 +32,41 @@ describe('EntityDal', function() {
         });
     });
 
-    it('Create and find', (done) => {
+    it('Create, find and update', (done) => {
+        // inserts the original entity
         entities.insert(testSession.connection, {
-            id: 'b446822f-8057-4124-8337-01c78209cf70',
+            id: 1,
             name: 'contacts',
             firstClass: true
         }, (error) => {
             if(error) {
                 throw error;
             }
-            entities.find(testSession.connection, 'b446822f-8057-4124-8337-01c78209cf70', (error, entities) => {
+            // finds the entity we just inserted
+            entities.find(testSession.connection, 1, (error, entity) => {
                 if(error) {
                     throw error;
                 }
-                assert.strictEqual(entities.id, 'b446822f-8057-4124-8337-01c78209cf70');
-                assert.strictEqual(entities.name, 'contacts');
-                done();
+                assert.strictEqual(entity.id, 1);
+                assert.strictEqual(entity.name, 'contacts');
+
+                // updates the entity
+                entities.update(testSession.connection, 1, { name: 'contacts2' }, (error, success) => {
+
+                    // finds the entity again after the update
+                    entities.find(testSession.connection, 1, (error, entity) => {
+                        if(error) {
+                            throw error;
+                        }
+                        assert.strictEqual(entity.id, 1);
+                        assert.strictEqual(entity.name, 'contacts2');
+                        assert.strictEqual(entity.firstClass, true);
+
+                        done();
+                    });
+
+                });
+
             });
         });
     });
