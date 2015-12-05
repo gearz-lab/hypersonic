@@ -7,7 +7,7 @@ class DbHelper {
 
     /**
      * Connects to RethinkDB
-     * @param next
+     * @param connection
      */
     connect(connection) {
         r.connect({host: 'localhost', port: 28015}, connection);
@@ -127,6 +127,8 @@ class DbHelper {
         let tasks = _.map(tableNames, (tableName) => (cb) => this.clearTable(connection, dbName, tableName, cb ));
         async.parallel(tasks, next);
     }
+
+
 }
 
 export default new DbHelper();
