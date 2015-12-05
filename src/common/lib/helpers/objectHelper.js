@@ -7,7 +7,7 @@ class ObjectHelper {
      * @param defaultValue
      * @returns {*}
      */
-    safeRead(expression) {
+    safeRead(expression, object, defaultValue) {
         try {
             return expression(object);
         }

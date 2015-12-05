@@ -27,7 +27,7 @@ class BaseDal {
     insert(connection, object, next) {
         r.db(this.options.dbName)
             .table(this.options.tableName)
-            .insert(this.formatObject(object), { conflict: 'error' })
+            .insert(this.formatObject(object), {conflict: 'error'})
             .run(connection, next);
     }
 
@@ -40,7 +40,7 @@ class BaseDal {
     upsert(connection, object, next) {
         r.db(this.options.dbName)
             .table(this.options.tableName)
-            .insert(this.formatObject(object), { conflict: 'update' })
+            .insert(this.formatObject(object), {conflict: 'update'})
             .run(connection, next);
     }
 
@@ -79,9 +79,9 @@ class BaseDal {
      */
     find(connection, id, next) {
         r.db(this.options.dbName)
-        .table(this.options.tableName)
-        .get(id)
-        .run(connection, next);
+            .table(this.options.tableName)
+            .get(id)
+            .run(connection, next);
     }
 
     /**
@@ -95,11 +95,32 @@ class BaseDal {
             .table(this.options.tableName)
             .filter(filter)
             .run(connection, (error, result) => {
-                if(error) {
+                if (error) {
                     next(error);
                 }
                 result.toArray((error, result) => {
-                    if(error) {
+                    if (error) {
+                        next(error);
+                    }
+                    next(null, result);
+                });
+            });
+    }
+
+    /**
+     * Returns all entities
+     * @param connection
+     * @param next
+     */
+    list(connection, next):void {
+        r.db(this.options.dbName)
+            .table(this.options.tableName)
+            .run(connection, (error, result) => {
+                if (error) {
+                    next(error);
+                }
+                result.toArray((error, result) => {
+                    if (error) {
                         next(error);
                     }
                     next(null, result);

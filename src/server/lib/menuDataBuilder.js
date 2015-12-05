@@ -1,11 +1,8 @@
-/* @flow */
-
-import Entity from '../../common/typings/Entity';
 import _ from 'underscore';
 
 class MenuDataBuilder {
 
-    getMenuData(menuItems:Array<Entity>):any {
+    getMenuData(menuItems) {
         let result = {};
         _.each(menuItems, entity => {
             result[entity.name] = this.getMenuItemsForEntity(entity);
@@ -14,7 +11,7 @@ class MenuDataBuilder {
         return result;
     }
 
-    getMenuItemsForEntity(entity:Entity):any {
+    getMenuItemsForEntity(entity) {
         // todo: Remove backward compatibility. Entitie's displayNameSingular is now required
         let displayName = entity.displayNameSingular ? entity.displayNameSingular : entity.name;
         return {
@@ -33,7 +30,7 @@ class MenuDataBuilder {
         };
     }
 
-    getMenuItemsForSettings():any {
+    getMenuItemsForSettings() {
         return {
             display: "Settings",
             nodes: {
