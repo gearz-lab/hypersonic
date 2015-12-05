@@ -2,6 +2,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
+var colors = require('colors');
 
 var expressReactViews = require('express-react-views');
 var passport = require('passport');
@@ -60,5 +61,5 @@ app.use('/api', api);
 app.get('*', def);
 
 app.listen(3000, function() {
-    console.log('Gearz is running on port 3000');
+    console.log(colors.green(`Gearz is running on port 3000. NODE_ENV: ${process.env.NODE_ENV}`));
 });
