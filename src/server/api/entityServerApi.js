@@ -39,7 +39,7 @@ class EntityServerApi {
                 }
                 let newEntityKey = result.generated_keys[0];
                 // new we need to actually create the table for the entity being created
-                dbHelper.createTable(connection, dbHelper.getCustomerDbName(req.user), entityName, (error, result) => {
+                dbHelper.createTable(connection, dbName, entityName, (error, result) => {
                     if (error) {
                         next(error);
                     }

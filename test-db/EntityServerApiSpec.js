@@ -16,7 +16,6 @@ describe('EntityServerApi', function () {
     testSession.setupSession(before, beforeEach, after, afterEach, ["contact"]);
 
     it('getEntityById', (done) => {
-
         contacts.insert(testSession.connection, {
             id: 1,
             name: 'Andre'
@@ -28,9 +27,15 @@ describe('EntityServerApi', function () {
                 assert.strictEqual(entity.name, 'Andre');
                 done();
             });
-
         });
+    });
 
+    it('postNewEntity', (done) => {
+        entityServerApi.postNewEntity(constants.DB_TESTS, 'contact', { name: 'Andre'}, (error, result) => {
+            assert.strictEqual(result.status, 'success');
+            assert.ok(result.generatedKey);
+            done();
+        });
     });
 
 });
