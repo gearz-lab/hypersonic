@@ -4,11 +4,11 @@ import rc from "../src/server/lib/database/constants.js";
 import EntityDal from "../src/server/lib/repositories/EntityRepository.js";
 import DbTestSession from "./DbTestSession.js";
 import constants from "./testConstants.js";
-import dalHelper from '../src/server/lib/database/dalHelper';
+import repositories from '../src/server/lib/repositories/repositories';
 import entityServerApi from '../src/server/api/entityServerApi';
 
 const assert = chai.assert;
-let contacts = dalHelper.getDalForEntity(constants.DB_TESTS, 'contact');
+let contacts = repositories.getRepository(constants.DB_TESTS, 'contact');
 
 describe('EntityServerApi', function () {
 
