@@ -4,7 +4,7 @@ import async from 'async';
 import rc from '../src/server/lib/database/constants.js';
 import rh from '../src/server/lib/database/dbHelper.js';
 import systemEntitiesProvider from '../src/server/systemEntityDefinitions/systemEntitiesProvider';
-import EntityDal from '../src/server/lib/dal/EntityRepository';
+import EntityDal from '../src/server/lib/repositories/EntityRepository';
 import rethinkDbFireStarter from './lib/rethinkDbFireStarter';
 import colors from 'colors';
 

@@ -1,5 +1,5 @@
 import dbHelper from './dbHelper';
-import Repository from '../dal/Repository';
+import Repository from '../repositories/Repository';
 
 class DalHelper {
 
