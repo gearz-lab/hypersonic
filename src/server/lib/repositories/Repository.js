@@ -5,6 +5,7 @@ import async from 'async';
 class Repository {
 
     constructor(options) {
+        if (!options) throw Error('\'options\' should be truthy');
         this.options = options;
     }
 
