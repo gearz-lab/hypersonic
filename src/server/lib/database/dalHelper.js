@@ -2,14 +2,14 @@ import dbHelper from './dbHelper';
 import BaseDal from '../dal/BaseDal';
 
 class DalHelper {
+
     /**
      * Returns a DAL for the given entityName
-     * @param user
+     * @param dbName
      * @param entityName
      * @returns {BaseDal}
      */
-    getDalForEntity(user, entityName ) {
-        let dbName = dbHelper.getCustomerDbName(user);
+    getDalForEntity(dbName, entityName) {
         return new BaseDal({
             dbName: dbName,
             tableName: entityName

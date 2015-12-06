@@ -25,7 +25,7 @@ class DbTestSession {
                 }
 
                 if(!this.connection) {
-                    throw Error('UShudfshhdf');
+                    throw Error('Could not connect');
                 }
 
                 this.connection = conn;
