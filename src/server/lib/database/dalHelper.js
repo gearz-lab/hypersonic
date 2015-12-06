@@ -1,5 +1,5 @@
 import dbHelper from './dbHelper';
-import BaseDal from '../dal/BaseDal';
+import Repository from '../dal/Repository';
 
 class DalHelper {
 
@@ -7,10 +7,10 @@ class DalHelper {
      * Returns a DAL for the given entityName
      * @param dbName
      * @param entityName
-     * @returns {BaseDal}
+     * @returns {Repository}
      */
     getDalForEntity(dbName, entityName) {
-        return new BaseDal({
+        return new Repository({
             dbName: dbName,
             tableName: entityName
         });

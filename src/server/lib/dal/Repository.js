@@ -2,7 +2,7 @@ import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
 
-class BaseDal {
+class Repository {
 
     constructor(options) {
         this.options = options;
@@ -144,4 +144,4 @@ class BaseDal {
     }
 }
 
-export default BaseDal;
+export default Repository;

@@ -2,10 +2,10 @@ import r from 'rethinkdb';
 import _ from 'underscore';
 import async from 'async';
 import rc from '../database/constants.js';
-import BaseDal from './BaseDal.js';
+import Repository from './Repository.js';
 import objectHelper from '../../../common/lib/helpers/objectHelper.js';
 
-class UserDal extends BaseDal {
+class UserRepository extends Repository {
 
     constructor(options) {
         super(_.extend({
@@ -46,4 +46,4 @@ class UserDal extends BaseDal {
 
 }
 
-export default UserDal;
+export default UserRepository;

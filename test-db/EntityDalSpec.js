@@ -1,7 +1,7 @@
 import chai from 'chai';
 import rh from "../src/server/lib/database/dbHelper.js";
 import rc from "../src/server/lib/database/constants.js";
-import EntityDal from "../src/server/lib/dal/EntityDal.js";
+import EntityDal from "../src/server/lib/dal/EntityRepository.js";
 import DbTestSession from "./DbTestSession.js";
 import constants from "./testConstants.js";
 import googleProfileSample from "./resources/googleProfileSample.js";
@@ -9,7 +9,7 @@ import googleProfileSample from "./resources/googleProfileSample.js";
 const assert = chai.assert;
 let entities = new EntityDal(constants.DB_TESTS);
 
-describe('EntityDal', function() {
+describe('EntityRepository', function() {
 
     let testSession = new DbTestSession();
     testSession.setupSession(before, beforeEach, after, afterEach, ["entity"]);

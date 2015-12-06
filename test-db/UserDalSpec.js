@@ -1,7 +1,7 @@
 import chai from 'chai';
 import rh from "../src/server/lib/database/dbHelper.js";
 import rc from "../src/server/lib/database/constants.js";
-import UserDal from "../src/server/lib/dal/UserDal.js";
+import UserDal from "../src/server/lib/dal/UserRepository.js";
 import DbTestSession from "./DbTestSession.js";
 import constants from "./testConstants.js";
 import googleProfileSample from "./resources/googleProfileSample.js";
@@ -9,7 +9,7 @@ import googleProfileSample from "./resources/googleProfileSample.js";
 const assert = chai.assert;
 let users = new UserDal({dbName: constants.DB_TESTS});
 
-describe('UserDal', function() {
+describe('UserRepository', function() {
 
     let testSession = new DbTestSession();
     testSession.setupSession(before, beforeEach, after, afterEach, [rc.TABLE_USERS]);

@@ -1,4 +1,4 @@
-import EntityDal from '../lib/dal/EntityDal.js';
+import EntityDal from '../lib/dal/EntityRepository.js';
 import dbHelper from '../lib/database/dbHelper.js';
 import dalHelper from '../lib/database/dalHelper';
 import rc from '../lib/database/constants.js';

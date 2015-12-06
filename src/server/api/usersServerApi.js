@@ -1,4 +1,4 @@
-import UserDal from '../lib/dal/UserDal.js';
+import UserDal from '../lib/dal/UserRepository.js';
 import db from '../lib/database/dbHelper.js';
 let users = new UserDal();
 

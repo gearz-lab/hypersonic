@@ -4,9 +4,9 @@ import async from 'async';
 import rc from '../database/constants.js';
 import objectHelper from '../../../common/lib/helpers/objectHelper';
 import dbHelper from '../database/dbHelper.js';
-import BaseDal from './BaseDal';
+import Repository from './Repository';
 
-class EntityDal extends BaseDal {
+class EntityRepository extends Repository {
     constructor(dbName) {
         super({
             dbName: dbName,
@@ -15,4 +15,4 @@ class EntityDal extends BaseDal {
     }
 }
 
-export default EntityDal;
+export default EntityRepository;

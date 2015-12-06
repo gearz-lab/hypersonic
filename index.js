@@ -9,7 +9,7 @@ var passport = require('passport');
 var googleStrategy = require('./src/server/passport/googleStrategy');
 
 var db = require('./src/server/lib/database/dbHelper');
-var UserDal = require('./src/server/lib/dal/UserDal');
+var UserDal = require('./src/server/lib/dal/UserRepository');
 
 var app  = express();
 var users = new UserDal();

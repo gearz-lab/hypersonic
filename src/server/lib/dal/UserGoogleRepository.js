@@ -3,9 +3,9 @@ import _ from 'underscore';
 import async from 'async';
 import rc from '../database/constants.js';
 import objectHelper from '../../../common/lib/helpers/objectHelper.js';
-import UserDal from './UserDal.js';
+import UserDal from './UserRepository.js';
 
-class UserGoogleDal extends UserDal {
+class UserGoogleRepository extends UserDal {
 
     constructor(options) {
         super(options);
@@ -107,4 +107,4 @@ class UserGoogleDal extends UserDal {
     }
 }
 
-export default UserGoogleDal;
+export default UserGoogleRepository;
