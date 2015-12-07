@@ -1,10 +1,23 @@
-import repositories from '../repositories/repositories';
+import repositories from '../repositories/repositoryProvider';
 
 /**
  * Represents a data layer for a particular enttiy that is going to take the pipeline and middleware into account
  */
 class DataService {
+
     constructor(options) {
+
+        // default pipelines
+        //let pipelines = {
+        //    "new-get",
+        //    "edit-get",
+        //    "edit-post",
+        //    "view-get",
+        //    "pre-search-get",
+        //    "search-get",
+        //    "search-results-get"
+        //};
+
         // options should include: dbName and tableName
         if (!options) throw Error('\'options\' should be truthy');
         if (!options.tableName) throw Error('\'options.tableName\' should be truthy');

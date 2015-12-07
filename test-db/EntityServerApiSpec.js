@@ -1,7 +1,7 @@
 import chai from 'chai';
 import DbTestSession from "./DbTestSession.js";
 import constants from "./testConstants.js";
-import repositories from '../src/server/lib/repositories/repositories';
+import repositories from '../src/server/lib/repositories/repositoryProvider';
 import entityServerApi from '../src/server/api/entityServerApi';
 
 const assert = chai.assert;

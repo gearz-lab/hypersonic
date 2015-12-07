@@ -2,7 +2,7 @@ import Repository from './Repository';
 import EntityRepository from './EntityRepository';
 import UserRepository from './UserRepository';
 
-class Repositories {
+class RepositoryProvider {
     constructor() {
         this.repositories = {};
     }
@@ -37,8 +37,8 @@ class Repositories {
     }
 }
 
-let repositories = new Repositories();
-repositories.register('entity', EntityRepository);
-repositories.register('user', UserRepository);
+let repositoryProvider = new RepositoryProvider();
+repositoryProvider.register('entity', EntityRepository);
+repositoryProvider.register('user', UserRepository);
 
-export default repositories;
+export default repositoryProvider;

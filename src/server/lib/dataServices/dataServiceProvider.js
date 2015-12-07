@@ -1,6 +1,6 @@
 import DataService from './DataService';
 
-class DataServices {
+class DataServiceProvider {
     constructor() {
         this.dataServices = {};
     }
@@ -10,10 +10,10 @@ class DataServices {
      * DO NOT REGISTER GENERIC DATA SERVICES here. All registered repositories are expected to have a constructor with
      * a single argument which is the database name
      * @param entityName
-     * @param repository
+     * @param dataService
      */
-    register(entityName, repository) {
-        this.dataServices[entityName] = repository;
+    register(entityName, dataService) {
+        this.dataServices[entityName] = dataService;
     }
 
     /**
@@ -35,6 +35,6 @@ class DataServices {
     }
 }
 
-let dataServices = new DataServices();
+let dataServiceProvider = new DataServiceProvider();
 
-export default dataServices;
+export default dataServiceProvider;

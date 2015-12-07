@@ -1,7 +1,7 @@
 import EntityDal from '../lib/repositories/EntityRepository.js';
 import dbHelper from '../lib/database/dbHelper.js';
 import rc from '../lib/database/constants.js';
-import repositories from '../lib/repositories/repositories';
+import repositories from '../lib/repositories/repositoryProvider';
 
 class EntityServerApi {
 
