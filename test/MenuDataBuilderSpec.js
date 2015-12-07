@@ -5,11 +5,11 @@ describe('MenuDataBuilder', function() {
        let menuData = menuDataBuilder.getMenuData([
            {
                name: 'contact',
-               displayName: 'Contact'
+               displayNameSingular: 'Contact'
            },
            {
                name: 'phone',
-               displayName: 'Phone'
+               displayNameSingular: 'Phone'
            }
        ]);
        assert.equal(menuData.contact.display, 'Contact');

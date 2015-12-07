@@ -2,23 +2,37 @@ import _ from 'underscore';
 
 class MenuDataBuilder {
 
-    getMenuData(menuItems) {
+    /**
+     * Gets a menu data for the given entities
+     * @param entities
+     * @returns {{}}
+     */
+    getMenuData(entities) {
+        if (!entities) throw Error('\'entities\' should be truthy');
+
         let result = {};
-        _.each(menuItems, entity => {
+        _.each(entities, entity => {
             result[entity.name] = this.getMenuItemsForEntity(entity);
         });
         result.settings = this.getMenuItemsForSettings();
         return result;
     }
 
+    /**
+     * Gets menu data for the given entity
+     * @param entity
+     * @returns {{display: *, nodes: {new: {display: *, route: {name: string, params: {entity: *}}}}}}
+     */
     getMenuItemsForEntity(entity) {
-        // todo: Remove backward compatibility. Entitie's displayNameSingular is now required
-        let displayName = entity.displayNameSingular ? entity.displayNameSingular : entity.name;
+        if (!entity) throw Error('\'entity\' should be truthy');
+        if (!entity.name) throw Error('\'entity.name\' should be truthy');
+        if (!entity.displayNameSingular) throw Error('\'entity.displayNameSingular\' should be truthy');
+        
         return {
-            display: displayName,
+            display: entity.displayNameSingular,
             nodes: {
                 new: {
-                    display: `New ${displayName}`,
+                    display: `New ${entity.displayNameSingular}`,
                     route: {
                         name: "new",
                         params: {
@@ -30,6 +44,10 @@ class MenuDataBuilder {
         };
     }
 
+    /**
+     * Gets menu data for settings
+     * @returns {{display: string, nodes: {customization: {display: string, nodes: {entities: {display: string, nodes: {new: {display: string, route: {name: string, params: {entity: string}}}}}}}}}}
+     */
     getMenuItemsForSettings() {
         return {
             display: "Settings",
