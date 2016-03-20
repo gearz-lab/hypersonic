@@ -14,9 +14,9 @@
     "db-sync": "babel-node ./tools/sync-rdb.js"
   },
   "dependencies": {
-    "babel-runtime": "^5.8.25",
-    "async": "^1.4.2",
+    "async": "^1.5.2",
     "axios": "^0.5.4",
+    "babel-runtime": "^5.8.25",
     "body-parser": "~1.12.4",
     "bootstrap": "~3.3.5",
     "bootstrap-social": "^4.9.1",
@@ -37,6 +37,7 @@
     "install": "^0.1.8",
     "js-beautify": "^1.5.10",
     "keymirror": "^0.1.1",
+    "lolex": "^1.4.0",
     "moment": "^2.10.3",
     "mongoose": "^4.0.1",
     "morgan": "~1.5.1",
