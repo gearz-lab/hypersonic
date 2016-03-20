@@ -4,7 +4,7 @@
   "scripts": {
     "start": "babel-node index.js",
     "start-watch": "nodemon --exec npm run start",
-    "start-dev-watch": "nodemon --exec npm run start-dev",
+    "start-dev-watch": "nodemon --exec npm run start",
     "start-docs": "babel-node ./docs/Server.js",
     "wpds": "webpack-dev-server --config ./webpack.config.dev.js",
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
