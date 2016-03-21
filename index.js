@@ -11,21 +11,21 @@ var googleStrategy = require('./src/server/passport/googleStrategy');
 var db = require('./src/server/lib/database/dbHelper');
 var UserDal = require('./src/server/lib/repositories/UserRepository');
 
-var app  = express();
+var app = express();
 var users = new UserDal();
 
 app.set('views', './src/server/views');
 app.set('view engine', 'jsx');
-app.engine('jsx', expressReactViews.createEngine({ beautify: true }));
+app.engine('jsx', expressReactViews.createEngine({beautify: true}));
 
-passport.serializeUser(function(userId, done) {
+passport.serializeUser(function (userId, done) {
     done(null, userId);
 });
 
-passport.deserializeUser(function(userId, done) {
+passport.deserializeUser(function (userId, done) {
 
-    db.connect(function(error, connection) {
-        if(error) {
+    db.connect(function (error, connection) {
+        if (error) {
             done(error);
         }
         else {
@@ -40,7 +40,7 @@ passport.deserializeUser(function(userId, done) {
 app.use(express.static('./dist'));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use( bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cookieSession({
@@ -60,6 +60,6 @@ app.use('/auth', auth);
 app.use('/api', api);
 app.get('*', def);
 
-app.listen(3000, function() {
+app.listen(3000, function () {
     console.log(colors.green(`Gearz is running on port 3000. NODE_ENV: ${process.env.NODE_ENV}`));
 });
