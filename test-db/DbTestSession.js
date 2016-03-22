@@ -1,26 +1,7 @@
 import config from './config';
+import testUtils from './testUtils';
 
 class DbTestSession {
-
-    /**
-     * Drops the given database
-     * @param knex
-     * @param databaseName
-     * @returns {Function}
-     */
-    dropDatabase(knex, databaseName) {
-        return knex.raw(`drop database ${databaseName}`);
-    }
-
-    /**
-     * Creates the given database
-     * @param knex
-     * @param databaseName
-     * @returns {Function}
-     */
-    createDatabase(knex, databaseName) {
-        return knex.raw(`create database ${databaseName}`);
-    }
 
     /**
      * Sets up a test session
@@ -38,7 +19,7 @@ class DbTestSession {
 
         // calls 'before', creating a connection and a test database
         before((done) => {
-            this.createDatabase(knex, config.testDatabaseName)
+            testUtils.createTestDb(knex)
                 .then(function() {
                     done();
                 })
@@ -49,7 +30,7 @@ class DbTestSession {
 
         // calls 'after', closing the connection
         after((done) => {
-            this.dropDatabase(knex, config.testDatabaseName)
+            testUtils.dropTestDb(knex)
                 .then(function() {
                     done();
                 })

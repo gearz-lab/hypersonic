@@ -32,5 +32,5 @@ dropDatabase(dbName)()
             table.json('json');
         }).then(() => {
             knex2.destroy();
-        })
+        });
     });

@@ -15,11 +15,16 @@ export default class Db {
 
         // create bookshelf models;
         this.models = {};
+
+        // custom models
         for(let i = 0; i < appConfig.entities.length; i++) {
             let entity = appConfig.entities[i];
             this.models[entity.name] = this.bookshelf.Model.extend({
                 tableName: entity.tableName ? entity.tableName : entity.name
             });
         }
+
+        // system models
+        this.models['user']
     }
 }
