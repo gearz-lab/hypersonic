@@ -15,7 +15,7 @@ class DbTestSession {
         var knex = testUtils.createDefaultKnex();
 
         // calls 'before', creating a connection and a test database
-        before((done) => {
+        beforeEach((done) => {
             testUtils.createTestDb(knex)
                 .then(function () {
                     done();
@@ -26,16 +26,19 @@ class DbTestSession {
         });
 
         // calls 'after', closing the connection
-        after((done) => {
+        afterEach((done) => {
             testUtils.dropTestDb(knex)
                 .then(function () {
-                    knex.destroy();
                     done();
                 })
                 .catch(function (error) {
-                    knex.destroy();
                     done(error);
                 });
+        });
+
+        after((done) => {
+            knex.destroy();
+            done();
         });
     }
 }
