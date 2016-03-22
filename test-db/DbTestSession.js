@@ -12,10 +12,7 @@ class DbTestSession {
      */
     setupSession(before, beforeEach, after, afterEach) {
 
-        var knex = require('knex')({
-            client: 'pg',
-            connection: config.defaultConnectionString
-        });
+        var knex = testUtils.createDefaultKnex();
 
         // calls 'before', creating a connection and a test database
         before((done) => {
