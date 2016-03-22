@@ -17,10 +17,10 @@ class DbTestSession {
         // calls 'before', creating a connection and a test database
         before((done) => {
             testUtils.createTestDb(knex)
-                .then(function() {
+                .then(function () {
                     done();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     done(error);
                 });
         });
@@ -28,10 +28,12 @@ class DbTestSession {
         // calls 'after', closing the connection
         after((done) => {
             testUtils.dropTestDb(knex)
-                .then(function() {
+                .then(function () {
+                    knex.destroy();
                     done();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    knex.destroy();
                     done(error);
                 });
         });
