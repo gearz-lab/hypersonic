@@ -1,5 +1,6 @@
 import config from './config';
 import createKnex from 'knex';
+import dbUtils from '../src/server/lib/database/dbUtils';
 
 export default {
     /**
@@ -8,7 +9,7 @@ export default {
      * @returns {Function}
      */
     dropTestDb(knex) {
-        return knex.raw(`drop database ${config.testDatabaseName}`);
+        return knex.raw(`drop database if exists ${config.testDatabaseName}`);
     },
 
     /**
@@ -18,18 +19,6 @@ export default {
      */
     createTestDb(knex) {
         return knex.raw(`create database ${config.testDatabaseName}`);
-    },
-
-    /**
-     * Sets up a test database
-     */
-    setupTestDb: function (knex) {
-        return knex.schema.createTable('user', function (table) {
-            table.increments();
-            table.string('name');
-            table.timestamps();
-            table.json('json');
-        });
     },
 
     /**

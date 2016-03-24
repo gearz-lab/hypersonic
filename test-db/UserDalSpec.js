@@ -1,8 +1,8 @@
 import chai from 'chai';
 import DbTestSession from './DbTestSession';
 import testUtils from './testUtils';
+import dbUtils from '../src/server/lib/database/dbUtils';
 import Db from '../src/server/lib/database/db';
-import config from './config';
 
 const assert = chai.assert;
 
@@ -12,7 +12,7 @@ describe('UserRepository', function () {
     it('Create and filter', (done) => {
 
         var knex = testUtils.createTestDbKnex();
-        testUtils.setupTestDb(knex)
+        dbUtils.setupDb(knex)
             .then(() => {
                 var db = new Db({}, knex);
                 let User = db.getModel('user');

@@ -7,9 +7,11 @@ export default {
     setupDb: function(knex) {
         return knex.schema.createTable('user', function(table) {
             table.increments();
-            table.string('name');
             table.timestamps();
-            table.json('json');
+            table.string('name');
+            table.string('displayName');
+            table.string('email');
+            table.json('oauthProfiles');
         });
     }
 }

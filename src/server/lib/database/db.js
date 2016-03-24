@@ -1,5 +1,7 @@
 import buildKnex from 'knex';
 import buildBookshelf from 'bookshelf';
+import Repository from '../repositories/BsRepository';
+import UserRepository from '../repositories/BsUserRepository';
 
 export default class Db {
     constructor(appConfig, knex) {
@@ -13,9 +15,10 @@ export default class Db {
         });
         this.bookshelf = buildBookshelf(this.knex);
 
-        // create bookshelf models;
+        // create bookshelf models and services
         this.models = {};
-
+        this.services = {};
+        
         // custom models
         if(appConfig.entities) {
             for(let i = 0; i < appConfig.entities.length; i++) {
@@ -23,13 +26,15 @@ export default class Db {
                 this.models[entity.name] = this.bookshelf.Model.extend({
                     tableName: entity.tableName ? entity.tableName : entity.name
                 });
+                this.services[entity.name] = new Repository(this, entity.name);
             }
         }
 
-        // system models
+        // system models and services
         this.models['user'] =  this.bookshelf.Model.extend({
             tableName: 'user'
         });
+        this.services['user'] = new UserRepository(this);
     }
 
     /**
@@ -42,6 +47,18 @@ export default class Db {
         if(!this.models.hasOwnProperty(modelName))
             throw Error('model name is invalid');
         return this.models[modelName];
+    }
+
+    /**
+     * Returns the given repository
+     * @param modelName
+     * @returns {*}
+     */
+    getRepository(modelName) {
+        if (!modelName) throw Error('\'modelName\' should be truthy');
+        if(!this.services.hasOwnProperty(modelName))
+            throw Error('model name is invalid');
+        return this.services[modelName];
     }
 
     /**

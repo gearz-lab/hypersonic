@@ -1,4 +1,3 @@
-import config from './config';
 import testUtils from './testUtils';
 
 class DbTestSession {
@@ -13,6 +12,21 @@ class DbTestSession {
     setupSession(before, beforeEach, after, afterEach) {
 
         var knex = testUtils.createDefaultKnex();
+
+        before((done) => {
+            testUtils.dropTestDb(knex)
+                .then(function () {
+                    done();
+                })
+                .catch(function (error) {
+                    done(error);
+                });
+        });
+
+        after((done) => {
+            knex.destroy();
+            done();
+        });
 
         // calls 'before', creating a connection and a test database
         beforeEach((done) => {
@@ -36,10 +50,6 @@ class DbTestSession {
                 });
         });
 
-        after((done) => {
-            knex.destroy();
-            done();
-        });
     }
 }
 
