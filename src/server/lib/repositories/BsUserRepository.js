@@ -53,6 +53,11 @@ class UserRepository extends Repository {
         return this.update(existingUser);
     }
 
+    /**
+     * Finds the user based on the given google profile or creates a new user and returns that user
+     * @param profile
+     * @returns {Promise}
+     */
     findOrCreateFromGoogleProfile(profile) {
         if (!profile) throw Error('\'profile\' should be truthy');
         let email = objectHelper.safeRead((p) => p.emails[0].value, profile, null);
@@ -60,37 +65,27 @@ class UserRepository extends Repository {
             throw Error('Google profile is not valid');
 
         return new Promise((fulfill, reject) => {
-            this.filter({email: email})
+            this.find({email: email})
                 .then((user) => {
 
                     if (user) {
-                        let existingUserGoogleId = objectHelper.safeRead((u) => u.externalProfiles.google.id, user, null);
+                        let existingUserGoogleId = objectHelper.safeRead(u => u.externalProfiles.google.id, user, null);
                         if (existingUserGoogleId) {
                             fulfill(user);
                         }
                         else {
                             this.updateFromGoogleProfile(user, profile)
-                                .then((user) => {
-                                    fulfill(user);
-                                })
-                                .catch((ex) => {
-                                    reject(ex);
-                                })
+                                .then(user => fulfill(user))
+                                .catch(ex => reject(ex));
                         }
                     }
                     else {
                         this.createFromGoogleProfile(profile)
-                            .then((user) => {
-                                fulfill(user);
-                            })
-                            .catch((ex) => {
-                                reject(ex);
-                            });
+                            .then(user => fulfill(user))
+                            .catch(ex => reject(ex));
                     }
                 })
-                .catch((ex) => {
-                    reject(ex);
-                });
+                .catch(ex => reject(ex));
         });
     }
 }
