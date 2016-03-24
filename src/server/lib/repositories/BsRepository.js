@@ -63,22 +63,26 @@ class BsRepository {
     }
 
     /**
-     * Finds a user by the google id
-     * @param connection
-     * @param filter
-     * @param next
+     * Deletes the given object
+     * @param object
+     * @returns {Promise}
      */
-    filter(filter) {
-        return this.Model.forge(filter).fetchAll();
-    }
+    delete(object) {
+        if (!object) throw Error('\'id\' should be truthy');
 
-    /**
-     * Returns all entities
-     * @param connection
-     * @param next
-     */
-    list(connection, next):void {
-        return this.Model.fetchAll();
+        // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
+        let objectToFind = isNaN(object) ? object : { id: object };
+
+        return new Promise((f, r) => {
+            this.Model.forge(objectToFind)
+                .destroy()
+                .then(() => {
+                    f();
+                })
+                .catch(ex => {
+                    r(ex);
+                })
+        });
     }
 }
 

@@ -1,8 +1,4 @@
 import chai from 'chai';
-import dbUtils from '../src/server/lib/database/dbUtils';
-
-import Db from '../src/server/lib/database/db';
-import testUtils from './testUtils';
 import setupSession from './DbTestSession';
 
 const assert = chai.assert;
@@ -10,7 +6,7 @@ const assert = chai.assert;
 describe('RepositorySpec', function () {
     var db = null;
     setupSession(before, after, $db => { db = $db; });
-    it('insert', (done) => {
+    it('insert, find and delete', (done) => {
         let userRepository = db.getRepository('user');
         userRepository.insert({
                 name: 'andre',
@@ -21,7 +17,12 @@ describe('RepositorySpec', function () {
                     .then((user) => {
                         assert.isOk(user);
                         assert.strictEqual(user.name, 'andre');
-                        done();
+                        assert.strictEqual(user.email, 'andrerpena@gmail.com');
+                        userRepository.delete(user)
+                            .then(() => {
+                                done();
+                            })
+                            .catch(done);
                     })
                     .catch(done)
             })

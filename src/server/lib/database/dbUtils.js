@@ -8,9 +8,9 @@ export default {
         return knex.schema.createTable('user', function(table) {
             table.increments();
             table.timestamps();
-            table.string('name');
+            table.string('name').unique();
             table.string('displayName');
-            table.string('email');
+            table.string('email').unique();
             table.json('oauthProfiles');
         });
     }
