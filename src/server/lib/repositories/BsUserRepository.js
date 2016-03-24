@@ -25,7 +25,7 @@ class UserRepository extends Repository {
                 }
             }
         };
-        return this.insert(profile);
+        return this.insert(user);
     }
 
     /**
@@ -43,8 +43,8 @@ class UserRepository extends Repository {
         if (!existingUser.photo) {
             existingUser.photo = objectHelper.safeRead((p) => p.photos[0].value, profile, null);
         }
-        if (!existingUser.externalProfiles) {
-            existingUser.externalProfiles = {};
+        if(!existingUser.oauthProfiles) {
+            existingUser.oauthProfiles = {};
         }
         existingUser.oauthProfiles.google = {
             id: profile.id,

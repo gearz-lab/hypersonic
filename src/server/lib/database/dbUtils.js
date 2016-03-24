@@ -11,6 +11,7 @@ export default {
             table.string('name').unique();
             table.string('displayName');
             table.string('email').unique();
+            table.string('photo');
             table.json('oauthProfiles');
         });
     }
