@@ -3,7 +3,7 @@ import db from '../lib/database/dbHelper.js';
 let users = new UserDal();
 
 export default {
-    setup(router) {
+    setup(router, db) {
 
         // routes
 

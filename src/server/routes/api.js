@@ -1,16 +1,18 @@
 var express = require('express');
-var passport = require('passport');
-
 var usersServerApi = require('../api/usersServerApi');
 var mainMenuServerApi = require('../api/mainMenuServerApi');
 var applicationDomainServerApi = require('../api/applicationDomainServerApi');
 var entityServerApi = require('../api/entityServerApi');
 
-var router = express.Router();
+export default function setupApi(db) {
 
-usersServerApi.setup(router);
-mainMenuServerApi.setup(router);
-applicationDomainServerApi.setup(router);
-entityServerApi.setup(router);
+    var router = express.Router();
 
-module.exports = router;
+    usersServerApi.setup(router, db);
+    mainMenuServerApi.setup(router, db);
+    applicationDomainServerApi.setup(router, db);
+    entityServerApi.setup(router, db);
+
+    return router;
+}
+

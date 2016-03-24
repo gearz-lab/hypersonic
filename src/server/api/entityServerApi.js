@@ -52,7 +52,7 @@ class EntityServerApi {
     }
 
 
-    setup(router) {
+    setup(router, db) {
 
         // get
         router.route('/entity/:entity/get/:id').get(function (req, res) {

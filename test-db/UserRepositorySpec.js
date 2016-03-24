@@ -72,7 +72,7 @@ describe('RepositorySpec', function () {
                 name: 'andre',
                 email: 'andrerpena@gmail.com'
             })
-                .then(u => {
+                .then(() => {
                    repo.findOrCreateFromGoogleProfile(googleProfileSample)
                        .then(u => {
                            assert.strictEqual(u.email, 'andrerpena@gmail.com');

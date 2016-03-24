@@ -1,10 +1,9 @@
 import EntityDal from '../lib/repositories/EntityRepository';
-import db from '../lib/database/dbHelper.js';
 import rc from '../lib/database/constants';
 import menuDataBuilder from '../lib/menuDataBuilder';
 
 export default {
-    setup(router:any):void {
+    setup(router:any, db):void {
 
         // routes
 

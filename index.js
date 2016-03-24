@@ -3,17 +3,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var colors = require('colors');
-
+var Db = require('./src/server/lib/database/db');
+var dbUtils = require('./src/server/lib/database/dbUtils');
 var expressReactViews = require('express-react-views');
 var passport = require('passport');
-var googleStrategy = require('./src/server/passport/googleStrategy');
+var setupGoogleStrategy = require('./src/server/passport/googleStrategy');
 
-var db = require('./src/server/lib/database/dbHelper');
-var UserDal = require('./src/server/lib/repositories/UserRepository');
+var appConfig = require('./app/appConfig');
+var db = new Db(appConfig);
 
 var app = express();
-var users = new UserDal();
-
 app.set('views', './src/server/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', expressReactViews.createEngine({beautify: true}));
@@ -23,19 +22,12 @@ passport.serializeUser(function (userId, done) {
 });
 
 passport.deserializeUser(function (userId, done) {
-
-    db.connect(function (error, connection) {
-        if (error) {
-            done(error);
-        }
-        else {
-            users.find(connection, userId, function (error, user) {
-                connection.close();
-                done(null, user);
-            });
-        }
-    });
+    let repo = db.getRepository('user');
+    repo.find({id: userId})
+        .then(u => done(null, u))
+        .catch(done);
 });
+passport.use(setupGoogleStrategy(db));
 
 app.use(express.static('./dist'));
 app.use(cookieParser());
@@ -50,14 +42,14 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(googleStrategy);
 
 // routes
 var auth = require('./src/server/routes/auth');
-var api = require('./src/server/routes/api');
 var def = require('./src/server/routes/app');
+var setupApi = require('./src/server/routes/api');
+
 app.use('/auth', auth);
-app.use('/api', api);
+app.use('/api', setupApi(db));
 app.get('*', def);
 
 app.listen(3000, function () {

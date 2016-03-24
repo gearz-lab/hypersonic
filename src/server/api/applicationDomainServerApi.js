@@ -1,9 +1,8 @@
 import EntityDal from '../lib/repositories/EntityRepository';
-import db from '../lib/database/dbHelper.js';
 import rc from '../lib/database/constants';
 
 export default {
-    setup(router) {
+    setup(router, db) {
 
         // routes
         router.route('/applicationdomain/load').get(function(req, res) {
