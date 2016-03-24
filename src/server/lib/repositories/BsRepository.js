@@ -42,12 +42,16 @@ class BsRepository {
 
     /**
      * Finds a user by id
-     * @param id
+     * @param object
      */
-    find(id) {
-        if (!id) throw Error('\'id\' should be truthy');
+    find(object) {
+        if (!object) throw Error('\'id\' should be truthy');
+
+        // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
+        let objectToFind = isNaN(object) ? object : { id: object };
+
         return new Promise((f, r) => {
-            this.Model.forge({id: id})
+            this.Model.forge(objectToFind)
                 .fetch()
                 .then(m => {
                     f(m.toJSON());

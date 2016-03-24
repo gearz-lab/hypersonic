@@ -9,6 +9,15 @@ export default {
      * @returns {Function}
      */
     dropTestDb(knex) {
+        return knex.raw(`drop database ${config.testDatabaseName}`);
+    },
+
+    /**
+     * Drops the given database if exists
+     * @param knex
+     * @returns {Function}
+     */
+    dropTestDbIfExists(knex) {
         return knex.raw(`drop database if exists ${config.testDatabaseName}`);
     },
 

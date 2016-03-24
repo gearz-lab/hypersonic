@@ -1,40 +1,70 @@
 import chai from 'chai';
-import DbTestSession from './DbTestSession';
-import testUtils from './testUtils';
 import dbUtils from '../src/server/lib/database/dbUtils';
+
 import Db from '../src/server/lib/database/db';
+import testUtils from './testUtils';
 
 const assert = chai.assert;
 
 describe('RepositorySpec', function () {
-    let testSession = new DbTestSession();
-    testSession.setupSession(before, beforeEach, after, afterEach);
+
+    let rootKnex = testUtils.createDefaultKnex();
+    let knex = null;
+    var db = null;
+
+    before((done) => {
+        testUtils.dropTestDbIfExists(rootKnex)
+            .then(() => {
+                testUtils.createTestDb(rootKnex)
+                    .then(() => {
+                        knex = testUtils.createTestDbKnex();
+                        db = new Db({}, knex);
+                        dbUtils.setupDb(knex)
+                            .then(() => {
+                                done();
+                            })
+                            .catch((ex) => {
+                                knex.destroy();
+                                done(ex);
+                            });
+                    })
+                    .catch(function (error) {
+                        done(error);
+                    });
+            })
+            .catch((error) => {
+                done(error);
+            });
+    });
+
+    after((done) => {
+        knex.destroy();
+        testUtils.dropTestDb(rootKnex)
+            .then(() => {
+                rootKnex.destroy();
+                done();
+            })
+            .catch((error) => {
+                done(error);
+            });
+    });
+
     it('insert', (done) => {
 
-        var knex = testUtils.createTestDbKnex();
-        dbUtils.setupDb(knex)
+        let userRepository = db.getRepository('user');
+        userRepository.insert({
+                name: 'andre',
+                email: 'andrerpena@gmail.com'
+            })
             .then(() => {
-                var db = new Db({}, knex);
-                let userRepository = db.getRepository('user');
-
-                userRepository.insert({
-                        name: 'andre',
-                        email: 'andrerpena@gmail.com'
-                    })
+                userRepository.find({email: 'andrerpena@gmail.com'})
                     .then((user) => {
-                        console.log(user);
-                        user.save({
-                            email: 'bola'
-                        })
-                            .then((user) => {
-                                console.log(user);
-                                knex.destroy();
-                                done();
-                            });
-                    }).catch((ex) => {
-                    knex.destroy();
-                    done();
-                });
-            });
+                        assert.isOk(user);
+                        assert.strictEqual(user.name, 'andre');
+                        done();
+                    })
+                    .catch(done)
+            })
+            .catch(done);
     });
 });

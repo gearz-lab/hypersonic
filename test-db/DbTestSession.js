@@ -1,56 +1,47 @@
-import testUtils from './testUtils';
+import testUtils from './testUtils'
+import dbUtils from '../src/server/lib/database/dbUtils';
 
-class DbTestSession {
+/**
+ * Sets up a test session
+ * @param before
+ * @param after
+ */
+export default function setupSession(before, after) {
+    var knex = testUtils.createDefaultKnex();
 
-    /**
-     * Sets up a test session
-     * @param before
-     * @param beforeEach
-     * @param after
-     * @param afterEach
-     */
-    setupSession(before, beforeEach, after, afterEach) {
+    before((done) => {
+        testUtils.dropTestDbIfExists(knex)
+            .then(() => {
+                testUtils.createTestDb(knex)
+                    .then(() => {
+                        let testDbKnex = testUtils.createTestDbKnex();
+                        dbUtils.setupDb(testDbKnex)
+                            .then(() => {
+                                testDbKnex.destroy();
+                                done();
+                            })
+                            .catch((ex) => {
+                                testDbKnex.destroy();
+                                done(ex);
+                            });
+                    })
+                    .catch(function (error) {
+                        done(error);
+                    });
+            })
+            .catch((error) => {
+                done(error);
+            });
+    });
 
-        var knex = testUtils.createDefaultKnex();
-
-        before((done) => {
-            testUtils.dropTestDb(knex)
-                .then(function () {
-                    done();
-                })
-                .catch(function (error) {
-                    done(error);
-                });
-        });
-
-        after((done) => {
-            knex.destroy();
-            done();
-        });
-
-        // calls 'before', creating a connection and a test database
-        beforeEach((done) => {
-            testUtils.createTestDb(knex)
-                .then(function () {
-                    done();
-                })
-                .catch(function (error) {
-                    done(error);
-                });
-        });
-
-        // calls 'after', closing the connection
-        afterEach((done) => {
-            testUtils.dropTestDb(knex)
-                .then(function () {
-                    done();
-                })
-                .catch(function (error) {
-                    done(error);
-                });
-        });
-
-    }
-}
-
-export default DbTestSession;
+    after((done) => {
+        testUtils.dropTestDb(knex)
+            .then(() => {
+                knex.destroy();
+                done();
+            })
+            .catch((error) => {
+                done(error);
+            });
+    });
+};
