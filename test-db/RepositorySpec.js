@@ -20,7 +20,13 @@ describe('RepositorySpec', function () {
                         assert.strictEqual(user.email, 'andrerpena@gmail.com');
                         userRepository.delete(user)
                             .then(() => {
-                                done();
+                                // let's make sure the user no longer exists
+                                userRepository.find({email: 'andrerpena@gmail.com'})
+                                    .then(m => {
+                                       assert.isNull(m);
+                                        done();
+                                    })
+                                    .catch(done);
                             })
                             .catch(done);
                     })
