@@ -54,7 +54,7 @@ class BsRepository {
             this.Model.forge(objectToFind)
                 .fetch()
                 .then(m => {
-                    f(m.toJSON());
+                    f( m ? m.toJSON() : null);
                 })
                 .catch(ex => {
                     r(ex);

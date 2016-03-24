@@ -3,54 +3,14 @@ import dbUtils from '../src/server/lib/database/dbUtils';
 
 import Db from '../src/server/lib/database/db';
 import testUtils from './testUtils';
+import setupSession from './DbTestSession';
 
 const assert = chai.assert;
 
 describe('RepositorySpec', function () {
-
-    let rootKnex = testUtils.createDefaultKnex();
-    let knex = null;
     var db = null;
-
-    before((done) => {
-        testUtils.dropTestDbIfExists(rootKnex)
-            .then(() => {
-                testUtils.createTestDb(rootKnex)
-                    .then(() => {
-                        knex = testUtils.createTestDbKnex();
-                        db = new Db({}, knex);
-                        dbUtils.setupDb(knex)
-                            .then(() => {
-                                done();
-                            })
-                            .catch((ex) => {
-                                knex.destroy();
-                                done(ex);
-                            });
-                    })
-                    .catch(function (error) {
-                        done(error);
-                    });
-            })
-            .catch((error) => {
-                done(error);
-            });
-    });
-
-    after((done) => {
-        knex.destroy();
-        testUtils.dropTestDb(rootKnex)
-            .then(() => {
-                rootKnex.destroy();
-                done();
-            })
-            .catch((error) => {
-                done(error);
-            });
-    });
-
+    setupSession(before, after, $db => { db = $db; });
     it('insert', (done) => {
-
         let userRepository = db.getRepository('user');
         userRepository.insert({
                 name: 'andre',

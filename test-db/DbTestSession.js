@@ -1,27 +1,32 @@
 import testUtils from './testUtils'
 import dbUtils from '../src/server/lib/database/dbUtils';
+import Db from '../src/server/lib/database/db';
 
 /**
  * Sets up a test session
  * @param before
  * @param after
  */
-export default function setupSession(before, after) {
-    var knex = testUtils.createDefaultKnex();
+export default function setupSession(before, after, callback) {
+
+    let rootKnex = testUtils.createDefaultKnex();
+    let knex = null;
+    var db = null;
 
     before((done) => {
-        testUtils.dropTestDbIfExists(knex)
+        testUtils.dropTestDbIfExists(rootKnex)
             .then(() => {
-                testUtils.createTestDb(knex)
+                testUtils.createTestDb(rootKnex)
                     .then(() => {
-                        let testDbKnex = testUtils.createTestDbKnex();
-                        dbUtils.setupDb(testDbKnex)
+                        knex = testUtils.createTestDbKnex();
+                        db = new Db({}, knex);
+                        callback(db);
+                        dbUtils.setupDb(knex)
                             .then(() => {
-                                testDbKnex.destroy();
                                 done();
                             })
                             .catch((ex) => {
-                                testDbKnex.destroy();
+                                knex.destroy();
                                 done(ex);
                             });
                     })
@@ -35,9 +40,10 @@ export default function setupSession(before, after) {
     });
 
     after((done) => {
-        testUtils.dropTestDb(knex)
+        knex.destroy();
+        testUtils.dropTestDb(rootKnex)
             .then(() => {
-                knex.destroy();
+                rootKnex.destroy();
                 done();
             })
             .catch((error) => {
