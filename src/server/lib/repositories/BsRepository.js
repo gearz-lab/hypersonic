@@ -13,12 +13,8 @@ class BsRepository {
         return new Promise((f, r) => {
             return this.Model.forge(object)
                 .save()
-                .then((m) => {
-                    f(m.toJSON());
-                })
-                .catch((ex) => {
-                    r(ex);
-                });
+                .then((m) => f(m.toJSON()))
+                .catch(r);
         });
     }
 
@@ -31,12 +27,8 @@ class BsRepository {
         return new Promise((f, r) => {
             return this.Model.forge({id: object.id})
                 .save(object)
-                .then(m => {
-                    f(m.toJSON());
-                })
-                .catch(ex => {
-                    r(ex);
-                });
+                .then(m => f(m.toJSON()))
+                .catch(r);
         });
     }
 
@@ -48,17 +40,13 @@ class BsRepository {
         if (!object) throw Error('\'id\' should be truthy');
 
         // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
-        let objectToFind = isNaN(object) ? object : { id: object };
+        let objectToFind = isNaN(object) ? object : {id: object};
 
         return new Promise((f, r) => {
             this.Model.forge(objectToFind)
                 .fetch()
-                .then(m => {
-                    f( m ? m.toJSON() : null);
-                })
-                .catch(ex => {
-                    r(ex);
-                })
+                .then(m => f(m ? m.toJSON() : null))
+                .catch(r);
         });
     }
 
@@ -71,17 +59,13 @@ class BsRepository {
         if (!object) throw Error('\'id\' should be truthy');
 
         // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
-        let objectToFind = isNaN(object) ? object : { id: object };
+        let objectToFind = isNaN(object) ? object : {id: object};
 
         return new Promise((f, r) => {
             this.Model.forge(objectToFind)
                 .destroy()
-                .then(() => {
-                    f();
-                })
-                .catch(ex => {
-                    r(ex);
-                })
+                .then(() => f())
+                .catch(r);
         });
     }
 }
