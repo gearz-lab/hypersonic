@@ -4,6 +4,9 @@ export default {
     fields: [
         {
             name: "name"
+        },
+        {
+            name: "email"
         }
     ]
 };

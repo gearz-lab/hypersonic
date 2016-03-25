@@ -17,6 +17,11 @@ export default {
                     message: 'Name is too big.'
                 }
             ]
+        },
+        {
+            name: "email",
+            type: "string",
+            displayName: "E-mail"
         }
     ],
     layouts: [editLayout]
