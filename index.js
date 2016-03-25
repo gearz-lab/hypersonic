@@ -49,7 +49,7 @@ var def = require('./src/server/routes/app');
 var setupApi = require('./src/server/routes/api');
 
 app.use('/auth', auth);
-app.use('/api', setupApi(db));
+app.use('/api', setupApi(appConfig, db));
 app.get('*', def);
 
 app.listen(3000, function () {

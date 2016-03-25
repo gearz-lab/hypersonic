@@ -1,9 +1,11 @@
 import UserDal from '../lib/repositories/UserRepository.js';
-import db from '../lib/database/dbHelper.js';
 let users = new UserDal();
 
 export default {
-    setup(router, db) {
+    setup(router, appConfig, db) {
+        if (!router) throw Error('\'router\' should be truthy');
+        if (!appConfig) throw Error('\'appConfig\' should be truthy');
+        if (!db) throw Error('\'db\' should be truthy');
 
         // routes
 

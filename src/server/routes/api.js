@@ -4,14 +4,16 @@ var mainMenuServerApi = require('../api/mainMenuServerApi');
 var applicationDomainServerApi = require('../api/applicationDomainServerApi');
 var entityServerApi = require('../api/entityServerApi');
 
-export default function setupApi(db) {
-
+export default function setupApi(appConfig, db) {
+    if (!appConfig) throw Error('\'appConfig\' should be truthy');
+    if (!db) throw Error('\'db\' should be truthy');
+    
     var router = express.Router();
 
-    usersServerApi.setup(router, db);
-    mainMenuServerApi.setup(router, db);
-    applicationDomainServerApi.setup(router, db);
-    entityServerApi.setup(router, db);
+    usersServerApi.setup(router, appConfig, db);
+    mainMenuServerApi.setup(router, appConfig, db);
+    applicationDomainServerApi.setup(router, appConfig, db);
+    entityServerApi.setup(router, appConfig, db);
 
     return router;
 }

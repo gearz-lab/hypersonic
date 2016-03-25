@@ -52,7 +52,10 @@ class EntityServerApi {
     }
 
 
-    setup(router, db) {
+    setup(router, appConfig, db) {
+        if (!router) throw Error('\'router\' should be truthy');
+        if (!appConfig) throw Error('\'appConfig\' should be truthy');
+        if (!db) throw Error('\'db\' should be truthy');
 
         // get
         router.route('/entity/:entity/get/:id').get(function (req, res) {

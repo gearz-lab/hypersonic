@@ -12,7 +12,7 @@
     "test-chrome": "./node_modules/.bin/karma start --single-run --browsers Chrome",
     "test-db": "mocha --timeout 15000 --compilers js:babel/register ./test-db/*Spec.js",
     "build-docs": "babel-node ./docs/Build.js",
-    "db-sync": "babel-node ./tools/sync-rdb.js"
+    "db-sync": "babel-node ./tools/setupDb.js"
   },
   "dependencies": {
     "async": "^1.5.2",
