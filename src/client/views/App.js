@@ -4,10 +4,6 @@ import _ from 'underscore';
 import clientApi from '../api/clientApi.js';
 import async from 'async';
 
-var Router = require('react-router')
-    , RouteHandler = Router.RouteHandler
-    , Route = Router.Route;
-
 import Navbar from '../../../node_modules/react-bootstrap/lib/Navbar';
 import Nav from '../../../node_modules/react-bootstrap/lib/Nav';
 
@@ -67,7 +63,7 @@ var DefaultLayout = React.createClass({
                             <MainMenu nodes={this.state.mainMenu} />
                         </div>
                         <div className="col-md-9">
-                            <Router.RouteHandler onNotification={this.handleNotification} />
+                            {this.props.children}
                         </div>
                     </div>
                 </div>

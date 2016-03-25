@@ -13,6 +13,6 @@ describe('MenuDataBuilder', function() {
            }
        ]);
        assert.equal(menuData.contact.display, 'Contact');
-       assert.equal(menuData.contact.nodes.new.display, 'New Contact');
+       assert.equal(menuData.contact.nodes.new.display, 'New');
    })
 });

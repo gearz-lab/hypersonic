@@ -35,9 +35,7 @@ var MainMenuItem = React.createClass({
 
         var indentation = 10 + path.length * 15 + "px";
 
-        var route = this.props.route;
-
-        if(!hasChildren && !route) {
+        if(!hasChildren && !this.props.url) {
             throw Error('Leaf menu items must have a defined route');
         }
 
@@ -56,7 +54,7 @@ var MainMenuItem = React.createClass({
         else {
             // leaf nodes
             return <li className="menu-item menu-item-leaf">
-                        <Link to={route.name} params={route.params} style={{paddingLeft: indentation}}>{display}</Link>
+                        <Link to={this.props.url} style={{paddingLeft: indentation}}>{display}</Link>
                 </li>
         }
 

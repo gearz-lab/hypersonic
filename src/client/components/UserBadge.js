@@ -1,11 +1,7 @@
 import React from 'react';
 
 var ReactBootstrap = require('react-bootstrap')
-    , Nav = ReactBootstrap.Nav
     , NavItem = ReactBootstrap.NavItem;
-
-var ReactRouterBootstrap = require('react-router-bootstrap')
-    , NavItemLink = ReactRouterBootstrap.NavItemLink;
 
 var UserBadge = React.createClass({
     propTypes: {

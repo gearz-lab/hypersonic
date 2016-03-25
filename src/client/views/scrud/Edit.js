@@ -1,13 +1,15 @@
 import _ from 'underscore';
 import React from 'react';
-import Router from '../../../Router.js';
 import Input from '../../../../node_modules/react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
 import clientApi from '../../api/clientApi.js';
+import History from 'react-router/lib/History';
 import async from 'async';
 
 var Edit = React.createClass({
+
+    mixins: [History],
 
     propTypes: {
         entity: React.PropTypes.string.isRequired,
@@ -26,7 +28,7 @@ var Edit = React.createClass({
         let _this = this;
         async.parallel([
             clientApi.applicationDomain.load
-        ], function(errors, results) {
+        ], function (errors, results) {
             _this.setState({
                 applicationDomain: results[0]
             });
@@ -62,11 +64,11 @@ var Edit = React.createClass({
                     });
                 }
 
-                if(!result.generatedKey) {
+                if (!result.generatedKey) {
                     throw Error('Saving an entity should return a key on success');
                 }
 
-                Router.transitionTo('details', {entity: entityName, id: result.generatedKey});
+                this.history.pushState(null, `/e/${entityName}/details/${result.generatedKey}`);
             }
         });
     },
@@ -81,7 +83,7 @@ var Edit = React.createClass({
                 <div className="document">
                     <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
-                        <div> Loading the application domain... </div>
+                        <div> Loading the application domain...</div>
                     </div>
                 </div>
             );
@@ -111,7 +113,7 @@ var Edit = React.createClass({
         }
 
         let layout = _.find(entity.layouts, e => e.name == layoutName);
-        if(!layout) {
+        if (!layout) {
             layoutName = null;
         }
 
@@ -127,7 +129,7 @@ var Edit = React.createClass({
                         layoutName={layoutName}
                         model={{}}
                         onSave={this.handleSave}
-                        />
+                    />
                 </div>
             </div>
         );

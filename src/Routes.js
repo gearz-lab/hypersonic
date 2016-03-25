@@ -9,25 +9,25 @@ import Login from './client/views/Login.js';
 import Edit from './client/views/scrud/Edit.js';
 import Details from './client/views/scrud/Details.js';
 
-import {Route, Routes, DefaultRoute, NotFoundRoute} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 export default (
     <Route>
-        <Route name='app' path='/' handler={App}>
+        <Route name='app' path='/' component={App}>
+            <IndexRoute component={HomePage}/>
 
-            <Route name='details-with-layout' path='/e/:entity/:layout/details/:id' handler={Details} />
-            <Route name='details' path='/e/:entity/details/:id' handler={Details} />
+            <Route path='/e/:entity/:layout/details/:id' component={Details}/>
+            <Route path='/e/:entity/details/:id' component={Details}/>
 
-            <Route name='edit' path='/e/:entity/edit/:id' handler={Edit} />
-            <Route name='edit-with-layout' path='/e/:entity/:layout/edit/:id' handler={Edit} />
+            <Route path='/e/:entity/edit/:id' component={Edit}/>
+            <Route path='/e/:entity/:layout/edit/:id' component={Edit}/>
 
-            <Route name='new' path='/e/:entity/new' handler={Edit} />
-            <Route name='new-with-layout' path='/e/:entity/:layout/edit' handler={Edit} />
+            <Route path='/e/:entity/new' component={Edit}/>
+            <Route path='/e/:entity/:layout/edit' component={Edit}/>
 
-            <Route name='home' path='index' handler={HomePage} />
-            <Route name='about' path='about' handler={About} />
-            <DefaultRoute handler={HomePage}/>
+            <Route path='index' component={HomePage}/>
+            <Route path='about' component={About}/>
         </Route>
-        <Route name='login' path='/login' handler={Login} />
+        <Route name='login' path='/login' component={Login}/>
     </Route>
 )

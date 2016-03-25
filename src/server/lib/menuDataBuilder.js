@@ -14,7 +14,6 @@ class MenuDataBuilder {
         _.each(entities, entity => {
             result[entity.name] = this.getMenuItemsForEntity(entity);
         });
-        result.settings = this.getMenuItemsForSettings();
         return result;
     }
 
@@ -27,53 +26,17 @@ class MenuDataBuilder {
         if (!entity) throw Error('\'entity\' should be truthy');
         if (!entity.name) throw Error('\'entity.name\' should be truthy');
         if (!entity.displayNameSingular) throw Error('\'entity.displayNameSingular\' should be truthy');
-        
+
         return {
             display: entity.displayNameSingular,
             nodes: {
                 new: {
                     display: `New ${entity.displayNameSingular}`,
-                    route: {
-                        name: "new",
-                        params: {
-                            entity: entity.name
-                        }
-                    }
+                    url: `/e/${entity.name}/new`
                 }
             }
-        };
-    }
-
-    /**
-     * Gets menu data for settings
-     * @returns {{display: string, nodes: {customization: {display: string, nodes: {entities: {display: string, nodes: {new: {display: string, route: {name: string, params: {entity: string}}}}}}}}}}
-     */
-    getMenuItemsForSettings() {
-        return {
-            display: "Settings",
-            nodes: {
-                customization: {
-                    display: "Customization",
-                    nodes: {
-                        entities: {
-                            display: "Entities",
-                            nodes: {
-                                new: {
-                                    display: "New",
-                                    route: {
-                                        name: "new",
-                                        params: {
-                                            entity: "entity"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        };
-    }
+        }
+    };
 }
 
 export default new MenuDataBuilder();

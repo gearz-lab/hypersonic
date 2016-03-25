@@ -211,7 +211,7 @@ var MainMenu = React.createClass({
                     collapsed={info.node.collapsed}
                     display={info.node.display}
                     path={info.path}
-                    route={info.node.route}
+                    url={info.node.url}
                     onAnyChange={e => {
                         var newPath = Object.freeze([].concat(info.path));
                         var eventData = e.merge({
