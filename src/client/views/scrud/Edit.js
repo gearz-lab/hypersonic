@@ -1,15 +1,12 @@
 import _ from 'underscore';
 import React from 'react';
-import Input from '../../../../node_modules/react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
 import clientApi from '../../api/clientApi.js';
-import History from 'react-router/lib/History';
 import async from 'async';
+import { browserHistory } from 'react-router'
 
 var Edit = React.createClass({
-
-    mixins: [History],
 
     propTypes: {
         params: React.PropTypes.object.isRequired
@@ -66,14 +63,12 @@ var Edit = React.createClass({
                     throw Error('Saving an entity should return a key on success');
                 }
 
-                this.history.pushState(null, `/e/${entityName}/details/${result.generatedKey}`);
+                browserHistory.push(`/e/${entityName}/details/${result.generatedKey}`);
             }
         });
     },
 
     render: function () {
-
-
 
         // if the application domain hasn't been loaded already
         if (!this.state || !this.state.applicationDomain) {

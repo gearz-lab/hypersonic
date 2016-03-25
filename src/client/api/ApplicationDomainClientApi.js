@@ -1,12 +1,9 @@
-import httpApi from './HttpApi.js';
+import request from 'axios';
 
-class ApplicationDomainClientApi {
-
+export default {
     load(next) {
-        httpApi.get('/api/applicationdomain/load', null, (response) => {
-            next(null, response.data);
-        })
+        request.get('/api/applicationdomain/load')
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
     }
 }
-
-export default new ApplicationDomainClientApi();

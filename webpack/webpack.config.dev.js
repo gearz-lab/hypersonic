@@ -17,6 +17,8 @@ export default {
         extensions: ['', '.js', '.json']
     },
 
+    devtool: 'source-map',
+
     module: {
         loaders: [
             {test: /\.js/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },

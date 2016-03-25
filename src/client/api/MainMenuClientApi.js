@@ -1,11 +1,11 @@
-import httpApi from './HttpApi.js';
+import request from 'axios';
 
 class MainMenuClientApi {
 
     load(next) {
-        httpApi.get('/api/mainmenu/load', null, (response) => {
-            next(null, response.data);
-        })
+        request.get(`/api/mainmenu/load`)
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
     }
 }
 

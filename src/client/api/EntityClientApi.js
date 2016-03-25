@@ -1,6 +1,6 @@
-import httpApi from './HttpApi.js';
+import request from 'axios';
 
-class EntityClientApi {
+export default {
 
     /**
      * Loads the given entity
@@ -8,17 +8,17 @@ class EntityClientApi {
      * @param entityId
      * @param next Callback called when the entity is retrieved
      */
-    load(entityName, entityId, next) {
+    load: function(entityName, entityId, next) {
         if(!entityName) {
             throw Error('entityName is required');
         }
         if(!entityId) {
             throw Error('entityId is required');
         }
-        httpApi.get(`/api/entity/${entityName}/get/${entityId}`, null, (response) => {
-            next(null, response.data);
-        });
-    }
+        request.get(`/api/entity/${entityName}/get/${entityId}`)
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
+    },
 
     /**
      * Saves the given entity
@@ -26,14 +26,15 @@ class EntityClientApi {
      * @param entity The entity being saved
      * @param next Callback called when the save result is retrieved
      */
-    save(entityName, entity, next) {
+    save: function(entityName, entity, next) {
         if(!entityName) {
             throw Error('entityName is required');
         }
-        httpApi.post(`/api/entity/${entityName}/new/`, entity, (response) => {
-            next(null, response.data);
-        });
-    }
+
+        request.post(`/api/entity/${entityName}/new/`)
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
+    },
 
     /**
      * Searchs
@@ -41,14 +42,12 @@ class EntityClientApi {
      * @param searchCriteria
      * @param next
      */
-    search(entityName, searchCriteria, next) {
+    search: function(entityName, searchCriteria, next) {
         if(!entityName) {
             throw Error('entityName is required');
         }
-        httpApi.get(`/api/entity/${entityName}/search`, null, (response) => {
-           next(null, response.data);
-        });
+        request.get(`/api/entity/${entityName}/search`)
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
     }
 }
-
-export default new EntityClientApi();

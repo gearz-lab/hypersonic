@@ -1,4 +1,4 @@
-import httpApi from './HttpApi.js';
+import request from 'axios';
 
 class LoggedUserClientApi {
 
@@ -7,9 +7,9 @@ class LoggedUserClientApi {
      * @param next
      */
     getLoggedUser(next) {
-        httpApi.get('/api/users/loggeduser', null, (response) => {
-            next(null, response.data);
-        })
+        request.get(`/api/users/loggeduser`)
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
     }
 
     /**
@@ -18,9 +18,9 @@ class LoggedUserClientApi {
      * @param next
      */
     find(id, next) {
-        httpApi.get(`/api/users/${id}`, null, (response) => {
-            next(null, response.data);
-        });
+        request.get(`/api/users/${id}`)
+            .then(r => next(null, r.data))
+            .catch(ex => next(ex));
     }
 }
 
