@@ -50,10 +50,11 @@ var DefaultLayout = React.createClass({
 
         return (
             <div>
-                <Navbar brand={<a href="/"></a>} fluid staticTop>
-                    <Nav eventKey={0}>
+                <Navbar  fluid staticTop>
+                    <Nav className="navbar-brand">
+                        <a hfef="/">Gearz app</a>
                     </Nav>
-                    <Nav right>
+                    <Nav pullRight>
                         <UserBadge user={this.state.loggedUser} />
                     </Nav>
                 </Navbar>

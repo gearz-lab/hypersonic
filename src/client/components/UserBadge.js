@@ -5,7 +5,7 @@ var ReactBootstrap = require('react-bootstrap')
 
 var UserBadge = React.createClass({
     propTypes: {
-        user: React.PropTypes.object.isRequired
+        user: React.PropTypes.object
     },
     render: function() {
         let user = this.props.user;

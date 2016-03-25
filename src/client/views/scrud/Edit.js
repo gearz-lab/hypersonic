@@ -12,9 +12,7 @@ var Edit = React.createClass({
     mixins: [History],
 
     propTypes: {
-        entity: React.PropTypes.string.isRequired,
-        layout: React.PropTypes.string,
-        id: React.PropTypes.string
+        params: React.PropTypes.object.isRequired
     },
 
     getInitialState: function () {

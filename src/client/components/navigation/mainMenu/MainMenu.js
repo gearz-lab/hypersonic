@@ -6,7 +6,7 @@ var MainMenu = React.createClass({
     mixins: [gearzMixin],
 
     propTypes: {
-        nodes: React.PropTypes.object.isRequired
+        nodes: React.PropTypes.object
     },
 
     /**
@@ -203,10 +203,11 @@ var MainMenu = React.createClass({
         var mergedNodes = this.mergeNodeCollections(nodes, this.state.nodesCache);
         var flattenNodes = this.flattenNodes(mergedNodes);
 
-        var children = flattenNodes.map(info => (
+        var children = flattenNodes.map((info, i) => (
             this.isNodeHidden(mergedNodes, info.path) ?
                 null :
                 <MainMenuItem
+                    key={`item-${i}`}
                     nodes={info.node.nodes}
                     collapsed={info.node.collapsed}
                     display={info.node.display}
