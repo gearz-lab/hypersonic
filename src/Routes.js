@@ -1,13 +1,10 @@
 import React from 'react';
 
-import App from './client/views/App.js';
-import HomePage from './client/views/Home.js';
-import About from './client/views/About.js';
-import Login from './client/views/Login.js';
-
-//paradigms
-import Edit from './client/views/scrud/Edit.js';
-import Details from './client/views/scrud/Details.js';
+import App from './client/containers/App.js';
+import HomePage from './client/containers/Home.js';
+import Login from './client/containers/Login.js';
+import Edit from './client/containers/Edit.js';
+import Details from './client/components/Details.js';
 
 import {Route, IndexRoute} from 'react-router';
 
@@ -26,7 +23,6 @@ export default (
             <Route path='/e/:entity/:layout/edit' component={Edit}/>
 
             <Route path='index' component={HomePage}/>
-            <Route path='about' component={About}/>
         </Route>
         <Route name='login' path='/login' component={Login}/>
     </Route>

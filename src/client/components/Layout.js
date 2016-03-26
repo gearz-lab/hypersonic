@@ -1,18 +1,14 @@
 import React from 'react';
-
 import _ from 'underscore';
 import clientApi from '../api/clientApi.js';
 import async from 'async';
-
 import Navbar from '../../../node_modules/react-bootstrap/lib/Navbar';
 import Nav from '../../../node_modules/react-bootstrap/lib/Nav';
-
 import MainMenu from '../components/navigation/mainMenu/MainMenu.js';
-
 import NotificationSystem from 'react-notification-system';
 import UserBadge from '../components/UserBadge.js';
 
-var DefaultLayout = React.createClass({
+var Layout = React.createClass({
 
     getInitialState: function() {
         return {
@@ -48,6 +44,8 @@ var DefaultLayout = React.createClass({
 
     render: function() {
 
+        console.log(this.props);
+
         return (
             <div>
                 <Navbar  fluid staticTop>
@@ -72,7 +70,7 @@ var DefaultLayout = React.createClass({
                 {
                     (() => {
                         if (process.env.NODE_ENV !== 'production') {
-                            const DevTools = require('../containers/DevTools');
+                            const DevTools = require('./DevTools');
                             return <DevTools />;
                         }
                     })()
@@ -83,4 +81,4 @@ var DefaultLayout = React.createClass({
     }
 });
 
-export default DefaultLayout;
+export default Layout;

@@ -1,24 +1,22 @@
 import _ from 'underscore';
 import React from 'react';
-import Router from 'react-router';
-import Input from '../../../../node_modules/react-bootstrap/lib/Input'
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
-import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
+import Alert from 'react-bootstrap/lib/Alert'
 
-import clientActions from '../../../client/flux/actions/clientActions.js';
-import clientStores from '../../../client/flux/stores/clientStores.js';
-import clientApi from '../../api/clientApi.js';
+import clientActions from '../flux/actions/clientActions.js';
+import clientStores from '../flux/stores/clientStores.js';
+import clientApi from '../api/clientApi.js';
 
 var Details = React.createClass({
 
-    getInitialState: function() {
-      return {
-          applicationDomain: undefined,
-          model: {}
-      }
+    getInitialState: function () {
+        return {
+            applicationDomain: undefined,
+            model: {}
+        }
     },
 
-    componentDidMount: function() {
+    componentDidMount: function () {
         // logged user
         clientStores.applicationDomain.addChangeListener(this.applicationDomainChanged);
         clientActions.applicationDomain.loadApplicationDomain();
@@ -29,7 +27,7 @@ var Details = React.createClass({
         });
     },
 
-    applicationDomainChanged: function() {
+    applicationDomainChanged: function () {
         this.setState({
             applicationDomain: clientStores.applicationDomain.getApplicationDomain()
         });
@@ -39,19 +37,19 @@ var Details = React.createClass({
      * Returns the document title
      * @returns {*}
      */
-    getDocumentTitle: function() {
+    getDocumentTitle: function () {
         return `Viewing ${this.props.params.entity}`;
     },
 
-    render: function() {
+    render: function () {
 
         // if the application domain hasn't been loaded already
-        if(!this.state || !this.state.applicationDomain) {
+        if (!this.state || !this.state.applicationDomain) {
             return (
                 <div className="document">
                     <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
-                        <div> Loading the application domain... </div>
+                        <div> Loading the application domain...</div>
                     </div>
                 </div>
             );
@@ -63,24 +61,24 @@ var Details = React.createClass({
 
         // try to find the appropriate entity
         let entity = _.find(applicationDomain.entities, e => e.name == entityName);
-        if(!entity) {
+        if (!entity) {
             return (
                 <div className="document">
                     <div className="document-header">{this.getDocumentTitle()}</div>
                     <div className="document-body">
                         <Alert bsStyle='danger'>
-                            <h4>Oh snap! Cound not find entity: <b>{entityName}</b> </h4>
+                            <h4>Oh snap! Cound not find entity: <b>{entityName}</b></h4>
                         </Alert>
                     </div>
                 </div>
             );
         }
 
-        if(!layoutName) {
+        if (!layoutName) {
             layoutName = `${entityName}-details`;
         }
         let layout = _.find(entity.layouts, e => e.name == layoutName);
-        if(!layout) {
+        if (!layout) {
             layoutName = null;
         }
 

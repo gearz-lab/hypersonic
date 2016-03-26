@@ -1,10 +1,10 @@
 import _ from 'underscore';
 import React from 'react';
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
-import Alert from '../../../../node_modules/react-bootstrap/lib/Alert'
-import clientApi from '../../api/clientApi.js';
+import Alert from 'react-bootstrap/lib/Alert'
+import clientApi from '../api/clientApi';
 import async from 'async';
-import { browserHistory } from 'react-router'
+import {browserHistory} from 'react-router'
 
 var Edit = React.createClass({
 
@@ -69,6 +69,8 @@ var Edit = React.createClass({
     },
 
     render: function () {
+
+        console.log(this.props.counter);
 
         // if the application domain hasn't been loaded already
         if (!this.state || !this.state.applicationDomain) {
