@@ -69,7 +69,16 @@ var DefaultLayout = React.createClass({
                     </div>
                 </div>
                 <NotificationSystem ref="notificationSystem" />
+                {
+                    (() => {
+                        if (process.env.NODE_ENV !== 'production') {
+                            const DevTools = require('../containers/DevTools');
+                            return <DevTools />;
+                        }
+                    })()
+                }
             </div>
+
         );
     }
 });

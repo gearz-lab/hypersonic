@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import {render} from 'react-dom';
 import {browserHistory} from 'react-router'
-
-// styles
+import configureStore from './client/store/configureStore';
 import styles from './client/less/styles.less';
-
-import {Router} from 'react-router'
+import { Provider } from 'react-redux';
+import {Router} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
 import routes from './Routes.js';
-
-// favicon
 import favicon from '../assets/favicon.ico';
 
 if (window) {
@@ -20,8 +18,14 @@ var globalizeLocalizer = require('react-widgets/lib/localizers/globalize')
 
 globalizeLocalizer(Globalize);
 
-ReactDom.render((
-    <Router history={browserHistory}>
-        {routes}
-    </Router>
-), document.getElementById('#app_container'));
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+
+render(
+    <Provider store={store}>
+        <Router history={history} routes={routes}/>
+    </Provider>,
+    document.getElementById('#app_container')
+);
+
+
