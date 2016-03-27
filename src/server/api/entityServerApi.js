@@ -14,7 +14,7 @@ class EntityServerApi {
             if(!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
             repo.find({id: entityId})
-                .then(e => res.send(e))
+                .then(e => res.send({status: 'success', entity: e.toJSON()}))
                 .catch(ex => {throw Error(`Could not get entity by id. Details: ${ex}`)});
         });
 
@@ -27,7 +27,7 @@ class EntityServerApi {
             if(!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
             repo.insert(entity)
-                .then(e => res.send({status: 'success', generatedKey: e.id}))
+                .then(e => res.send({status: 'success', entity: e.toJSON()}))
                 .catch(ex => { throw Error(`Could not save entity. Details: ${ex}`)});
         });
 

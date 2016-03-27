@@ -1,16 +1,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Details from '../components/Details';
-import * as userActions from '../actions/user';
+import * as entityActions from '../actions/entity';
 
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        entity: state.entity
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(userActions, dispatch);
+    return bindActionCreators(entityActions, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

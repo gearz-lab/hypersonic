@@ -3,35 +3,7 @@ import React from 'react';
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 import Alert from 'react-bootstrap/lib/Alert'
 
-import clientActions from '../flux/actions/clientActions.js';
-import clientStores from '../flux/stores/clientStores.js';
-import clientApi from '../api/clientApi.js';
-
 var Details = React.createClass({
-
-    getInitialState: function () {
-        return {
-            applicationDomain: undefined,
-            model: {}
-        }
-    },
-
-    componentDidMount: function () {
-        // logged user
-        clientStores.applicationDomain.addChangeListener(this.applicationDomainChanged);
-        clientActions.applicationDomain.loadApplicationDomain();
-        clientApi.currentEntity.load(this.props.params.entity, this.props.params.id, (error, result) => {
-            this.setState({
-                model: result
-            });
-        });
-    },
-
-    applicationDomainChanged: function () {
-        this.setState({
-            applicationDomain: clientStores.applicationDomain.getApplicationDomain()
-        });
-    },
 
     /**
      * Returns the document title
@@ -41,10 +13,14 @@ var Details = React.createClass({
         return `Viewing ${this.props.params.entity}`;
     },
 
+    componentDidMount: function() {
+        this.props.loadEntity(this.props.params.entity, this.props.params.id);
+    },
+
     render: function () {
 
         // if the application domain hasn't been loaded already
-        if (!this.state || !this.state.applicationDomain) {
+        if (!this.props.applicationDomain.data) {
             return (
                 <div className="document">
                     <div className="document-header">{this.getDocumentTitle()}</div>
@@ -57,7 +33,7 @@ var Details = React.createClass({
 
         let entityName = this.props.params.entity;
         let layoutName = this.props.params.layout;
-        let applicationDomain = this.state.applicationDomain;
+        let applicationDomain = this.props.applicationDomain.data;
 
         // try to find the appropriate entity
         let entity = _.find(applicationDomain.entities, e => e.name == entityName);
@@ -93,7 +69,7 @@ var Details = React.createClass({
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
-                        model={this.state.model}/>
+                        model={this.props.entity.data}/>
                 </div>
             </div>
         );

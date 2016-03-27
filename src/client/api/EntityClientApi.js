@@ -6,7 +6,7 @@ export default {
      * @param entityName
      * @param entityId
      */
-    load: function(entityName, entityId,) {
+    load: function(entityName, entityId) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entityId) throw Error('\'entityId\' should be truthy');
 
