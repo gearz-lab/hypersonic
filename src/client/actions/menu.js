@@ -13,7 +13,7 @@ function menuLoaded(menu) {
     if (!menu) throw Error('\'menu\' should be truthy');
     return {
         type: MENU_LOADED,
-        menu: menu
+        data: menu
     }
 }
 

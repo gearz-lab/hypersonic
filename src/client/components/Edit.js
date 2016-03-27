@@ -1,33 +1,12 @@
 import _ from 'underscore';
 import React from 'react';
 import {MetaForm, DefaultComponentFactory} from 'react-metaform';
-import Alert from 'react-bootstrap/lib/Alert'
-import clientApi from '../api/clientApi';
-import async from 'async';
-import {browserHistory} from 'react-router'
+import Alert from 'react-bootstrap/lib/Alert';
 
 var Edit = React.createClass({
 
     propTypes: {
         params: React.PropTypes.object.isRequired
-    },
-
-    getInitialState: function () {
-        return {
-            applicationDomain: undefined,
-            model: {}
-        }
-    },
-
-    componentDidMount: function () {
-        let _this = this;
-        async.parallel([
-            clientApi.applicationDomain.load
-        ], function (errors, results) {
-            _this.setState({
-                applicationDomain: results[0]
-            });
-        });
     },
 
     /**
@@ -47,33 +26,13 @@ var Edit = React.createClass({
      */
     handleSave: function (model) {
         let entityName = this.props.params.entity;
-        let entityId = this.props.params.id;
-
-        clientApi.currentEntity.save(entityName, model, (error, result) => {
-
-            if (result.status == 'success') {
-                if (this.props.onNotification) {
-                    this.props.onNotification({
-                        message: `${entityName} saved`,
-                        level: 'success'
-                    });
-                }
-
-                if (!result.generatedKey) {
-                    throw Error('Saving an entity should return a key on success');
-                }
-
-                browserHistory.push(`/e/${entityName}/details/${result.generatedKey}`);
-            }
-        });
+        this.props.saveEntity(entityName, model);
     },
 
     render: function () {
 
-        console.log(this.props.counter);
-
         // if the application domain hasn't been loaded already
-        if (!this.state || !this.state.applicationDomain) {
+        if (!this.props.applicationDomain.data) {
             return (
                 <div className="document">
                     <div className="document-header">{this.getDocumentTitle()}</div>
@@ -86,7 +45,7 @@ var Edit = React.createClass({
 
         let entityName = this.props.params.entity;
         let layoutName = this.props.params.layout;
-        let applicationDomain = this.state.applicationDomain;
+        let applicationDomain = this.props.applicationDomain.data;
 
         // try to find the appropriate entity
         let entity = _.find(applicationDomain.entities, e => e.name == entityName);

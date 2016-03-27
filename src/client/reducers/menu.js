@@ -1,6 +1,11 @@
 import {MENU_LOADING, MENU_LOADED} from '../actions/menu';
 
-export default function menu(state = {}, action) {
+var defaultState = {
+    status: 'NOT LOADED',
+    data: null
+};
+
+export default function menu(state = defaultState, action) {
     switch (action.type) {
         case MENU_LOADING:
             return {
@@ -10,8 +15,8 @@ export default function menu(state = {}, action) {
         case MENU_LOADED:
             return {
                 status: 'LOADED',
-                data: action.menu
-            }
+                data: action.data
+            };
         default:
             return state
     }

@@ -13,7 +13,7 @@ function userLoaded(user) {
     if (!user) throw Error('\'user\' should be truthy');
     return {
         type: USER_LOADED,
-        user: user
+        data: user
     }
 }
 

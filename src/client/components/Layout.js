@@ -9,8 +9,10 @@ import UserBadge from '../components/UserBadge.js';
 var Layout = React.createClass({
 
     componentDidMount: function() {
-        this.props.loadUser();
+        this.props.loadApplicationDomain();
         this.props.loadMenu();
+        this.props.loadUser();
+        
         this._notificationSystem = this.refs.notificationSystem;
     },
 

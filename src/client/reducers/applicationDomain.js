@@ -1,18 +1,18 @@
-import {USER_LOADING, USER_LOADED} from '../actions/user';
+import {APPLICATION_DOMAIN_LOADING, APPLICATION_DOMAIN_LOADED} from '../actions/applicationDomain';
 
 var defaultState = {
     status: 'NOT LOADED',
     data: null
 };
 
-export default function user(state = defaultState, action) {
+export default function menu(state = defaultState, action) {
     switch (action.type) {
-        case USER_LOADING:
+        case APPLICATION_DOMAIN_LOADING:
             return {
                 status: 'LOADING',
                 data: null
             };
-        case USER_LOADED:
+        case APPLICATION_DOMAIN_LOADED:
             return {
                 status: 'LOADED',
                 data: action.data

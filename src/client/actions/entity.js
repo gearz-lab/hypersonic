@@ -8,7 +8,7 @@ function entitySaving(entity) {
     if (!entity) throw Error('\'entity\' should be truthy');
     return {
         type: ENTITY_SAVING,
-        entity: entity
+        data: entity
     };
 }
 
@@ -17,7 +17,7 @@ function entitySaved(entity, generatedKey) {
     if (!generatedKey) throw Error('\'generatedKey\' should be truthy');
     return {
         type: ENTITY_SAVED,
-        entity: entity,
+        data: entity,
         generatedKey: generatedKey
     };
 }
@@ -27,7 +27,7 @@ function entitySaveError(entity, error) {
     if (!error) throw Error('\'error\' should be truthy');
     return {
         type: ENTITY_SAVE_ERROR,
-        entity: entity,
+        data: entity,
         error: error
     }
 }
