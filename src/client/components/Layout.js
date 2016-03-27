@@ -1,34 +1,16 @@
 import React from 'react';
 import _ from 'underscore';
-import clientApi from '../api/clientApi.js';
-import async from 'async';
-import Navbar from '../../../node_modules/react-bootstrap/lib/Navbar';
-import Nav from '../../../node_modules/react-bootstrap/lib/Nav';
+import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
 import MainMenu from '../components/navigation/mainMenu/MainMenu.js';
 import NotificationSystem from 'react-notification-system';
 import UserBadge from '../components/UserBadge.js';
 
 var Layout = React.createClass({
 
-    getInitialState: function() {
-        return {
-            loggedUser: undefined,
-            mainMenu: undefined
-        }
-    },
-
     componentDidMount: function() {
-        let _this = this;
-        async.parallel([
-            clientApi.users.getLoggedUser,
-            clientApi.mainMenu.load
-        ], function(errors, results) {
-            _this.setState({
-                loggedUser: results[0],
-                mainMenu: results[1]
-            });
-        });
-
+        this.props.loadUser();
+        this.props.loadMenu();
         this._notificationSystem = this.refs.notificationSystem;
     },
 
@@ -43,9 +25,6 @@ var Layout = React.createClass({
     },
 
     render: function() {
-
-        console.log(this.props);
-
         return (
             <div>
                 <Navbar  fluid staticTop>
@@ -53,13 +32,13 @@ var Layout = React.createClass({
                         <a hfef="/">Gearz app</a>
                     </Nav>
                     <Nav pullRight>
-                        <UserBadge user={this.state.loggedUser} />
+                        <UserBadge user={this.props.user.data} />
                     </Nav>
                 </Navbar>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-3">
-                            <MainMenu nodes={this.state.mainMenu} />
+                            <MainMenu nodes={this.props.menu.data} />
                         </div>
                         <div className="col-md-9">
                             {this.props.children}

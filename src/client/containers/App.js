@@ -1,16 +1,18 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Layout from '../components/Layout';
-import * as CounterActions from '../actions/counter';
+import {loadUser}  from '../actions/user';
+import {loadMenu}  from '../actions/menu';
 
 function mapStateToProps(state) {
     return {
-        counter: state.counter
+        user: state.user,
+        menu: state.menu
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(CounterActions, dispatch);
+    return bindActionCreators({loadUser, loadMenu}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

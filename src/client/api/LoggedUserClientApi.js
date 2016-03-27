@@ -1,27 +1,20 @@
-import request from 'axios';
+import http from 'axios';
 
-class LoggedUserClientApi {
-
+export default {
     /**
      * Gets the user logged in
      * @param next
      */
-    getLoggedUser(next) {
-        request.get(`/api/users/loggeduser`)
-            .then(r => next(null, r.data))
-            .catch(ex => next(ex));
-    }
+    getLoggedUser: function(next) {
+        return http.get(`/api/users/loggeduser`);
+    },
 
     /**
      * Gets a user by id
      * @param id
      * @param next
      */
-    find(id, next) {
-        request.get(`/api/users/${id}`)
-            .then(r => next(null, r.data))
-            .catch(ex => next(ex));
+    find: function(id, next) {
+        return http.get(`/api/users/${id}`);
     }
 }
-
-export default new LoggedUserClientApi();

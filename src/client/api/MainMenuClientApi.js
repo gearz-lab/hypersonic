@@ -1,12 +1,7 @@
-import request from 'axios';
+import http from 'axios';
 
-class MainMenuClientApi {
-
-    load(next) {
-        request.get(`/api/mainmenu/load`)
-            .then(r => next(null, r.data))
-            .catch(ex => next(ex));
+export default {
+    load() {
+        return http.get(`/api/mainmenu/load`);
     }
 }
-
-export default new MainMenuClientApi();

@@ -9,7 +9,7 @@ import DevTools from '../components/DevTools';
 
 const logger = createLogger({
   level: 'info',
-  collapsed: true,
+  collapsed: true
 });
 
 const router = routerMiddleware(hashHistory);

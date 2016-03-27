@@ -1,53 +1,39 @@
-import request from 'axios';
+import http from 'axios';
 
 export default {
-
     /**
      * Loads the given entity
      * @param entityName
      * @param entityId
-     * @param next Callback called when the entity is retrieved
      */
-    load: function(entityName, entityId, next) {
-        if(!entityName) {
-            throw Error('entityName is required');
-        }
-        if(!entityId) {
-            throw Error('entityId is required');
-        }
-        request.get(`/api/entity/${entityName}/get/${entityId}`)
-            .then(r => next(null, r.data))
-            .catch(ex => next(ex));
+    load: function(entityName, entityId,) {
+        if (!entityName) throw Error('\'entityName\' should be truthy');
+        if (!entityId) throw Error('\'entityId\' should be truthy');
+
+        return http.get(`/api/entity/${entityName}/get/${entityId}`);
     },
 
     /**
      * Saves the given entity
      * @param entityName The name of the entity being saved
      * @param entity The entity being saved
-     * @param next Callback called when the save result is retrieved
      */
     save: function(entityName, entity, next) {
-        if(!entityName) {
-            throw Error('entityName is required');
-        }
+        if (!entityName) throw Error('\'entityName\' should be truthy');
+        if (!entity) throw Error('\'entity\' should be truthy');
 
-        request.post(`/api/entity/${entityName}/new/`)
-            .then(r => next(null, r.data))
-            .catch(ex => next(ex));
+        return http.post(`/api/entity/${entityName}/new/`, entity);
     },
 
     /**
      * Searchs
      * @param entityName
      * @param searchCriteria
-     * @param next
      */
     search: function(entityName, searchCriteria, next) {
-        if(!entityName) {
-            throw Error('entityName is required');
-        }
-        request.get(`/api/entity/${entityName}/search`)
-            .then(r => next(null, r.data))
-            .catch(ex => next(ex));
+        if (!entityName) throw Error('\'entityName\' should be truthy');
+        if (!searchCriteria) throw Error('\'searchCriteria\' should be truthy');
+
+        return http.get(`/api/entity/${entityName}/search`);
     }
 }
