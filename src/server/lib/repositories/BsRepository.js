@@ -13,7 +13,7 @@ class BsRepository {
         return new Promise((f, r) => {
             return this.Model.forge(object)
                 .save()
-                .then((m) => f(m.toJSON()))
+                .then(m => f(m.toJSON()))
                 .catch(r);
         });
     }

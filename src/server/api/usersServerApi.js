@@ -5,7 +5,12 @@ export default {
         if (!db) throw Error('\'db\' should be truthy');
 
         router.route('/users/loggeduser').get(function(req, res) {
-            res.send(req.user);
+            try {
+                res.send(req.user);
+            }
+            catch(ex) {
+                res.status(500).send(ex.toString());
+            }
         });
     }
 }

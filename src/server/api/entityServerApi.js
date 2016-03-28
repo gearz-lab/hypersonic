@@ -7,28 +7,42 @@ class EntityServerApi {
 
         // get
         router.route('/entity/:entity/get/:id').get(function (req, res) {
-            var entityName = req.params.entity;
-            var entityId = req.params.id;
+            try {
+                var entityName = req.params.entity;
+                var entityId = req.params.id;
 
-            let repo = db.getRepository(entityName);
-            if(!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
+                let repo = db.getRepository(entityName);
+                if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
-            repo.find({id: entityId})
-                .then(e => res.send({status: 'success', entity: e.toJSON()}))
-                .catch(ex => {throw Error(`Could not get entity by id. Details: ${ex}`)});
+                repo.find({id: entityId})
+                    .then(e => res.send({status: 'success', entity: e}))
+                    .catch(ex => {
+                        res.status(500).send(ex.toString());
+                    });
+            }
+            catch (ex) {
+                res.status(500).send(ex.toString());
+            }
         });
 
         // post
         router.route('/entity/:entity/new/').post(function (req, res) {
-            var entityName = req.params.entity;
-            var entity = req.body;
+            try {
+                var entityName = req.params.entity;
+                var entity = req.body;
 
-            let repo = db.getRepository(entityName);
-            if(!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
+                let repo = db.getRepository(entityName);
+                if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
-            repo.insert(entity)
-                .then(e => res.send({status: 'success', entity: e.toJSON()}))
-                .catch(ex => { throw Error(`Could not save entity. Details: ${ex}`)});
+                repo.insert(entity)
+                    .then(e => res.send({status: 'success', entity: e}))
+                    .catch(ex => {
+                        res.status(500).send(ex.toString());
+                    });
+            }
+            catch (ex) {
+                res.status(500).send(ex.toString());
+            }
         });
 
         // search

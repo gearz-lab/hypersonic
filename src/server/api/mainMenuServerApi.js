@@ -8,8 +8,13 @@ export default {
 
         // routes
         router.route('/mainmenu/load').get(function (req, res) {
-            let menuData = menuDataBuilder.getMenuData(appConfig.entities);
-            res.send(menuData);
+            try {
+                let menuData = menuDataBuilder.getMenuData(appConfig.entities);
+                res.send(menuData);
+            }
+            catch(ex) {
+                res.status(500).send(ex.toString());
+            }
         });
 
     }

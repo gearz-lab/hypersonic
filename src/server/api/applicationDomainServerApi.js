@@ -6,10 +6,15 @@ export default {
 
         // routes
         router.route('/applicationdomain/load').get(function (req, res) {
-            let result = {
-                entities: appConfig.entities
-            };
-            res.send(result);
+            try {
+                let result = {
+                    entities: appConfig.entities
+                };
+                res.send(result);
+            }
+            catch(ex) {
+                res.status(500).send(ex.toString());
+            }
         });
     }
 }

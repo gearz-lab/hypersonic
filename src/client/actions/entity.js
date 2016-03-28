@@ -18,8 +18,8 @@ function entitySaving(entityName, entity) {
 }
 
 function entitySaved(entityName, entity) {
+    if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entity) throw Error('\'entity\' should be truthy');
-    if (!generatedKey) throw Error('\'generatedKey\' should be truthy');
     return {
         type: ENTITY_SAVED,
         entityName: entityName,
@@ -46,7 +46,7 @@ export function saveEntity(entityName, entity) {
             .then(r => {
                 if (r.data.status == 'success') {
                     dispatch(entitySaved(entityName, r.data.entity));
-                    browserHistory.push(`/e/${entityName}/details/${r.data.entity.id}`);
+                    //browserHistory.push(`/e/${entityName}/details/${r.data.entity.id}`);
                 }
                 else {
                     dispatch(entitySaveError(entityName, entity, r.data.error));

@@ -18,7 +18,7 @@ export default {
      * @param entityName The name of the entity being saved
      * @param entity The entity being saved
      */
-    save: function(entityName, entity, next) {
+    save: function(entityName, entity) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entity) throw Error('\'entity\' should be truthy');
 
@@ -30,7 +30,7 @@ export default {
      * @param entityName
      * @param searchCriteria
      */
-    search: function(entityName, searchCriteria, next) {
+    search: function(entityName, searchCriteria) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!searchCriteria) throw Error('\'searchCriteria\' should be truthy');
 
