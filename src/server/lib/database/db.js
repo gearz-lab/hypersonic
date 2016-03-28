@@ -1,7 +1,7 @@
 import buildKnex from 'knex';
 import buildBookshelf from 'bookshelf';
-import Repository from '../repositories/BsRepository';
-import UserRepository from '../repositories/BsUserRepository';
+import Repository from '../repositories/Repository';
+import UserRepository from '../repositories/UserRepository';
 
 export default class Db {
     constructor(appConfig, knex) {
@@ -26,7 +26,7 @@ export default class Db {
                 this.models[entity.name] = this.bookshelf.Model.extend({
                     tableName: entity.tableName ? entity.tableName : entity.name
                 });
-                this.services[entity.name] = new Repository(this, entity.name);
+                this.services[entity.name] = new Repository(this.appConfig, this, entity);
             }
         }
 
@@ -34,7 +34,7 @@ export default class Db {
         this.models['user'] =  this.bookshelf.Model.extend({
             tableName: 'user'
         });
-        this.services['user'] = new UserRepository(this);
+        this.services['user'] = new UserRepository(this.appConfig, this);
     }
 
     /**

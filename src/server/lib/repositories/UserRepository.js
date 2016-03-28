@@ -1,10 +1,14 @@
-import Repository from './BsRepository';
+import Repository from './Repository';
 import objectHelper from '../../../common/lib/helpers/objectHelper.js';
+import userEntity from '../../../common/systemEntities/user';
 
 class UserRepository extends Repository {
 
-    constructor(db) {
-        super(db, 'user');
+    constructor(appConfig, db) {
+        if (!appConfig) throw Error('\'appConfig\' should be truthy');
+        if (!db) throw Error('\'db\' should be truthy');
+        
+        super(appConfig, db, userEntity);
     }
 
     /**
@@ -25,7 +29,7 @@ class UserRepository extends Repository {
                 }
             }
         };
-        return this.insert(user);
+        return this.save(user);
     }
 
     /**
@@ -50,7 +54,7 @@ class UserRepository extends Repository {
             id: profile.id,
             raw: profile
         };
-        return this.update(existingUser);
+        return this.save(existingUser);
     }
 
     /**
@@ -65,7 +69,7 @@ class UserRepository extends Repository {
             throw Error('Google profile is not valid');
 
         return new Promise((fulfill, reject) => {
-            this.find({email: email})
+            this.load({email: email})
                 .then((user) => {
 
                     if (user) {

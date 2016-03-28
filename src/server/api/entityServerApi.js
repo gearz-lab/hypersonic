@@ -14,7 +14,7 @@ class EntityServerApi {
                 let repo = db.getRepository(entityName);
                 if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
-                repo.find({id: entityId})
+                repo.load({id: entityId})
                     .then(e => res.send({status: 'success', entity: e}))
                     .catch(ex => {
                         res.status(500).send(ex.toString());
@@ -34,7 +34,7 @@ class EntityServerApi {
                 let repo = db.getRepository(entityName);
                 if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
-                repo.insert(entity)
+                repo.save(entity)
                     .then(e => res.send({status: 'success', entity: e}))
                     .catch(ex => {
                         res.status(500).send(ex.toString());

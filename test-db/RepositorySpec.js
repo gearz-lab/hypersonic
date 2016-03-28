@@ -8,14 +8,14 @@ describe('RepositorySpec', function () {
     setupSession(before, after, $db => {
         db = $db;
     });
-    it('insert, find and delete', (done) => {
+    it('save, find and delete', (done) => {
         let repo = db.getRepository('user');
-        repo.insert({
+        repo.save({
                 name: 'andre',
                 email: 'andrerpena@gmail.com'
             })
             .then(() => {
-                repo.find({email: 'andrerpena@gmail.com'})
+                repo.load({email: 'andrerpena@gmail.com'})
                     .then((user) => {
                         assert.isOk(user);
                         assert.strictEqual(user.name, 'andre');
@@ -23,7 +23,7 @@ describe('RepositorySpec', function () {
                         repo.delete(user)
                             .then(() => {
                                 // let's make sure the user no longer exists
-                                repo.find({email: 'andrerpena@gmail.com'})
+                                repo.load({email: 'andrerpena@gmail.com'})
                                     .then(m => {
                                         assert.isNull(m);
                                         done();

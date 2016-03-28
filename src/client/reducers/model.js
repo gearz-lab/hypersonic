@@ -1,11 +1,11 @@
 import {
-    ENTITY_SAVING,
-    ENTITY_SAVED,
-    ENTITY_SAVE_ERROR,
-    ENTITY_LOADING,
-    ENTITY_LOADED,
-    ENTITY_LOAD_ERROR
-} from '../actions/entity';
+    MODEL_SAVING,
+    MODEL_SAVED,
+    MODEL_SAVE_ERROR,
+    MODEL_LOADING,
+    MODEL_LOADED,
+    MODEL_LOAD_ERROR
+} from '../actions/model';
 
 var defaultState = {
     status: 'NOT LOADED',
@@ -14,38 +14,38 @@ var defaultState = {
 
 export default function menu(state = defaultState, action) {
     switch (action.type) {
-        case ENTITY_SAVING:
+        case MODEL_SAVING:
             return {
                 status: 'SAVING',
                 entityName: action.entityName,
                 data: action.data
             };
-        case ENTITY_SAVED:
+        case MODEL_SAVED:
             return {
                 status: 'SAVED',
                 entityName: action.entityName,
                 data: action.data
             };
-        case ENTITY_SAVE_ERROR:
+        case MODEL_SAVE_ERROR:
             return {
                 status: 'ERROR',
                 entityName: action.entityName,
                 data: action.data,
                 error: action.error
             };
-        case ENTITY_LOADING:
+        case MODEL_LOADING:
             return {
                 status: 'LOADING',
                 entityName: action.entityName,
                 data: action.data
             };
-        case ENTITY_LOADED:
+        case MODEL_LOADED:
             return {
                 status: 'LOADED',
                 entityName: action.entityName,
                 data: action.data
             };
-        case ENTITY_LOAD_ERROR:
+        case MODEL_LOAD_ERROR:
             return {
                 status: 'ERROR',
                 entityName: action.entityName,

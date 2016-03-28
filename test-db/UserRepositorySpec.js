@@ -4,7 +4,7 @@ import googleProfileSample from "./resources/googleProfileSample.js";
 
 const assert = chai.assert;
 
-describe('RepositorySpec', function () {
+describe('UserRepositorySpec', function () {
     var db = null;
     let repo = null;
 
@@ -18,7 +18,7 @@ describe('RepositorySpec', function () {
             .then(u => {
                 assert.isOk(u);
                 // let's go to the database to see if the user has actually been added
-                repo.find(u.id)
+                repo.load(u.id)
                     .then(u => {
                         assert.isOk(u);
                         assert.isOk(u.oauthProfiles);
@@ -32,7 +32,7 @@ describe('RepositorySpec', function () {
             .catch(done);
     });
     it('updateFromGoogleProfile', done => {
-        repo.insert({
+        repo.save({
                 name: 'andre',
                 email: 'andrerpena@gmail.com'
             })
@@ -53,7 +53,7 @@ describe('RepositorySpec', function () {
 
     describe('findOrCreateFromGoogleProfile', () => {
         it('when the user did not exist yet', done => {
-            repo.find({email: 'andrerpena@gmail.com'})
+            repo.load({email: 'andrerpena@gmail.com'})
                 .then(u => {
                     assert.isNull(u);
                     repo.findOrCreateFromGoogleProfile(googleProfileSample)
@@ -68,7 +68,7 @@ describe('RepositorySpec', function () {
                 .catch(done);
         });
         it('when a user with the same e-mail address already existed', done => {
-            repo.insert({
+            repo.save({
                 name: 'andre',
                 email: 'andrerpena@gmail.com'
             })
