@@ -1,3 +1,5 @@
+import { LAYOUT} from '../lib/repositories/Repository';
+
 class EntityServerApi {
 
     setup(router, appConfig, db) {
@@ -34,7 +36,7 @@ class EntityServerApi {
                 let repo = db.getRepository(entityName);
                 if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
 
-                repo.save(entity)
+                repo.save(entity, null, LAYOUT)
                     .then(e => res.send({status: 'success', entity: e}))
                     .catch(ex => {
                         res.status(500).send(ex.toString());

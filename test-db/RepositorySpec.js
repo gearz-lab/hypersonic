@@ -1,5 +1,6 @@
 import chai from 'chai';
 import setupSession from './DbTestSession';
+import { ENTITY } from '../src/server/lib/repositories/Repository';
 
 const assert = chai.assert;
 
@@ -8,7 +9,7 @@ describe('RepositorySpec', function () {
     setupSession(before, after, $db => {
         db = $db;
     });
-    it('save, find and delete', (done) => {
+    it('save, find and delete', done => {
         let repo = db.getRepository('user');
         repo.save({
                 name: 'andre',
@@ -36,4 +37,23 @@ describe('RepositorySpec', function () {
             })
             .catch(done);
     });
+    it('save with custom handlers', done => {
+        let repo = db.getRepository('contact');
+        let handler = repo.findHandler('save', undefined, ENTITY, true);
+        assert.isFunction(handler);
+        repo.save({
+            name: 'Andre',
+            email: 'andrerpena@gmail.com'
+        }, undefined, ENTITY)
+            .then(m => {
+                assert.strictEqual(m.name, 'Andre2');
+                repo.load({ email: 'andrerpena@gmail.com'})
+                    .then(m => {
+                        assert.strictEqual(m.name, 'Andre2');
+                        done();
+                    })
+                    .catch(done);
+            })
+            .catch(done);
+    })
 });

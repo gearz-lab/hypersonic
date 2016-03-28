@@ -31,6 +31,21 @@ export default {
     },
 
     /**
+     * Sets up the test db for testing.
+     * This method should not create the default tables for every application. Those are created automatically
+     * @param knex
+     */
+    setupTestDb(knex) {
+        return knex.schema.createTable('contact', function(table) {
+            table.increments();
+            table.timestamps();
+            table.string('name').unique();
+            table.string('displayName');
+            table.string('email').unique();
+        });
+    },
+
+    /**
      * Creates a knex object with the postgres database so we can create and drop databases
      * @returns {*}
      */
@@ -50,6 +65,19 @@ export default {
             client: 'pg',
             connection: config.testDbConnectionString
         });
+    },
+    
+    getTestAppConfig: function() {
+        return {
+            entities: [
+                {
+                    name: "contact",
+                    save: function (entity, layoutName, context) {
+                        entity.name+= '2';
+                        return context.repository.save(entity, layoutName);
+                    }
+                }
+            ]
+        }
     }
-
 }

@@ -69,9 +69,10 @@ class Repository {
      * @param handlerName
      * @param layoutName
      * @param level
+     * @param strict
      * @returns {function}
      */
-    findHandler(handlerName, layoutName = undefined, level = LAYOUT) {
+    findHandler(handlerName, layoutName = undefined, level = BASE, strict = false) {
         if (!handlerName) throw Error('\'handlerName\' should be truthy');
         if (isNaN(level)) throw Error('level must be a number');
 
@@ -85,10 +86,12 @@ class Repository {
                         if(handler) return handler;
                     }
                 }
+                if(strict) throw Error('Could not find the given handler');
             case ENTITY:
                 // let's try to find the handler on the entity
                 handler = this.entity[handlerName];
                 if(handler) return handler;
+                if(strict) throw Error('Could not find the given handler');
             case BASE:
                 handler = defaultHandlers[handlerName];
                 if(!handler) throw Error(`Handler could not be found. Handler name: ${handlerName}`);
@@ -115,7 +118,7 @@ class Repository {
      * @param level
      * @returns {Promise}
      */
-    save(object, layoutName = undefined, level = LAYOUT) {
+    save(object, layoutName = undefined, level = BASE) {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('save', layoutName, level);
@@ -129,7 +132,7 @@ class Repository {
      * @param level
      * @returns {Promise}
      */
-    load(object, layoutName = undefined, level = LAYOUT) {
+    load(object, layoutName = undefined, level = BASE) {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('load', layoutName, level);
@@ -143,7 +146,7 @@ class Repository {
      * @param level
      * @returns {Promise}
      */
-    delete(object, layoutName = undefined, level = LAYOUT) {
+    delete(object, layoutName = undefined, level = BASE) {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('delete', layoutName, level);
