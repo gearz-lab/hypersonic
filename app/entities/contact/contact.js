@@ -3,6 +3,7 @@ import editLayout from './layouts/contact.edit';
 export default {
     name: "contact",
     displayNameSingular: "Contact",
+    displayNamePlural: "Contacts",
     fields: [
         {
             name: "name",

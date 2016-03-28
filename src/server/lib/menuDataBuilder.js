@@ -30,6 +30,10 @@ class MenuDataBuilder {
         return {
             display: entity.displayNameSingular,
             nodes: {
+                search: {
+                    display: `${entity.displayNamePlural}`,
+                    url: `/e/${entity.name}/search`
+                },
                 new: {
                     display: `New ${entity.displayNameSingular}`,
                     url: `/e/${entity.name}/new`

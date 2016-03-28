@@ -39,10 +39,10 @@ var Layout = React.createClass({
                 </Navbar>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-2">
                             <MainMenu nodes={this.props.menu.data} />
                         </div>
-                        <div className="col-md-9">
+                        <div className="col-md-10">
                             {this.props.children}
                         </div>
                     </div>

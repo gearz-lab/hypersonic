@@ -6,7 +6,6 @@ import * as entityActions from '../actions/entity';
 function mapStateToProps(state) {
     return {
         applicationDomain: state.applicationDomain,
-        user: state.user,
         entity: state.entity
     };
 }
