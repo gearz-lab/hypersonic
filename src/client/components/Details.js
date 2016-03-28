@@ -69,7 +69,7 @@ var Details = React.createClass({
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
-                        model={this.props.entity.data}/>
+                        model={this.props.model.data}/>
                 </div>
             </div>
         );

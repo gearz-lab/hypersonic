@@ -7,7 +7,7 @@ var Grid = React.createClass({
     propTypes: {
         entity: React.PropTypes.string.isRequired,
         applicationDomain: React.PropTypes.object.isRequired,
-        rows: React.PropTypes.object.isRequired
+        rows: React.PropTypes.array.isRequired
     },
 
     renderError: function (message) {
@@ -35,8 +35,8 @@ var Grid = React.createClass({
                 <thead>
                 <tr>
                     {
-                        layout.fields.map(f => {
-                            return <th>{f.displayName ? f.displayName : f.name}</th>
+                        layout.fields.map((f, i) => {
+                            return <th key={`th-${i}`}>{f.displayName ? f.displayName : f.name}</th>
                         })
                     }
                 </tr>
@@ -44,11 +44,15 @@ var Grid = React.createClass({
                 <tbody>
                     {
                         this.props.rows.map(r => {
-                            layout.fields.map(f => {
-                                return <th>
-                                    {r[f.name]}
-                                </th>
-                            })
+                            <tr key={`tr-${i}`}>
+                                {
+                                    layout.fields.map(f => {
+                                        return <th key={`th-${i}`}>
+                                            {r[f.name]}
+                                        </th>
+                                    })
+                                }
+                            </tr>
                         })   
                     }
                 </tbody>

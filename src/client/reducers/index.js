@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import user from './user';
 import menu from './menu';
-import entity from './entity';
+import model from './model';
 import applicationDomain from './applicationDomain';
 
 const rootReducer = combineReducers({
@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
     applicationDomain,
     user,
     menu,
-    entity
+    model
 });
 
 export default rootReducer;
