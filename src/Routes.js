@@ -4,7 +4,7 @@ import App from './client/containers/App.js';
 import HomePage from './client/containers/Home.js';
 import Login from './client/containers/Login.js';
 import Edit from './client/containers/Edit.js';
-import Details from './client/components/Details.js';
+import Details from './client/containers/Details.js';
 
 import {Route, IndexRoute} from 'react-router';
 
