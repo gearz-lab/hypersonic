@@ -1,3 +1,4 @@
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     MODEL_SAVING,
     MODEL_SAVED,
@@ -14,6 +15,8 @@ var defaultState = {
 
 export default function menu(state = defaultState, action) {
     switch (action.type) {
+        case LOCATION_CHANGE:
+            return {};
         case MODEL_SAVING:
             return {
                 status: 'SAVING',
