@@ -28,12 +28,16 @@ export default {
     /**
      * Searchs
      * @param entityName
-     * @param searchCriteria
+     * @param criteria
      */
-    search: function(entityName, searchCriteria) {
+    search: function(entityName, criteria) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
-        if (!searchCriteria) throw Error('\'searchCriteria\' should be truthy');
+        if (criteria === undefined || criteria === null) throw Error('\'criteria\' should not be null or undefined');
 
-        return http.get(`/api/entity/${entityName}/search`);
+        return http.get(`/api/entity/${entityName}/search`, {
+            params: {
+                q: criteria
+            }
+        });
     }
 }

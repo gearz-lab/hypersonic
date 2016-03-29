@@ -25,5 +25,19 @@ export default {
             displayName: "E-mail"
         }
     ],
-    layouts: [editLayout]
+    layouts: [editLayout],
+    search: function(criteria, layoutName, context) {
+        return new Promise((f, r) => {
+            f([
+                {
+                    name: 'bola',
+                    email: 'bola@jog.com'
+                },
+                {
+                    name: 'bola2',
+                    email: 'bola@jog.com2'
+                }
+            ])
+        })
+    }
 };

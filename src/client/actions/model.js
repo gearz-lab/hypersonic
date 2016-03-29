@@ -1,13 +1,13 @@
 import api from '../api/EntityClientApi';
 import {browserHistory} from 'react-router'
-export const MODEL_SAVING = 'ENTITY_SAVING';
-export const MODEL_SAVED = 'ENTITY_SAVED';
-export const MODEL_SAVE_ERROR = 'ENTITY_SAVE_ERROR';
-export const MODEL_LOADING = 'ENTITY_LOADING';
-export const MODEL_LOADED = 'ENTITY_LOADED';
-export const MODEL_LOAD_ERROR = 'ENTITY_LOAD_ERROR';
+export const MODEL_SAVING = 'MODEL_SAVING';
+export const MODEL_SAVED = 'MODEL_SAVED';
+export const MODEL_SAVE_ERROR = 'MODEL_SAVE_ERROR';
+export const MODEL_LOADING = 'MODEL_LOADING';
+export const MODEL_LOADED = 'MODEL_LOADED';
+export const MODEL_LOAD_ERROR = 'MODEL_LOAD_ERROR';
 
-function entitySaving(entityName, entity) {
+function modelSaving(entityName, entity) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entity) throw Error('\'entity\' should be truthy');
     return {
@@ -17,7 +17,7 @@ function entitySaving(entityName, entity) {
     };
 }
 
-function entitySaved(entityName, entity) {
+function modelSaved(entityName, entity) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entity) throw Error('\'entity\' should be truthy');
     return {
@@ -27,7 +27,7 @@ function entitySaved(entityName, entity) {
     };
 }
 
-function entitySaveError(entityName, entity, error) {
+function modelSaveError(entityName, entity, error) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entity) throw Error('\'entity\' should be truthy');
     if (!error) throw Error('\'error\' should be truthy');
@@ -41,15 +41,15 @@ function entitySaveError(entityName, entity, error) {
 
 export function saveEntity(entityName, entity) {
     return dispatch => {
-        dispatch(entitySaving(entityName, entity));
+        dispatch(modelSaving(entityName, entity));
         api.save(entityName, entity)
             .then(r => {
                 if (r.data.status == 'success') {
-                    dispatch(entitySaved(entityName, r.data.entity));
+                    dispatch(modelSaved(entityName, r.data.entity));
                     browserHistory.push(`/e/${entityName}/details/${r.data.entity.id}`);
                 }
                 else {
-                    dispatch(entitySaveError(entityName, entity, r.data.error));
+                    dispatch(modelSaveError(entityName, entity, r.data.error));
                 }
             })
             .catch(ex => {
@@ -58,7 +58,7 @@ export function saveEntity(entityName, entity) {
     };
 }
 
-function entityLoading(entityName, data) {
+function modelLoading(entityName, data) {
     if (!entityName) throw Error('\'entity\' should be truthy');
     if (!data) throw Error('\'data\' should be truthy');
     return {
@@ -68,7 +68,7 @@ function entityLoading(entityName, data) {
     };
 }
 
-function entityLoaded(entityName, entity) {
+function modelLoaded(entityName, entity) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entity) throw Error('\'entity\' should be truthy');
     return {
@@ -78,7 +78,7 @@ function entityLoaded(entityName, entity) {
     };
 }
 
-function entityLoadError(entityName, id, error) {
+function modelLoadError(entityName, id, error) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!id) throw Error('\'id\' should be truthy');
     if (!error) throw Error('\'error\' should be truthy');
@@ -93,14 +93,14 @@ function entityLoadError(entityName, id, error) {
 export function loadEntity(entityName, id) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     return dispatch => {
-        dispatch(entityLoading(entityName, {id}));
+        dispatch(modelLoading(entityName, {id}));
         api.load(entityName, id)
             .then(r => {
                 if (r.data.status == 'success') {
-                    dispatch(entityLoaded(entityName, r.data.entity));
+                    dispatch(modelLoaded(entityName, r.data.entity));
                 }
                 else {
-                    dispatch(entityLoadError(entityName, id, r.data.error));
+                    dispatch(modelLoadError(entityName, id, r.data.error));
                 }
             })
             .catch(ex => {
@@ -112,14 +112,14 @@ export function loadEntity(entityName, id) {
 export function searchEntities(entityName, criteria) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     return dispatch => {
-        dispatch(entityLoading(entityName, {}));
-        api.load(entityName, id)
+        dispatch(modelLoading(entityName, {}));
+        api.search(entityName, criteria)
             .then(r => {
                 if (r.data.status == 'success') {
-                    dispatch(entityLoaded(entityName, r.data.entity));
+                    dispatch(modelLoaded(entityName, r.data.result));
                 }
                 else {
-                    dispatch(entityLoadError(entityName, id, r.data.error));
+                    dispatch(modelLoadError(entityName, id, r.data.error));
                 }
             })
             .catch(ex => {

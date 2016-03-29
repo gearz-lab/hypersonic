@@ -49,7 +49,22 @@ class EntityServerApi {
 
         // search
         router.route('/entity/:entity/search').get((req, res) => {
-            res.send([{}]);
+            try {
+                var entityName = req.params.entity;
+                var criteria = req.params.q;
+
+                let repo = db.getRepository(entityName);
+                if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
+
+                repo.search(criteria, null, LAYOUT)
+                    .then(r => res.send({status: 'success', result: r}))
+                    .catch(ex => {
+                        res.status(500).send(ex.toString());
+                    });
+            }
+            catch (ex) {
+                res.status(500).send(ex.toString());
+            }
         });
 
     }

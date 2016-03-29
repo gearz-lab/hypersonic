@@ -46,6 +46,10 @@ var defaultHandlers = {
                 .then(() => f())
                 .catch(r);
         });
+    },
+
+    search: function(criteria, layoutName, context) {
+        throw Error('The BASE search handler is still not implemented. Please implement the search handler on the Entity or on the Layout');
     }
 };
 
@@ -137,6 +141,18 @@ class Repository {
 
         let handler = this.findHandler('load', layoutName, level);
         return handler(object, layoutName, this.getHandlerContext());
+    }
+
+    /**
+     * Searches by the given criteria
+     * @param object
+     * @param layoutName
+     * @param level
+     * @returns {Promise}
+     */
+    search(criteria, layoutName = undefined, level = BASE) {
+        let handler = this.findHandler('search', layoutName, level);
+        return handler(criteria, layoutName, this.getHandlerContext());
     }
 
     /**

@@ -9,6 +9,10 @@ var Search = React.createClass({
         params: React.PropTypes.object.isRequired
     },
 
+    componentDidMount: function() {
+        this.props.searchEntities(this.props.params.entity, '');
+    },
+
     /**
      * Returns the document title
      * @returns {*}
@@ -18,11 +22,16 @@ var Search = React.createClass({
     },
 
     isReady: function() {
-        return this.props.applicationDomain.data;
+        return this.props.applicationDomain.data && this.props.model.data;
     },
     
     render: function () {
         if(!this.isReady()) return <LoadingBox/>;
+
+        let rows = []
+        if( Object.prototype.toString.call( this.props.model.data ) === '[object Array]' ) {
+            rows = this.props.model.data;
+        }
 
         return (
             <div className="document">
@@ -35,7 +44,7 @@ var Search = React.createClass({
                             <Button>Right</Button>
                         </ButtonGroup>
                     </div>
-                    <Grid entity={this.props.params.entity} applicationDomain={this.props.applicationDomain.data} rows={[]} />
+                    <Grid entity={this.props.params.entity} applicationDomain={this.props.applicationDomain.data} rows={rows} />
                 </div>
             </div>
         );

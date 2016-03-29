@@ -30,6 +30,8 @@ var Grid = React.createClass({
         if (!layout)
             layout = entity;
 
+        console.log(layout.fields);
+
         return (
             <Table bordered condensed>
                 <thead>
@@ -43,13 +45,13 @@ var Grid = React.createClass({
                 </thead>
                 <tbody>
                     {
-                        this.props.rows.map(r => {
-                            <tr key={`tr-${i}`}>
+                        this.props.rows.map((r, i) => {
+                            return <tr key={`tr-${i}`}>
                                 {
-                                    layout.fields.map(f => {
-                                        return <th key={`th-${i}`}>
+                                    layout.fields.map((f, j) => {
+                                        return <td key={`td-${i}${j}`}>
                                             {r[f.name]}
-                                        </th>
+                                        </td>
                                     })
                                 }
                             </tr>
