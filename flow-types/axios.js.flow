@@ -1,0 +1,4 @@
+declare module axios {
+    declare function get(url:string, params:any): Promise;
+    declare function post(url:string, params:any): Promise;
+}
