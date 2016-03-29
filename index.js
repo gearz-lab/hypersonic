@@ -23,7 +23,7 @@ passport.serializeUser(function (userId, done) {
 
 passport.deserializeUser(function (userId, done) {
     let repo = db.getRepository('user');
-    repo.find({id: userId})
+    repo.load({id: userId})
         .then(u => done(null, u))
         .catch(done);
 });
