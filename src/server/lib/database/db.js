@@ -50,6 +50,14 @@ export default class Db {
     }
 
     /**
+     * Gets the knex instance
+     * @returns {*}
+     */
+    getKnex() {
+        return this.knex;
+    }
+
+    /**
      * Returns the given repository
      * @param modelName
      * @returns {*}

@@ -16,7 +16,7 @@ var defaultState = {
 export default function menu(state = defaultState, action) {
     switch (action.type) {
         case LOCATION_CHANGE:
-            return {};
+            return action.action == 'PUSH' ? {} : state;
         case MODEL_SAVING:
             return {
                 status: 'SAVING',

@@ -26,18 +26,14 @@ export default {
         }
     ],
     layouts: [editLayout],
-    search: function(criteria, layoutName, context) {
+    search: function (criteria, layoutName, ctx) {
         return new Promise((f, r) => {
-            f([
-                {
-                    name: 'bola',
-                    email: 'bola@jog.com'
-                },
-                {
-                    name: 'bola2',
-                    email: 'bola@jog.com2'
-                }
-            ])
+            ctx.model.fetchAll()
+                .then(m => {
+                    f(m.toJSON());
+                    console.log(m.toJSON());
+                })
+                .catch(r);
         })
     }
 };

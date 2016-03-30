@@ -23,7 +23,6 @@ export default {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entity) throw Error('\'entity\' should be truthy');
 
-
         return http.post(`/api/entity/${entityName}/new/`, entity);
     },
 

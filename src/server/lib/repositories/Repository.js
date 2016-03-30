@@ -64,6 +64,7 @@ class Repository {
         this.db = db;
         this.entity = entity;
         this.model = db.getModel(entity.name);
+        this.knex = db.getKnex();
     }
 
     /**
@@ -110,8 +111,9 @@ class Repository {
     getHandlerContext() {
         return {
             repository: this,
-            model: this.model,
-            db: this.db
+            db: this.db,
+            model: this.model, // the bookshelf Model type
+            knex: this.knex
         }
     }
 

@@ -51,7 +51,7 @@ class EntityServerApi {
         router.route('/entity/:entity/search').get((req, res) => {
             try {
                 var entityName = req.params.entity;
-                var criteria = req.params.q;
+                var criteria = req.query.q;
 
                 let repo = db.getRepository(entityName);
                 if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
