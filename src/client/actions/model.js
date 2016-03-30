@@ -109,11 +109,11 @@ export function loadEntity(entityName, id) {
     };
 }
 
-export function searchEntities(entityName, criteria) {
+export function searchEntities(entityName, criteria, page) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     return dispatch => {
         dispatch(modelLoading(entityName, {}));
-        api.search(entityName, criteria)
+        api.search(entityName, criteria, page)
             .then(r => {
                 if (r.data.status == 'success') {
                     dispatch(modelLoaded(entityName, r.data.result));

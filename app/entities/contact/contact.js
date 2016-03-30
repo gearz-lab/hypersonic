@@ -26,12 +26,14 @@ export default {
         }
     ],
     layouts: [editLayout],
-    search: function (criteria, layoutName, ctx) {
+    search: function (criteria, page, layoutName, ctx) {
         return new Promise((f, r) => {
-            ctx.model.fetchAll()
-                .then(m => {
-                    f(m.toJSON());
-                    console.log(m.toJSON());
+            Promise.all([ctx.model.fetchAll(), ctx.model.count()])
+                .then(r => {
+                    let count = r[1];
+                    let rows = r[0].toJSON();
+                    let pages = Math.ceil(count / ctx.appConfig.data.pageSize);
+                    f({ count, page, pages, rows });
                 })
                 .catch(r);
         })

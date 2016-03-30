@@ -3,13 +3,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var colors = require('colors');
+var setupAppConfig = require('./src/common/lib/helpers/appConfigHelper');
 var Db = require('./src/server/lib/database/db');
 var dbUtils = require('./src/server/lib/database/dbUtils');
 var expressReactViews = require('express-react-views');
 var passport = require('passport');
 var setupGoogleStrategy = require('./src/server/passport/googleStrategy');
 
-var appConfig = require('./app/appConfig');
+var appConfig = setupAppConfig(require('./app/appConfig'));
 var db = new Db(appConfig);
 
 var app = express();

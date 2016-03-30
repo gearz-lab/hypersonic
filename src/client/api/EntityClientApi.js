@@ -31,13 +31,14 @@ export default {
      * @param entityName
      * @param criteria
      */
-    search: function (entityName:string, criteria:string) {
+    search: function (entityName:string, page:number, criteria:string) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (criteria === undefined || criteria === null) throw Error('\'criteria\' should not be null or undefined');
 
         return http.get(`/api/entity/${entityName}/search`, {
             params: {
-                q: criteria
+                q: criteria,
+                p: page
             }
         });
     }

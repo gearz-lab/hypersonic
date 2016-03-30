@@ -48,7 +48,7 @@ var defaultHandlers = {
         });
     },
 
-    search: function(criteria, layoutName, context) {
+    search: function(criteria, page, layoutName, context) {
         throw Error('The BASE search handler is still not implemented. Please implement the search handler on the Entity or on the Layout');
     }
 };
@@ -110,6 +110,7 @@ class Repository {
      */
     getHandlerContext() {
         return {
+            appConfig: this.appConfig,
             repository: this,
             db: this.db,
             model: this.model, // the bookshelf Model type
@@ -147,14 +148,15 @@ class Repository {
 
     /**
      * Searches by the given criteria
-     * @param object
+     * @param criteria
+     * @param page
      * @param layoutName
      * @param level
      * @returns {Promise}
      */
-    search(criteria, layoutName = undefined, level = BASE) {
+    search(criteria, page, layoutName = undefined, level = BASE) {
         let handler = this.findHandler('search', layoutName, level);
-        return handler(criteria, layoutName, this.getHandlerContext());
+        return handler(criteria, page, layoutName, this.getHandlerContext());
     }
 
     /**
