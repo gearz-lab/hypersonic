@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
-import MainMenu from '../components/navigation/mainMenu/MainMenu.js';
+import VNav from '../components/navigation/VNav';
 import NotificationSystem from 'react-notification-system';
 import UserBadge from '../components/UserBadge.js';
 
@@ -40,7 +40,7 @@ var Layout = React.createClass({
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-2">
-                            <MainMenu nodes={this.props.menu.data} />
+                            <VNav nodes={this.props.menu.data} />
                         </div>
                         <div className="col-md-10">
                             {this.props.children}

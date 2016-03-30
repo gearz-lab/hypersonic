@@ -114,7 +114,8 @@ class Repository {
             repository: this,
             db: this.db,
             model: this.model, // the bookshelf Model type
-            knex: this.knex
+            knex: this.knex,
+            entity: this.entity
         }
     }
 
