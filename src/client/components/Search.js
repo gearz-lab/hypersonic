@@ -22,7 +22,7 @@ var Search = React.createClass({
     },
 
     isReady: function() {
-        return this.props.applicationDomain.data && this.props.model.data.rows;
+        return this.props.applicationDomain.data && this.props.model.data && this.props.model.data.rows;
     },
     
     render: function () {

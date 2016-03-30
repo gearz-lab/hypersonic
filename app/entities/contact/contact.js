@@ -26,17 +26,7 @@ export default {
         }
     ],
     layouts: [editLayout],
-    search: function (criteria, page, layoutName, ctx) {
-        return new Promise((f, r) => {
-            let modifiers = {where: ['id', '>', '1'], limit: 10, offset: 0};
-            Promise.all([ctx.model.where('id', '>', '1').count(), ctx.model.query(modifiers).fetchAll()])
-                .then(r => {
-                    let count = r[0];
-                    let rows = r[1].toJSON();
-                    let pages = Math.ceil(count / ctx.appConfig.data.pageSize);
-                    f({ count, page, pages, rows });
-                })
-                .catch(r);
-        })
+    search: function (criteria, page, layoutName, context) {
+        return context.repository.helpers.paginate(function() { return this.where('name', 'like', `%${criteria}%`) }, page);
     }
 };

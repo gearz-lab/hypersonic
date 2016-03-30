@@ -8,7 +8,7 @@ export const BASE = 0;
 var defaultHandlers = {
 
     // default functions
-    save: function(object, layoutName, context) {
+    save: function (object, layoutName, context) {
         if (!object) throw Error('\'object\' should be truthy');
 
         let forgeObject = object.id ? {id: object.id} : {};
@@ -20,7 +20,7 @@ var defaultHandlers = {
         });
     },
 
-    load: function(object, layoutName, context) {
+    load: function (object, layoutName, context) {
         if (!object) throw Error('\'id\' should be truthy');
 
         // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
@@ -34,7 +34,7 @@ var defaultHandlers = {
         });
     },
 
-    delete: function(object, layoutName, context) {
+    delete: function (object, layoutName, context) {
         if (!object) throw Error('\'id\' should be truthy');
 
         // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
@@ -48,10 +48,32 @@ var defaultHandlers = {
         });
     },
 
-    search: function(criteria, page, layoutName, context) {
+    search: function (criteria, page, layoutName, context) {
         throw Error('The BASE search handler is still not implemented. Please implement the search handler on the Entity or on the Layout');
     }
 };
+
+class Helpers {
+    constructor(context) {
+        if (!context) throw Error('\'context\' should be truthy');
+        this.context = context;
+    }
+
+    paginate(whereFunction, page) {
+        let modifiers = {where: whereFunction, limit: 10, offset: 0};
+        return new Promise((f, r) => {
+            let tableName = this.context.entity.tableName ? this.context.entity.tableName : this.context.entity.name;
+            Promise.all([this.context.knex.table(tableName).where(modifiers.where).count('*'), this.context.model.query(modifiers).fetchAll()])
+                .then(result => {
+                    let count = result[0][0].count;
+                    let rows = result[1].toJSON();
+                    let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
+                    f({count, page, pages, rows});
+                })
+                .catch(r);
+        });
+    }
+}
 
 class Repository {
 
@@ -65,6 +87,8 @@ class Repository {
         this.entity = entity;
         this.model = db.getModel(entity.name);
         this.knex = db.getKnex();
+
+        this.helpers = new Helpers(this.getContext());
     }
 
     /**
@@ -82,24 +106,24 @@ class Repository {
         if (isNaN(level)) throw Error('level must be a number');
 
         let handler = undefined;
-        switch(level) {
+        switch (level) {
             case LAYOUT:
-                if(layoutName) {
+                if (layoutName) {
                     let layout = _.find(this.entity.layouts, l => l.name == layoutName);
-                    if(layout) {
+                    if (layout) {
                         handler = layout[handlerName];
-                        if(handler) return handler;
+                        if (handler) return handler;
                     }
                 }
-                if(strict) throw Error('Could not find the given handler');
+                if (strict) throw Error('Could not find the given handler');
             case ENTITY:
                 // let's try to find the handler on the entity
                 handler = this.entity[handlerName];
-                if(handler) return handler;
-                if(strict) throw Error('Could not find the given handler');
+                if (handler) return handler;
+                if (strict) throw Error('Could not find the given handler');
             case BASE:
                 handler = defaultHandlers[handlerName];
-                if(!handler) throw Error(`Handler could not be found. Handler name: ${handlerName}`);
+                if (!handler) throw Error(`Handler could not be found. Handler name: ${handlerName}`);
                 return handler;
         }
     }
@@ -108,7 +132,7 @@ class Repository {
      * Gets the context object passed to handlers
      * @returns {{repository: Repository, model: Model, db: *}}
      */
-    getHandlerContext() {
+    getContext() {
         return {
             appConfig: this.appConfig,
             repository: this,
@@ -130,7 +154,7 @@ class Repository {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('save', layoutName, level);
-        return handler(object, layoutName, this.getHandlerContext());
+        return handler(object, layoutName, this.getContext());
     }
 
     /**
@@ -144,7 +168,7 @@ class Repository {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('load', layoutName, level);
-        return handler(object, layoutName, this.getHandlerContext());
+        return handler(object, layoutName, this.getContext());
     }
 
     /**
@@ -157,7 +181,7 @@ class Repository {
      */
     search(criteria, page, layoutName = undefined, level = BASE) {
         let handler = this.findHandler('search', layoutName, level);
-        return handler(criteria, page, layoutName, this.getHandlerContext());
+        return handler(criteria, page, layoutName, this.getContext());
     }
 
     /**
@@ -171,7 +195,7 @@ class Repository {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('delete', layoutName, level);
-        return handler(object, layoutName, this.getHandlerContext());
+        return handler(object, layoutName, this.getContext());
     }
 }
 
