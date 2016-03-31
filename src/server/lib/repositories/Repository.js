@@ -59,8 +59,11 @@ class Helpers {
         this.context = context;
     }
 
-    paginate(whereFunction, page) {
-        let modifiers = {where: whereFunction, limit: 10, offset: 0};
+    paginate(criteria, whereFunction, page) {
+        if (!whereFunction) throw Error('\'whereFunction\' should be truthy');
+        if (!page) throw Error('\'page\' should be truthy');
+
+        let modifiers = {where: whereFunction, limit: this.context.appConfig.data.pageSize, offset: (page - 1) * this.context.appConfig.data.pageSize};
         return new Promise((f, r) => {
             let tableName = this.context.entity.tableName ? this.context.entity.tableName : this.context.entity.name;
             Promise.all([this.context.knex.table(tableName).where(modifiers.where).count('*'), this.context.model.query(modifiers).fetchAll()])
@@ -68,7 +71,7 @@ class Helpers {
                     let count = result[0][0].count;
                     let rows = result[1].toJSON();
                     let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
-                    f({count, page, pages, rows});
+                    f({criteria, count, page, pages, rows});
                 })
                 .catch(r);
         });
@@ -179,7 +182,7 @@ class Repository {
      * @param level
      * @returns {Promise}
      */
-    search(criteria, page, layoutName = undefined, level = BASE) {
+    search(criteria, page = 1, layoutName = undefined, level = BASE) {
         let handler = this.findHandler('search', layoutName, level);
         return handler(criteria, page, layoutName, this.getContext());
     }

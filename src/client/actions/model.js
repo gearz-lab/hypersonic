@@ -6,6 +6,7 @@ export const MODEL_SAVE_ERROR = 'MODEL_SAVE_ERROR';
 export const MODEL_LOADING = 'MODEL_LOADING';
 export const MODEL_LOADED = 'MODEL_LOADED';
 export const MODEL_LOAD_ERROR = 'MODEL_LOAD_ERROR';
+export const MODEL_CHANGE_SEARCH_CRITERIA = 'MODEL_CHANGE_SEARCH_CRITERIA';
 
 function modelSaving(entityName, entity) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
@@ -68,13 +69,14 @@ function modelLoading(entityName, data) {
     };
 }
 
-function modelLoaded(entityName, entity) {
+function modelLoaded(entityName, entity, elapsed) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entity) throw Error('\'entity\' should be truthy');
     return {
         type: MODEL_LOADED,
         entityName: entityName,
-        data: entity
+        data: entity,
+        elapsed: elapsed
     };
 }
 
@@ -87,6 +89,13 @@ function modelLoadError(entityName, id, error) {
         entityName: entityName,
         data: {id: id},
         error: error
+    }
+}
+
+export function changeSearchCriteria(criteria) {
+    return {
+        type: MODEL_CHANGE_SEARCH_CRITERIA,
+        criteria: criteria
     }
 }
 
@@ -111,12 +120,15 @@ export function loadEntity(entityName, id) {
 
 export function searchEntities(entityName, criteria, page) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
+    let startTime = new Date();
     return dispatch => {
         dispatch(modelLoading(entityName, {}));
-        api.search(entityName, criteria, page)
+        api.search(entityName, page, criteria)
             .then(r => {
+                var endTime = new Date();
                 if (r.data.status == 'success') {
-                    dispatch(modelLoaded(entityName, r.data.result));
+                    var elapsed = endTime - startTime;
+                    dispatch(modelLoaded(entityName, r.data.result, elapsed));
                 }
                 else {
                     dispatch(modelLoadError(entityName, id, r.data.error));

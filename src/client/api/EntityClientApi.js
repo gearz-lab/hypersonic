@@ -29,6 +29,7 @@ export default {
     /**
      * Searchs
      * @param entityName
+     * @param page
      * @param criteria
      */
     search: function (entityName:string, page:number, criteria:string) {
