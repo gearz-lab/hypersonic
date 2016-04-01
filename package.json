@@ -59,6 +59,7 @@
     "react-bootstrap": "^0.28.1",
     "react-dom": "^0.14.2",
     "react-hot-loader": "~1.2.8",
+    "react-loading": "0.0.9",
     "react-metaform": "^0.9.3",
     "react-notification-system": "^0.1.14",
     "react-redux": "^4.0.5",

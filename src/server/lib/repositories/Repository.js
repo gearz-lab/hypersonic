@@ -71,7 +71,7 @@ class Helpers {
                     let count = result[0][0].count;
                     let rows = result[1].toJSON();
                     let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
-                    f({criteria, count, page, pages, rows});
+                    f({lastCriteria: criteria, count, page, pages, rows});
                 })
                 .catch(r);
         });

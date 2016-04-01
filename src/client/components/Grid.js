@@ -1,6 +1,17 @@
 import React from 'react';
 import _ from 'underscore';
-import {Table, Alert, Pagination, Input, Button, ButtonToolbar, ButtonGroup, DropdownButton, MenuItem, Glyphicon} from 'react-bootstrap';
+import {
+    Table,
+    Alert,
+    Pagination,
+    Input,
+    Button,
+    ButtonToolbar,
+    ButtonGroup,
+    DropdownButton,
+    MenuItem,
+    Glyphicon
+} from 'react-bootstrap';
 
 var Grid = React.createClass({
 
@@ -12,7 +23,8 @@ var Grid = React.createClass({
         handlePaginate: React.PropTypes.func.isRequired,
         handleSearch: React.PropTypes.func.isRequired,
         handleCriteriaChange: React.PropTypes.func.isRequired,
-        criteria: React.PropTypes.string
+        criteria: React.PropTypes.string,
+        lastCriteria: React.PropTypes.string
     },
 
     componentDidMount: function () {
@@ -61,6 +73,48 @@ var Grid = React.createClass({
         if (!layout)
             layout = entity;
 
+        let pagination = this.props.pageCount > 1 ? <Pagination
+            bsSize="medium"
+            items={this.props.pageCount}
+            activePage={this.props.page}
+            onSelect={this.handleSelect}/> : null;
+
+        let table = this.props.rows.length ? <Table bordered condensed>
+            <colgroup>
+                <col span="1" style={{width: 30}}/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th></th>
+                {
+                    layout.fields.map((f, i) => {
+                        return <th key={`th-${i}`}>{f.displayName ? f.displayName : f.name}</th>
+                    })
+                }
+            </tr>
+            </thead>
+            <tbody>
+            {
+                this.props.rows.map((r, i) => {
+                    return <tr key={`tr-${i}`}>
+                        <td className="check-column">
+                            <input type="checkbox"/>
+                        </td>
+                        {
+                            layout.fields.map((f, j) => {
+                                return <td key={`td-${i}${j}`}>
+                                    {r[f.name]}
+                                </td>
+                            })
+                        }
+                    </tr>
+                })
+            }
+            </tbody>
+        </Table> : <Alert bsStyle="warning">
+            The search returned no results.
+        </Alert>;
+
         return (
             <div>
                 <div>
@@ -93,45 +147,9 @@ var Grid = React.createClass({
                         </ButtonToolbar>
                     </div>
                 </div>
-                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)})</p>
-                <Table bordered condensed>
-                    <colgroup>
-                        <col span="1" style={{width: 30}} />
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        {
-                            layout.fields.map((f, i) => {
-                                return <th key={`th-${i}`}>{f.displayName ? f.displayName : f.name}</th>
-                            })
-                        }
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.props.rows.map((r, i) => {
-                            return <tr key={`tr-${i}`}>
-                                <td className="check-column">
-                                    <input type="checkbox" />
-                                </td>
-                                {
-                                    layout.fields.map((f, j) => {
-                                        return <td key={`td-${i}${j}`}>
-                                            {r[f.name]}
-                                        </td>
-                                    })
-                                }
-                            </tr>
-                        })
-                    }
-                    </tbody>
-                </Table>
-                <Pagination
-                    bsSize="medium"
-                    items={this.props.pageCount}
-                    activePage={this.props.page}
-                    onSelect={this.handleSelect}/>
+                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search criteria: { this.props.lastCriteria || 'Empty' }.</p>
+                {table }
+                { pagination }
             </div>
         );
     }

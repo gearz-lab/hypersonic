@@ -1,15 +1,15 @@
 import React from 'react';
-import { ButtonGroup, Button} from 'react-bootstrap';
+import {ButtonGroup, Button} from 'react-bootstrap';
 import Grid from './Grid';
 import LoadingBox from './LoadingBox';
-
+import Loading from 'react-loading';
 var Search = React.createClass({
 
     propTypes: {
         params: React.PropTypes.object.isRequired
     },
 
-    componentDidMount: function() {
+    componentDidMount: function () {
         this.props.searchEntities(this.props.params.entity, '', 1);
     },
 
@@ -21,15 +21,15 @@ var Search = React.createClass({
         return `Searching ${this.props.params.entity}`;
     },
 
-    handlePageChange: function(page) {
-        this.props.searchEntities(this.props.params.entity, '', page);
+    handlePageChange: function (page) {
+        this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page);
     },
-    
-    handleSearch: function(criteria) {
+
+    handleSearch: function (criteria) {
         this.props.searchEntities(this.props.params.entity, criteria, 1);
     },
 
-    handleCriteriaChange: function(criteria) {
+    handleCriteriaChange: function (criteria) {
         this.props.changeSearchCriteria(criteria);
     },
 
@@ -43,6 +43,7 @@ var Search = React.createClass({
         let pageCount = this.props.model.data.pages || 1;
         let elapsedTime = this.props.model.elapsed || 0;
         let criteria = this.props.model.data.criteria || '';
+        let lastCriteria = this.props.model.data.lastCriteria || '';
 
         return (
             <div className="document">
@@ -50,12 +51,13 @@ var Search = React.createClass({
                 <div className="document-body">
                     <Grid entity={entityName}
                           applicationDomain={applicationDomain}
-                          page={page} 
-                          rows={rows} 
+                          page={page}
+                          rows={rows}
                           count={count}
                           pageCount={pageCount}
                           elapsedTime={elapsedTime}
                           criteria={criteria}
+                          lastCriteria={lastCriteria}
                           handlePaginate={this.handlePageChange}
                           handleSearch={this.handleSearch}
                           handleCriteriaChange={this.handleCriteriaChange}

@@ -44,12 +44,12 @@ export default function menu(state = defaultState, action) {
                 entityName: action.entityName
             });
         case MODEL_LOADED:
-            return {
+            return Object.assign(clone(state), {
                 status: 'LOADED',
                 entityName: action.entityName,
-                data: action.data || {},
+                data: Object.assign(state.data, action.data),
                 elapsed: action.elapsed
-            };
+            });
         case MODEL_LOAD_ERROR:
             return {
                 status: 'ERROR',
