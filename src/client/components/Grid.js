@@ -61,8 +61,6 @@ var Grid = React.createClass({
         if (!layout)
             layout = entity;
 
-        console.log(layout.fields);
-
         return (
             <div>
                 <div>

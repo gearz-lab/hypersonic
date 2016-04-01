@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+import {LOCATION_CHANGE} from 'react-router-redux';
 import clone from 'clone';
 import {
     MODEL_SAVING,
@@ -12,7 +12,7 @@ import {
 
 var defaultState = {
     status: 'NOT LOADED',
-    data: null
+    data: {}
 };
 
 export default function menu(state = defaultState, action) {
@@ -23,39 +23,39 @@ export default function menu(state = defaultState, action) {
             return {
                 status: 'SAVING',
                 entityName: action.entityName,
-                data: action.data
+                data: action.data || {}
             };
         case MODEL_SAVED:
             return {
                 status: 'SAVED',
                 entityName: action.entityName,
-                data: action.data
+                data: action.data || {}
             };
         case MODEL_SAVE_ERROR:
             return {
                 status: 'ERROR',
                 entityName: action.entityName,
-                data: action.data,
+                data: action.data || {},
                 error: action.error
             };
         case MODEL_LOADING:
             return {
                 status: 'LOADING',
                 entityName: action.entityName,
-                data: action.data
+                data: action.data || {}
             };
         case MODEL_LOADED:
             return {
                 status: 'LOADED',
                 entityName: action.entityName,
-                data: action.data,
+                data: action.data || {},
                 elapsed: action.elapsed
             };
         case MODEL_LOAD_ERROR:
             return {
                 status: 'ERROR',
                 entityName: action.entityName,
-                data: action.data,
+                data: action.data || {},
                 error: action.error
             };
         case MODEL_CHANGE_SEARCH_CRITERIA:

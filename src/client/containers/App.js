@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Layout from '../components/Layout';
 import {loadUser}  from '../actions/user';
 import {loadMenu}  from '../actions/menu';
-import {loadApplicationDomain} from '../actions/applicationDomain';
 
 function mapStateToProps(state) {
     return {
@@ -14,7 +13,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({loadApplicationDomain, loadUser, loadMenu}, dispatch);
+    return bindActionCreators({ loadUser, loadMenu}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

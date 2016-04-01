@@ -1,7 +1,6 @@
 var express = require('express');
 var usersServerApi = require('../api/usersServerApi');
 var mainMenuServerApi = require('../api/mainMenuServerApi');
-var applicationDomainServerApi = require('../api/applicationDomainServerApi');
 var entityServerApi = require('../api/entityServerApi');
 
 export default function setupApi(appConfig, db) {
@@ -12,7 +11,6 @@ export default function setupApi(appConfig, db) {
 
     usersServerApi.setup(router, appConfig, db);
     mainMenuServerApi.setup(router, appConfig, db);
-    applicationDomainServerApi.setup(router, appConfig, db);
     entityServerApi.setup(router, appConfig, db);
 
     return router;

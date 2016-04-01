@@ -8,24 +8,29 @@ import {Router} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 import routes from './Routes.js';
 import favicon from '../assets/favicon.ico';
+import applicationDomainLoaded from './client/actions/applicationDomain';
 
-if (window) {
-    window.React = React;
+var Globalize = require('globalize');
+var globalizeLocalizer = require('react-widgets/lib/localizers/globalize');
+
+export default function setupClient(appConfig) {
+
+    globalizeLocalizer(Globalize);
+
+    const store = configureStore();
+    const history = syncHistoryWithStore(browserHistory, store);
+
+    // loads the application domain into the store
+    store.dispatch(applicationDomainLoaded({ entities: appConfig.entities }));
+
+    render(
+        <Provider store={store}>
+            <Router history={history} routes={routes}/>
+        </Provider>,
+        document.getElementById('#app_container')
+    );    
 }
 
-var Globalize = require('globalize')
-var globalizeLocalizer = require('react-widgets/lib/localizers/globalize')
 
-globalizeLocalizer(Globalize);
-
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
-
-render(
-    <Provider store={store}>
-        <Router history={history} routes={routes}/>
-    </Provider>,
-    document.getElementById('#app_container')
-);
 
 
