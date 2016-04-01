@@ -9,7 +9,7 @@ var Grid = React.createClass({
         applicationDomain: React.PropTypes.object.isRequired,
         rows: React.PropTypes.array.isRequired,
         page: React.PropTypes.number.isRequired,
-        handleSelect: React.PropTypes.func.isRequired,
+        handlePaginate: React.PropTypes.func.isRequired,
         handleSearch: React.PropTypes.func.isRequired,
         handleCriteriaChange: React.PropTypes.func.isRequired,
         criteria: React.PropTypes.string
@@ -27,7 +27,7 @@ var Grid = React.createClass({
     },
 
     handleSelect(event, selectedEvent) {
-        this.props.handleSelect(selectedEvent.eventKey);
+        this.props.handlePaginate(selectedEvent.eventKey);
     },
 
     handleCriteriaChange() {

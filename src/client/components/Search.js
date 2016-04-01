@@ -61,7 +61,7 @@ var Search = React.createClass({
                           pageCount={pageCount}
                           elapsedTime={elapsedTime}
                           criteria={criteria}
-                          handleSelect={this.handlePageChange}
+                          handlePaginate={this.handlePageChange}
                           handleSearch={this.handleSearch}
                           handleCriteriaChange={this.handleCriteriaChange}
                     />
