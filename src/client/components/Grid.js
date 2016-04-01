@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import {Table, Alert, Pagination, Input, Button, Glyphicon} from 'react-bootstrap';
+import {Table, Alert, Pagination, Input, Button, ButtonToolbar, ButtonGroup, DropdownButton, MenuItem, Glyphicon} from 'react-bootstrap';
 
 var Grid = React.createClass({
 
@@ -15,7 +15,7 @@ var Grid = React.createClass({
         criteria: React.PropTypes.string
     },
 
-    componentDidMount: function() {
+    componentDidMount: function () {
         //React.findDOMNode(this.refs.input).focus();
     },
 
@@ -44,8 +44,8 @@ var Grid = React.createClass({
         }
     },
 
-    getElapsedTime: function(elapsedTime) {
-        return (elapsedTime /1000).toFixed(2) + ' seconds';
+    getElapsedTime: function (elapsedTime) {
+        return (elapsedTime / 1000).toFixed(2) + ' seconds';
     },
 
     render: function () {
@@ -75,13 +75,34 @@ var Grid = React.createClass({
                             onKeyPress={this.handleKeyPress}
                             placeholder="Search"
                             ref="input"
-                            buttonAfter={<Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search" />Search</Button>} />
+                            buttonAfter={<Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search" />Search</Button>}/>
+                    </div>
+                    <div className="search-actions-wrapper">
+                        <ButtonToolbar>
+                            <ButtonGroup>
+                                <DropdownButton title={<i className="fa fa-square-o"></i>} id="input-dropdown-addon">
+                                    <MenuItem key="1"><i className="fa fa-square-o"></i>Uncheck all</MenuItem>
+                                    <MenuItem key="2"><i className="fa fa-check-square-o"></i>Check all</MenuItem>
+                                </DropdownButton>
+                                <Button><i className="fa fa-refresh"></i>&nbsp;</Button>
+                            </ButtonGroup>
+
+                            <ButtonGroup>
+                                <Button>5</Button>
+                                <Button>6</Button>
+                                <Button>7</Button>
+                            </ButtonGroup>
+                        </ButtonToolbar>
                     </div>
                 </div>
                 <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)})</p>
                 <Table bordered condensed>
+                    <colgroup>
+                        <col span="1" style={{width: 30}} />
+                    </colgroup>
                     <thead>
                     <tr>
+                        <th></th>
                         {
                             layout.fields.map((f, i) => {
                                 return <th key={`th-${i}`}>{f.displayName ? f.displayName : f.name}</th>
@@ -93,6 +114,9 @@ var Grid = React.createClass({
                     {
                         this.props.rows.map((r, i) => {
                             return <tr key={`tr-${i}`}>
+                                <td className="check-column">
+                                    <input type="checkbox" />
+                                </td>
                                 {
                                     layout.fields.map((f, j) => {
                                         return <td key={`td-${i}${j}`}>
