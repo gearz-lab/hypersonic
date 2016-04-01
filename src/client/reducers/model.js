@@ -39,11 +39,10 @@ export default function menu(state = defaultState, action) {
                 error: action.error
             };
         case MODEL_LOADING:
-            return {
+            return Object.assign(clone(state), {
                 status: 'LOADING',
-                entityName: action.entityName,
-                data: action.data || {}
-            };
+                entityName: action.entityName
+            });
         case MODEL_LOADED:
             return {
                 status: 'LOADED',
