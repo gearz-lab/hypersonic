@@ -21,10 +21,6 @@ var Search = React.createClass({
         return `Searching ${this.props.params.entity}`;
     },
 
-    isReady: function() {
-        return this.props.applicationDomain.data && this.props.model.data && this.props.model.data.rows;
-    },
-
     handlePageChange: function(page) {
         this.props.searchEntities(this.props.params.entity, '', page);
     },
@@ -38,16 +34,15 @@ var Search = React.createClass({
     },
 
     render: function () {
-        if(!this.isReady()) return <LoadingBox/>;
 
         let entityName = this.props.params.entity;
         let applicationDomain = this.props.applicationDomain.data;
-        let rows = this.props.model.data.rows;
-        let count = this.props.model.data.count;
-        let page = Number(this.props.model.data.page);
-        let pageCount = this.props.model.data.pages;
-        let elapsedTime = this.props.model.elapsed;
-        let criteria = this.props.model.data.criteria;
+        let rows = this.props.model.data.rows || [];
+        let count = this.props.model.data.count || 0;
+        let page = Number(this.props.model.data.page) || 1;
+        let pageCount = this.props.model.data.pages || 1;
+        let elapsedTime = this.props.model.elapsed || 0;
+        let criteria = this.props.model.data.criteria || '';
 
         return (
             <div className="document">
