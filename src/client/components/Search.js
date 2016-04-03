@@ -5,6 +5,7 @@ import Grid from './Grid';
 import LoadingBox from './LoadingBox';
 import Loading from 'react-loading';
 import applicationDomainHelper from '../../common/lib/helpers/applicationDomainHelper';
+import clientActionHelper from '../lib/clientActionHelper';
 var Search = React.createClass({
 
     propTypes: {
@@ -52,11 +53,11 @@ var Search = React.createClass({
 
     render: function () {
 
-        let entityAndLayout = applicationDomainHelper.getEntityAndLayout(this.props.applicationDomain.data, this.props.params.entity, 'search');
-        let layout = entityAndLayout.layout || entityAndLayout.entity;
+        let {entity, layout} = applicationDomainHelper.getEntityAndLayout(this.props.applicationDomain.data, this.props.params.entity, 'search');
+        layout = layout || entity;
         if (!layout)
             return this.renderError(`Could not find entity. Entity name: ${this.props.params.entity}`);
-
+        let actions = clientActionHelper.getActions(entity, layout);
         let rows = this.props.model.data.rows || [];
         let count = this.props.model.data.count || 0;
         let page = Number(this.props.model.data.page) || 1;
@@ -71,6 +72,7 @@ var Search = React.createClass({
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
                     <Grid layout={layout}
+                          actions={actions}
                           page={page}
                           rows={rows}
                           count={count}

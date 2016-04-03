@@ -31,7 +31,7 @@ var Grid = React.createClass({
         selection: React.PropTypes.object
     },
 
-    getDefaultProps: function() {
+    getDefaultProps: function () {
         return {
             selection: {}
         }
@@ -59,15 +59,15 @@ var Grid = React.createClass({
         }
     },
 
-    handleCheck: function(e) {
+    handleCheck: function (e) {
 
         let id = e.target.getAttributeNode('data-id').value;
-        if(!id) {
+        if (!id) {
             throw Error('Every row should have a non-null data-id attribute');
         }
         let checked = e.target.checked;
         let newSelection = clone(this.props.selection);
-        if(checked) {
+        if (checked) {
             newSelection[id.toString()] = true;
         }
         else {
@@ -76,9 +76,9 @@ var Grid = React.createClass({
         this.props.handleSelectionChange(newSelection);
     },
 
-    handleSelectionDropdownChange: function(event, eventKey) {
+    handleSelectionDropdownChange: function (event, eventKey) {
         let newSelection = clone(this.props.selection);
-        switch(eventKey) {
+        switch (eventKey) {
             case 'check-all-this-page':
                 _.each(this.props.rows, r => {
                     newSelection[r['id']] = true;
@@ -103,24 +103,26 @@ var Grid = React.createClass({
     /**
      * Returns whether all the items in this page are selected
      */
-    areAllInThisPageSelected: function() {
+    areAllInThisPageSelected: function () {
         let allInPage = this.props.rows.map(r => r.id);
-        for(let i = 0; i < allInPage.length; i++) {
-            if(!_.has(this.props.selection, allInPage[i]))
+        for (let i = 0; i < allInPage.length; i++) {
+            if (!_.has(this.props.selection, allInPage[i]))
                 return false;
         }
         return true;
     },
 
-    handleActionRefresh: function() {
+    handleActionRefresh: function () {
         this.props.handleActionRefresh();
     },
 
     render: function () {
-        
+
         let pageCount = this.props.pageCount;
         let layout = this.props.layout;
         let page = this.props.page;
+        let actions = this.props.actions;
+        let selection = this.props.selection;
 
         let pagination = pageCount > 1 ? <Pagination
             prev
@@ -154,7 +156,8 @@ var Grid = React.createClass({
                 this.props.rows.map((r, i) => {
                     return <tr key={`tr-${i}`}>
                         <td className="check-column">
-                            <input type="checkbox" onChange={this.handleCheck} data-id={r['id']} checked={Boolean(this.props.selection[r['id']])} />
+                            <input type="checkbox" onChange={this.handleCheck} data-id={r['id']}
+                                   checked={Boolean(selection[r['id']])}/>
                         </td>
                         {
                             layout.fields.map((f, j) => {
@@ -170,6 +173,16 @@ var Grid = React.createClass({
         </Table> : <Alert bsStyle="warning">
             The search returned no results.
         </Alert>;
+
+        let actionButtons = actions.length && Object.keys(selection).length ?
+            <ButtonGroup>
+                {
+                    actions.map(a => {
+                        let icon = a.icon ? <i className={`fa fa-${a.icon}`}></i> : null;
+                        return <Button> {icon} {a.displayName || a.name} </Button>
+                    })
+                }
+            </ButtonGroup> : null;
 
         return (
             <div>
@@ -188,23 +201,29 @@ var Grid = React.createClass({
                     <div className="search-actions-wrapper">
                         <ButtonToolbar>
                             <ButtonGroup>
-                                <DropdownButton title={<i className={ this.areAllInThisPageSelected() ? "fa fa-check-square-o" : "fa fa-square-o" }></i>} id="input-dropdown-addon">
-                                    <MenuItem eventKey="check-all-this-page" onSelect={this.handleSelectionDropdownChange}>
+                                <DropdownButton
+                                    title={<i className={ this.areAllInThisPageSelected() ? "fa fa-check-square-o" : "fa fa-square-o" }></i>}
+                                    id="input-dropdown-addon">
+                                    <MenuItem eventKey="check-all-this-page"
+                                              onSelect={this.handleSelectionDropdownChange}>
                                         <i className="fa fa-check-square-o"></i>Check all on this page
                                     </MenuItem>
-                                    <MenuItem eventKey="uncheck-all-this-page" onSelect={this.handleSelectionDropdownChange}>
+                                    <MenuItem eventKey="uncheck-all-this-page"
+                                              onSelect={this.handleSelectionDropdownChange}>
                                         <i className="fa fa-square-o"></i>Uncheck all on this page
                                     </MenuItem>
                                     <MenuItem eventKey="uncheck-all" onSelect={this.handleSelectionDropdownChange}>
                                         <i className="fa fa-square-o"></i>Uncheck all
                                     </MenuItem>
                                 </DropdownButton>
-                                <Button onClick={this.handleActionRefresh}><i className="fa fa-refresh"></i>&nbsp;</Button>
+                                <Button onClick={this.handleActionRefresh}><i
+                                    className="fa fa-refresh"></i>&nbsp;</Button>
                             </ButtonGroup>
+                            {actionButtons}
                         </ButtonToolbar>
                     </div>
                 </div>
-                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search criteria: { this.props.lastCriteria || 'Empty' }. Selected: { Object.keys(this.props.selection).length }/{this.props.count}.</p>
+                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search criteria: { this.props.lastCriteria || 'Empty' }. Selected: { Object.keys(selection).length }/{this.props.count}.</p>
                 {table }
                 { pagination }
             </div>

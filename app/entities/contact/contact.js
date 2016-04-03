@@ -30,7 +30,7 @@ export default {
         {
             name: 'delete',
             displayName: 'Delete',
-            icon: 'fa-trash'
+            icon: 'trash'
         }
     ],
     search: function (criteria, page, layoutName, context) {
