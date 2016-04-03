@@ -10,7 +10,7 @@ var Search = React.createClass({
     },
 
     componentDidMount: function () {
-        this.props.searchEntities(this.props.params.entity, '', 1);
+        this.props.searchEntities(this.props.params.entity, '', 1, {});
     },
 
     /**
@@ -22,11 +22,11 @@ var Search = React.createClass({
     },
 
     handlePageChange: function (page) {
-        this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page);
+        this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page, this.props.model.data.selection || {});
     },
 
     handleSearch: function (criteria) {
-        this.props.searchEntities(this.props.params.entity, criteria, 1);
+        this.props.searchEntities(this.props.params.entity, criteria, 1, {});
     },
 
     handleCriteriaChange: function (criteria) {

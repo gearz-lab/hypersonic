@@ -59,7 +59,7 @@ class Helpers {
         this.context = context;
     }
 
-    paginate(criteria, whereFunction, page) {
+    paginate(whereFunction, page) {
         if (!whereFunction) throw Error('\'whereFunction\' should be truthy');
         if (!page) throw Error('\'page\' should be truthy');
 
@@ -71,7 +71,7 @@ class Helpers {
                     let count = result[0][0].count;
                     let rows = result[1].toJSON();
                     let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
-                    f({lastCriteria: criteria, count, page, pages, rows});
+                    f({count, pages, rows});
                 })
                 .catch(r);
         });

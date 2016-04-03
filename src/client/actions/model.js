@@ -70,13 +70,13 @@ function modelLoading(entityName, data) {
     };
 }
 
-function modelLoaded(entityName, entity, elapsed) {
+function modelLoaded(entityName, data, elapsed) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
-    if (!entity) throw Error('\'entity\' should be truthy');
+    if (!data) throw Error('\'entity\' should be truthy');
     return {
         type: MODEL_LOADED,
         entityName: entityName,
-        data: entity,
+        data: data,
         elapsed: elapsed
     };
 }
@@ -127,7 +127,7 @@ export function loadEntity(entityName, id) {
     };
 }
 
-export function searchEntities(entityName, criteria, page) {
+export function searchEntities(entityName, criteria, page, selection) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     let startTime = new Date();
     return dispatch => {
@@ -137,7 +137,12 @@ export function searchEntities(entityName, criteria, page) {
                 var endTime = new Date();
                 if (r.data.status == 'success') {
                     var elapsed = endTime - startTime;
-                    dispatch(modelLoaded(entityName, r.data.result, elapsed));
+                    let data = Object.assign(r.data.result, {
+                        lastCriteria: criteria,
+                        selection: selection,
+                        page: page
+                    });
+                    dispatch(modelLoaded(entityName, data, elapsed));
                 }
                 else {
                     dispatch(modelLoadError(entityName, id, r.data.error));

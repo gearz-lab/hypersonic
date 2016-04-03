@@ -27,6 +27,6 @@ export default {
     ],
     layouts: [editLayout],
     search: function (criteria, page, layoutName, context) {
-        return context.repository.helpers.paginate(criteria, function() { return this.where('name', 'like', `%${criteria}%`) }, page);
+        return context.repository.helpers.paginate(function() { return this.where('name', 'like', `%${criteria}%`) }, page);
     }
 };
