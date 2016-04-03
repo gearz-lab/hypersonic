@@ -15,6 +15,7 @@
     "db-sync": "babel-node ./tools/setupDb.js"
   },
   "dependencies": {
+    "Faker": "^0.7.2",
     "async": "^1.5.2",
     "axios": "^0.5.4",
     "babel-register": "^6.7.2",

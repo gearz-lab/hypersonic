@@ -137,9 +137,16 @@ var Grid = React.createClass({
             layout = entity;
 
         let pagination = this.props.pageCount > 1 ? <Pagination
+            prev
+            next
+            first
+            last
+            ellipsis
+            boundaryLinks
             bsSize="medium"
             items={this.props.pageCount}
             activePage={this.props.page}
+            maxButtons={5}
             onSelect={this.handleSelect}/> : null;
 
         let table = this.props.rows.length ? <Table bordered condensed>
