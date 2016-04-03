@@ -52,7 +52,8 @@ var Search = React.createClass({
 
     render: function () {
 
-        let layout = applicationDomainHelper.getLayout(this.props.applicationDomain.data, this.props.params.entity, 'search', true);
+        let entityAndLayout = applicationDomainHelper.getEntityAndLayout(this.props.applicationDomain.data, this.props.params.entity, 'search');
+        let layout = entityAndLayout.layout || entityAndLayout.entity;
         if (!layout)
             return this.renderError(`Could not find entity. Entity name: ${this.props.params.entity}`);
 

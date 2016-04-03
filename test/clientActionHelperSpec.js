@@ -15,7 +15,7 @@ describe('clientActionHelper', function () {
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
     });
-    it('When the layout has no client action', function () {
+    it('When the layout does not define client actions', function () {
         let entity = {
             clientActions: [
                 {
@@ -28,7 +28,7 @@ describe('clientActionHelper', function () {
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
     });
-    it('When the entity has no client action', function () {
+    it('When the entity does not define client actions', function () {
         let entity = {};
         let layout = {
             clientActions: [
@@ -40,6 +40,20 @@ describe('clientActionHelper', function () {
         let actions = clientActionHelper.getActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
+    });
+    it('When the layout has no client actions', function () {
+        let entity = {
+            clientActions: [
+                {
+                    name: 'foo'
+                }
+            ]
+        };
+        let layout = {
+            clientActions: []
+        };
+        let actions = clientActionHelper.getActions(entity, layout);
+        assert.equal(actions.length, 0);
     });
     it('When the entity has actions that the layout does not define', function () {
         let entity = {
