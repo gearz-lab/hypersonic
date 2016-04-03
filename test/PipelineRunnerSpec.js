@@ -1,6 +1,5 @@
-import chai from 'chai';
+import { assert } from 'chai';
 import pipelineRunner from '../src/server/lib/pipelines/pipelineRunner';
-let assert = chai.assert;
 
 
 describe('PipelineRunner', () => {
