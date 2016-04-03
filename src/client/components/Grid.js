@@ -18,6 +18,7 @@ var Grid = React.createClass({
 
     propTypes: {
         layout: React.PropTypes.object.isRequired,
+        actions: React.PropTypes.object,
         rows: React.PropTypes.array.isRequired,
         page: React.PropTypes.number.isRequired,
         handlePaginate: React.PropTypes.func.isRequired,

@@ -4,6 +4,7 @@ import _ from 'underscore';
 import Grid from './Grid';
 import LoadingBox from './LoadingBox';
 import Loading from 'react-loading';
+import applicationDomainHelper from '../../common/lib/helpers/applicationDomainHelper';
 var Search = React.createClass({
 
     propTypes: {
@@ -38,7 +39,7 @@ var Search = React.createClass({
         this.props.changeSelection(selection);
     },
 
-    handleActionRefresh: function() {
+    handleActionRefresh: function () {
         this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
     },
 
@@ -51,16 +52,9 @@ var Search = React.createClass({
 
     render: function () {
 
-        let entity = _.find(this.props.applicationDomain.data.entities, e => {
-            return e.name == this.props.params.entity
-        });
-        if (!entity)
-            return this.renderError(`Could not find entity. Entity name: ${this.props.entity}`);
-        let layout;
-        if (entity.layouts && entity.layouts.length)
-            layout = _.find(entity.layouts, l => l.type == 'search');
+        let layout = applicationDomainHelper.getLayout(this.props.applicationDomain.data, this.props.params.entity, 'search', true);
         if (!layout)
-            layout = entity;
+            return this.renderError(`Could not find entity. Entity name: ${this.props.params.entity}`);
 
         let rows = this.props.model.data.rows || [];
         let count = this.props.model.data.count || 0;
