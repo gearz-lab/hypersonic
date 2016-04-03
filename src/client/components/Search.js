@@ -33,6 +33,10 @@ var Search = React.createClass({
         this.props.changeSearchCriteria(criteria);
     },
 
+    handleSelectionChange: function (selection) {
+        this.props.changeSelection(selection);
+    },
+
     render: function () {
 
         let entityName = this.props.params.entity;
@@ -44,6 +48,7 @@ var Search = React.createClass({
         let elapsedTime = this.props.model.elapsed || 0;
         let criteria = this.props.model.data.criteria || '';
         let lastCriteria = this.props.model.data.lastCriteria || '';
+        let selection = this.props.model.data.selection || {};
 
         return (
             <div className="document">
@@ -58,9 +63,11 @@ var Search = React.createClass({
                           elapsedTime={elapsedTime}
                           criteria={criteria}
                           lastCriteria={lastCriteria}
+                          selection={selection}
                           handlePaginate={this.handlePageChange}
                           handleSearch={this.handleSearch}
                           handleCriteriaChange={this.handleCriteriaChange}
+                          handleSelectionChange={this.handleSelectionChange}
                     />
                 </div>
             </div>

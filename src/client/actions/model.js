@@ -7,6 +7,7 @@ export const MODEL_LOADING = 'MODEL_LOADING';
 export const MODEL_LOADED = 'MODEL_LOADED';
 export const MODEL_LOAD_ERROR = 'MODEL_LOAD_ERROR';
 export const MODEL_CHANGE_SEARCH_CRITERIA = 'MODEL_CHANGE_SEARCH_CRITERIA';
+export const MODEL_CHANGE_SELECTION = 'MODEL_CHANGE_SELECTION'
 
 function modelSaving(entityName, entity) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
@@ -96,6 +97,14 @@ export function changeSearchCriteria(criteria) {
     return {
         type: MODEL_CHANGE_SEARCH_CRITERIA,
         criteria: criteria
+    }
+}
+
+export function changeSelection(selection) {
+    if (!selection) throw Error('\'selection\' should be truthy');
+    return {
+        type: MODEL_CHANGE_SELECTION,
+        selection: selection
     }
 }
 

@@ -7,7 +7,8 @@ import {
     MODEL_LOADING,
     MODEL_LOADED,
     MODEL_LOAD_ERROR,
-    MODEL_CHANGE_SEARCH_CRITERIA
+    MODEL_CHANGE_SEARCH_CRITERIA,
+    MODEL_CHANGE_SELECTION
 } from '../actions/model';
 
 var defaultState = {
@@ -16,6 +17,7 @@ var defaultState = {
 };
 
 export default function menu(state = defaultState, action) {
+    let newState;
     switch (action.type) {
         case LOCATION_CHANGE:
             return action.action == 'PUSH' ? {} : state;
@@ -58,10 +60,13 @@ export default function menu(state = defaultState, action) {
                 error: action.error
             };
         case MODEL_CHANGE_SEARCH_CRITERIA:
-            let newState = clone(state);
+            newState = clone(state);
             newState.data.criteria = action.criteria;
             return newState;
-
+        case MODEL_CHANGE_SELECTION:
+            newState = clone(state);
+            newState.data.selection = action.selection;
+            return newState;
         default:
             return state
     }

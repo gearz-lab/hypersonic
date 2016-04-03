@@ -1,4 +1,5 @@
 import React from 'react';
+import clone from 'clone';
 import _ from 'underscore';
 import {
     Table,
@@ -23,8 +24,16 @@ var Grid = React.createClass({
         handlePaginate: React.PropTypes.func.isRequired,
         handleSearch: React.PropTypes.func.isRequired,
         handleCriteriaChange: React.PropTypes.func.isRequired,
+        handleSelectionChange: React.PropTypes.func.isRequired,
         criteria: React.PropTypes.string,
-        lastCriteria: React.PropTypes.string
+        lastCriteria: React.PropTypes.string,
+        selection: React.PropTypes.object
+    },
+
+    getDefaultProps: function() {
+        return {
+            selection: {}
+        }
     },
 
     componentDidMount: function () {
@@ -56,8 +65,57 @@ var Grid = React.createClass({
         }
     },
 
+    handleCheck: function(e) {
+
+        let id = e.target.getAttributeNode('data-id').value;
+        if(!id) {
+            throw Error('Every row should have a non-null data-id attribute');
+        }
+        let checked = e.target.checked;
+        let newSelection = clone(this.props.selection);
+        if(checked) {
+            newSelection[id.toString()] = true;
+        }
+        else {
+            delete newSelection[id.toString()];
+        }
+        this.props.handleSelectionChange(newSelection);
+    },
+
+    handleSelectionDropdownChange: function(event, eventKey) {
+        let newSelection = clone(this.props.selection);
+        switch(eventKey) {
+            case 'check-all-this-page':
+                _.each(this.props.rows, r => {
+                    newSelection[r['id']] = true;
+                });
+                break;
+            case 'uncheck-all-this-page':
+                _.each(this.props.rows, r => {
+                    delete newSelection[r['id']];
+                });
+                break;
+            case 'uncheck-all':
+                newSelection = {};
+                break;
+        }
+        this.props.handleSelectionChange(newSelection);
+    },
+
     getElapsedTime: function (elapsedTime) {
         return (elapsedTime / 1000).toFixed(2) + ' seconds';
+    },
+
+    /**
+     * Returns whether all the items in this page are selected
+     */
+    areAllInThisPageSelected: function() {
+        let allInPage = this.props.rows.map(r => r.id);
+        for(let i = 0; i < allInPage.length; i++) {
+            if(!_.has(this.props.selection, allInPage[i]))
+                return false;
+        }
+        return true;
     },
 
     render: function () {
@@ -98,7 +156,7 @@ var Grid = React.createClass({
                 this.props.rows.map((r, i) => {
                     return <tr key={`tr-${i}`}>
                         <td className="check-column">
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={this.handleCheck} data-id={r['id']} checked={Boolean(this.props.selection[r['id']])} />
                         </td>
                         {
                             layout.fields.map((f, j) => {
@@ -132,9 +190,17 @@ var Grid = React.createClass({
                     <div className="search-actions-wrapper">
                         <ButtonToolbar>
                             <ButtonGroup>
-                                <DropdownButton title={<i className="fa fa-square-o"></i>} id="input-dropdown-addon">
-                                    <MenuItem key="1"><i className="fa fa-square-o"></i>Uncheck all</MenuItem>
-                                    <MenuItem key="2"><i className="fa fa-check-square-o"></i>Check all</MenuItem>
+                                <DropdownButton title={<i className={ this.areAllInThisPageSelected() ? "fa fa-check-square-o" : "fa fa-square-o" }></i>} id="input-dropdown-addon">
+                                    <MenuItem eventKey="check-all-this-page" onSelect={this.handleSelectionDropdownChange}>
+                                        <i className="fa fa-check-square-o"></i>Check all on this page
+                                    </MenuItem>
+                                    <MenuItem eventKey="uncheck-all-this-page" onSelect={this.handleSelectionDropdownChange}>
+                                        <i className="fa fa-square-o"></i>Uncheck all on this page
+                                    </MenuItem>
+                                    <MenuItem eventKey="uncheck-all" onSelect={this.handleSelectionDropdownChange}>
+                                        <i className="fa fa-square-o"></i>Uncheck all
+                                    </MenuItem>
+
                                 </DropdownButton>
                                 <Button><i className="fa fa-refresh"></i>&nbsp;</Button>
                             </ButtonGroup>
@@ -147,7 +213,7 @@ var Grid = React.createClass({
                         </ButtonToolbar>
                     </div>
                 </div>
-                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search criteria: { this.props.lastCriteria || 'Empty' }.</p>
+                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search criteria: { this.props.lastCriteria || 'Empty' }. Selected: { Object.keys(this.props.selection).length }/{this.props.count}.</p>
                 {table }
                 { pagination }
             </div>
