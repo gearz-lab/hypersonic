@@ -37,6 +37,10 @@ var Search = React.createClass({
         this.props.changeSelection(selection);
     },
 
+    handleActionRefresh: function() {
+        this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
+    },
+
     render: function () {
 
         let entityName = this.props.params.entity;
@@ -68,6 +72,7 @@ var Search = React.createClass({
                           handleSearch={this.handleSearch}
                           handleCriteriaChange={this.handleCriteriaChange}
                           handleSelectionChange={this.handleSelectionChange}
+                          handleActionRefresh={this.handleActionRefresh}
                     />
                 </div>
             </div>

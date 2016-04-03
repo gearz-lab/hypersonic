@@ -25,6 +25,7 @@ var Grid = React.createClass({
         handleSearch: React.PropTypes.func.isRequired,
         handleCriteriaChange: React.PropTypes.func.isRequired,
         handleSelectionChange: React.PropTypes.func.isRequired,
+        handleActionRefresh: React.PropTypes.func.isRequired,
         criteria: React.PropTypes.string,
         lastCriteria: React.PropTypes.string,
         selection: React.PropTypes.object
@@ -118,6 +119,10 @@ var Grid = React.createClass({
         return true;
     },
 
+    handleActionRefresh: function() {
+        this.props.handleActionRefresh();
+    },
+
     render: function () {
 
         let entity = _.find(this.props.applicationDomain.entities, e => {
@@ -200,15 +205,8 @@ var Grid = React.createClass({
                                     <MenuItem eventKey="uncheck-all" onSelect={this.handleSelectionDropdownChange}>
                                         <i className="fa fa-square-o"></i>Uncheck all
                                     </MenuItem>
-
                                 </DropdownButton>
-                                <Button><i className="fa fa-refresh"></i>&nbsp;</Button>
-                            </ButtonGroup>
-
-                            <ButtonGroup>
-                                <Button>5</Button>
-                                <Button>6</Button>
-                                <Button>7</Button>
+                                <Button onClick={this.handleActionRefresh}><i className="fa fa-refresh"></i>&nbsp;</Button>
                             </ButtonGroup>
                         </ButtonToolbar>
                     </div>
