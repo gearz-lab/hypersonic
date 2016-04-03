@@ -1,5 +1,6 @@
 import React from 'react';
-import {ButtonGroup, Button} from 'react-bootstrap';
+import {ButtonGroup, Button, Alert} from 'react-bootstrap';
+import _ from 'underscore';
 import Grid from './Grid';
 import LoadingBox from './LoadingBox';
 import Loading from 'react-loading';
@@ -41,10 +42,26 @@ var Search = React.createClass({
         this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
     },
 
+    renderError: function (message) {
+        return <Alert bsStyle="danger">
+            <h4>Error</h4>
+            <p>{message}</p>
+        </Alert>;
+    },
+
     render: function () {
 
-        let entityName = this.props.params.entity;
-        let applicationDomain = this.props.applicationDomain.data;
+        let entity = _.find(this.props.applicationDomain.data.entities, e => {
+            return e.name == this.props.params.entity
+        });
+        if (!entity)
+            return this.renderError(`Could not find entity. Entity name: ${this.props.entity}`);
+        let layout;
+        if (entity.layouts && entity.layouts.length)
+            layout = _.find(entity.layouts, l => l.type == 'search');
+        if (!layout)
+            layout = entity;
+
         let rows = this.props.model.data.rows || [];
         let count = this.props.model.data.count || 0;
         let page = Number(this.props.model.data.page) || 1;
@@ -58,8 +75,7 @@ var Search = React.createClass({
             <div className="document">
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
-                    <Grid entity={entityName}
-                          applicationDomain={applicationDomain}
+                    <Grid layout={layout}
                           page={page}
                           rows={rows}
                           count={count}

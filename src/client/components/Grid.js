@@ -17,8 +17,7 @@ import {
 var Grid = React.createClass({
 
     propTypes: {
-        entity: React.PropTypes.string.isRequired,
-        applicationDomain: React.PropTypes.object.isRequired,
+        layout: React.PropTypes.object.isRequired,
         rows: React.PropTypes.array.isRequired,
         page: React.PropTypes.number.isRequired,
         handlePaginate: React.PropTypes.func.isRequired,
@@ -39,13 +38,6 @@ var Grid = React.createClass({
 
     componentDidMount: function () {
         //React.findDOMNode(this.refs.input).focus();
-    },
-
-    renderError: function (message) {
-        return <Alert bsStyle="danger">
-            <h4>Error</h4>
-            <p>{message}</p>
-        </Alert>;
     },
 
     handleSelect(event, selectedEvent) {
@@ -124,19 +116,12 @@ var Grid = React.createClass({
     },
 
     render: function () {
+        
+        let pageCount = this.props.pageCount;
+        let layout = this.props.layout;
+        let page = this.props.page;
 
-        let entity = _.find(this.props.applicationDomain.entities, e => {
-            return e.name == this.props.entity
-        });
-        if (!entity)
-            return this.renderError(`Could not find entity. Entity name: ${this.props.entity}`);
-        let layout;
-        if (entity.layouts && entity.layouts.length)
-            layout = _.find(entity.layouts, l => l.type == 'search');
-        if (!layout)
-            layout = entity;
-
-        let pagination = this.props.pageCount > 1 ? <Pagination
+        let pagination = pageCount > 1 ? <Pagination
             prev
             next
             first
@@ -144,8 +129,8 @@ var Grid = React.createClass({
             ellipsis
             boundaryLinks
             bsSize="medium"
-            items={this.props.pageCount}
-            activePage={this.props.page}
+            items={pageCount}
+            activePage={page}
             maxButtons={5}
             onSelect={this.handleSelect}/> : null;
 

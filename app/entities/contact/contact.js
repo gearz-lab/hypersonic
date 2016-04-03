@@ -26,6 +26,13 @@ export default {
         }
     ],
     layouts: [editLayout],
+    clientActions: [
+        {
+            name: 'delete',
+            displayName: 'Delete',
+            icon: 'fa-trash'
+        }
+    ],
     search: function (criteria, page, layoutName, context) {
         return context.repository.helpers.paginate(function() { return this.where('name', 'like', `%${criteria}%`) }, page);
     }
