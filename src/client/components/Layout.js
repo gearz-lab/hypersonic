@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import Navbar from 'react-bootstrap/lib/Navbar';
+import { Navbar, Modal, Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/lib/Nav';
 import VNav from '../components/navigation/VNav';
 import NotificationSystem from 'react-notification-system';
@@ -47,6 +47,7 @@ var Layout = React.createClass({
                     </div>
                 </div>
                 <NotificationSystem ref="notificationSystem" />
+
                 {
                     (() => {
                         if (process.env.NODE_ENV !== 'production') {

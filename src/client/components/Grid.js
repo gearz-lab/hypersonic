@@ -18,7 +18,7 @@ var Grid = React.createClass({
 
     propTypes: {
         layout: React.PropTypes.object.isRequired,
-        actions: React.PropTypes.object,
+        actions: React.PropTypes.array,
         rows: React.PropTypes.array.isRequired,
         page: React.PropTypes.number.isRequired,
         handlePaginate: React.PropTypes.func.isRequired,
@@ -26,6 +26,7 @@ var Grid = React.createClass({
         handleCriteriaChange: React.PropTypes.func.isRequired,
         handleSelectionChange: React.PropTypes.func.isRequired,
         handleActionRefresh: React.PropTypes.func.isRequired,
+        handleAction: React.PropTypes.func.isRequired,
         criteria: React.PropTypes.string,
         lastCriteria: React.PropTypes.string,
         selection: React.PropTypes.object
@@ -115,6 +116,10 @@ var Grid = React.createClass({
     handleActionRefresh: function () {
         this.props.handleActionRefresh();
     },
+    
+    handleAction: function (a) {
+        return () => this.props.handleAction(a, this.props.selection);
+    },
 
     render: function () {
 
@@ -179,7 +184,7 @@ var Grid = React.createClass({
                 {
                     actions.map(a => {
                         let icon = a.icon ? <i className={`fa fa-${a.icon}`}></i> : null;
-                        return <Button> {icon} {a.displayName || a.name} </Button>
+                        return <Button key={`action-${a.name}`} onClick={this.handleAction(a)}> {icon} {a.displayName || a.name} </Button>
                     })
                 }
             </ButtonGroup> : null;

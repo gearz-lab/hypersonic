@@ -11,7 +11,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(entityActions, dispatch);
+    return {
+        modelActions: bindActionCreators(entityActions, dispatch)
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

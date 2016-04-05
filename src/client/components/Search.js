@@ -1,9 +1,6 @@
 import React from 'react';
-import {ButtonGroup, Button, Alert} from 'react-bootstrap';
-import _ from 'underscore';
+import { Alert } from 'react-bootstrap';
 import Grid from './Grid';
-import LoadingBox from './LoadingBox';
-import Loading from 'react-loading';
 import applicationDomainHelper from '../../common/lib/helpers/applicationDomainHelper';
 import clientActionHelper from '../lib/clientActionHelper';
 var Search = React.createClass({
@@ -13,7 +10,7 @@ var Search = React.createClass({
     },
 
     componentDidMount: function () {
-        this.props.searchEntities(this.props.params.entity, '', 1, {});
+        this.props.modelActions.searchEntities(this.props.params.entity, '', 1, {});
     },
 
     /**
@@ -25,23 +22,31 @@ var Search = React.createClass({
     },
 
     handlePageChange: function (page) {
-        this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page, this.props.model.data.selection || {});
+        this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page, this.props.model.data.selection || {});
     },
 
     handleSearch: function (criteria) {
-        this.props.searchEntities(this.props.params.entity, criteria, 1, {});
+        this.props.modelActions.searchEntities(this.props.params.entity, criteria, 1, {});
     },
 
     handleCriteriaChange: function (criteria) {
-        this.props.changeSearchCriteria(criteria);
+        this.props.modelActions.changeSearchCriteria(criteria);
     },
 
     handleSelectionChange: function (selection) {
-        this.props.changeSelection(selection);
+        this.props.modelActions.changeSelection(selection);
     },
 
     handleActionRefresh: function () {
-        this.props.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
+        this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
+    },
+
+    handleAction: function(a, s) {
+        clientActionHelper.invoke(a, s, {
+            model: this.props.model,
+            applicationDomain: this.props.applicationDomain,
+            modelActions: this.props.modelActions
+        });
     },
 
     renderError: function (message) {
@@ -86,6 +91,7 @@ var Search = React.createClass({
                           handleCriteriaChange={this.handleCriteriaChange}
                           handleSelectionChange={this.handleSelectionChange}
                           handleActionRefresh={this.handleActionRefresh}
+                          handleAction={this.handleAction}
                     />
                 </div>
             </div>

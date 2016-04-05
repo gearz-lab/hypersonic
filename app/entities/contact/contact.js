@@ -30,7 +30,11 @@ export default {
         {
             name: 'delete',
             displayName: 'Delete',
-            icon: 'trash'
+            icon: 'trash',
+            invoke: (s, c) => {
+                console.log(s);
+                console.log(c);
+            }
         }
     ],
     search: function (criteria, page, layoutName, context) {
