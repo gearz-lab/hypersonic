@@ -44,8 +44,10 @@ var Search = React.createClass({
     handleAction: function(a, s) {
         clientActionHelper.invoke(a, s, {
             model: this.props.model,
+            modal: this.props.modal,
             applicationDomain: this.props.applicationDomain,
-            modelActions: this.props.modelActions
+            modelActions: this.props.modelActions,
+            modalActions: this.props.modalActions
         });
     },
 

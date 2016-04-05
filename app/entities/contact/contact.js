@@ -32,8 +32,7 @@ export default {
             displayName: 'Delete',
             icon: 'trash',
             invoke: (s, c) => {
-                console.log(s);
-                console.log(c);
+                c.modalActions.enqueueConfirmation('Delete?', `This will delete these ${s.length} items. Continue?`);
             }
         }
     ],

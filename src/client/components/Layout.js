@@ -9,8 +9,8 @@ import UserBadge from '../components/UserBadge.js';
 var Layout = React.createClass({
 
     componentDidMount: function() {
-        this.props.loadMenu();
-        this.props.loadUser();
+        this.props.menuActions.loadMenu();
+        this.props.userActions.loadUser();
         
         this._notificationSystem = this.refs.notificationSystem;
     },
@@ -26,6 +26,33 @@ var Layout = React.createClass({
     },
 
     render: function() {
+
+        // load modals
+        let modals = <div>
+            {
+                this.props.modal.map((m, i) => {
+                    return <div key={`modal-${i}`} className="static-modal">
+                        <Modal.Dialog>
+                            <Modal.Header>
+                                <Modal.Title>{m.title}</Modal.Title>
+                            </Modal.Header>
+
+                            <Modal.Body>
+                                {m.text}
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Button>Close</Button>
+                                <Button bsStyle="primary">Save changes</Button>
+                            </Modal.Footer>
+
+                        </Modal.Dialog>
+                    </div>
+                })
+            }
+        </div>;
+
+
         return (
             <div>
                 <Navbar  fluid staticTop>
@@ -47,7 +74,7 @@ var Layout = React.createClass({
                     </div>
                 </div>
                 <NotificationSystem ref="notificationSystem" />
-
+                {modals}
                 {
                     (() => {
                         if (process.env.NODE_ENV !== 'production') {

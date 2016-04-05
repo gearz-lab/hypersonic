@@ -31,6 +31,14 @@ export default {
         if (!context) throw Error('\'context\' should be truthy');
         if(!clientAction.invoke) throw Error('clientAction should have an invoke method');
 
+        // validate state
+        if (!context.model) throw Error('\'context.model\' should be truthy');
+        if (!context.modal) throw Error('\'context.modal\' should be truthy');
+        if (!context.applicationDomain) throw Error('\'context.applicationDomain\' should be truthy');
+        // validate actions
+        if (!context.modelActions) throw Error('\'context.modelActions\' should be truthy');
+        if (!context.modalActions) throw Error('\'context.modalActions\' should be truthy');
+        
         clientAction.invoke(_.keys(selection).map(i => Number(i)), context);
     }
 }
