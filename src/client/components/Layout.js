@@ -29,8 +29,8 @@ var Layout = React.createClass({
     render: function() {
 
         // load modals
-        let modals = modalHelper.buildModals(this.props.modal);
-        
+        let modals = modalHelper.buildModals(this.props.modal, this.props.modalActions);
+
         return (
             <div>
                 <Navbar  fluid staticTop>

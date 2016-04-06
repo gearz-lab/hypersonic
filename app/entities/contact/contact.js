@@ -45,7 +45,7 @@ export default {
                             MODAL_BUTTON_SET_YES_NO
                         )
                     },
-                    () => { c.modalActions.dequeue(); },
+                    null,
                     MODAL_BUTTON_SET_YES_NO
                 );
             }

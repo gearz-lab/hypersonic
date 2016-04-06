@@ -5,11 +5,11 @@ import {MODAL_BUTTON_SET_YES_NO, MODAL_BUTTON_SET_OK_CANCEL} from '../../constan
 
 export default {
 
-    buildModal: function (modal, index) {
+    buildModal: function (modal, index, actions) {
         if (!modal) throw Error('\'modal\' should be truthy');
         switch (modal.modalType) {
             case MODAL_TYPE_CONFIRMATION:
-                return this.buildConfirmationModal(modal, index);
+                return this.buildConfirmationModal(modal, index, actions);
             default:
                 throw Error('Unsupported modal type');
         }
@@ -40,7 +40,7 @@ export default {
         </Modal.Footer>
     },
 
-    buildConfirmationModal: function (modal, index) {
+    buildConfirmationModal: function (modal, index, actions) {
         return <div key={`modal-${index}`} className="static-modal">
             <Modal.Dialog>
                 <Modal.Header>
@@ -50,13 +50,13 @@ export default {
                     {modal.text}
                 </Modal.Body>
                 {
-                    this.buildButtonSet(modal.buttonSet, modal.onSubmit, modal.onCancel)
+                    this.buildButtonSet(modal.buttonSet, modal.onSubmit, modal.onCancel || function() { actions.dequeue(); } )
                 }
             </Modal.Dialog>
         </div>
     },
 
-    buildModals(modals) {
-        return <div> { modals.map(this.buildModal.bind(this)) }</div>;
+    buildModals(modals, modalActions) {
+        return <div> { modals.map((m, i) => this.buildModal(m, i, modalActions) ) }</div>;
     }
 };
