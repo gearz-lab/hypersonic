@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/lib/Nav';
 import VNav from '../components/navigation/VNav';
 import NotificationSystem from 'react-notification-system';
 import UserBadge from '../components/UserBadge.js';
+import modalHelper from '../lib/modalHelper';
 
 var Layout = React.createClass({
 
@@ -28,31 +29,8 @@ var Layout = React.createClass({
     render: function() {
 
         // load modals
-        let modals = <div>
-            {
-                this.props.modal.map((m, i) => {
-                    return <div key={`modal-${i}`} className="static-modal">
-                        <Modal.Dialog>
-                            <Modal.Header>
-                                <Modal.Title>{m.title}</Modal.Title>
-                            </Modal.Header>
-
-                            <Modal.Body>
-                                {m.text}
-                            </Modal.Body>
-
-                            <Modal.Footer>
-                                <Button>Close</Button>
-                                <Button bsStyle="primary">Save changes</Button>
-                            </Modal.Footer>
-
-                        </Modal.Dialog>
-                    </div>
-                })
-            }
-        </div>;
-
-
+        let modals = modalHelper.buildModals(this.props.modal);
+        
         return (
             <div>
                 <Navbar  fluid staticTop>

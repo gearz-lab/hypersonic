@@ -1,4 +1,5 @@
 import editLayout from './layouts/contact.edit';
+import {MODAL_BUTTON_SET_OK_CANCEL, MODAL_BUTTON_SET_YES_NO} from '../../../src/constants';
 
 export default {
     name: "contact",
@@ -32,7 +33,21 @@ export default {
             displayName: 'Delete',
             icon: 'trash',
             invoke: (s, c) => {
-                c.modalActions.enqueueConfirmation('Delete?', `This will delete these ${s.length} items. Continue?`);
+                c.modalActions.enqueueConfirmation(
+                    'Delete?',
+                    `This will delete these ${s.length} items. Continue?`,
+                    () => {
+                        c.modalActions.enqueueConfirmation(
+                            'Sure?',
+                            'Sure',
+                            () => { c.modalActions.dequeue(2); },
+                            () => {},
+                            MODAL_BUTTON_SET_YES_NO
+                        )
+                    },
+                    () => { c.modalActions.dequeue(); },
+                    MODAL_BUTTON_SET_YES_NO
+                );
             }
         }
     ],
