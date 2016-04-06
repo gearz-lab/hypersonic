@@ -34,16 +34,24 @@ var defaultHandlers = {
         });
     },
 
-    delete: function (object, layoutName, context) {
-        if (!object) throw Error('\'id\' should be truthy');
+    delete: function (ids, layoutName, context) {
+        if (!ids) throw Error('\'ids\' should be truthy');
+        if (!_.isArray(ids) || !ids.length) throw Error('\'ids\' should be a not empty array');
 
-        // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
-        let objectToFind = isNaN(object) ? object : {id: object};
+        let promises = ids.map(id => {
+            return new Promise((f, r) => {
+                context.model.forge({id: id})
+                    .destroy()
+                    .then(() => f())
+                    .catch(r);
+            });
+        });
 
         return new Promise((f, r) => {
-            context.model.forge(objectToFind)
-                .destroy()
-                .then(() => f())
+            Promise.all(promises)
+                .then(() => {
+                    f(arguments[0]);
+                })
                 .catch(r);
         });
     },
@@ -194,11 +202,11 @@ class Repository {
      * @param level
      * @returns {Promise}
      */
-    delete(object, layoutName = undefined, level = BASE) {
-        if (!object) throw Error('\'object\' should be truthy');
+    delete(ids, layoutName = undefined, level = BASE) {
+        if (!ids) throw Error('\'ids\' should be truthy');
 
         let handler = this.findHandler('delete', layoutName, level);
-        return handler(object, layoutName, this.getContext());
+        return handler(ids, layoutName, this.getContext());
     }
 }
 

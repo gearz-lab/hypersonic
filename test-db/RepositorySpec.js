@@ -21,7 +21,7 @@ describe('RepositorySpec', function () {
                         assert.isOk(user);
                         assert.strictEqual(user.name, 'andre');
                         assert.strictEqual(user.email, 'andrerpena@gmail.com');
-                        repo.delete(user)
+                        repo.delete([user.id])
                             .then(() => {
                                 // let's make sure the user no longer exists
                                 repo.load({email: 'andrerpena@gmail.com'})

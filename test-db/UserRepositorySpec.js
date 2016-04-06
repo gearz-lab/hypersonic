@@ -23,7 +23,7 @@ describe('UserRepositorySpec', function () {
                         assert.isOk(u);
                         assert.isOk(u.oauthProfiles);
                         assert.strictEqual(u.oauthProfiles.google.id, '109199054588840596357');
-                        repo.delete(u)
+                        repo.delete([u.id])
                             .then(() => done())
                             .catch(done);
                     })
@@ -42,7 +42,7 @@ describe('UserRepositorySpec', function () {
                         assert.isOk(u);
                         assert.isOk(u.oauthProfiles);
                         assert.strictEqual(u.oauthProfiles.google.id, '109199054588840596357');
-                        repo.delete(u)
+                        repo.delete([u.id])
                             .then(() => done())
                             .catch(done);
                     })
@@ -59,7 +59,7 @@ describe('UserRepositorySpec', function () {
                     repo.findOrCreateFromGoogleProfile(googleProfileSample)
                         .then(u => {
                             assert.strictEqual(u.email, 'andrerpena@gmail.com');
-                            repo.delete(u)
+                            repo.delete([u.id])
                                 .then(() => done())
                                 .catch(done);
                         })
@@ -77,7 +77,7 @@ describe('UserRepositorySpec', function () {
                        .then(u => {
                            assert.strictEqual(u.email, 'andrerpena@gmail.com');
                            assert.ok(u.oauthProfiles.google);
-                           repo.delete(u)
+                           repo.delete([u.id])
                                .then(() => done())
                                .catch(done);
                        })

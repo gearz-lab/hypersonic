@@ -1,6 +1,23 @@
 import _ from 'underscore';
 
 export default {
+
+    /**
+     * Returns the system actions
+     */
+    getSystemActions: function() {
+          return [
+              {
+                  name: 'delete',
+                  displayName: 'Delete',
+                  icon: 'trash',
+                  invoke: (s, c) => {
+                    
+                  }
+              }
+          ]
+    },
+
     /**
      * Merges actions from the entity with the layout
      * @param entity
@@ -12,11 +29,14 @@ export default {
             return entity.clientActions || [];
         if(!entity.clientActions)
             return layout.clientActions;
-        return layout.clientActions.map(lca => {
+
+        let clientActions = layout.clientActions.map(lca => {
             let eca = _.find(entity.clientActions, eca => eca.name == lca.name);
             if(!eca) return lca;
             return Object.assign(eca, lca);
         });
+
+        return _.uniq(_.union(clientActions, this.getSystemActions()), false, (item, key, a) => item.name );
     },
 
     /**

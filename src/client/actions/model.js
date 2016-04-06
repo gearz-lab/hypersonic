@@ -153,3 +153,12 @@ export function searchEntities(entityName, criteria, page, selection) {
             });
     };
 }
+
+export function deleteEntities(entityName, entityIds) {
+    if (!entityName) throw Error('\'entityName\' should be truthy');
+    if (!entityIds) throw Error('\'entityIds\' should be truthy');
+    return dispatch => {
+        dispatch(modelLoading(entityName, {}));
+        
+    }
+}

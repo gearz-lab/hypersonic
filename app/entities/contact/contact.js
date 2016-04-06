@@ -27,30 +27,7 @@ export default {
         }
     ],
     layouts: [editLayout],
-    clientActions: [
-        {
-            name: 'delete',
-            displayName: 'Delete',
-            icon: 'trash',
-            invoke: (s, c) => {
-                c.modalActions.enqueueConfirmation(
-                    'Delete?',
-                    `This will delete these ${s.length} items. Continue?`,
-                    () => {
-                        c.modalActions.enqueueConfirmation(
-                            'Sure?',
-                            'Sure',
-                            () => { c.modalActions.dequeue(2); },
-                            () => {},
-                            MODAL_BUTTON_SET_YES_NO
-                        )
-                    },
-                    null,
-                    MODAL_BUTTON_SET_YES_NO
-                );
-            }
-        }
-    ],
+    clientActions: [],
     search: function (criteria, page, layoutName, context) {
         return context.repository.helpers.paginate(function() { return this.where('name', 'like', `%${criteria}%`) }, page);
     }

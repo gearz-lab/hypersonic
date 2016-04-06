@@ -42,5 +42,20 @@ export default {
                 p: page
             }
         });
+    },
+
+    delete: function (entityName, ids) {
+        if (!entityName) throw Error('\'entityName\' should be truthy');
+        if (!ids) throw Error('\'ids\' should be truthy');
+        if (!ids.length) throw Error('\'ids.length\' should be truthy');
+
+        let idsParam = ids.reduce(function(previousValue, currentValue, currentIndex, array) {
+            return previousValue + ',' + currentValue;
+        });
+        return http.delete(`/api/entity/${entityName}/delete`, {
+            params: {
+                ids: idsParam
+            }
+        });
     }
 }
