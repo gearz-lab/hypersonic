@@ -5,6 +5,7 @@ import menu from './menu';
 import model from './model';
 import modal from './modal';
 import applicationDomain from './applicationDomain';
+import notification from './notification';
 
 const rootReducer = combineReducers({
     routing,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     user,
     menu,
     model,
+    notification,
     modal
 });
 

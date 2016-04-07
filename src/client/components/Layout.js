@@ -14,15 +14,20 @@ var Layout = React.createClass({
         this.props.userActions.loadUser();
         
         this._notificationSystem = this.refs.notificationSystem;
+        this.checkNotifications();
     },
 
-    /**
-     * Handles when there's a new notification
-     */
-    handleNotification(notification) {
-        if(this._notificationSystem) {
-            notification = _.extend({ position: 'bl'}, notification);
-            this._notificationSystem.addNotification(notification);
+    componentDidUpdate: function() {
+        this.checkNotifications();
+    },
+
+    checkNotifications: function()    {
+        if(this.props.notification.length && this._notificationSystem) {
+            this.props.notification.map(n => {
+                let notification = _.extend({ position: 'bl'}, n);
+                this._notificationSystem.addNotification(notification);
+            });
+            this.props.notificationActions.clear();
         }
     },
 

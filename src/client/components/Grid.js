@@ -183,6 +183,9 @@ var Grid = React.createClass({
             <ButtonGroup>
                 {
                     actions.map(a => {
+                        let allowMultiple = a.allowMultiple == undefined || a.allowMultiple == null || a.allowMultiple == true;
+                        if(Object.keys(this.props.selection).length > 1 && !allowMultiple)
+                            return null;
                         let icon = a.icon ? <i className={`fa fa-${a.icon}`}></i> : null;
                         return <Button key={`action-${a.name}`} onClick={this.handleAction(a)}> {icon} {a.displayName || a.name} </Button>
                     })
