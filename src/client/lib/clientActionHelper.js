@@ -1,5 +1,6 @@
 import _ from 'underscore';
 
+
 export default {
 
     /**
@@ -12,7 +13,19 @@ export default {
                   displayName: 'Delete',
                   icon: 'trash',
                   invoke: (s, c) => {
-                    
+                      c.modalActions.enqueueConfirmation(
+                          'Delete?',
+                          `Are you sure you want to delete these ${s.length} objects? This operation cannot be reverted`,
+                          () => {
+                              c.modelActions.deleteEntities(c.entityName, s, () => {
+                                  c.modalActions.dequeue();
+                                  c.modelActions.searchEntities(c.entityName, c.model.data.lastCriteria, c.model.data.page, {});
+                              });
+                          },
+                          () => {
+                              c.modalActions.dequeue();
+                          }
+                      );
                   }
               }
           ]
@@ -58,6 +71,7 @@ export default {
         // validate actions
         if (!context.modelActions) throw Error('\'context.modelActions\' should be truthy');
         if (!context.modalActions) throw Error('\'context.modalActions\' should be truthy');
+        if (!context.entityName) throw Error('\'context.entityName\' should be truthy');
         
         clientAction.invoke(_.keys(selection).map(i => Number(i)), context);
     }

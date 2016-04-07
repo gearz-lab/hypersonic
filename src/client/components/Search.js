@@ -47,7 +47,8 @@ var Search = React.createClass({
             modal: this.props.modal,
             applicationDomain: this.props.applicationDomain,
             modelActions: this.props.modelActions,
-            modalActions: this.props.modalActions
+            modalActions: this.props.modalActions,
+            entityName: this.props.params.entity
         });
     },
 

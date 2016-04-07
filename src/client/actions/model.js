@@ -154,11 +154,22 @@ export function searchEntities(entityName, criteria, page, selection) {
     };
 }
 
-export function deleteEntities(entityName, entityIds) {
+export function deleteEntities(entityName, entityIds, onSuccess, onError) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     if (!entityIds) throw Error('\'entityIds\' should be truthy');
     return dispatch => {
         dispatch(modelLoading(entityName, {}));
-        
+        api.delete(entityName, entityIds)
+            .then(r => {
+                if(r.data.status == 'success') {
+                    onSuccess(r);
+                }
+                else {
+                    onError(r);
+                }
+            })
+            .catch(ex => {
+                throw Error(ex); 
+            });
     }
 }
