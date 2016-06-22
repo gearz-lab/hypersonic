@@ -6,7 +6,7 @@ Hypersonic is a platform for developing data-centric business applications.
 **Stack:**
 
  - [React.js](https://facebook.github.io/react/)
- - [Redux(https://github.com/reactjs/redux)
+ - [Redux](https://github.com/reactjs/redux)
  - [Express.js](http://expressjs.com/)
  - [Bootstrap](http://getbootstrap.com/)
  - [Node.js](https://nodejs.org/)
