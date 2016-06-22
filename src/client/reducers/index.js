@@ -6,6 +6,7 @@ import model from './model';
 import modal from './modal';
 import applicationDomain from './applicationDomain';
 import notification from './notification';
+import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
     routing,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     menu,
     model,
     notification,
-    modal
+    modal,
+    form: formReducer
 });
 
 export default rootReducer;

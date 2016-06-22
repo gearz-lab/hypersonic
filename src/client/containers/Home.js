@@ -1,5 +1,4 @@
 import React from 'react';
-import {MetaForm, DefaultComponentFactory} from 'react-metaform';
 
 var Home = React.createClass({
 

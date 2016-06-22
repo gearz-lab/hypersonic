@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import {MetaForm, DefaultComponentFactory} from 'react-metaform';
+import {AutoForm, DefaultDetailsComponentFactory} from 'redux-autoform';
 import Alert from 'react-bootstrap/lib/Alert'
 
 var Details = React.createClass({
@@ -63,8 +63,8 @@ var Details = React.createClass({
             <div className="document">
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
-                    <MetaForm
-                        componentFactory={DefaultComponentFactory}
+                    <AutoForm
+                        componentFactory={DefaultDetailsComponentFactory}
                         showBottomBar={false}
                         schema={applicationDomain}
                         entityName={entityName}

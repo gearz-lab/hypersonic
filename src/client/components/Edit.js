@@ -1,7 +1,8 @@
 import _ from 'underscore';
 import React from 'react';
-import {MetaForm, DefaultComponentFactory} from 'react-metaform';
-import Alert from 'react-bootstrap/lib/Alert';
+import { AutoForm, DefaultEditComponentFactory  } from 'redux-autoform';
+import { Alert, ButtonToolbar, Button } from 'react-bootstrap';
+import EditButtonToolbar from './EditButtonToolbar';
 
 var Edit = React.createClass({
 
@@ -24,9 +25,10 @@ var Edit = React.createClass({
      * Handles when the user saves the entity
      * @param model
      */
-    handleSave: function (model) {
-        let entityName = this.props.params.entity;
-        this.props.saveEntity(entityName, model);
+    handleSubmit: function (...args) {
+        console.log(args);
+        // let entityName = this.props.params.entity;
+        // this.props.saveEntity(entityName, model);
     },
 
     render: function () {
@@ -76,13 +78,13 @@ var Edit = React.createClass({
             <div className="document">
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
-                    <MetaForm
-                        componentFactory={DefaultComponentFactory}
+                    <AutoForm
+                        componentFactory={DefaultEditComponentFactory}
                         schema={applicationDomain}
                         entityName={entityName}
                         layoutName={layoutName}
-                        model={{}}
-                        onSave={this.handleSave}
+                        buttonBar={EditButtonToolbar}
+                        onSubmit={this.handleSave}
                     />
                 </div>
             </div>
