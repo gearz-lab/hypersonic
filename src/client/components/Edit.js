@@ -25,10 +25,9 @@ var Edit = React.createClass({
      * Handles when the user saves the entity
      * @param model
      */
-    handleSubmit: function (...args) {
-        console.log(args);
-        // let entityName = this.props.params.entity;
-        // this.props.saveEntity(entityName, model);
+    handleSubmit: function (model) {
+        let { entity } = this.props.params;
+        this.props.saveEntity(entity, model);
     },
 
     render: function () {

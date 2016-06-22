@@ -46,7 +46,7 @@ export default {
     devServer: {
         contentBase: "./dist",
         hot: true,
-        noInfo: true,
+        noInfo: false,
         headers: { 'Access-Control-Allow-Origin': '*' },
         port: 8081
     }

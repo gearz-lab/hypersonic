@@ -120,8 +120,7 @@
     "yargs": "^3.8.0",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
-    "redux-devtools-log-monitor": "^1.0.5",
-    "redux-logger": "^2.6.1"
+    "redux-devtools-log-monitor": "^1.0.5"
   },
   "repository": {
     "type": "git",
