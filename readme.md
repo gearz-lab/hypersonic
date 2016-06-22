@@ -10,7 +10,7 @@ Hypersonic is a platform for developing data-centric business applications.
  - [Express.js](http://expressjs.com/)
  - [Bootstrap](http://getbootstrap.com/)
  - [Node.js](https://nodejs.org/)
- - [RethinkDB](http://rethinkdb.com/)
+ - [PostgreSQL](https://www.postgresql.org/)
 
 **Project status:**
 
