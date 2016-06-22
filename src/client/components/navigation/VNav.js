@@ -53,7 +53,7 @@ var VNav = React.createClass({
         </div> : null;
 
         let input = <input ref="searchInput" type="text" className="form-control" placeholder="Filter"
-                           onChange={this.handleTextChange} value={this.state.search}/>;
+                           onChange={this.handleTextChange} value={this.state.search || ''}/>;
 
         let inputGroup = this.props.searchBarButtons ?
             <div className="input-group">

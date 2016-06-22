@@ -73,19 +73,22 @@ var Edit = React.createClass({
             layoutName = null;
         }
 
+        let autoFormProps = {
+            componentFactory: DefaultEditComponentFactory,
+            schema: applicationDomain,
+            entityName: entityName,
+            layoutName: layoutName,
+            buttonBar: EditButtonToolbar,
+            onSubmit: this.handleSubmit,
+            form: entityName
+        };
+
         // if the application domain has loaded successfully
         return (
             <div className="document">
                 <div className="document-header">{this.getDocumentTitle()}</div>
                 <div className="document-body">
-                    <AutoForm
-                        componentFactory={DefaultEditComponentFactory}
-                        schema={applicationDomain}
-                        entityName={entityName}
-                        layoutName={layoutName}
-                        buttonBar={EditButtonToolbar}
-                        onSubmit={this.handleSave}
-                    />
+                    <AutoForm {...autoFormProps} />
                 </div>
             </div>
         );
