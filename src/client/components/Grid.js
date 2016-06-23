@@ -38,9 +38,9 @@ var Grid = React.createClass({
             selection: {}
         }
     },
-    
-    handleSelect(event, selectedEvent) {
-        this.props.handlePaginate(selectedEvent.eventKey);
+
+    handlePaginate(page) {
+        this.props.handlePaginate(page);
     },
 
     handleCriteriaChange(event) {
@@ -74,7 +74,7 @@ var Grid = React.createClass({
         this.props.handleSelectionChange(newSelection);
     },
 
-    handleSelectionDropdownChange: function (event, eventKey) {
+    handleSelectionDropdownChange: function (eventKey, event) {
         let newSelection = clone(this.props.selection);
         switch (eventKey) {
             case 'check-all-this-page':
@@ -137,7 +137,7 @@ var Grid = React.createClass({
             items={pageCount}
             activePage={page}
             maxButtons={5}
-            onSelect={this.handleSelect}/> : null;
+            onSelect={this.handlePaginate}/> : null;
 
         let table = this.props.rows.length ? <Table bordered condensed>
             <colgroup>
