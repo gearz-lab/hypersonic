@@ -1,6 +1,5 @@
 import config from './config';
 import createKnex from 'knex';
-import dbUtils from '../src/server/lib/database/dbUtils';
 
 export default {
     /**

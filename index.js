@@ -63,5 +63,5 @@ app.use('/api', setupApi(appConfig, db));
 app.get('*', def);
 
 app.listen(3000, function () {
-    console.log(colors.green(`Gearz is running on port 3000. NODE_ENV: ${process.env.NODE_ENV}`));
+    console.log(colors.green(`Hypersonic is running on port 3000. NODE_ENV: ${process.env.NODE_ENV}`));
 });

@@ -1,7 +1,7 @@
 Schema
 ===
 
-Even though Gearz is document oriented, it's tables and fields must follow a convention.
+Even though Hypersonic is document oriented, it's tables and fields must follow a convention.
  
 Databases and tables that belong to gearz are preceded by an underscore. Ex: `_users`.
 

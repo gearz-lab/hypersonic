@@ -15,31 +15,19 @@ export default function setupSession(before, after, callback) {
 
     before((done) => {
         testUtils.dropTestDbIfExists(rootKnex)
+            .then(() => testUtils.createTestDb(rootKnex))
             .then(() => {
-                testUtils.createTestDb(rootKnex)
-                    .then(() => {
-                        knex = testUtils.createTestDbKnex();
-                        db = new Db(testUtils.getTestAppConfig(), knex);
-                        callback(db);
-                        dbUtils.setupDb(knex)
-                            .then(() => {
-                                testUtils.setupTestDb(knex)
-                                    .then(() => {
-                                        done();
-                                    })
-                                    .catch((ex) => {
-                                        knex.destroy();
-                                        done(ex);
-                                    });
-                            })
-                            .catch((ex) => {
-                                knex.destroy();
-                                done(ex);
-                            });
-                    })
-                    .catch(done);
+                knex = testUtils.createTestDbKnex();
+                db = new Db(testUtils.getTestAppConfig(), knex);
+                callback(db);
+                return dbUtils.setupDb(knex);
             })
-            .catch(done);
+            .then(() => testUtils.setupTestDb(knex))
+            .then(() => done())
+            .catch((ex) => {
+                if(knex) knex.destroy();
+                done(ex);
+            });
     });
 
     after((done) => {
