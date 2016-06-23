@@ -10,12 +10,7 @@ import routes from './Routes.js';
 import '../assets/favicon.ico';
 import applicationDomainLoaded from './client/actions/applicationDomain';
 
-var Globalize = require('globalize');
-var globalizeLocalizer = require('react-widgets/lib/localizers/globalize');
-
 export default function setupClient(appConfig) {
-
-    globalizeLocalizer(Globalize);
 
     const store = configureStore();
     const history = syncHistoryWithStore(browserHistory, store);
