@@ -40,7 +40,7 @@ var Layout = React.createClass({
             <div>
                 <Navbar  fluid staticTop>
                     <Nav className="navbar-brand">
-                        <a hfef="/">Gearz app</a>
+                        <a hfef="/">Hypersonic app</a>
                     </Nav>
                     <Nav pullRight>
                         <UserBadge user={this.props.user.data} />
