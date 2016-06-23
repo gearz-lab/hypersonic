@@ -94,7 +94,7 @@ class Repository {
         if (!entity) throw Error('\'entity\' should be truthy');
 
         this.appConfig = appConfig;
-        this.db = db;
+        this.dataContext = db;
         this.entity = entity;
         this.model = db.getModel(entity.name);
         this.knex = db.getKnex();
@@ -127,11 +127,13 @@ class Repository {
                     }
                 }
                 if (strict) throw Error('Could not find the given handler');
+                break;
             case ENTITY:
                 // let's try to find the handler on the entity
                 handler = this.entity[handlerName];
                 if (handler) return handler;
                 if (strict) throw Error('Could not find the given handler');
+                break;
             case BASE:
                 handler = defaultHandlers[handlerName];
                 if (!handler) throw Error(`Handler could not be found. Handler name: ${handlerName}`);
@@ -197,7 +199,7 @@ class Repository {
 
     /**
      * Deletes the given object
-     * @param object
+     * @param ids
      * @param layoutName
      * @param level
      * @returns {Promise}

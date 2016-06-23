@@ -3,7 +3,7 @@ import buildBookshelf from 'bookshelf';
 import Repository from '../repositories/Repository';
 import UserRepository from '../repositories/UserRepository';
 
-export default class Db {
+export default class DataContext {
     constructor(appConfig, knex) {
         if (!appConfig) throw Error('\'appConfig\' should be truthy');
         this.appConfig = appConfig;

@@ -1,5 +1,5 @@
 {
-  "name": "gearz",
+  "name": "hypersonic",
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
@@ -120,6 +120,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gearz-lab/gearz.git"
+    "url": "https://github.com/gearz-lab/hypersonic.git"
   }
 }

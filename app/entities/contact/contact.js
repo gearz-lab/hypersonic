@@ -1,5 +1,4 @@
 import editLayout from './layouts/contact.edit';
-import {MODAL_BUTTON_SET_OK_CANCEL, MODAL_BUTTON_SET_YES_NO} from '../../../src/constants';
 
 export default {
     name: "contact",

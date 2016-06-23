@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var colors = require('colors');
 var setupAppConfig = require('./src/common/lib/helpers/appConfigHelper');
-var Db = require('./src/server/lib/database/db');
+var DataContext = require('./src/server/lib/database/DataContext');
 var dbUtils = require('./src/server/lib/database/dbUtils');
 var expressReactViews = require('express-react-views');
 var passport = require('passport');
@@ -16,7 +16,7 @@ var webpackConfig = require('./webpack.config.dev');
 
 var appConfig = setupAppConfig(require('./app/appConfig'));
 
-var db = new Db(appConfig);
+var dataContext = new DataContext(appConfig);
 
 var app = express();
 app.set('views', './src/server/views');
@@ -30,12 +30,12 @@ passport.serializeUser(function (userId, done) {
 });
 
 passport.deserializeUser(function (userId, done) {
-    let repo = db.getRepository('user');
+    let repo = dataContext.getRepository('user');
     repo.load({id: userId})
         .then(u => done(null, u))
         .catch(done);
 });
-passport.use(setupGoogleStrategy(db));
+passport.use(setupGoogleStrategy(dataContext));
 
 app.use(webpackMiddleware(webpackCompiler));
 app.use(webpackHotMiddleware(webpackCompiler));
@@ -59,7 +59,7 @@ var def = require('./src/server/routes/app');
 var setupApi = require('./src/server/routes/api');
 
 app.use('/auth', auth);
-app.use('/api', setupApi(appConfig, db));
+app.use('/api', setupApi(appConfig, dataContext));
 app.get('*', def);
 
 app.listen(3000, function () {
