@@ -5,7 +5,8 @@ import {
     Table,
     Alert,
     Pagination,
-    Input,
+    FormGroup,
+    FormControl,
     Button,
     ButtonToolbar,
     ButtonGroup,
@@ -37,26 +38,22 @@ var Grid = React.createClass({
             selection: {}
         }
     },
-
-    componentDidMount: function () {
-        //React.findDOMNode(this.refs.input).focus();
-    },
-
+    
     handleSelect(event, selectedEvent) {
         this.props.handlePaginate(selectedEvent.eventKey);
     },
 
-    handleCriteriaChange() {
-        this.props.handleCriteriaChange(this.refs.input.getValue());
+    handleCriteriaChange(event) {
+        this.props.handleCriteriaChange(event.target.value);
     },
 
-    handleSearch() {
-        this.props.handleSearch(this.refs.input.getValue());
+    handleSearch(value) {
+        this.props.handleSearch(value);
     },
 
-    handleKeyPress(e) {
-        if (e.key === 'Enter') {
-            this.handleSearch();
+    handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            this.handleSearch(event.target.value);
         }
     },
 
@@ -116,7 +113,7 @@ var Grid = React.createClass({
     handleActionRefresh: function () {
         this.props.handleActionRefresh();
     },
-    
+
     handleAction: function (a) {
         return () => this.props.handleAction(a, this.props.selection);
     },
@@ -184,27 +181,32 @@ var Grid = React.createClass({
                 {
                     actions.map(a => {
                         let allowMultiple = a.allowMultiple == undefined || a.allowMultiple == null || a.allowMultiple == true;
-                        if(Object.keys(this.props.selection).length > 1 && !allowMultiple)
+                        if (Object.keys(this.props.selection).length > 1 && !allowMultiple)
                             return null;
                         let icon = a.icon ? <i className={`fa fa-${a.icon}`}></i> : null;
-                        return <Button key={`action-${a.name}`} onClick={this.handleAction(a)}> {icon} {a.displayName || a.name} </Button>
+                        return <Button key={`action-${a.name}`}
+                                       onClick={this.handleAction(a)}> {icon} {a.displayName || a.name} </Button>
                     })
                 }
             </ButtonGroup> : null;
+
+        let formGroupProps = {
+            autoFocus: true,
+            type: "text",
+            value: this.props.criteria,
+            onChange: this.handleCriteriaChange,
+            onKeyPress: this.handleKeyPress,
+            placeholder: "Search",
+            buttonAfter: <Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search"/>Search</Button>
+        };
 
         return (
             <div>
                 <div>
                     <div className="search-input-wrapper">
-                        <Input
-                            autoFocus
-                            type="text"
-                            value={this.props.criteria}
-                            onChange={this.handleCriteriaChange}
-                            onKeyPress={this.handleKeyPress}
-                            placeholder="Search"
-                            ref="input"
-                            buttonAfter={<Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search" />Search</Button>}/>
+                        <FormGroup>
+                            <FormControl {...formGroupProps} />
+                        </FormGroup>
                     </div>
                     <div className="search-actions-wrapper">
                         <ButtonToolbar>
@@ -231,7 +233,9 @@ var Grid = React.createClass({
                         </ButtonToolbar>
                     </div>
                 </div>
-                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search criteria: { this.props.lastCriteria || 'Empty' }. Selected: { Object.keys(selection).length }/{this.props.count}.</p>
+                <p>{this.props.count} results ({this.getElapsedTime(this.props.elapsedTime)}). Search
+                    criteria: { this.props.lastCriteria || 'Empty' }.
+                    Selected: { Object.keys(selection).length }/{this.props.count}.</p>
                 {table }
                 { pagination }
             </div>
