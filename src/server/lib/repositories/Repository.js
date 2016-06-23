@@ -1,3 +1,4 @@
+import Promise from 'bluebird';
 import _ from 'underscore';
 
 export const LAYOUT = 2;
@@ -11,49 +12,22 @@ var defaultHandlers = {
     save: function (object, layoutName, context) {
         if (!object) throw Error('\'object\' should be truthy');
 
-        let forgeObject = object.id ? {id: object.id} : {};
-        return new Promise((f, r) => {
-            context.model.forge(forgeObject)
-                .save(object)
-                .then(m => f(m.toJSON()))
-                .catch(r);
-        });
+        return context.dataContext.db[context.entity.name].saveAsync(object);
     },
 
-    load: function (object, layoutName, context) {
-        if (!object) throw Error('\'id\' should be truthy');
+    load: function (id, layoutName, context) {
+        if (!id) throw Error('\'id\' should be truthy');
+        if(isNaN(id)) throw Error('\'id\' should be a number');
 
-        // if the given object is a number, it's assumed to be an id. Otherwise, it's assumed to be an "example" object
-        let objectToFind = isNaN(object) ? object : {id: object};
-
-        return new Promise((f, r) => {
-            context.model.forge(objectToFind)
-                .fetch()
-                .then(m => f(m ? m.toJSON() : null))
-                .catch(r);
-        });
+        return context.dataContext.db[context.entity.name].findAsync(id);
     },
 
     delete: function (ids, layoutName, context) {
         if (!ids) throw Error('\'ids\' should be truthy');
         if (!_.isArray(ids) || !ids.length) throw Error('\'ids\' should be a not empty array');
 
-        let promises = ids.map(id => {
-            return new Promise((f, r) => {
-                context.model.forge({id: id})
-                    .destroy()
-                    .then(() => f())
-                    .catch(r);
-            });
-        });
-
-        return new Promise((f, r) => {
-            Promise.all(promises)
-                .then(() => {
-                    f(arguments[0]);
-                })
-                .catch(r);
-        });
+        let promises = ids.map(id => context.dataContext.db[context.entity.name].destroyAsync({id}));
+        return Promise.all(promises);
     },
 
     search: function (criteria, page, layoutName, context) {
@@ -88,16 +62,16 @@ class Helpers {
 
 class Repository {
 
-    constructor(appConfig, db, entity) {
+    constructor(appConfig, dataContext, entity) {
         if (!appConfig) throw Error('\'appConfig\' should be truthy');
-        if (!db) throw Error('\'db\' should be truthy');
+        if (!dataContext) throw Error('\'dataContext\' should be truthy');
         if (!entity) throw Error('\'entity\' should be truthy');
 
         this.appConfig = appConfig;
-        this.dataContext = db;
+        this.dataContext = dataContext;
         this.entity = entity;
-        this.model = db.getModel(entity.name);
-        this.knex = db.getKnex();
+        this.model = dataContext.getModel(entity.name);
+        this.knex = dataContext.getKnex();
 
         this.helpers = new Helpers(this.getContext());
     }
@@ -149,7 +123,7 @@ class Repository {
         return {
             appConfig: this.appConfig,
             repository: this,
-            db: this.db,
+            dataContext: this.dataContext,
             model: this.model, // the bookshelf Model type
             knex: this.knex,
             entity: this.entity

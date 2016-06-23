@@ -5,12 +5,12 @@ import googleProfileSample from "./resources/googleProfileSample.js";
 const assert = chai.assert;
 
 describe('UserRepositorySpec', function () {
-    var db = null;
+    var dataContext = null;
     let repo = null;
 
-    setupSession(before, after, $db => {
-        db = $db;
-        repo = db.getRepository('user');
+    setupSession(before, after, $dataContext => {
+        dataContext = $dataContext;
+        repo = dataContext.getRepository('user');
     });
 
     it('createFromGoogleProfile', done => {

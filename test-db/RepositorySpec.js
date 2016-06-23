@@ -5,12 +5,12 @@ import {ENTITY} from '../src/server/lib/repositories/Repository';
 const assert = chai.assert;
 
 describe('RepositorySpec', function () {
-    var db = null;
-    setupSession(before, after, $db => {
-        db = $db;
+    var dataContext = null;
+    setupSession(before, after, $dataContext => {
+        dataContext = $dataContext;
     });
     it('save, find and delete', done => {
-        let repo = db.getRepository('user');
+        let repo = dataContext.getRepository('user');
 
         repo.save({
             name: 'andre',
@@ -31,7 +31,7 @@ describe('RepositorySpec', function () {
             .catch(done);
     });
     it('save with custom handlers', done => {
-        let repo = db.getRepository('contact');
+        let repo = dataContext.getRepository('contact');
         let handler = repo.findHandler('save', undefined, ENTITY, true);
         assert.isFunction(handler);
         repo.save({

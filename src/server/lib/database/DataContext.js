@@ -1,39 +1,45 @@
 import buildKnex from 'knex';
-import buildBookshelf from 'bookshelf';
 import Repository from '../repositories/Repository';
 import UserRepository from '../repositories/UserRepository';
+import massive from 'massive';
+import Promise from 'bluebird';
 
 export default class DataContext {
-    constructor(appConfig, knex) {
+
+    /**
+     *
+     * @param appConfig
+     * @param knex
+     * @param massiveInstance
+     */
+    constructor(appConfig, knex, massiveInstance) {
         if (!appConfig) throw Error('\'appConfig\' should be truthy');
         this.appConfig = appConfig;
 
         // building knex and bookshelf
-        this.knex = knex ? knex : buildKnex({
+        this.knex = knex || buildKnex({
             client: 'pg',
             connection: this.appConfig.connectionString
         });
-        this.bookshelf = buildBookshelf(this.knex);
+
+        this.db = massiveInstance || massive.connectSync({connectionString : this.appConfig.connectionString});
+        this.db = Promise.promisifyAll(db);
 
         // create bookshelf models and services
         this.models = {};
         this.services = {};
-        
+
         // custom models
         if(appConfig.entities) {
             for(let i = 0; i < appConfig.entities.length; i++) {
                 let entity = appConfig.entities[i];
-                this.models[entity.name] = this.bookshelf.Model.extend({
-                    tableName: entity.tableName ? entity.tableName : entity.name
-                });
+                this.models[entity.name] = this.db[entity.name];
                 this.services[entity.name] = new Repository(this.appConfig, this, entity);
             }
         }
 
         // system models and services
-        this.models['user'] =  this.bookshelf.Model.extend({
-            tableName: 'user'
-        });
+        this.models['user'] =  this.db.user;
         this.services['user'] = new UserRepository(this.appConfig, this);
     }
 
