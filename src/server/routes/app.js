@@ -10,7 +10,7 @@ var router = express.Router();
 router.route('/login').get((req, res) => {
     let wrap = require('../views/app.html')
         .replace(/\$\{cssBundlePath\}/g, '')
-        .replace(/\$\{jsBundlePath\}/g, 'http://localhost:8081/assets/bundle.js');
+        .replace(/\$\{jsBundlePath\}/g, 'http://localhost:3000/bundle.js');
     res.status(200).send(wrap);
 });
 
@@ -21,7 +21,7 @@ router.route('*').get((req, res) => {
     else {
         let wrap = require('../views/app.html')
             .replace(/\$\{cssBundlePath\}/g, '')
-            .replace(/\$\{jsBundlePath\}/g, 'http://localhost:8081/assets/bundle.js');
+            .replace(/\$\{jsBundlePath\}/g, 'http://localhost:3000/bundle.js');
         res.status(200).send(wrap);
     }
 });

@@ -2,15 +2,14 @@ import webpack from 'webpack';
 
 export default {
     entry: [
-        'webpack-dev-server/client?http://localhost:8081',
-        'webpack/hot/only-dev-server',
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
         './app/appClient.js'
     ],
 
     output: {
         filename: 'bundle.js',
-        path: './dist/assets',
-        publicPath: 'http://localhost:8081/assets/'
+        path: '/',
+        publicPath: '/'
     },
 
     resolve: {
@@ -32,22 +31,14 @@ export default {
     },
 
     plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': "'development'"
+                NODE_ENV: JSON.stringify('development'),
+                APP_ENV: JSON.stringify('browser')
             }
         })
-    ],
-
-    // the configuration above does not apply to the webpack-dev-server...
-    // webpack-dev-server is configured below
-    devServer: {
-        contentBase: "./dist",
-        hot: true,
-        noInfo: false,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        port: 8081
-    }
+    ]
 };

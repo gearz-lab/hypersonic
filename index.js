@@ -9,14 +9,21 @@ var dbUtils = require('./src/server/lib/database/dbUtils');
 var expressReactViews = require('express-react-views');
 var passport = require('passport');
 var setupGoogleStrategy = require('./src/server/passport/googleStrategy');
+var webpack = require('webpack');
+var webpackMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var webpackConfig = require('./webpack.config.dev');
 
 var appConfig = setupAppConfig(require('./app/appConfig'));
+
 var db = new Db(appConfig);
 
 var app = express();
 app.set('views', './src/server/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', expressReactViews.createEngine({beautify: true}));
+
+var webpackCompiler = webpack(webpackConfig);
 
 passport.serializeUser(function (userId, done) {
     done(null, userId);
@@ -30,6 +37,8 @@ passport.deserializeUser(function (userId, done) {
 });
 passport.use(setupGoogleStrategy(db));
 
+app.use(webpackMiddleware(webpackCompiler));
+app.use(webpackHotMiddleware(webpackCompiler));
 app.use(express.static('./dist'));
 app.use(cookieParser());
 app.use(bodyParser.json());

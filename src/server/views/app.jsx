@@ -6,7 +6,7 @@ var DefaultLayout = React.createClass({
 
         let headHtml;
         let distUrl;
-        distUrl = process.env.NODE_ENV == 'production' ? '' : 'http://localhost:8081/';
+        distUrl = process.env.NODE_ENV == 'production' ? '' : 'http://localhost:3000/';
 
         headHtml = `<title>Gearz</title>
             <meta http-equiv='X-UA-Compatible' content='IE=edge' />
