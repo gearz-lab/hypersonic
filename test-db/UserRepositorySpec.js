@@ -12,42 +12,37 @@ describe('UserRepositorySpec', function () {
         dataContext = $dataContext;
         repo = dataContext.getRepository('user');
     });
-        
+
     it('createFromGoogleProfile', done => {
         repo.createFromGoogleProfile(googleProfileSample)
             .then(u => {
                 assert.isOk(u);
                 // let's go to the database to see if the user has actually been added
-                repo.load(u.id)
-                    .then(u => {
-                        assert.isOk(u);
-                        assert.isOk(u.oauthProfiles);
-                        assert.strictEqual(u.oauthProfiles.google.id, '109199054588840596357');
-                        repo.delete([u.id])
-                            .then(() => done())
-                            .catch(done);
-                    })
-                    .catch(done);
-            })
-            .catch(done);
-    });
-    it('updateFromGoogleProfile', done => {
-        repo.save({
-                name: 'andre',
-                email: 'andrerpena@gmail.com'
+                return repo.load(u.id)
             })
             .then(u => {
-                repo.updateFromGoogleProfile(u, googleProfileSample)
-                    .then(u => {
-                        assert.isOk(u);
-                        assert.isOk(u.oauthProfiles);
-                        assert.strictEqual(u.oauthProfiles.google.id, '109199054588840596357');
-                        repo.delete([u.id])
-                            .then(() => done())
-                            .catch(done);
-                    })
-                    .catch(done);
+                assert.isOk(u);
+                assert.isOk(u.oauthProfiles);
+                assert.strictEqual(u.oauthProfiles.google.id, '109199054588840596357');
+                return repo.delete([u.id]);
             })
+            .then(() => done())
+            .catch(done);
+    });
+    
+    it('updateFromGoogleProfile', done => {
+        repo.save({
+            name: 'andre',
+            email: 'andrerpena@gmail.com'
+        })
+            .then(u => repo.updateFromGoogleProfile(u, googleProfileSample))
+            .then(u => {
+                assert.isOk(u);
+                assert.isOk(u.oauthProfiles);
+                assert.strictEqual(u.oauthProfiles.google.id, '109199054588840596357');
+                return repo.delete([u.id])
+            })
+            .then(() => done())
             .catch(done);
     });
 
@@ -56,15 +51,13 @@ describe('UserRepositorySpec', function () {
             repo.load({email: 'andrerpena@gmail.com'})
                 .then(u => {
                     assert.isUndefined(u);
-                    repo.findOrCreateFromGoogleProfile(googleProfileSample)
-                        .then(u => {
-                            assert.strictEqual(u.email, 'andrerpena@gmail.com');
-                            repo.delete([u.id])
-                                .then(() => done())
-                                .catch(done);
-                        })
-                        .catch(done);
+                    return repo.findOrCreateFromGoogleProfile(googleProfileSample)
                 })
+                .then(u => {
+                    assert.strictEqual(u.email, 'andrerpena@gmail.com');
+                    return repo.delete([u.id])
+                })
+                .then(() => done())
                 .catch(done);
         });
         it('when a user with the same e-mail address already existed', done => {
@@ -72,18 +65,15 @@ describe('UserRepositorySpec', function () {
                 name: 'andre',
                 email: 'andrerpena@gmail.com'
             })
-                .then(() => {
-                   repo.findOrCreateFromGoogleProfile(googleProfileSample)
-                       .then(u => {
-                           assert.strictEqual(u.email, 'andrerpena@gmail.com');
-                           assert.ok(u.oauthProfiles.google);
-                           repo.delete([u.id])
-                               .then(() => done())
-                               .catch(done);
-                       })
-                       .catch(done);
+                .then(() => repo.findOrCreateFromGoogleProfile(googleProfileSample))
+                .then(u => {
+                    assert.strictEqual(u.email, 'andrerpena@gmail.com');
+                    assert.ok(u.oauthProfiles.google);
+                    return repo.delete([u.id]);
                 })
+                .then(() => done())
                 .catch(done);
         });
     });
-});
+})
+;
