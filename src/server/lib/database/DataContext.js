@@ -1,8 +1,7 @@
 import buildKnex from 'knex';
 import Repository from '../repositories/Repository';
 import UserRepository from '../repositories/UserRepository';
-import massive from 'massive';
-import Promise from 'bluebird';
+import { buildMassive } from '../helpers/massiveHelper';
 
 export default class DataContext {
 
@@ -22,8 +21,7 @@ export default class DataContext {
             connection: this.appConfig.connectionString
         });
 
-        this.db = massiveInstance || massive.connectSync({connectionString : this.appConfig.connectionString});
-        this.db = Promise.promisifyAll(db);
+        this.db = massiveInstance || buildMassive(this.appConfig.connectionString);
 
         // create bookshelf models and services
         this.models = {};
@@ -81,4 +79,6 @@ export default class DataContext {
     destroy() {
         this.knex.destroy();
     }
+    
+    
 }

@@ -17,7 +17,7 @@ var defaultHandlers = {
 
     load: function (id, layoutName, context) {
         if (!id) throw Error('\'id\' should be truthy');
-        if(isNaN(id)) throw Error('\'id\' should be a number');
+        if (isNaN(id)) throw Error('\'id\' should be a number');
 
         return context.dataContext.db[context.entity.name].findAsync(id);
     },
@@ -41,22 +41,27 @@ class Helpers {
         this.context = context;
     }
 
-    paginate(whereFunction, page) {
-        if (!whereFunction) throw Error('\'whereFunction\' should be truthy');
+    paginate(where, page) {
+        if (!where) throw Error('\'whereFunction\' should be truthy');
         if (!page) throw Error('\'page\' should be truthy');
 
-        let modifiers = {where: whereFunction, limit: this.context.appConfig.data.pageSize, offset: (page - 1) * this.context.appConfig.data.pageSize};
-        return new Promise((f, r) => {
-            let tableName = this.context.entity.tableName ? this.context.entity.tableName : this.context.entity.name;
-            Promise.all([this.context.knex.table(tableName).where(modifiers.where).count('*'), this.context.model.query(modifiers).fetchAll()])
-                .then(result => {
-                    let count = result[0][0].count;
-                    let rows = result[1].toJSON();
-                    let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
-                    f({count, pages, rows});
-                })
-                .catch(r);
-        });
+        let queryOptions = {
+            limit: this.context.appConfig.data.pageSize,
+            offset: (page - 1) * this.context.appConfig.data.pageSize
+        };
+
+        let tableName = this.context.entity.tableName || this.context.entity.name;
+
+        return Promise.all([
+            this.context.dataContext.db[tableName].countAsync(where),
+            this.context.dataContext.db[tableName].findAsync(where, queryOptions)
+        ])
+            .then(result => {
+                let count = result[0][0].count;
+                let rows = result[1];
+                let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
+                return {count, pages, rows};
+            });
     }
 }
 

@@ -11,26 +11,39 @@ export default function setupSession(before, after, callback) {
 
     let rootKnex = testUtils.createDefaultKnex();
     let knex = null;
+    let massive = null;
     var dataContext = null;
 
     before((done) => {
-        testUtils.dropTestDbIfExists(rootKnex)
-            .then(() => testUtils.createTestDb(rootKnex))
-            .then(() => {
-                knex = testUtils.createTestDbKnex();
-                dataContext = new DataContext(testUtils.getTestAppConfig(), knex);
-                callback(dataContext);
-                return dbUtils.setupDb(knex);
-            })
-            .then(() => testUtils.setupTestDb(knex))
-            .then(() => done())
-            .catch((ex) => {
-                if(knex) knex.destroy();
-                done(ex);
-            });
-    });
+            testUtils.dropTestDbIfExists(rootKnex)
+                .then(() => testUtils.createTestDb(rootKnex))
+                .then(() => {
+                    knex = testUtils.createTestDbKnex();
+                    return dbUtils.setupDb(knex);
+                })
+                .then(() => {
+                    massive = testUtils.createTestDbMassiveConnection();
+                })
+                .then(() => {
+                    dataContext = new DataContext(testUtils.getTestAppConfig(), knex, massive);
+                    callback(dataContext);
+                    return dbUtils.setupDb(knex);
+                })
+                .then(() => testUtils.setupTestDb(knex))
+                .then(() => {
+                    done()
+                })
+                .catch((ex) => {
+                    if (knex) knex.destroy();
+                    if (massive) massive.end();
+                    done(ex);
+                });
+        }
+    )
+    ;
 
     after((done) => {
+        massive.end();
         knex.destroy();
         testUtils.dropTestDb(rootKnex)
             .then(() => {
@@ -41,4 +54,5 @@ export default function setupSession(before, after, callback) {
                 done(error);
             });
     });
-};
+}
+;

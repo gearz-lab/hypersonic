@@ -30,22 +30,22 @@ describe('RepositorySpec', function () {
             })
             .catch(done);
     });
-    it('save with custom handlers', done => {
-        let repo = dataContext.getRepository('contact');
-        let handler = repo.findHandler('save', undefined, ENTITY, true);
-        assert.isFunction(handler);
-        repo.save({
-            name: 'Andre',
-            email: 'andrerpena@gmail.com'
-        }, undefined, ENTITY)
-            .then(m => {
-                assert.strictEqual(m.name, 'Andre2');
-                return repo.load({email: 'andrerpena@gmail.com'})
-                    .then(m => {
-                        assert.strictEqual(m.name, 'Andre2');
-                        done();
-                    });
-            })
-            .catch(done);
-    })
+    // it('save with custom handlers', done => {
+    //     let repo = dataContext.getRepository('contact');
+    //     let handler = repo.findHandler('save', undefined, ENTITY, true);
+    //     assert.isFunction(handler);
+    //     repo.save({
+    //         name: 'Andre',
+    //         email: 'andrerpena@gmail.com'
+    //     }, undefined, ENTITY)
+    //         .then(m => {
+    //             assert.strictEqual(m.name, 'Andre2');
+    //             return repo.load({email: 'andrerpena@gmail.com'})
+    //                 .then(m => {
+    //                     assert.strictEqual(m.name, 'Andre2');
+    //                     done();
+    //                 });
+    //         })
+    //         .catch(done);
+    // });
 });

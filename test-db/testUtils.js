@@ -1,5 +1,6 @@
 import config from './config';
 import createKnex from 'knex';
+import { buildMassive } from '../src/server/lib/helpers/massiveHelper';
 
 export default {
     /**
@@ -65,7 +66,15 @@ export default {
             connection: config.testDbConnectionString
         });
     },
-    
+
+    /***
+     * Creates a test massive instance
+     * @returns {*}
+     */
+    createTestDbMassiveConnection: function () {
+        return buildMassive(config.testDbConnectionString);
+    },
+
     getTestAppConfig: function() {
         return {
             entities: [
