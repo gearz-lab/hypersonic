@@ -72,7 +72,7 @@ export default {
      * @returns {*}
      */
     createTestDbMassiveConnection: function () {
-        return buildMassive(config.testDbConnectionString);
+        return buildMassive(config.testDbConnectionString, this.getTestEntities());
     },
 
     getTestAppConfig: function() {
@@ -87,5 +87,9 @@ export default {
                 }
             ]
         }
+    },
+
+    getTestEntities: function() {
+        return ['user', 'contact'];
     }
 }

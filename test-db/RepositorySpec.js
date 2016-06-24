@@ -11,41 +11,43 @@ describe('RepositorySpec', function () {
     });
     it('save, find and delete', done => {
         let repo = dataContext.getRepository('user');
+        let userId;
 
         repo.save({
             name: 'andre',
             email: 'andrerpena@gmail.com'
         })
-            .then(() => repo.load({email: 'andrerpena@gmail.com'}))
+            .then((object) => repo.load(object.id))
             .then(user => {
                 assert.isOk(user);
                 assert.strictEqual(user.name, 'andre');
                 assert.strictEqual(user.email, 'andrerpena@gmail.com');
-                return repo.delete([user.id])
-                    .then(() => repo.load({email: 'andrerpena@gmail.com'}))
-                    .then(m => {
-                        assert.isNull(m);
-                        done();
-                    });
+                userId = user.id;
+                return repo.delete([user.id]);
+            })
+            .then(() => repo.load(userId))
+            .then(m => {
+                assert.isUndefined(m);
+                done();
             })
             .catch(done);
     });
-    // it('save with custom handlers', done => {
-    //     let repo = dataContext.getRepository('contact');
-    //     let handler = repo.findHandler('save', undefined, ENTITY, true);
-    //     assert.isFunction(handler);
-    //     repo.save({
-    //         name: 'Andre',
-    //         email: 'andrerpena@gmail.com'
-    //     }, undefined, ENTITY)
-    //         .then(m => {
-    //             assert.strictEqual(m.name, 'Andre2');
-    //             return repo.load({email: 'andrerpena@gmail.com'})
-    //                 .then(m => {
-    //                     assert.strictEqual(m.name, 'Andre2');
-    //                     done();
-    //                 });
-    //         })
-    //         .catch(done);
-    // });
+    it('save with custom handlers', done => {
+        let repo = dataContext.getRepository('contact');
+        let handler = repo.findHandler('save', undefined, ENTITY, true);
+        assert.isFunction(handler);
+        repo.save({
+            name: 'Andre',
+            email: 'andrerpena@gmail.com'
+        }, undefined, ENTITY)
+            .then(m => {
+                assert.strictEqual(m.name, 'Andre2');
+                return repo.load(m.id)
+            })
+            .then(m => {
+                assert.strictEqual(m.name, 'Andre2');
+                done();
+            })
+            .catch(done);
+    });
 });

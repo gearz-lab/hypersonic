@@ -21,17 +21,12 @@ export default function setupSession(before, after, callback) {
                     knex = testUtils.createTestDbKnex();
                     return dbUtils.setupDb(knex);
                 })
-                .then(() => {
-                    massive = testUtils.createTestDbMassiveConnection();
-                })
-                .then(() => {
-                    dataContext = new DataContext(testUtils.getTestAppConfig(), knex, massive);
-                    callback(dataContext);
-                    return dbUtils.setupDb(knex);
-                })
                 .then(() => testUtils.setupTestDb(knex))
                 .then(() => {
-                    done()
+                    massive = testUtils.createTestDbMassiveConnection();
+                    dataContext = new DataContext(testUtils.getTestAppConfig(), knex, massive);
+                    callback(dataContext);
+                    done();
                 })
                 .catch((ex) => {
                     if (knex) knex.destroy();
@@ -39,8 +34,7 @@ export default function setupSession(before, after, callback) {
                     done(ex);
                 });
         }
-    )
-    ;
+    );
 
     after((done) => {
         massive.end();

@@ -1,7 +1,8 @@
 import buildKnex from 'knex';
 import Repository from '../repositories/Repository';
 import UserRepository from '../repositories/UserRepository';
-import { buildMassive } from '../helpers/massiveHelper';
+import {buildMassive} from '../helpers/massiveHelper';
+import _ from 'underscore';
 
 export default class DataContext {
 
@@ -17,19 +18,19 @@ export default class DataContext {
 
         // building knex and bookshelf
         this.knex = knex || buildKnex({
-            client: 'pg',
-            connection: this.appConfig.connectionString
-        });
+                client: 'pg',
+                connection: this.appConfig.connectionString
+            });
 
-        this.db = massiveInstance || buildMassive(this.appConfig.connectionString);
+        this.db = massiveInstance || buildMassive(this.appConfig.connectionString, _.map(appConfig.entities, e => e.name).concat('user'));
 
         // create bookshelf models and services
         this.models = {};
         this.services = {};
 
         // custom models
-        if(appConfig.entities) {
-            for(let i = 0; i < appConfig.entities.length; i++) {
+        if (appConfig.entities) {
+            for (let i = 0; i < appConfig.entities.length; i++) {
                 let entity = appConfig.entities[i];
                 this.models[entity.name] = this.db[entity.name];
                 this.services[entity.name] = new Repository(this.appConfig, this, entity);
@@ -37,7 +38,7 @@ export default class DataContext {
         }
 
         // system models and services
-        this.models['user'] =  this.db.user;
+        this.models['user'] = this.db.user;
         this.services['user'] = new UserRepository(this.appConfig, this);
     }
 
@@ -48,7 +49,7 @@ export default class DataContext {
      */
     getModel(modelName) {
         if (!modelName) throw Error('\'modelName\' should be truthy');
-        if(!this.models.hasOwnProperty(modelName))
+        if (!this.models.hasOwnProperty(modelName))
             throw Error('model name is invalid');
         return this.models[modelName];
     }
@@ -68,7 +69,7 @@ export default class DataContext {
      */
     getRepository(modelName) {
         if (!modelName) throw Error('\'modelName\' should be truthy');
-        if(!this.services.hasOwnProperty(modelName))
+        if (!this.services.hasOwnProperty(modelName))
             throw Error('model name is invalid');
         return this.services[modelName];
     }
@@ -79,6 +80,6 @@ export default class DataContext {
     destroy() {
         this.knex.destroy();
     }
-    
-    
+
+
 }
