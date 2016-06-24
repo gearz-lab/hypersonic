@@ -15,11 +15,9 @@ var defaultHandlers = {
         return context.dataContext.db[context.entity.name].saveAsync(object);
     },
 
-    load: function (id, layoutName, context) {
-        if (!id) throw Error('\'id\' should be truthy');
-        if (isNaN(id)) throw Error('\'id\' should be a number');
-
-        return context.dataContext.db[context.entity.name].findAsync(id);
+    load: function (criteria, layoutName, context) {
+        if (!criteria) throw Error('\'id\' should be truthy');
+        return context.dataContext.db[context.entity.name].findOneAsync(criteria);
     },
 
     delete: function (ids, layoutName, context) {

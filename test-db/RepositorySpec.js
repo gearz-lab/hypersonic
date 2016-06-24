@@ -3,7 +3,6 @@ import setupSession from './DbTestSession';
 import {ENTITY} from '../src/server/lib/repositories/Repository';
 
 const assert = chai.assert;
-
 describe('RepositorySpec', function () {
     var dataContext = null;
     setupSession(before, after, $dataContext => {

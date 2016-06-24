@@ -12,7 +12,7 @@ describe('UserRepositorySpec', function () {
         dataContext = $dataContext;
         repo = dataContext.getRepository('user');
     });
-
+        
     it('createFromGoogleProfile', done => {
         repo.createFromGoogleProfile(googleProfileSample)
             .then(u => {
