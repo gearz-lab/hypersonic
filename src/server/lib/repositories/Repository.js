@@ -11,7 +11,6 @@ var defaultHandlers = {
     // default functions
     save: function (object, layoutName, context) {
         if (!object) throw Error('\'object\' should be truthy');
-
         return context.dataContext.db[context.entity.name].saveAsync(object);
     },
 
@@ -22,10 +21,12 @@ var defaultHandlers = {
 
     delete: function (ids, layoutName, context) {
         if (!ids) throw Error('\'ids\' should be truthy');
-        if (!_.isArray(ids) || !ids.length) throw Error('\'ids\' should be a not empty array');
-
-        let promises = ids.map(id => context.dataContext.db[context.entity.name].destroyAsync({id}));
-        return Promise.all(promises);
+        if(_.isArray(ids)) {
+            let promises = ids.map(id => context.dataContext.db[context.entity.name].destroyAsync({id}));
+            return Promise.all(promises);
+        }
+        else
+            return context.dataContext.db[context.entity.name].destroyAsync({id});
     },
 
     search: function (criteria, page, layoutName, context) {

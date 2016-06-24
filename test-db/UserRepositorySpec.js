@@ -55,7 +55,7 @@ describe('UserRepositorySpec', function () {
         it('when the user did not exist yet', done => {
             repo.load({email: 'andrerpena@gmail.com'})
                 .then(u => {
-                    assert.isNull(u);
+                    assert.isUndefined(u);
                     repo.findOrCreateFromGoogleProfile(googleProfileSample)
                         .then(u => {
                             assert.strictEqual(u.email, 'andrerpena@gmail.com');
