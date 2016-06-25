@@ -1,5 +1,5 @@
 import _ from 'underscore';
-
+import { redirectToNew } from './routingHelper';
 
 export default {
 
@@ -17,7 +17,10 @@ export default {
                 name: 'new',
                 displayName: 'New',
                 icon: 'plus',
-                entitySpecific: false
+                entitySpecific: false,
+                invoke: (s, c) => {
+                    redirectToNew(c.entityName);
+                }
             },
             {
                 name: 'edit',

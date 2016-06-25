@@ -1,8 +1,8 @@
 import React from 'react';
-import GridSelectionButtons from './GridSelectionActions';
+import GridSelectionActions from './GridSelectionActions';
+import GridEntityActions from './GridEntityActions';
 import Table from './Table';
 import GridSummaryBar from './GridSummaryBar';
-import GridEntityButtons from './GridEntityActions';
 import {
     Pagination,
     FormGroup,
@@ -131,8 +131,8 @@ var Grid = React.createClass({
                     </div>
                     <div className="search-actions-wrapper">
                         <ButtonToolbar>
-                            <GridSelectionButtons {...gridSelectionActionsProps} />
-                            <GridEntityButtons {...gridEntityActionsProps}/>
+                            <GridSelectionActions {...gridSelectionActionsProps} />
+                            <GridEntityActions {...gridEntityActionsProps}/>
                         </ButtonToolbar>
                     </div>
                 </div>

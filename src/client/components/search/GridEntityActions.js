@@ -7,8 +7,7 @@ export default React.createClass({
     propTypes: {
         selection: React.PropTypes.object,
         rows: React.PropTypes.array,
-        handleSelectionChange: React.PropTypes.func,
-        handleActionRefresh: React.PropTypes.func.isRequired
+        handleSelectionChange: React.PropTypes.func
     },
 
     handleAction: function (a) {
