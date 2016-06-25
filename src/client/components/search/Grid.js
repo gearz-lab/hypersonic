@@ -1,8 +1,8 @@
 import React from 'react';
-import GridSelectionButtons from './GridSelectionButtons';
+import GridSelectionButtons from './GridSelectionActions';
 import Table from './Table';
 import GridSummaryBar from './GridSummaryBar';
-import GridEntityButtons from './GridEntityButtons';
+import GridEntityButtons from './GridEntityActions';
 import {
     Pagination,
     FormGroup,
@@ -54,10 +54,6 @@ var Grid = React.createClass({
         }
     },
 
-    handleActionRefresh: function () {
-        this.props.handleActionRefresh();
-    },
-
     render: function () {
 
         let {
@@ -98,14 +94,14 @@ var Grid = React.createClass({
             buttonAfter: <Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search"/>Search</Button>
         };
 
-        let gridSelectionButtonProps = {
+        let gridSelectionActionsProps = {
             selection,
             rows,
             handleSelectionChange,
             handleActionRefresh
         };
 
-        let gridEntityButtonProps = {
+        let gridEntityActionsProps = {
             handleAction,
             actions,
             selection
@@ -135,8 +131,8 @@ var Grid = React.createClass({
                     </div>
                     <div className="search-actions-wrapper">
                         <ButtonToolbar>
-                            <GridSelectionButtons {...gridSelectionButtonProps} />
-                            <GridEntityButtons {...gridEntityButtonProps}/>
+                            <GridSelectionButtons {...gridSelectionActionsProps} />
+                            <GridEntityButtons {...gridEntityActionsProps}/>
                         </ButtonToolbar>
                     </div>
                 </div>

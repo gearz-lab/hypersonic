@@ -1,6 +1,6 @@
 import React from 'react';
 import clone from 'clone';
-import { ButtonGroup, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import {ButtonGroup, Button, DropdownButton, MenuItem} from 'react-bootstrap';
 import _ from 'underscore';
 
 
@@ -11,6 +11,11 @@ export default React.createClass({
         rows: React.PropTypes.array,
         handleSelectionChange: React.PropTypes.func,
         handleActionRefresh: React.PropTypes.func.isRequired
+    },
+
+    handleActionRefresh: function () {
+        let {handleActionRefresh} = this.props;
+        handleActionRefresh();
     },
 
     handleSelectionDropdownChange: function (eventKey, event) {
@@ -57,8 +62,8 @@ export default React.createClass({
         return true;
     },
 
-    render: function() {
-        return <ButtonGroup>
+    render: function () {
+        return <ButtonGroup className="button-bar">
             <DropdownButton
                 title={<i className={ this.areAllInThisPageSelected() ? "fa fa-check-square-o" : "fa fa-square-o" }></i>}
                 id="input-dropdown-addon">
