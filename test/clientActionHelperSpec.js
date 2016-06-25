@@ -11,7 +11,7 @@ describe('clientActionHelper', function () {
             ]
         };
         let layout = undefined;
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
     });
@@ -24,7 +24,7 @@ describe('clientActionHelper', function () {
             ]
         };
         let layout = {};
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
     });
@@ -37,7 +37,7 @@ describe('clientActionHelper', function () {
                 }
             ]
         };
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
     });
@@ -52,7 +52,7 @@ describe('clientActionHelper', function () {
         let layout = {
             clientActions: []
         };
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 0);
     });
     it('When the entity has actions that the layout does not define', function () {
@@ -73,7 +73,7 @@ describe('clientActionHelper', function () {
                 }
             ]
         };
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
     });
@@ -93,7 +93,7 @@ describe('clientActionHelper', function () {
                 }
             ]
         };
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
         assert.equal(actions[0].entityProperty, 1);
@@ -114,7 +114,7 @@ describe('clientActionHelper', function () {
                 }
             ]
         };
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
         assert.equal(actions[0].layoutProperty, 1);
@@ -136,7 +136,7 @@ describe('clientActionHelper', function () {
                 }
             ]
         };
-        let actions = clientActionHelper.getActions(entity, layout);
+        let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
         assert.equal(actions.length, 1);
         assert.equal(actions[0].name, 'foo');
         assert.equal(actions[0].property, 2);

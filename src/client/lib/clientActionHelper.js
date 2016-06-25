@@ -14,6 +14,12 @@ export default {
 
         return [
             {
+                name: 'new',
+                displayName: 'New',
+                icon: 'plus',
+                entitySpecific: false
+            },
+            {
                 name: 'edit',
                 displayName: 'Edit',
                 icon: 'pencil',
@@ -51,7 +57,7 @@ export default {
      * @param entity
      * @param layout
      */
-    getActions: function (entity, layout) {
+    getEntitySpecificActions: function (entity, layout) {
         if (!entity) throw Error('\'entity\' should be truthy');
         if (!layout || !layout.clientActions)
             return entity.clientActions || [];
