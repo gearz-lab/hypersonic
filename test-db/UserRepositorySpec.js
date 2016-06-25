@@ -29,7 +29,7 @@ describe('UserRepositorySpec', function () {
             .then(() => done())
             .catch(done);
     });
-    
+
     it('updateFromGoogleProfile', done => {
         repo.save({
             name: 'andre',
@@ -75,5 +75,4 @@ describe('UserRepositorySpec', function () {
                 .catch(done);
         });
     });
-})
-;
+});

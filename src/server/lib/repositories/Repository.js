@@ -21,12 +21,12 @@ var defaultHandlers = {
 
     delete: function (ids, layoutName, context) {
         if (!ids) throw Error('\'ids\' should be truthy');
-        if(_.isArray(ids)) {
+        if (_.isArray(ids)) {
             let promises = ids.map(id => context.dataContext.db[context.entity.name].destroyAsync({id}));
             return Promise.all(promises);
         }
         else
-            return context.dataContext.db[context.entity.name].destroyAsync({id});
+            return context.dataContext.db[context.entity.name].destroyAsync({id: ids});
     },
 
     search: function (criteria, page, layoutName, context) {
@@ -105,13 +105,13 @@ class Repository {
                     }
                 }
                 if (strict) throw Error('Could not find the given handler');
-                break;
+                // intentional fall-through. DO NOT BREAK;
             case ENTITY:
                 // let's try to find the handler on the entity
                 handler = this.entity[handlerName];
                 if (handler) return handler;
                 if (strict) throw Error('Could not find the given handler');
-                break;
+                // intentional fall-through. DO NOT BREAK;
             case BASE:
                 handler = defaultHandlers[handlerName];
                 if (!handler) throw Error(`Handler could not be found. Handler name: ${handlerName}`);
@@ -145,6 +145,7 @@ class Repository {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('save', layoutName, level);
+        if (!handler || !_.isFunction(handler)) throw Error(`Could not find the appropriate handler. Entity name: ${this.entity.name}. Handler type: ${'save'}. Layout name: ${layoutName}. Level: ${level} `);
         return handler(object, layoutName, this.getContext());
     }
 
@@ -159,6 +160,7 @@ class Repository {
         if (!object) throw Error('\'object\' should be truthy');
 
         let handler = this.findHandler('load', layoutName, level);
+        if (!handler || !_.isFunction(handler)) throw Error(`Could not find the appropriate handler. Entity name: ${this.entity.name}. Handler type: ${'load'}. Layout name: ${layoutName}. Level: ${level} `);
         return handler(object, layoutName, this.getContext());
     }
 
@@ -172,6 +174,7 @@ class Repository {
      */
     search(criteria, page = 1, layoutName = undefined, level = BASE) {
         let handler = this.findHandler('search', layoutName, level);
+        if (!handler || !_.isFunction(handler)) throw Error(`Could not find the appropriate handler. Entity name: ${this.entity.name}. Handler type: ${'search'}. Layout name: ${layoutName}. Level: ${level} `);
         return handler(criteria, page, layoutName, this.getContext());
     }
 
@@ -184,8 +187,8 @@ class Repository {
      */
     delete(ids, layoutName = undefined, level = BASE) {
         if (!ids) throw Error('\'ids\' should be truthy');
-
         let handler = this.findHandler('delete', layoutName, level);
+        if (!handler || !_.isFunction(handler)) throw Error(`Could not find the appropriate handler. Entity name: ${this.entity.name}. Handler type: ${'delete'}. Layout name: ${layoutName}. Level: ${level} `);
         return handler(ids, layoutName, this.getContext());
     }
 }

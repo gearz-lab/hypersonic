@@ -1,6 +1,6 @@
 import chai from 'chai';
 import setupSession from './DbTestSession';
-import {ENTITY} from '../src/server/lib/repositories/Repository';
+import {BASE, ENTITY, LAYOUT} from '../src/server/lib/repositories/Repository';
 
 const assert = chai.assert;
 describe('RepositorySpec', function () {
@@ -22,7 +22,7 @@ describe('RepositorySpec', function () {
                 assert.strictEqual(user.name, 'andre');
                 assert.strictEqual(user.email, 'andrerpena@gmail.com');
                 userId = user.id;
-                return repo.delete([user.id]);
+                return repo.delete(user.id);
             })
             .then(() => repo.load(userId))
             .then(m => {
@@ -31,22 +31,45 @@ describe('RepositorySpec', function () {
             })
             .catch(done);
     });
+
+    it('save and search', done => {
+        let repo = dataContext.getRepository('contact');
+        let userId;
+
+        repo.save({
+            name: 'andre',
+            email: 'andrerpena@gmail.com'
+        })
+            .then((object) => repo.search({name: 'andre'}, 1, undefined, LAYOUT))
+            .then(() => done())
+            .catch(done);
+    });
+
     it('save with custom handlers', done => {
         let repo = dataContext.getRepository('contact');
+
         let handler = repo.findHandler('save', undefined, ENTITY, true);
         assert.isFunction(handler);
+
+        handler = repo.findHandler('load', undefined, BASE, true);
+        assert.isFunction(handler);
+
+        handler = repo.findHandler('delete', undefined, BASE, true);
+        assert.isFunction(handler);
+
         repo.save({
             name: 'Andre',
             email: 'andrerpena@gmail.com'
         }, undefined, ENTITY)
             .then(m => {
                 assert.strictEqual(m.name, 'Andre2');
-                return repo.load(m.id)
+                return repo.load(m.id, undefined, ENTITY)
             })
             .then(m => {
                 assert.strictEqual(m.name, 'Andre2');
-                done();
+                return repo.delete(m.id, undefined, ENTITY);
             })
+            .then(() => done())
             .catch(done);
     });
 });
