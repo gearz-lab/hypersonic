@@ -7,5 +7,5 @@ var knex = require('knex')({
 
 dbUtils.setupDb(knex)
     .then(() => {
-       knex.destroy();
+        knex.destroy();
     });

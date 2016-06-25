@@ -5,7 +5,7 @@ import {BASE, ENTITY, LAYOUT} from '../src/server/lib/repositories/Repository';
 const assert = chai.assert;
 describe('RepositorySpec', function () {
     var dataContext = null;
-    setupSession(before, after, $dataContext => {
+    setupSession(before, after, beforeEach, afterEach, $dataContext => {
         dataContext = $dataContext;
     });
     it('save, find and delete', done => {
@@ -40,7 +40,16 @@ describe('RepositorySpec', function () {
             name: 'andre',
             email: 'andrerpena@gmail.com'
         })
-            .then((object) => repo.search({name: 'andre'}, 1, undefined, LAYOUT))
+            .then((user) => {
+                userId = user.id
+            })
+            .then(() => repo.search('andre', 1, undefined, LAYOUT))
+            .then(({count, pages, rows}) => {
+                assert.equal(count, 1);
+                assert.equal(pages, 1);
+                assert.equal(rows.length, 1);
+            })
+            .then(() => repo.delete(userId, undefined, ENTITY))
             .then(() => done())
             .catch(done);
     });

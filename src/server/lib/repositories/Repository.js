@@ -8,17 +8,37 @@ export const BASE = 0;
 
 var defaultHandlers = {
 
-    // default functions
+    /**
+     * Default handler for saving
+     * @param object
+     * @param layoutName
+     * @param context
+     * @returns {*}
+     */
     save: function (object, layoutName, context) {
         if (!object) throw Error('\'object\' should be truthy');
         return context.dataContext.db[context.entity.name].saveAsync(object);
     },
 
+    /**
+     * Default hadler for loading
+     * @param criteria
+     * @param layoutName
+     * @param context
+     * @returns {*}
+     */
     load: function (criteria, layoutName, context) {
         if (!criteria) throw Error('\'id\' should be truthy');
         return context.dataContext.db[context.entity.name].findOneAsync(criteria);
     },
 
+    /**
+     * Default handler for deleting
+     * @param ids
+     * @param layoutName
+     * @param context
+     * @returns {*}
+     */
     delete: function (ids, layoutName, context) {
         if (!ids) throw Error('\'ids\' should be truthy');
         if (_.isArray(ids)) {
@@ -29,8 +49,41 @@ var defaultHandlers = {
             return context.dataContext.db[context.entity.name].destroyAsync({id: ids});
     },
 
+    /**
+     * Default handler for searching
+     * @param criteria
+     * @param page
+     * @param layoutName
+     * @param context
+     * @returns {*}
+     */
     search: function (criteria, page, layoutName, context) {
-        throw Error('The BASE search handler is still not implemented. Please implement the search handler on the Entity or on the Layout');
+        if (!criteria) throw Error('\'criteria\' should be truthy');
+        if (!page) throw Error('\'page\' should be truthy');
+
+        let quickSearchFields = context.entity.quickSearchFields;
+        if (!quickSearchFields) {
+            let stringFields = _.filter(context.entity.fields, f => f.type == 'string');
+            stringFields = _.first(stringFields, 3);
+            quickSearchFields = _.map(stringFields, f => f.name);
+        }
+        if (!quickSearchFields.length) throw Error(`Could not determine the quick search criteria for entity. Entity: ${context.entity.name}`);
+
+        let queryFilter;
+        if (quickSearchFields.length == 1) {
+            queryFilter = {};
+            queryFilter[`${field} like`] = `%${criteria}%`;
+        }
+        else {
+            queryFilter = {
+                or: _.map(quickSearchFields, field => {
+                    let innerQueryFilter = {};
+                    innerQueryFilter[`${field} like`] = `%${criteria}%`;
+                    return innerQueryFilter;
+                })
+            }
+        }
+        return context.repository.helpers.paginate(queryFilter, page);
     }
 };
 
@@ -43,6 +96,7 @@ class Helpers {
     paginate(where, page) {
         if (!where) throw Error('\'whereFunction\' should be truthy');
         if (!page) throw Error('\'page\' should be truthy');
+        if (!this.context.appConfig.data || !this.context.appConfig.data) throw Error('The supplied appConfig object does not have a page size configuration');
 
         let queryOptions = {
             limit: this.context.appConfig.data.pageSize,
@@ -55,9 +109,7 @@ class Helpers {
             this.context.dataContext.db[tableName].countAsync(where),
             this.context.dataContext.db[tableName].findAsync(where, queryOptions)
         ])
-            .then(result => {
-                let count = result[0][0].count;
-                let rows = result[1];
+            .then(([count, rows]) => {
                 let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
                 return {count, pages, rows};
             });
@@ -105,13 +157,13 @@ class Repository {
                     }
                 }
                 if (strict) throw Error('Could not find the given handler');
-                // intentional fall-through. DO NOT BREAK;
+            // intentional fall-through. DO NOT BREAK;
             case ENTITY:
                 // let's try to find the handler on the entity
                 handler = this.entity[handlerName];
                 if (handler) return handler;
                 if (strict) throw Error('Could not find the given handler');
-                // intentional fall-through. DO NOT BREAK;
+            // intentional fall-through. DO NOT BREAK;
             case BASE:
                 handler = defaultHandlers[handlerName];
                 if (!handler) throw Error(`Handler could not be found. Handler name: ${handlerName}`);

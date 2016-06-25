@@ -1,6 +1,6 @@
 import config from './config';
 import createKnex from 'knex';
-import { buildMassive } from '../src/server/lib/helpers/massiveHelper';
+import {buildMassive} from '../src/server/lib/helpers/massiveHelper';
 
 export default {
     /**
@@ -9,7 +9,7 @@ export default {
      * @returns {Function}
      */
     dropTestDb(knex) {
-        return knex.raw(`drop database ${config.testDatabaseName}`);
+        return knex.raw(`DROP DATABASE ${config.testDatabaseName}`);
     },
 
     /**
@@ -30,13 +30,17 @@ export default {
         return knex.raw(`create database ${config.testDatabaseName}`);
     },
 
+    truncateData(knex) {
+        return knex.raw(`truncate "user", "contact" cascade`);
+    },
+
     /**
      * Sets up the test db for testing.
      * This method should not create the default tables for every application. Those are created automatically
      * @param knex
      */
     setupTestDb(knex) {
-        return knex.schema.createTable('contact', function(table) {
+        return knex.schema.createTable('contact', function (table) {
             table.increments();
             table.timestamps();
             table.string('name').unique();
@@ -75,13 +79,34 @@ export default {
         return buildMassive(config.testDbConnectionString, this.getTestEntities());
     },
 
-    getTestAppConfig: function() {
+    getTestAppConfig: function () {
         return {
+            data: {
+                pageSize: 10
+            },
             entities: [
                 {
                     name: "contact",
+                    fields: [
+                        {
+                            name: 'name',
+                            type: 'string',
+                            displayName: 'Name'
+                        },
+                        {
+                            name: 'email',
+                            type: 'string',
+                            displayName: 'e-Mail'
+                        },
+                        {
+                            name: 'displayName',
+                            type: 'string',
+                            displayName: 'Display Name'
+                        }
+                    ],
+                    quickSearchFields: ['displayName', 'name', 'email'],
                     save: function (entity, layoutName, context) {
-                        entity.name+= '2';
+                        entity.name += '2';
                         return context.repository.save(entity, layoutName);
                     }
                 }
@@ -89,7 +114,7 @@ export default {
         }
     },
 
-    getTestEntities: function() {
+    getTestEntities: function () {
         return ['user', 'contact'];
     }
 }

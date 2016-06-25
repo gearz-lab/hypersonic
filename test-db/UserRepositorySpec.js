@@ -8,7 +8,7 @@ describe('UserRepositorySpec', function () {
     var dataContext = null;
     let repo = null;
 
-    setupSession(before, after, $dataContext => {
+    setupSession(before, after, beforeEach, afterEach, $dataContext => {
         dataContext = $dataContext;
         repo = dataContext.getRepository('user');
     });

@@ -10,6 +10,7 @@
     "start-docs": "babel-node ./docs/Server.js",
     "test": "./node_modules/.bin/karma start --single-run --browsers Chrome",
     "test-db": "mocha --timeout 15000 --compilers js:babel-register ./test-db/*Spec.js",
+    "test-db-create": "cross-env NODE_ENV=development babel-node ./test-db/tools/setupTestDb.js",
     "build-docs": "babel-node ./docs/Build.js",
     "db-sync": "babel-node ./tools/setupDb.js"
   },

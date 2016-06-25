@@ -1,5 +1,4 @@
 import testUtils from './testUtils'
-import dbUtils from '../src/server/lib/database/dbUtils';
 import DataContext from '../src/server/lib/database/DataContext';
 
 /**
@@ -7,21 +6,14 @@ import DataContext from '../src/server/lib/database/DataContext';
  * @param before
  * @param after
  */
-export default function setupSession(before, after, callback) {
+export default function setupSession(before, after, beforeEach, afterEach, callback) {
 
-    let rootKnex = testUtils.createDefaultKnex();
-    let knex = null;
+    let knex = testUtils.createDefaultKnex();
     let massive = null;
     var dataContext = null;
 
     before((done) => {
-            testUtils.dropTestDbIfExists(rootKnex)
-                .then(() => testUtils.createTestDb(rootKnex))
-                .then(() => {
-                    knex = testUtils.createTestDbKnex();
-                    return dbUtils.setupDb(knex);
-                })
-                .then(() => testUtils.setupTestDb(knex))
+            testUtils.truncateData(knex)
                 .then(() => {
                     massive = testUtils.createTestDbMassiveConnection();
                     dataContext = new DataContext(testUtils.getTestAppConfig(), knex, massive);
@@ -36,17 +28,12 @@ export default function setupSession(before, after, callback) {
         }
     );
 
-    after((done) => {
-        massive.end();
-        knex.destroy();
-        testUtils.dropTestDb(rootKnex)
-            .then(() => {
-                rootKnex.destroy();
-                done();
-            })
-            .catch((error) => {
-                done(error);
-            });
+    beforeEach((done) => {
+        testUtils.truncateData(knex)
+            .then(() => done());
     });
-}
-;
+
+    after((done) => {
+        done();
+    });
+};
