@@ -9,7 +9,7 @@ import {
     MODEL_LOAD_ERROR,
     MODEL_CHANGE_SEARCH_CRITERIA,
     MODEL_CHANGE_SELECTION
-} from '../actions/model';
+} from '../actions/modelActions';
 
 var defaultState = {
     status: 'NOT LOADED',

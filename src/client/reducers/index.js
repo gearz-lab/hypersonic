@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import user from './user';
-import menu from './menu';
-import model from './model';
-import modal from './modal';
-import applicationDomain from './applicationDomain';
-import notification from './notification';
+import user from './userReducer';
+import menu from './menuReducer';
+import model from './modelReducer';
+import modal from './modalReducer';
+import applicationDomain from './applicationDomainReducer';
+import notification from './notificationReducer';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({

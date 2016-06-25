@@ -8,7 +8,7 @@ import {Router} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 import routes from './Routes.js';
 import '../assets/favicon.ico';
-import applicationDomainLoaded from './client/actions/applicationDomain';
+import applicationDomainLoaded from './client/actions/applicationDomainActions';
 
 export default function setupClient(appConfig) {
 

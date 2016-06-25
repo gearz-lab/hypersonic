@@ -1,10 +1,10 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Layout from '../components/Layout';
-import * as userActions  from '../actions/user';
-import * as menuActions  from '../actions/menu';
-import * as modalActions from '../actions/modal';
-import * as notificationActions from '../actions/notification';
+import * as userActions  from '../actions/userActions';
+import * as menuActions  from '../actions/menuActions';
+import * as modalActions from '../actions/modalActions';
+import * as notificationActions from '../actions/notificationActions';
 
 function mapStateToProps(state) {
     return {

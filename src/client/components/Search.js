@@ -3,6 +3,7 @@ import { Alert } from 'react-bootstrap';
 import Grid from './search/Grid';
 import applicationDomainHelper from '../../common/lib/helpers/applicationDomainHelper';
 import clientActionHelper from '../lib/clientActionHelper';
+
 var Search = React.createClass({
 
     propTypes: {

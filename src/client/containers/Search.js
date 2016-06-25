@@ -1,9 +1,9 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Search from '../components/Search';
-import * as entityActions from '../actions/model';
-import * as modalActions from '../actions/modal';
-import * as notificationActions from '../actions/notification';
+import * as entityActions from '../actions/modelActions';
+import * as modalActions from '../actions/modalActions';
+import * as notificationActions from '../actions/notificationActions';
 
 function mapStateToProps(state) {
     return {

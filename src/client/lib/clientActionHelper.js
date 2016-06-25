@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import { redirectToNew } from './routingHelper';
+import { redirectToNew, redirectToEdit } from './routingHelper';
 
 export default {
 
@@ -26,7 +26,10 @@ export default {
                 name: 'edit',
                 displayName: 'Edit',
                 icon: 'pencil',
-                allowMultiple: false
+                allowMultiple: false,
+                invoke: (s, c) => {
+                    redirectToEdit(c.entityName, s[0]);
+                }
             },
             {
                 name: 'delete',

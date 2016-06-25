@@ -15,10 +15,8 @@ var Edit = React.createClass({
      * @returns {*}
      */
     getDocumentTitle: function () {
-        if (this.props.params.id) {
-            return `Editing ${this.props.params.entity}`;
-        }
-        return `New ${this.props.params.entity}`;
+        let { params: { id, entity } } = this.props;
+        return id ? `Editing ${entity}` : `New ${entity}`;
     },
 
     /**

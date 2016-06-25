@@ -1,4 +1,4 @@
-import {APPLICATION_DOMAIN_LOADING, APPLICATION_DOMAIN_LOADED} from '../actions/applicationDomain';
+import {MENU_LOADING, MENU_LOADED} from '../actions/menuActions';
 
 var defaultState = {
     status: 'NOT LOADED',
@@ -7,12 +7,12 @@ var defaultState = {
 
 export default function menu(state = defaultState, action) {
     switch (action.type) {
-        case APPLICATION_DOMAIN_LOADING:
+        case MENU_LOADING:
             return {
                 status: 'LOADING',
                 data: null
             };
-        case APPLICATION_DOMAIN_LOADED:
+        case MENU_LOADED:
             return {
                 status: 'LOADED',
                 data: action.data

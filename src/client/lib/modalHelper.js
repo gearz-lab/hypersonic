@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
-import {MODAL_TYPE_CONFIRMATION} from '../actions/modal';
+import {MODAL_TYPE_CONFIRMATION} from '../actions/modalActions';
 import {MODAL_BUTTON_SET_YES_NO, MODAL_BUTTON_SET_OK_CANCEL} from '../../constants';
 
 export default {

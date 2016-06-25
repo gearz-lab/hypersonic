@@ -1,19 +1,16 @@
-import {ENQUEUE_MODAL, DEQUEUE_MODAL} from '../actions/modal';
+import {ENQUEUE_NOTIFICATION, CLEAR_NOTIFICATION} from '../actions/notificationActions';
 
 var defaultState = [];
 
 export default function user(state = defaultState, action) {
     let newData;
     switch (action.type) {
-        case ENQUEUE_MODAL:
+        case ENQUEUE_NOTIFICATION:
             newData = state.splice(0);
             newData.push(action.data);
             return newData;
-        case DEQUEUE_MODAL:
-            newData = state.splice(0);
-            for (let i = 0; i < action.data.number; i++)
-                newData.pop();
-            return newData;
+        case CLEAR_NOTIFICATION:
+            return [];
         default:
             return state
     }

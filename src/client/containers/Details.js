@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Details from '../components/Details';
-import * as entityActions from '../actions/model';
+import * as entityActions from '../actions/modelActions';
 
 function mapStateToProps(state) {
     return {
