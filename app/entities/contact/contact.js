@@ -28,6 +28,6 @@ export default {
     layouts: [editLayout],
     clientActions: [],
     search: function (criteria, page, layoutName, context) {
-        return context.repository.helpers.paginate({"name like": `%${criteria}%`}, page);
+        return context.repository.helpers.paginate({"name ilike": `%${criteria}%`}, page);
     }
 };

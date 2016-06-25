@@ -2,6 +2,8 @@ import Promise from 'bluebird';
 import massive from 'massive';
 import _ from 'underscore';
 
+Promise.config({warnings: false});
+
 /**
  * 
  * @param connectionString

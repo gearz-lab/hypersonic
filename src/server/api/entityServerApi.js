@@ -1,4 +1,4 @@
-import { LAYOUT} from '../lib/repositories/Repository';
+import {LAYOUT} from '../lib/repositories/Repository';
 
 class EntityServerApi {
 
@@ -73,17 +73,17 @@ class EntityServerApi {
                 let entityName = req.params.entity;
                 let idsString = req.query.ids;
                 let ids = idsString.split(',').map(x => Number(x));
-                
+
                 let repo = db.getRepository(entityName);
                 if (!repo) throw Error(`Could not find entity. Entity name: ${entityName}`);
-                
+
                 repo.delete(ids)
                     .then(r => res.send({status: 'success', result: r}))
                     .catch(ex => {
                         res.status(500).send(ex.toString());
                     });
             }
-            catch(ex) {
+            catch (ex) {
                 res.status(500).send(ex.toString());
             }
         });
