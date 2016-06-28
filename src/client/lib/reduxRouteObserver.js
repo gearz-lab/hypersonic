@@ -48,7 +48,7 @@ class RouterObserver {
 
         _.each(this.observers, observer => {
             let { regex, callback } = observer;
-            let match = pathAndQuery.match(regex);
+            let match = regex.exec(pathAndQuery);
             if (match) {
                 callback(match, currentLocation, previousLocation);
             }
