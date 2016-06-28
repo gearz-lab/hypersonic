@@ -5,6 +5,7 @@ import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 import DevTools from '../components/DevTools';
+import configureObservers from './configureObservers';
 
 const router = routerMiddleware(hashHistory);
 
@@ -20,6 +21,7 @@ const enhancer = compose(
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, enhancer);
+  configureObservers(store);
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>
