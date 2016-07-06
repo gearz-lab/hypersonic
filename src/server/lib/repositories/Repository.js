@@ -42,11 +42,11 @@ var defaultHandlers = {
     delete: function (ids, layoutName, context) {
         if (!ids) throw Error('\'ids\' should be truthy');
         if (_.isArray(ids)) {
-            let promises = ids.map(id => context.dataContext.db[context.entity.name].destroyAsync({id}));
+            let promises = ids.map(id => context.dataContext.db[context.entity.name].destroyAsync({ id }));
             return Promise.all(promises);
         }
         else
-            return context.dataContext.db[context.entity.name].destroyAsync({id: ids});
+            return context.dataContext.db[context.entity.name].destroyAsync({ id: ids });
     },
 
     /**
@@ -58,7 +58,6 @@ var defaultHandlers = {
      * @returns {*}
      */
     search: function (criteria, page, layoutName, context) {
-        if (!criteria) throw Error('\'criteria\' should be truthy');
         if (!page) throw Error('\'page\' should be truthy');
 
         let quickSearchFields = context.entity.quickSearchFields;
@@ -69,18 +68,19 @@ var defaultHandlers = {
         }
         if (!quickSearchFields.length) throw Error(`Could not determine the quick search criteria for entity. Entity: ${context.entity.name}`);
 
-        let queryFilter;
-        if (quickSearchFields.length == 1) {
-            queryFilter = {};
-            queryFilter[`${field} like`] = `%${criteria}%`;
-        }
-        else {
-            queryFilter = {
-                or: _.map(quickSearchFields, field => {
-                    let innerQueryFilter = {};
-                    innerQueryFilter[`${field} like`] = `${criteria}%`;
-                    return innerQueryFilter;
-                })
+        let queryFilter = {};
+        if (criteria) {
+            if (quickSearchFields.length == 1) {
+                queryFilter[`${field} like`] = `%${criteria}%`;
+            }
+            else {
+                queryFilter = {
+                    or: _.map(quickSearchFields, field => {
+                        let innerQueryFilter = {};
+                        innerQueryFilter[`${field} like`] = `${criteria}%`;
+                        return innerQueryFilter;
+                    })
+                }
             }
         }
         return context.repository.helpers.paginate(queryFilter, page);
@@ -111,7 +111,7 @@ class Helpers {
         ])
             .then(([count, rows]) => {
                 let pages = Math.ceil(count / this.context.appConfig.data.pageSize);
-                return {count, pages, rows};
+                return { count, pages, rows };
             });
     }
 }
