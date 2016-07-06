@@ -78,7 +78,7 @@ var defaultHandlers = {
             queryFilter = {
                 or: _.map(quickSearchFields, field => {
                     let innerQueryFilter = {};
-                    innerQueryFilter[`${field} like`] = `%${criteria}%`;
+                    innerQueryFilter[`${field} like`] = `${criteria}%`;
                     return innerQueryFilter;
                 })
             }
