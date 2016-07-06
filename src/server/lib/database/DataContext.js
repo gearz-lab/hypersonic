@@ -12,15 +12,9 @@ export default class DataContext {
      * @param knex
      * @param massiveInstance
      */
-    constructor(appConfig, knex, massiveInstance) {
+    constructor(appConfig, massiveInstance) {
         if (!appConfig) throw Error('\'appConfig\' should be truthy');
         this.appConfig = appConfig;
-
-        // building knex and bookshelf
-        this.knex = knex || buildKnex({
-                client: 'pg',
-                connection: this.appConfig.connectionString
-            });
 
         this.db = massiveInstance || buildMassive(this.appConfig.connectionString, _.map(appConfig.entities, e => e.name).concat('user'));
 
@@ -55,14 +49,6 @@ export default class DataContext {
     }
 
     /**
-     * Gets the knex instance
-     * @returns {*}
-     */
-    getKnex() {
-        return this.knex;
-    }
-
-    /**
      * Returns the given repository
      * @param modelName
      * @returns {*}
@@ -73,13 +59,5 @@ export default class DataContext {
             throw Error('model name is invalid');
         return this.services[modelName];
     }
-
-    /**
-     * Destroys the knex instance and its connection pool
-     */
-    destroy() {
-        this.knex.destroy();
-    }
-
 
 }

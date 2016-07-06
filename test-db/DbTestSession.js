@@ -8,24 +8,23 @@ import DataContext from '../src/server/lib/database/DataContext';
  */
 export default function setupSession(before, after, beforeEach, afterEach, callback) {
 
-    let knex = testUtils.createDefaultKnex();
+    let knex = testUtils.createTestDbKnex();
     let massive = null;
     var dataContext = null;
 
     before((done) => {
-            testUtils.truncateData(knex)
-                .then(() => {
-                    massive = testUtils.createTestDbMassiveConnection();
-                    dataContext = new DataContext(testUtils.getTestAppConfig(), knex, massive);
-                    callback(dataContext);
-                    done();
-                })
-                .catch((ex) => {
-                    if (knex) knex.destroy();
-                    if (massive) massive.end();
-                    done(ex);
-                });
+        try {
+            massive = testUtils.createTestDbMassiveConnection();
+            dataContext = new DataContext(testUtils.getTestAppConfig(), massive);
+            callback(dataContext);
+            done();
         }
+        catch (ex) {
+            if (knex) knex.destroy();
+            if (massive) massive.end();
+            done(ex);
+        }
+    }
     );
 
     beforeEach((done) => {

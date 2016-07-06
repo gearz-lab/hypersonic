@@ -127,7 +127,6 @@ class Repository {
         this.dataContext = dataContext;
         this.entity = entity;
         this.model = dataContext.getModel(entity.name);
-        this.knex = dataContext.getKnex();
 
         this.helpers = new Helpers(this.getContext());
     }
@@ -181,7 +180,6 @@ class Repository {
             repository: this,
             dataContext: this.dataContext,
             model: this.model, // the bookshelf Model type
-            knex: this.knex,
             entity: this.entity
         }
     }
