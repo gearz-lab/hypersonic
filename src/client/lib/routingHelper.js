@@ -19,3 +19,8 @@ export function redirectToEdit(entityName, entityId) {
     if (!entityId) throw Error('\'entityId\' should be truthy');
     browserHistory.push(`/e/${entityName}/edit/${entityId}`);
 }
+
+export function redirectToSearch(entityName, criteria) {
+    if(!entityName) throw Error('Argument \'entityName\' should be truthy');
+    browserHistory.push(`/e/${entityName}/search?q=${criteria}`);
+}

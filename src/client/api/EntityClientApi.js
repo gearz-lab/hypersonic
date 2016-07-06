@@ -34,7 +34,6 @@ export default {
      */
     search: function (entityName:string, page:number, criteria:string) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
-        if (criteria === undefined || criteria === null) throw Error('\'criteria\' should not be null or undefined');
 
         return http.get(`/api/entity/${entityName}/search`, {
             params: {

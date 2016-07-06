@@ -3,6 +3,7 @@ import { Alert } from 'react-bootstrap';
 import Grid from './search/Grid';
 import applicationDomainHelper from '../../common/lib/helpers/applicationDomainHelper';
 import clientActionHelper from '../lib/clientActionHelper';
+import { redirectToSearch } from '../lib/routingHelper';
 
 var Search = React.createClass({
 
@@ -27,7 +28,7 @@ var Search = React.createClass({
     },
 
     handleSearch: function (criteria) {
-        this.props.modelActions.searchEntities(this.props.params.entity, criteria, 1, {});
+        redirectToSearch(this.props.params.entity, criteria);
     },
 
     handleCriteriaChange: function (criteria) {
