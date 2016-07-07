@@ -1,14 +1,14 @@
 import React from 'react';
+import Loading from 'react-loading';
 
-var Grid = React.createClass({
-
+var LoadingBox = React.createClass({
     render: function () {
-        return <div className="document">
-            <div className="document-header">Loading...</div>
-            <div className="document-body">
+        return (
+            <div className="loading-box">
+                <Loading type='spin' color='#e3e3e3' />
             </div>
-        </div>;
+        );
     }
 });
 
-export default Grid;
+export default LoadingBox;

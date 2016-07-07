@@ -18,11 +18,13 @@ export default React.createClass({
             count,
             elapsedTime,
             lastCriteria,
-            selection
+            selection,
+            loading
         } = this.props;
 
-        return <p>{count} results ({this.getElapsedTime(elapsedTime)}). Search
+        return <p>{count} results ({this.getElapsedTime(elapsedTime) }).Search
             criteria: { lastCriteria || 'Empty' }.
-            Selected: { Object.keys(selection).length }/{count}.</p>;
+            Selected: { Object.keys(selection).length }/{count}.
+        </p>;
     }
 })

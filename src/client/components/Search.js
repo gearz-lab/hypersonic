@@ -11,10 +11,6 @@ var Search = React.createClass({
         params: React.PropTypes.object.isRequired
     },
 
-    componentDidMount: function () {
-        //this.props.modelActions.searchEntities(this.props.params.entity, '', 1, {});
-    },
-
     /**
      * Returns the document title
      * @returns {*}
@@ -82,6 +78,7 @@ var Search = React.createClass({
         let criteria = this.props.model.data.criteria || '';
         let lastCriteria = this.props.model.data.lastCriteria || '';
         let selection = this.props.model.data.selection || {};
+        let loading = this.props.model.status == 'LOADING';
 
         return (
             <div className="document">
@@ -103,6 +100,7 @@ var Search = React.createClass({
                           handleSelectionChange={this.handleSelectionChange}
                           handleActionRefresh={this.handleActionRefresh}
                           handleAction={this.handleAction}
+                          loading={loading}
                     />
                 </div>
             </div>
