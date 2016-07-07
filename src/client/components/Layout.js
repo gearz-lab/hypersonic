@@ -6,32 +6,40 @@ import VNav from '../components/navigation/VNav';
 import NotificationSystem from 'react-notification-system';
 import UserBadge from '../components/UserBadge.js';
 import modalHelper from '../lib/modalHelper';
+import moment from 'moment';
+import numbro from 'numbro';
+import momentLocalizer from '../../common/lib/localization/momentLocalizer';
+import numbroLocalizer from '../../common/lib/localization/numbroLocalizer';
 
 var Layout = React.createClass({
 
-    componentDidMount: function() {
+    componentDidMount: function () {
         this.props.menuActions.loadMenu();
         this.props.userActions.loadUser();
-        
+
         this._notificationSystem = this.refs.notificationSystem;
         this.checkNotifications();
     },
 
-    componentDidUpdate: function() {
+    componentDidUpdate: function () {
         this.checkNotifications();
     },
 
-    checkNotifications: function()    {
-        if(this.props.notification.length && this._notificationSystem) {
+    checkNotifications: function () {
+        if (this.props.notification.length && this._notificationSystem) {
             this.props.notification.map(n => {
-                let notification = _.extend({ position: 'bl'}, n);
+                let notification = _.extend({ position: 'bl' }, n);
                 this._notificationSystem.addNotification(notification);
             });
             this.props.notificationActions.clear();
         }
     },
 
-    render: function() {
+    render: function () {
+
+        // setting date localizer
+        momentLocalizer(moment);
+        numbroLocalizer(numbro);
 
         // load modals
         let modals = modalHelper.buildModals(this.props.modal, this.props.modalActions);

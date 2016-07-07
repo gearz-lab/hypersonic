@@ -1,4 +1,5 @@
 import React from 'react';
+import { getNumberLocalizer } from '../../../common/lib/localization/numberLocalizer';
 
 export default React.createClass({
 
@@ -8,11 +9,9 @@ export default React.createClass({
         handleSelectionChange: React.PropTypes.func
     },
 
-    getElapsedTime: function (elapsedTime) {
-        return (elapsedTime / 1000).toFixed(2) + ' seconds';
-    },
-
     render: function () {
+
+        let numberLocalizer = getNumberLocalizer();
 
         let {
             count,
@@ -22,9 +21,12 @@ export default React.createClass({
             loading
         } = this.props;
 
-        return <p>{count} results ({this.getElapsedTime(elapsedTime) }).Search
-            criteria: { lastCriteria || 'Empty' }.
-            Selected: { Object.keys(selection).length }/{count}.
-        </p>;
+        let formattedCount = numberLocalizer.format(count);
+        console.log(numberLocalizer.format(elapsedTime / 1000));
+        let formattedElapsedTime = numberLocalizer.format(elapsedTime / 1000, '0.00') + ' seconds';
+        let searchCriteria = lastCriteria || 'Empty';
+        let selected = `${Object.keys(selection).length}/${formattedCount}`;
+
+        return <p>{formattedCount} results ({formattedElapsedTime}). Search criteria: {searchCriteria}. Selected: {selected}. </p>;
     }
-})
+});
