@@ -7,7 +7,7 @@ export default {
      * @param entityName
      * @param entityId
      */
-    load: function (entityName:string, entityId:number) {
+    load: function (entityName: string, entityId: number) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entityId) throw Error('\'entityId\' should be truthy');
 
@@ -19,7 +19,7 @@ export default {
      * @param entityName The name of the entity being saved
      * @param entity The entity being saved
      */
-    save: function (entityName:string, entity:any) {
+    save: function (entityName: string, entity: any) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entity) throw Error('\'entity\' should be truthy');
 
@@ -32,7 +32,7 @@ export default {
      * @param page
      * @param criteria
      */
-    search: function (entityName:string, page:number, criteria:string) {
+    search: function (entityName: string, page: number, criteria: string) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
 
         return http.get(`/api/entity/${entityName}/search`, {
@@ -48,7 +48,7 @@ export default {
         if (!ids) throw Error('\'ids\' should be truthy');
         if (!ids.length) throw Error('\'ids.length\' should be truthy');
 
-        let idsParam = ids.reduce(function(previousValue, currentValue, currentIndex, array) {
+        let idsParam = ids.reduce(function (previousValue, currentValue, currentIndex, array) {
             return previousValue + ',' + currentValue;
         });
         return http.delete(`/api/entity/${entityName}/delete`, {

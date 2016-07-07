@@ -12,7 +12,7 @@ var Search = React.createClass({
     },
 
     componentDidMount: function () {
-        this.props.modelActions.searchEntities(this.props.params.entity, '', 1, {});
+        //this.props.modelActions.searchEntities(this.props.params.entity, '', 1, {});
     },
 
     /**
@@ -22,6 +22,7 @@ var Search = React.createClass({
     getDocumentTitle: function () {
         return `Searching ${this.props.params.entity}`;
     },
+
 
     handlePageChange: function (page) {
         this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page, this.props.model.data.selection || {});

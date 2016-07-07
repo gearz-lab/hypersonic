@@ -21,6 +21,6 @@ export function redirectToEdit(entityName, entityId) {
 }
 
 export function redirectToSearch(entityName, criteria) {
-    if(!entityName) throw Error('Argument \'entityName\' should be truthy');
+    if (!entityName) throw Error('Argument \'entityName\' should be truthy');
     browserHistory.push(`/e/${entityName}/search?q=${criteria}`);
 }
