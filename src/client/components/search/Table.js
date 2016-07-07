@@ -43,8 +43,6 @@ export default React.createClass({
             loading
         } = this.props;
 
-        console.log(loading);
-
         if (!rows.length) {
             return <Alert bsStyle="warning">
                 The search returned no results.

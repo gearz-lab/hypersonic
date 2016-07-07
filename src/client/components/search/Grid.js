@@ -9,7 +9,8 @@ import {
     FormControl,
     Button,
     ButtonToolbar,
-    Glyphicon
+    Glyphicon,
+    InputGroup
 } from 'react-bootstrap';
 
 var Grid = React.createClass({
@@ -45,8 +46,9 @@ var Grid = React.createClass({
         this.props.handleCriteriaChange(event.target.value);
     },
 
-    handleSearch(value) {
-        this.props.handleSearch(value);
+    handleSearch() {
+        let { criteria } = this.props;
+        this.props.handleSearch(criteria);
     },
 
     handleKeyPress(event) {
@@ -92,8 +94,7 @@ var Grid = React.createClass({
             value: this.props.criteria,
             onChange: this.handleCriteriaChange,
             onKeyPress: this.handleKeyPress,
-            placeholder: "Search",
-            buttonAfter: <Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search"/>Search</Button>
+            placeholder: "Search"
         };
 
         let gridSelectionActionsProps = {
@@ -130,7 +131,12 @@ var Grid = React.createClass({
                 <div>
                     <div className="search-input-wrapper">
                         <FormGroup>
-                            <FormControl {...formGroupProps} />
+                            <InputGroup>
+                                <FormControl {...formGroupProps} />
+                                <InputGroup.Button>
+                                    <Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search"/>Search</Button>
+                                </InputGroup.Button>
+                            </InputGroup>
                         </FormGroup>
                     </div>
                     <div className="search-actions-wrapper">
