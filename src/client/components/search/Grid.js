@@ -29,7 +29,8 @@ var Grid = React.createClass({
         criteria: React.PropTypes.string,
         lastCriteria: React.PropTypes.string,
         selection: React.PropTypes.object,
-        loading: React.PropTypes.bool
+        loading: React.PropTypes.bool,
+        entityName: React.PropTypes.string.isRequired
     },
 
     getDefaultProps: function () {
@@ -72,7 +73,8 @@ var Grid = React.createClass({
             elapsedTime,
             lastCriteria,
             handleAction,
-            loading
+            loading,
+            entityName
         } = this.props;
 
         let pagination = pageCount > 1 ? <Pagination
@@ -115,7 +117,8 @@ var Grid = React.createClass({
             selection,
             rows,
             handleSelectionChange,
-            loading
+            loading,
+            entityName
         };
 
         let gridSummaryBarProps = {

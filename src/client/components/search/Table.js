@@ -2,6 +2,7 @@ import React from 'react';
 import clone from 'clone';
 import Loading from 'react-loading';
 import {Table, Alert} from 'react-bootstrap';
+import { getDetailsUrl } from '../../lib/routingHelper';
 
 export default React.createClass({
 
@@ -9,7 +10,8 @@ export default React.createClass({
         selection: React.PropTypes.object,
         rows: React.PropTypes.array,
         handleSelectionChange: React.PropTypes.func,
-        loading: React.PropTypes.bool
+        loading: React.PropTypes.bool,
+        entityName: React.PropTypes.string.isRequired
     },
 
     handleCheck: function (e) {
@@ -40,7 +42,8 @@ export default React.createClass({
             rows,
             layout,
             selection,
-            loading
+            loading,
+            entityName
         } = this.props;
 
         if (!rows.length) {
@@ -52,6 +55,9 @@ export default React.createClass({
         let loadingBox = loading ? <div className="grid-loading">
             <Loading type='spin' color='black' delay={0} height={12} width={12}/>
         </div> : null;
+
+        let mainField = layout.fields[0]; // the main field is the field that contains the link to the actuall object
+        let otherFields = layout.fields.slice(1);
 
         return <Table bordered condensed>
             <colgroup>
@@ -75,8 +81,11 @@ export default React.createClass({
                                 <input type="checkbox" onChange={this.handleCheck} data-id={r['id']}
                                     checked={Boolean(selection[r['id']]) }/>
                             </td>
+                            <td>
+                                <a href={getDetailsUrl(entityName, r['id'])}>{r[mainField.name]}</a>
+                            </td>
                             {
-                                layout.fields.map((f, j) => {
+                                otherFields.map((f, j) => {
                                     return <td key={`td-${i}${j}`}>
                                         {r[f.name]}
                                     </td>

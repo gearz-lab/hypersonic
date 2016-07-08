@@ -40,7 +40,7 @@ var Search = React.createClass({
         this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
     },
 
-    handleAction: function(a, s) {
+    handleAction: function (a, s) {
         clientActionHelper.invoke(a, s, {
             model: this.props.model,
             modal: this.props.modal,
@@ -61,15 +61,18 @@ var Search = React.createClass({
 
     render: function () {
 
-        let {entity, layout} = applicationDomainHelper.getEntityAndLayout(this.props.applicationDomain.data, this.props.params.entity, 'search');
+        let { entity: entityName } = this.props.params;
+
+        let {
+            entity,
+            layout
+        } = applicationDomainHelper.getEntityAndLayout(this.props.applicationDomain.data, entityName, 'search');
+
         layout = layout || entity;
         if (!layout)
             return this.renderError(`Could not find entity. Entity name: ${this.props.params.entity}`);
-        
+
         let actions = clientActionHelper.getEntitySpecificActions(entity, layout);
-        
-        
-        
         let rows = this.props.model.data.rows || [];
         let count = this.props.model.data.count || 0;
         let page = Number(this.props.model.data.page) || 1;
@@ -82,26 +85,28 @@ var Search = React.createClass({
 
         return (
             <div className="document">
-                <div className="document-header">{this.getDocumentTitle()}</div>
+                <div className="document-header">{this.getDocumentTitle() }</div>
                 <div className="document-body">
-                    <Grid layout={layout}
-                          actions={actions}
-                          page={page}
-                          rows={rows}
-                          count={count}
-                          pageCount={pageCount}
-                          elapsedTime={elapsedTime}
-                          criteria={criteria}
-                          lastCriteria={lastCriteria}
-                          selection={selection}
-                          handlePaginate={this.handlePageChange}
-                          handleSearch={this.handleSearch}
-                          handleCriteriaChange={this.handleCriteriaChange}
-                          handleSelectionChange={this.handleSelectionChange}
-                          handleActionRefresh={this.handleActionRefresh}
-                          handleAction={this.handleAction}
-                          loading={loading}
-                    />
+                    <Grid
+                        entityName={entityName} 
+                        layout={layout}
+                        actions={actions}
+                        page={page}
+                        rows={rows}
+                        count={count}
+                        pageCount={pageCount}
+                        elapsedTime={elapsedTime}
+                        criteria={criteria}
+                        lastCriteria={lastCriteria}
+                        selection={selection}
+                        handlePaginate={this.handlePageChange}
+                        handleSearch={this.handleSearch}
+                        handleCriteriaChange={this.handleCriteriaChange}
+                        handleSelectionChange={this.handleSelectionChange}
+                        handleActionRefresh={this.handleActionRefresh}
+                        handleAction={this.handleAction}
+                        loading={loading}
+                        />
                 </div>
             </div>
         );
