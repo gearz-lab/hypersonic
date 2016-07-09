@@ -7,7 +7,7 @@ export default {
      * @param entityName
      * @param entityId
      */
-    load: function (entityName: string, entityId: number) {
+    load: function (entityName, entityId) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entityId) throw Error('\'entityId\' should be truthy');
 
@@ -19,7 +19,7 @@ export default {
      * @param entityName The name of the entity being saved
      * @param entity The entity being saved
      */
-    save: function (entityName: string, entity: any) {
+    save: function (entityName, entity) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
         if (!entity) throw Error('\'entity\' should be truthy');
 
@@ -32,7 +32,7 @@ export default {
      * @param page
      * @param criteria
      */
-    search: function (entityName: string, page: number, criteria: string) {
+    search: function (entityName, page, criteria) {
         if (!entityName) throw Error('\'entityName\' should be truthy');
 
         return http.get(`/api/entity/${entityName}/search`, {
