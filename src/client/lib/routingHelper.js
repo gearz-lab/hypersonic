@@ -82,6 +82,12 @@ export function redirectToDetails(entityName, entityId) {
     browserHistory.push(getDetailsUrl(entityMame, entityId));
 }
 
+/**
+ * Redirects to the search page
+ * @export
+ * @param {any} entityName
+ * @param {any} criteria
+*/
 export function redirectToSearch(entityName, criteria) {
     if (!entityName) throw Error('Argument \'entityName\' should be truthy');
     browserHistory.push(getSearchUrl(entityName, criteria));
