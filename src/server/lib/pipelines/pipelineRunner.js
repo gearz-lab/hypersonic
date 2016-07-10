@@ -1,50 +1,72 @@
+import _ from 'underscore';
+
 /**
  * Runs asynchronous pipelines
  */
-class PipelineRunner {
+export default {
+
     /**
      * Runs the given pipeline
-     * @param pipeline
-     * @param middlewareArgs
-     * @param input
-     * @param next
+     * @param {any} pipeline
+     * @param {any} data
+     * @param {any} context
+     * @param {any} callback
      */
-    run(pipeline, middlewareArgs, input, next) {
-        if (!pipeline) throw Error('\'pipeline\' should be truthy');
-        if (!context) throw Error('\'context\' should be truthy');
-        if (!input) throw Error('\'input\' should be truthy');
-        if (!next) throw Error('\'next\' should be truthy');
-        if (!pipeline.length) throw Error('\'pipeline.length\' should be truthy');
-
+    run: function(pipeline, data, context , callback) {
+        if(!pipeline) throw Error('Argument \'pipeline\' should be truthy');
+        if(!data) throw Error('Argument \'data\' should be truthy');
+        if(!context) throw Error('Argument \'context\' should be truthy');
+        if(!callback) throw Error('Argument \'callback\' should be truthy');
+        if(!(pipeline instanceof Array)) throw Error ('Argument \'pipeline\' should be an Array')
+        
         let index = 0;
+        let errors = [];
 
-        let link = (error, result) => {
+        /**
+         * Merges errors
+         * @param {any} error
+         */
+        let mergeErrors = (error) => {
             if (error) {
-                next(error);
-                return;
+                if(_.isArray(error))
+                    errors = errors.concat(error);
+                else
+                    errors.push(error);
             }
+        }
+
+        let mergeData = (newData) => {
+            if (newData) {
+                data = Object.assign(data, newData);
+            }
+        }
+
+        /**
+         * Finishes the pipeline
+         * @param {any} error
+         */
+        let finish = (error) => {
+            mergeErrors(error);
+            callback(errors, data);
+        };
+
+        /**
+         * The middleware next function
+         * @param {any} error
+         * @param {any} result
+         */
+        let next = (error, newData) => {
+            mergeErrors(error);
+            mergeData(newData);
             let nextIndex = index++;
             if (nextIndex < pipeline.length) {
-
-                // middleware arguments should be 1) result 2) all the arguments passed in middlewareArgs 3) link
-                let args = [result];
-                args = args.concat(middlewareArgs);
-                args.push(link);
-
-                pipeline[nextIndex].apply(null, args);
+                pipeline[nextIndex](errors, data, next, finish, context);
             }
             else {
-                next(null, result);
+                finish();
             }
         };
 
-        // middleware arguments should be 1) result 2) all the arguments passed in middlewareArgs 3) link
-        let args = [input];
-        args = args.concat(middlewareArgs);
-        args.push(link);
-
-        pipeline[index++].apply(null, args);
+        pipeline[index++](errors, data, next, finish, context);
     }
 }
-
-export default new PipelineRunner();

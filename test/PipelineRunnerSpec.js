@@ -4,33 +4,49 @@ import pipelineRunner from '../src/server/lib/pipelines/pipelineRunner';
 
 describe('PipelineRunner', () => {
     describe('run', function() {
-        it('Happy path', () => {
+        it('errors should work', function() {
             let pipeline = [];
-            pipeline.push((input, next) => { next(null, input); });
-            pipeline.push((input, next) => { next(null, input); });
+            pipeline.push((errors, data, next, finish, context) => { next('error 1'); });
+            pipeline.push((errors, data, next, finish, context) => { next('error 2'); });
 
-            pipelineRunner.run(pipeline, [], 'happy', (error, result) => {
-                assert.strictEqual(result, "happy");
+            // pipeline, data, context , callback
+            pipelineRunner.run(pipeline, 'happy', {}, (errors, data) => {
+                assert.equal(errors.length, 2);
             });
         });
 
-        it('Happy path - with arguments', () => {
+        it('data should be propagated', function() {
             let pipeline = [];
-            pipeline.push((input, context, next) => { next(null, input); });
-            pipeline.push((input, context, next) => { next(null, input); });
+            pipeline.push((errors, data, next, finish, context) => { data.prop1 = 'prop1'; });
+            pipeline.push((errors, data, next, finish, context) => { data.prop2 = 'prop2'; });
 
-            pipelineRunner.run(pipeline, [{}], 'happy', (error, result) => {
-                assert.strictEqual(result, "happy");
+            // pipeline, data, context , callback
+            pipelineRunner.run(pipeline, {}, {}, (errors, data) => {
+                assert.equal(data.prop1, 'prop1');
+                assert.equal(data.prop2, 'prop2');
             });
         });
 
-        it('When something goes wrong', () => {
+        it('finish should work with no arguments', function() {
             let pipeline = [];
-            pipeline.push((input, next) => { next(null, input); });
-            pipeline.push((input, next) => { next('something went wrong'); });
+            pipeline.push((errors, data, next, finish, context) => { finish(); });
+            pipeline.push((errors, data, next, finish, context) => { next('something went wrong'); /* this line should not be called */ });
 
-            pipelineRunner.run(pipeline, [], 'happy', (error, result) => {
-                assert.strictEqual(error, 'something went wrong');
+            // pipeline, data, context , callback
+            pipelineRunner.run(pipeline, {}, {}, (errors, data) => {
+                assert.equal(0, errors.length);
+            });
+        });
+
+        it('finish should work with an error argument', function() {
+            let pipeline = [];
+            pipeline.push((errors, data, next, finish, context) => { finish('stop'); });
+            pipeline.push((errors, data, next, finish, context) => { next('something went wrong'); /* this line should not be called */ });
+
+            // pipeline, data, context , callback
+            pipelineRunner.run(pipeline, {}, {}, (errors, data) => {
+                assert.equal(1, errors.length);
+                assert.equal('stop', errors[0]);
             });
         });
     });
