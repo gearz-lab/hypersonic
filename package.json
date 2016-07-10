@@ -8,7 +8,7 @@
     "start-watch": "nodemon --exec cross-env NODE_ENV=production babel-node index.js",
     "start-dev-watch": "cross-env NODE_ENV=development nodemon --exec npm run start",
     "start-docs": "babel-node ./docs/Server.js",
-    "test": "./node_modules/.bin/karma start --single-run --browsers Chrome",
+    "test": "./node_modules/.bin/karma start --browsers Chrome",
     "test-db": "mocha --timeout 15000 --compilers js:babel-register ./test-db/*Spec.js",
     "test-db-create": "cross-env NODE_ENV=development babel-node ./test-db/tools/setupTestDb.js",
     "build-docs": "babel-node ./docs/Build.js",

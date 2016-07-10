@@ -38,12 +38,12 @@ export default {
                 invoke: (s, c) => {
                     c.modalActions.enqueueConfirmation(
                         'Delete?',
-                        `Are you sure you want to delete the selected ${ getItemsText(s.length)}? This operation cannot be reverted.`,
+                        `Are you sure you want to delete the selected ${getItemsText(s.length)}? This operation cannot be reverted.`,
                         () => {
                             c.modelActions.deleteEntities(c.entityName, s, () => {
                                 c.modalActions.dequeue();
                                 c.notificationActions.enqueue({
-                                    message: `${ getItemsText(s.length)} deleted successfully`,
+                                    message: `${getItemsText(s.length)} deleted successfully`,
                                     level: 'success'
                                 });
                                 c.modelActions.searchEntities(c.entityName, c.model.data.lastCriteria, c.model.data.page, {});
@@ -63,20 +63,22 @@ export default {
      * @param entity
      * @param layout
      */
-    getEntitySpecificActions: function (entity, layout) {
+    getEntitySpecificActions: function (entity, layout, includeSystemActions = false) {
         if (!entity) throw Error('\'entity\' should be truthy');
         if (!layout || !layout.clientActions)
             return entity.clientActions || [];
         if (!entity.clientActions)
             return layout.clientActions;
 
-        let clientActions = layout.clientActions.map(lca => {
-            let eca = _.find(entity.clientActions, eca => eca.name == lca.name);
+        let entityActions = includeSystemActions
+            ? _.uniq(_.union(entity.clientActions, this.getSystemActions()), false, (item, key, a) => item.name)
+            : entity.clientActions;
+
+        return layout.clientActions.map(lca => {
+            let eca = _.find(entityActions, eca => eca.name == lca.name);
             if (!eca) return lca;
             return Object.assign(eca, lca);
         });
-
-        return _.uniq(_.union(clientActions, this.getSystemActions()), false, (item, key, a) => item.name);
     },
 
     /**
