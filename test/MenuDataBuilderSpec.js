@@ -1,3 +1,4 @@
+import { assert } from 'chai';
 import menuDataBuilder from '../src/server/lib/menuDataBuilder';
 
 describe('MenuDataBuilder', function() {

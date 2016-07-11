@@ -1,5 +1,6 @@
 import 'es5-shim';
 
+
 beforeEach(function() {
     sinon.stub(console, 'warn');
 });
