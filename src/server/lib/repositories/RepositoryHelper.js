@@ -1,10 +1,21 @@
 
-export default class Helpers {
+/**
+ * Helper class for the repository 
+ * @export
+ * @class RepositoryHelper
+ */
+export default class RepositoryHelper {
     constructor(context) {
         if (!context) throw Error('\'context\' should be truthy');
         this.context = context;
     }
 
+    /**
+     * Paginates 
+     * @param {any} where
+     * @param {any} page
+     * @returns
+     */
     paginate(where, page) {
         if (!where) throw Error('\'whereFunction\' should be truthy');
         if (!page) throw Error('\'page\' should be truthy');

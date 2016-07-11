@@ -70,7 +70,7 @@ class Repository {
             appConfig: this.appConfig,
             repository: this,
             dataContext: this.dataContext,
-            model: this.model, // the bookshelf Model type
+            model: this.model,
             entity: this.entity
         }
     }
