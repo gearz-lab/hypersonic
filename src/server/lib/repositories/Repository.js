@@ -1,12 +1,16 @@
 import Promise from 'bluebird';
 import _ from 'underscore';
 import defaultHandlers from './defaultHandlers';
-import Helpers from './Helpers';
+import RepositoryHelper from './RepositoryHelper';
 
 export const LAYOUT = 2;
 export const ENTITY = 1;
 export const BASE = 0;
 
+/**
+ * The repository class, responsible for during SCRUD operations over entities 
+ * @class Repository
+ */
 class Repository {
 
     constructor(appConfig, dataContext, entity) {
@@ -19,7 +23,7 @@ class Repository {
         this.entity = entity;
         this.model = dataContext.getModel(entity.name);
 
-        this.helpers = new Helpers(this.getContext());
+        this.helpers = new RepositoryHelper(this.getContext());
     }
 
     /**
@@ -70,7 +74,7 @@ class Repository {
             appConfig: this.appConfig,
             repository: this,
             dataContext: this.dataContext,
-            model: this.model,
+            model: this.model, // the bookshelf Model type
             entity: this.entity
         }
     }
