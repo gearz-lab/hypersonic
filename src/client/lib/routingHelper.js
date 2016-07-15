@@ -44,9 +44,9 @@ export function getDetailsUrl(entityName, entityId) {
  * @param {string} criteira
  * @returns
  */
-export function getSearchUrl(entityName, criteira) {
+export function getSearchUrl(entityName, criteria) {
     if (!entityName) throw Error('Argument \'entityName\' should be truthy');
-    if (!criteira) throw Error('Argument \'criteira\' should be truthy');
+    if (!criteria) throw Error('Argument \'criteira\' should be truthy');
     return `/e/${entityName}/search?q=${criteria}`;
 }
 
