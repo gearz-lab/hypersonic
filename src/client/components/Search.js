@@ -21,15 +21,16 @@ var Search = React.createClass({
 
 
     handlePageChange: function (page) {
-        this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page, this.props.model.data.selection || {});
+        redirectToSearch(this.props.params.entity, this.props.model.data.criteria, page);
+        //this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, page, this.props.model.data.selection || {});
     },
 
     handleSearch: function (criteria) {
-        redirectToSearch(this.props.params.entity, criteria);
+        redirectToSearch(this.props.params.entity, criteria, 1);
     },
 
-    handleCriteriaChange: function (criteria) {
-        this.props.modelActions.changeSearchCriteria(criteria);
+    handleCriteriaChange: function (inputCriteria) {
+        this.props.modelActions.changeSearchCriteria(inputCriteria);
     },
 
     handleSelectionChange: function (selection) {
@@ -37,7 +38,9 @@ var Search = React.createClass({
     },
 
     handleActionRefresh: function () {
-        this.props.modelActions.searchEntities(this.props.params.entity, this.props.model.data.lastCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
+        let { criteria, inputCriteria } = this.props.model.data;
+        let { entity } = this.props.params;
+        this.props.modelActions.searchEntities(entity, criteria, inputCriteria, Number(this.props.model.data.page) || 1, this.props.model.data.selection || {});
     },
 
     handleAction: function (a, s) {
@@ -79,7 +82,7 @@ var Search = React.createClass({
         let pageCount = this.props.model.data.pages || 1;
         let elapsedTime = this.props.model.elapsed || 0;
         let criteria = this.props.model.data.criteria || '';
-        let lastCriteria = this.props.model.data.lastCriteria || '';
+        let inputCriteria = this.props.model.data.inputCriteria || '';
         let selection = this.props.model.data.selection || {};
         let loading = this.props.model.status == 'LOADING';
 
@@ -97,7 +100,7 @@ var Search = React.createClass({
                         pageCount={pageCount}
                         elapsedTime={elapsedTime}
                         criteria={criteria}
-                        lastCriteria={lastCriteria}
+                        inputCriteria={inputCriteria}
                         selection={selection}
                         handlePaginate={this.handlePageChange}
                         handleSearch={this.handleSearch}

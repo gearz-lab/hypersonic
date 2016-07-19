@@ -22,7 +22,6 @@ export default React.createClass({
         } = this.props;
 
         let formattedCount = numberLocalizer.format(count);
-        console.log(numberLocalizer.format(elapsedTime / 1000));
         let formattedElapsedTime = numberLocalizer.format(elapsedTime / 1000, '0.00') + ' seconds';
         let searchCriteria = lastCriteria || 'Empty';
         let selected = `${Object.keys(selection).length}/${formattedCount}`;

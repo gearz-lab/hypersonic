@@ -44,10 +44,9 @@ export function getDetailsUrl(entityName, entityId) {
  * @param {string} criteira
  * @returns
  */
-export function getSearchUrl(entityName, criteria) {
+export function getSearchUrl(entityName, criteria = '', page = 1) {
     if (!entityName) throw Error('Argument \'entityName\' should be truthy');
-    if (!criteria) throw Error('Argument \'criteira\' should be truthy');
-    return `/e/${entityName}/search?q=${criteria}`;
+    return `/e/${entityName}/search?q=${criteria}&p=${page}`;
 }
 
 /**
@@ -88,7 +87,7 @@ export function redirectToDetails(entityName, entityId) {
  * @param {any} entityName
  * @param {any} criteria
 */
-export function redirectToSearch(entityName, criteria) {
+export function redirectToSearch(entityName, criteria, page = 1) {
     if (!entityName) throw Error('Argument \'entityName\' should be truthy');
-    browserHistory.push(getSearchUrl(entityName, criteria));
+    browserHistory.push(getSearchUrl(entityName, criteria, page));
 }

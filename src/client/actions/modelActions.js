@@ -93,10 +93,10 @@ function modelLoadError(entityName, id, error) {
     }
 }
 
-export function changeSearchCriteria(criteria) {
+export function changeSearchCriteria(inputCriteria) {
     return {
         type: MODEL_CHANGE_SEARCH_CRITERIA,
-        criteria: criteria
+        inputCriteria: inputCriteria
     }
 }
 
@@ -127,7 +127,16 @@ export function loadEntity(entityName, id) {
     };
 }
 
-export function searchEntities(entityName, criteria, page, selection) {
+/**
+ * Searches entities
+ * @export
+ * @param {any} entityName
+ * @param {any} criteria
+ * @param {any} page
+ * @param {any} selection
+ * @returns
+ */
+export function searchEntities(entityName, criteria, inputCriteria, page, selection) {
     if (!entityName) throw Error('\'entityName\' should be truthy');
     let startTime = new Date();
     return dispatch => {
@@ -137,11 +146,20 @@ export function searchEntities(entityName, criteria, page, selection) {
                 var endTime = new Date();
                 if (r.data.status == 'success') {
                     var elapsed = endTime - startTime;
+
                     let data = Object.assign(r.data.result, {
-                        lastCriteria: criteria,
+                        criteria: criteria,
+                        inputCriteria: inputCriteria,
                         selection: selection,
                         page: page
                     });
+
+                    if(selection) {
+                        data = Object.assign(data, {
+                            selection: selection
+                        })
+                    };
+
                     dispatch(modelLoaded(entityName, data, elapsed));
                 }
                 else {

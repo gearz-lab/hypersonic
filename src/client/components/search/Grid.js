@@ -27,7 +27,7 @@ var Grid = React.createClass({
         handleActionRefresh: React.PropTypes.func.isRequired,
         handleAction: React.PropTypes.func.isRequired,
         criteria: React.PropTypes.string,
-        lastCriteria: React.PropTypes.string,
+        inputCriteria: React.PropTypes.string,
         selection: React.PropTypes.object,
         loading: React.PropTypes.bool,
         entityName: React.PropTypes.string.isRequired
@@ -48,8 +48,8 @@ var Grid = React.createClass({
     },
 
     handleSearch() {
-        let { criteria } = this.props;
-        this.props.handleSearch(criteria);
+        let { inputCriteria } = this.props;
+        this.props.handleSearch(inputCriteria);
     },
 
     handleKeyPress(event) {
@@ -71,7 +71,8 @@ var Grid = React.createClass({
             handleSelectionChange,
             handleActionRefresh,
             elapsedTime,
-            lastCriteria,
+            criteria,
+            inputCriteria,
             handleAction,
             loading,
             entityName
@@ -90,10 +91,10 @@ var Grid = React.createClass({
             maxButtons={5}
             onSelect={this.handlePaginate}/> : null;
 
-        let formGroupProps = {
+        let searchInputProps = {
             autoFocus: true,
             type: "text",
-            value: this.props.criteria,
+            value: this.props.inputCriteria,
             onChange: this.handleCriteriaChange,
             onKeyPress: this.handleKeyPress,
             placeholder: "Search"
@@ -124,7 +125,7 @@ var Grid = React.createClass({
         let gridSummaryBarProps = {
             count,
             elapsedTime,
-            lastCriteria,
+            criteria,
             selection,
             loading
         };
@@ -135,7 +136,7 @@ var Grid = React.createClass({
                     <div className="search-input-wrapper">
                         <FormGroup>
                             <InputGroup>
-                                <FormControl {...formGroupProps} />
+                                <FormControl {...searchInputProps} />
                                 <InputGroup.Button>
                                     <Button className="search-button" onClick={this.handleSearch}><Glyphicon glyph="search"/>Search</Button>
                                 </InputGroup.Button>

@@ -46,7 +46,7 @@ export default {
                                     message: `${getItemsText(s.length)} deleted successfully`,
                                     level: 'success'
                                 });
-                                c.modelActions.searchEntities(c.entityName, c.model.data.lastCriteria, c.model.data.page, {});
+                                c.modelActions.searchEntities(c.entityName, c.model.data.criteria, c.model.data.inputCriteria, c.model.data.page, {});
                             });
                         },
                         () => {

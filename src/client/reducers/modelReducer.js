@@ -16,7 +16,7 @@ var defaultState = {
     data: {}
 };
 
-export default function menu(state = defaultState, action) {
+export default function reducer(state = defaultState, action) {
     let newState;
     switch (action.type) {
         case LOCATION_CHANGE:
@@ -61,7 +61,7 @@ export default function menu(state = defaultState, action) {
             };
         case MODEL_CHANGE_SEARCH_CRITERIA:
             newState = clone(state);
-            newState.data.criteria = action.criteria;
+            newState.data.inputCriteria = action.inputCriteria;
             return newState;
         case MODEL_CHANGE_SELECTION:
             newState = clone(state);
